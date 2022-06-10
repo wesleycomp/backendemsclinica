@@ -34,8 +34,6 @@ class UpdateFuncaoService{
         await funcoesRepository.save(funcao)
 
         return funcao;
-
-
     }
 }
 

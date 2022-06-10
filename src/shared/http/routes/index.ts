@@ -5,4 +5,11 @@ const routes = Router();
 routes.use('/funcao', funcoesRouter)
 
 
+routes.use('/', ( request, response) => {
+
+    return response.json({ message: 'Hello Dev'});
+
+});
+
+
 export default routes;

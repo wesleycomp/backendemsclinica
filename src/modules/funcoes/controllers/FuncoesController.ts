@@ -1,4 +1,4 @@
-import { Request ,Response } from "express";
+import { Request , Response } from "express";
 import CreateFuncaoService from "../services/CreateFuncaoService";
 import DeleteFuncaoService from "../services/DeleteFuncaoService";
 import ListFuncaoService from "../services/ListFuncaoService";

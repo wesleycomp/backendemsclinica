@@ -27,6 +27,8 @@ return response.status(500).json({
 
 });
 
+
+
 app.listen(3333, () => {
   console.log('Servidor esta startado na port 3333');
 });

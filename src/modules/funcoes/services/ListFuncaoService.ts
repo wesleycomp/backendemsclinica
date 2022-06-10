@@ -6,13 +6,11 @@ class ListFuncaoService{
 
     public async execute(): Promise<Funcao[]>{
 
-            //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
+         //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
         const funcoesRepository = getCustomRepository(FuncaoRepository);
         const funcao = funcoesRepository.find();
-
+        
         return funcao;
-
-
     }
 }
 
