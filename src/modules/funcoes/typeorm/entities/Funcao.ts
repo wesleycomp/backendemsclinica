@@ -4,7 +4,7 @@ import { Column,
   PrimaryGeneratedColumn,
   UpdateDateColumn,} from 'typeorm';
 
-@Entity('funcoes')
+@Entity('funcao')
 class Funcao {
 
      @PrimaryGeneratedColumn('uuid')

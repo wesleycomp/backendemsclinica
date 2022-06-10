@@ -1,9 +1,8 @@
 import { EntityRepository, Repository} from 'typeorm'
 
-import Funcao from '../entities/Funcoes'
+import Funcao from '../entities/Funcao'
 
-@
-EntityRepository(Funcao)
+@EntityRepository(Funcao)
 export class FuncaoRepository extends Repository<Funcao>{
 
     public async findByName(name: string): Promise<Funcao | undefined>{

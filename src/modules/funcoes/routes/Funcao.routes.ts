@@ -5,7 +5,6 @@ import FuncoesController from '../controllers/FuncoesController';
 const funcoesRouter = Router();
 const funcoesController = new FuncoesController();
 
-
 funcoesRouter.get('/', funcoesController.index)
 funcoesRouter.get('/:id', funcoesController.show)
 funcoesRouter.post('/', funcoesController.create)

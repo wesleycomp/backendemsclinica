@@ -20,8 +20,8 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      #- .docker/dbdata:/Library/PostgreSQL/10/data
-      - .docker/dbdata:/var/lib/postgres/data
+      - .docker/dbdata:/Library/PostgreSQL/10/data
+      #- .docker/dbdata:/var/lib/postgres/data
     environment:
         - POSTGRES_PASSWORD=r44gru
         - POSTGRES_DB=emsclinica
