@@ -10,3 +10,5 @@ public readonly statusCode: number;
     }
 
 }
+
+export default AppError;
