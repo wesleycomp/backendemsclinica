@@ -29,7 +29,6 @@ export default class FuncoesController{
 
         const { name } = request.body;
         const createFuncao = new CreateFuncaoService();
-
         const funcao = await createFuncao.execute({
                 name
         });
@@ -43,6 +42,7 @@ export default class FuncoesController{
         const { name } = request.body;
         const { id } = request.params;
         const updateFuncao = new UpdateFuncaoService();
+        
         const funcao = await updateFuncao.execute({
             id,
             name
