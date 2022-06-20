@@ -29,6 +29,7 @@ export default class FuncoesController{
 
         const { name } = request.body;
         const createFuncao = new CreateFuncaoService();
+
         const funcao = await createFuncao.execute({
                 name
         });
@@ -57,7 +58,6 @@ export default class FuncoesController{
         await deleteFuncao.execute({ id })
 
         return response.json([]);
-
     }
 
  }

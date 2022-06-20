@@ -17,7 +17,6 @@ class CreateUserService{
         const emailExists = await usersRepository.findByEmail(email);
 
         if(emailExists){
-
             throw new AppError('Email addres already used');
         }
 
@@ -26,7 +25,6 @@ class CreateUserService{
             email,
             password,
         });
-
 
         await usersRepository.save(user);
         return user;

@@ -5,8 +5,6 @@ import { Router } from 'express';
 const routes = Router();
 routes.use('/funcao', funcoesRouter)
 routes.use('/user', usersRouter)
-
-
 routes.use('/', ( request, response) => {
 
     return response.json({ message: 'Hello Dev'});
