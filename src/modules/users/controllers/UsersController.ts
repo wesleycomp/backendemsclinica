@@ -1,3 +1,4 @@
+import { Console } from "console";
 import { Request, Response } from "express";
 import CreateUserService from "../services/CreateUserService";
 import ListUserService from "../services/ListUserService";
@@ -20,7 +21,6 @@ export default class UsersController{
                 const user = await showUsers.execute({ id })
 
                 return response.json(user);
-
         }
 
         public async create(request: Request, response: Response): Promise<Response>{
@@ -35,8 +35,7 @@ export default class UsersController{
             })
 
             return response.json(user);
-
-            }
+        }
 
 
 }
