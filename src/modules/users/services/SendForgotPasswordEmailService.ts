@@ -13,8 +13,6 @@ class SendForgotPasswordEmailService{
 
         const usersRepository = getCustomRepository(UsersRepository);
         const userTokensRepository = getCustomRepository(UsersTokensRepository);
-
-
         const user = await usersRepository.findByEmail(email)
 
         if(!user){
