@@ -1,6 +1,7 @@
 import { getCustomRepository } from "typeorm";
 import Pacientes from "../typeorm/entities/Pacientes";
 import PacientesRepository from "../typeorm/repositories/PacientesRepository";
+import RedisCache from "@shared/cache/RedisCache";
 
 class ListPacientesService{
 
@@ -8,9 +9,20 @@ class ListPacientesService{
 
          //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
         const pacientesRepository = getCustomRepository(PacientesRepository);
-        const user = pacientesRepository.find();
 
-        return user;
+        const redisCache = new RedisCache();
+
+        let pacientes = await redisCache.recover<Pacientes[]>('api-emsclinica-PACIENTES_LIST', )
+
+        if(!pacientes){
+
+            pacientes = await pacientesRepository.find();
+
+             await redisCache.save('api-emsclinica-PACIENTES_LIST', pacientes);
+
+        }
+
+        return pacientes;
     }
 }
 

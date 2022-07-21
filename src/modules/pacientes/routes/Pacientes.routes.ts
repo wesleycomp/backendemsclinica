@@ -1,14 +1,16 @@
 import { Router } from 'express'
 import PacientesController from '../controllers/PacientesController';
 import { celebrate, Joi, Segments } from 'celebrate';
+import isAuthenticated from '../../../shared/http/middlewares/isAuthenticated';
 
 const pacientesRouter = Router();
 const pacientesController = new PacientesController();
 
-pacientesRouter.get('/', pacientesController.index)
+pacientesRouter.get('/', isAuthenticated, pacientesController.index)
 
 pacientesRouter.get(
                     '/:id',
+                    isAuthenticated,
                     celebrate({
                         [Segments.PARAMS]:{
                             id: Joi.string().uuid().required(),
@@ -19,10 +21,13 @@ pacientesRouter.get(
 
 pacientesRouter.post(
                     '/',
+                    isAuthenticated,
                     celebrate({
                         [Segments.BODY]:{
-                            name: Joi.string().required(),
+                            nome: Joi.string().required(),
                             cpf: Joi.string().required(),
+                            rg: Joi.string().required(),
+                            telefone: Joi.string().required(),
                             datanascimento: Joi.string().required(),
                         },
                     }),
@@ -31,6 +36,7 @@ pacientesRouter.post(
 
 pacientesRouter.put(
                     '/:id',
+                    isAuthenticated,
                     celebrate({
                             [Segments.BODY]:{
                                 name: Joi.string().required(),
@@ -45,6 +51,7 @@ pacientesRouter.put(
 
 pacientesRouter.delete(
                         '/:id',
+                        isAuthenticated, 
                         celebrate({
                             [Segments.PARAMS]:{
                                 id: Joi.string().uuid().required(),

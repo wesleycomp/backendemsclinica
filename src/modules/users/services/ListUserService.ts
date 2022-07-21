@@ -38,6 +38,8 @@ class ListUserService{
         return user as IPaginationUsers;
     }
 
+    
+
 }
 
 export default ListUserService;

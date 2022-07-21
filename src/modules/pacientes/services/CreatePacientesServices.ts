@@ -20,7 +20,7 @@ class CreatePacientesService{
         const emailExists = await pacientesRepository.findByCpf(cpf);
 
         if(emailExists){
-            throw new AppError('Email addres already used');
+            throw new AppError('Paciente ja Cadastrado');
         }
 
 
