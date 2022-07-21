@@ -2,7 +2,6 @@ import AppError from "@shared/errors/AppError";
 import { getCustomRepository } from "typeorm";
 import UsersRepository from "../typeorm/repositories/UsersRepository";
 import UsersTokensRepository from "../typeorm/repositories/UsersTokensRepository";
-
 import {isAfter, addHours} from 'date-fns';
 import { hash } from "bcryptjs";
 
@@ -17,7 +16,6 @@ class ResetPasswordService{
 
         const usersRepository = getCustomRepository(UsersRepository);
         const userTokensRepository = getCustomRepository(UsersTokensRepository);
-
         const userToken = await userTokensRepository.findByToken(token)
 
         if(!userToken){
@@ -39,9 +37,7 @@ class ResetPasswordService{
         }
 
         user.password = await hash(password, 8);
-
         await usersRepository.save(user);
-
     }
 }
 
