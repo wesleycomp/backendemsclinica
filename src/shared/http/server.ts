@@ -20,7 +20,7 @@ app.use('/files', express.static(uploadConfig.directory))
 app.use(routes);
 app.use(errors());
 
-const port = process.env.APP_API_PORT|| 3333;
+const port = process.env.APP_API_PORT || 3333;
 
 app.use(
     (error: Error, request: Request, response: Response, next: NextFunction) => {
