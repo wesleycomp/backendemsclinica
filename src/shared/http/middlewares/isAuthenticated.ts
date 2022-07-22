@@ -1,7 +1,8 @@
 import AppError from "@shared/errors/AppError";
 import { NextFunction, Request, Response } from "express";
-import { verify } from "jsonwebtoken";
-import authConfig from '@config/auth'
+import { Secret, verify } from "jsonwebtoken";
+import authConfig from '@config/auth';
+
 
 
 interface TokenPayload{
@@ -31,7 +32,7 @@ export default function isAuthenticated(
 
     try{
 
-        const decodeToken = verify(token, authConfig.jwt.secret);
+        const decodeToken = verify(token, authConfig.jwt.secret as Secret);
 
         const { sub} = decodeToken as TokenPayload;
         //console.log(decodeToken);
