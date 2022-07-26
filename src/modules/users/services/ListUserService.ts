@@ -28,7 +28,7 @@ class ListUserService{
     //     return user;
     // }
 
-
+//testeando o git para atualizar o servidor
     public async execute(): Promise<IPaginationUsers>{
 
          //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
@@ -38,7 +38,7 @@ class ListUserService{
         return user as IPaginationUsers;
     }
 
-    
+
 
 }
 
