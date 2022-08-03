@@ -4,12 +4,13 @@ import { FuncaoRepository } from "../typeorm/repositories/FuncoesRepository";
 import AppError from '@shared/errors/AppError';
 
 interface IRequest{
-    name: string
+    name: string;
+    cbo: string;
 }
 
 class CreateFuncaoService{
 
-    public async execute({name}: IRequest): Promise<Funcao>{
+    public async execute({name,cbo}: IRequest): Promise<Funcao>{
 
         //instaciou o repositorio para ter acesso aos metodos(save, delete... etc)
     const funcoesRepository = getCustomRepository(FuncaoRepository);
@@ -23,13 +24,13 @@ class CreateFuncaoService{
         }
 
         const funcao = funcoesRepository.create({
-            name
+            name,
+            cbo
         });
 
         await funcoesRepository.save(funcao)
 
         return funcao;
-
 
     }
 }

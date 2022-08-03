@@ -20,6 +20,10 @@ class Pacientes{
     @Column()
     datanascimento: string
 
+    @Column()
+    email: string
+
+
     @CreateDateColumn()
     created_at: Date;
 

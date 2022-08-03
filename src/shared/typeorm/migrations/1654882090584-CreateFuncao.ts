@@ -19,6 +19,10 @@ export class CreateFuncao1654882090584 implements MigrationInterface {
             name: 'name',
             type: 'varchar',
           },
+           {
+            name: 'cbo',
+            type: 'varchar',
+          },
           {
             name: 'created_at',
             type: 'timestamp',

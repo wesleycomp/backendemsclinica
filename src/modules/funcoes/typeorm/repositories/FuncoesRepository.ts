@@ -7,7 +7,7 @@ export class FuncaoRepository extends Repository<Funcao>{
 
     public async findByName(name: string): Promise<Funcao | undefined>{
 
-        const funcao = this.findOne({
+        const funcao = await this.findOne({
             where: {
                 name,
             }
@@ -17,5 +17,16 @@ export class FuncaoRepository extends Repository<Funcao>{
     }
 
 
-}
+       public async findById(id: string): Promise<Funcao | undefined> {
 
+        const funcao = await this.findOne({
+            where: {
+                     id,
+                   }
+        })
+        return funcao;
+
+    }
+
+}
+export default FuncaoRepository;

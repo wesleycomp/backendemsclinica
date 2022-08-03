@@ -10,11 +10,12 @@ interface IRequest{
     rg: string;
     telefone: string;
     datanascimento: string;
+    email: string;
 }
 
 class CreatePacientesService{
 
-    public async execute({nome, cpf, rg, telefone, datanascimento}: IRequest): Promise<Pacientes>{
+    public async execute({nome, cpf, rg, telefone, datanascimento,email }: IRequest): Promise<Pacientes>{
 
         const pacientesRepository = getCustomRepository(PacientesRepository);
         const emailExists = await pacientesRepository.findByCpf(cpf);
@@ -29,7 +30,8 @@ class CreatePacientesService{
             cpf,
             rg,
             telefone,
-            datanascimento
+            datanascimento,
+            email
         });
 
         await pacientesRepository.save(paciente);

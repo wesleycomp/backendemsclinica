@@ -2,14 +2,14 @@
     "type":"postgres",
     "host":"localhost",
     "port": 5432,
-    "username": "imac",
-    "password": "-----",
-    "database": "emsclinica2",
-    "entities": ["./dist/modules/**/typeorm/entities/*.js"],
+    "username": "postgres",
+    "password": "r44gru",
+    "database": "emsclinica",
+    "entities": ["./src/modules/**/typeorm/entities/*.js"],
     "migrations": [
-        "./dist/shared/typeorm/migrations/*.js"
+        "./src/shared/typeorm/migrations/*.js"
     ],
     "cli":{
-        "migrationsDir": "./dist/shared/typeorm/migrations"
+        "migrationsDir": "./src/shared/typeorm/migrations"
     }
 }

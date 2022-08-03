@@ -13,6 +13,9 @@ class Funcao {
      @Column()
      name: string;
 
+     @Column()
+     cbo: string;
+
      @CreateDateColumn()
      created_at: Date;
 

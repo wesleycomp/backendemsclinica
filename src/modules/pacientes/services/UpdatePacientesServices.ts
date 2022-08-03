@@ -12,6 +12,7 @@ interface IRequest {
     rg: string;
     telefone: string;
     datanascimento: string;
+    email: string;
 
 }
 
@@ -22,7 +23,8 @@ class UpdateProfileService{
                             cpf,
                             rg,
                             telefone,
-                            datanascimento
+                            datanascimento,
+                            email
                              }: IRequest): Promise<Pacientes>{
 
          //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
@@ -38,6 +40,7 @@ class UpdateProfileService{
             paciente.rg = rg;
             paciente.telefone = telefone;
             paciente.datanascimento = datanascimento;
+            paciente.email = email;
             await pacientesRepository.save(paciente);
 
             return paciente;

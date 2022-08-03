@@ -11,7 +11,6 @@ export default class PacientesController{
 
         const listPacientes = new ListPacientesService();
         const pacientes = await listPacientes.execute();
-
         return response.json(pacientes);
     }
 
@@ -27,14 +26,15 @@ export default class PacientesController{
 
     public async create(request: Request, response: Response): Promise<Response>{
 
-        const { nome,cpf,rg,telefone,datanascimento } = request.body;
+        const { nome,cpf,rg,telefone,datanascimento,email } = request.body;
         const createPacientes = new CreatePacientesService();
         const pacientes = await createPacientes.execute({
                 nome,
                 cpf,
                 rg,
                 telefone,
-                datanascimento
+                datanascimento,
+                email
         });
 
         return response.json(pacientes);
@@ -43,7 +43,7 @@ export default class PacientesController{
 
   public async update(request: Request, response: Response): Promise<Response>{
 
-        const { nome,cpf,rg,telefone,datanascimento } = request.body;
+        const { nome,cpf,rg,telefone,datanascimento,email } = request.body;
         const { id } = request.params;
         const updatePacientes = new UpdatePacientesService();
 
@@ -53,7 +53,8 @@ export default class PacientesController{
             cpf,
             rg,
             telefone,
-            datanascimento
+            datanascimento,
+            email
         });
 
         return response.json(pacientes);

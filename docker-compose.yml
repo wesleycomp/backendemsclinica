@@ -18,28 +18,28 @@ services:
     restart: always
     tty: true
     ports:
-      - "5432:5432"
+       - "5432:5432"
     volumes:
       #- .docker/dbdata:/Library/PostgreSQL/10/data
-      - .docker/dbdata:/var/lib/postgres/data
+       - .docker/dbdata:/var/lib/postgres/data
     environment:
-        - POSTGRES_PASSWORD=r44gru
-        - POSTGRES_DB=emsclinica
+       - POSTGRES_PASSWORD=docker
+       - POSTGRES_DB=emsclinica
 
-  #redis:
-  #  image: 'bitnami/redis:latest'
-  #  container_name: emsclinica-redis
-  #  environment:
-  #    - ALLOW_EMPTY_PASSWORD=yes
+  redis:
+    image: 'bitnami/redis:latest'
+    container_name: emsclinica-redis
+    environment:
+       - ALLOW_EMPTY_PASSWORD=yes
 
-  #pagadmin:
-   # image: dpage/pgadmin4
-   # container_name: emsclinica-pgadmin
-   # tty: true
-   # environment:
-   #   - PGADMIN_DEFAULT_EMAIL=admin@admin.com
-   #   - PGADMIN_DEFAULT_PASSWORD=admin
-   # ports:
-   #   - "8000:80"
-   # depends_on:
-   #   - db
+  pagadmin:
+    image: dpage/pgadmin4
+    container_name: emsclinica-pgadmin
+    tty: true
+    environment:
+       - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+       - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+       - "8000:80"
+    depends_on:
+       - db

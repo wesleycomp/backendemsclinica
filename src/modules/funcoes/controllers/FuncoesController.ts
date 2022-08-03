@@ -27,10 +27,13 @@ export default class FuncoesController{
 
     public async create(request: Request, response: Response): Promise<Response>{
 
-        const { name } = request.body;
+        //console.log(request.body);
+
+        const { name, cbo } = request.body;
         const createFuncao = new CreateFuncaoService();
         const funcao = await createFuncao.execute({
-                name
+                name,
+                cbo
         });
 
         return response.json(funcao);
@@ -39,13 +42,14 @@ export default class FuncoesController{
 
   public async update(request: Request, response: Response): Promise<Response>{
 
-        const { name } = request.body;
+        const { name,cbo } = request.body;
         const { id } = request.params;
         const updateFuncao = new UpdateFuncaoService();
-        
+
         const funcao = await updateFuncao.execute({
             id,
-            name
+            name,
+            cbo
         });
 
         return response.json(funcao);
