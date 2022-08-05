@@ -29,6 +29,7 @@ pacientesRouter.post(
                             rg: Joi.string().required(),
                             telefone: Joi.string().required(),
                             datanascimento: Joi.string().required(),
+                            endereco: Joi.string().required(),
                             email: Joi.string().required(),
                         },
                     }),

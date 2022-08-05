@@ -27,8 +27,6 @@ export default class FuncoesController{
 
     public async create(request: Request, response: Response): Promise<Response>{
 
-        //console.log(request.body);
-
         const { name, cbo } = request.body;
         const createFuncao = new CreateFuncaoService();
         const funcao = await createFuncao.execute({

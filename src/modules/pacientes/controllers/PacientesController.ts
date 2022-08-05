@@ -26,7 +26,7 @@ export default class PacientesController{
 
     public async create(request: Request, response: Response): Promise<Response>{
 
-        const { nome,cpf,rg,telefone,datanascimento,email } = request.body;
+        const { nome,cpf,rg,telefone,datanascimento,endereco,email } = request.body;
         const createPacientes = new CreatePacientesService();
         const pacientes = await createPacientes.execute({
                 nome,
@@ -34,6 +34,7 @@ export default class PacientesController{
                 rg,
                 telefone,
                 datanascimento,
+                endereco,
                 email
         });
 
@@ -43,7 +44,7 @@ export default class PacientesController{
 
   public async update(request: Request, response: Response): Promise<Response>{
 
-        const { nome,cpf,rg,telefone,datanascimento,email } = request.body;
+        const { nome,cpf,rg,telefone,datanascimento,endereco,email } = request.body;
         const { id } = request.params;
         const updatePacientes = new UpdatePacientesService();
 
@@ -54,6 +55,7 @@ export default class PacientesController{
             rg,
             telefone,
             datanascimento,
+            endereco,
             email
         });
 

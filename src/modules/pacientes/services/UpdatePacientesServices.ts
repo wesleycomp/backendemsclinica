@@ -6,12 +6,14 @@ import { PacientesRepository } from "../typeorm/repositories/PacientesRepository
 
 
 interface IRequest {
+    
     id: string;
     nome: string;
     cpf: string;
     rg: string;
     telefone: string;
-    datanascimento: string;
+    datanascimento: Date;
+    endereco: string;
     email: string;
 
 }
@@ -24,6 +26,7 @@ class UpdateProfileService{
                             rg,
                             telefone,
                             datanascimento,
+                            endereco,
                             email
                              }: IRequest): Promise<Pacientes>{
 
@@ -40,6 +43,7 @@ class UpdateProfileService{
             paciente.rg = rg;
             paciente.telefone = telefone;
             paciente.datanascimento = datanascimento;
+            paciente.endereco = endereco;
             paciente.email = email;
             await pacientesRepository.save(paciente);
 

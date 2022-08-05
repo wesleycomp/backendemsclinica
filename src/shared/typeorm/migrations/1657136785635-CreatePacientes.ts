@@ -18,7 +18,6 @@ export class CreatePacientes1657136785635 implements MigrationInterface {
                     {
                         name: 'nome',
                         type: 'varchar'
-
                     },
                     {
                         name: 'cpf',
@@ -39,8 +38,14 @@ export class CreatePacientes1657136785635 implements MigrationInterface {
                         type: 'timestamp'
                     },
                     {
+                        name: 'endereco',
+                        type: 'varchar',
+                        isNullable:true
+                    },
+                    {
                         name: 'email',
                         type: 'varchar',
+                        isNullable:true
                     },
                     {
                         name: 'created_at',

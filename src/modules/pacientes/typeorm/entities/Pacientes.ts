@@ -18,11 +18,13 @@ class Pacientes{
     telefone: string;
 
     @Column()
-    datanascimento: string
+    datanascimento: Date;
 
     @Column()
-    email: string
+    endereco: string;
 
+    @Column()
+    email: string;
 
     @CreateDateColumn()
     created_at: Date;

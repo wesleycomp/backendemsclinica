@@ -9,13 +9,14 @@ interface IRequest{
     cpf: string;
     rg: string;
     telefone: string;
-    datanascimento: string;
+    datanascimento: Date;
+    endereco: string;
     email: string;
 }
 
 class CreatePacientesService{
 
-    public async execute({nome, cpf, rg, telefone, datanascimento,email }: IRequest): Promise<Pacientes>{
+    public async execute({nome, cpf, rg, telefone, datanascimento,email,endereco }: IRequest): Promise<Pacientes>{
 
         const pacientesRepository = getCustomRepository(PacientesRepository);
         const emailExists = await pacientesRepository.findByCpf(cpf);
@@ -31,6 +32,7 @@ class CreatePacientesService{
             rg,
             telefone,
             datanascimento,
+            endereco,
             email
         });
 
