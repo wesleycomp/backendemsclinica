@@ -36,9 +36,9 @@ funcoesRouter.put(
                     isAuthenticated,
                     celebrate({
                             [Segments.BODY]:{
+                                id: Joi.string().required(),
                                 name: Joi.string().required(),
                                 cbo: Joi.string().required(),
-                                id: Joi.string().required(),
                                 created_at: Joi.string().required(),
                                 updated_at: Joi.string().required(),
                             },

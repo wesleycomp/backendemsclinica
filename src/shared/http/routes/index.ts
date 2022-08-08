@@ -13,7 +13,7 @@ routes.use('/user', usersRouter);
 routes.use('/sessions', sessionsRouter);
 routes.use('/password', passwordRouter);
 routes.use('/profile', profileRouter);
-routes.use('/pacientes', pacientesRouter);
+routes.use('/paciente', pacientesRouter);
 
 routes.use('/', ( request, response) => {
 

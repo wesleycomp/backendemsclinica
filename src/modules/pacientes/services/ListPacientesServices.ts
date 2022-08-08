@@ -4,24 +4,24 @@ import PacientesRepository from "../typeorm/repositories/PacientesRepository";
 import RedisCache from "@shared/cache/RedisCache";
 
 
-interface IPaginationPacientes{
+// interface IPaginationPacientes{
 
-    from: number;
-    to: number;
-    per_page: number;
-    total: number;
-    current_page: number;
-    prev_page: number | null;
-    next_page: number | null;
-    last_page: number | null;
-    data: Pacientes[];
+//     from: number;
+//     to: number;
+//     per_page: number;
+//     total: number;
+//     current_page: number;
+//     prev_page: number | null;
+//     next_page: number | null;
+//     last_page: number | null;
+//     data: Pacientes[];
 
-}
+// }
 
 
 class ListPacientesService{
 
-    public async execute(): Promise<IPaginationPacientes>{
+    public async execute(): Promise<Pacientes[]>{
 
          //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
         const pacientesRepository = getCustomRepository(PacientesRepository);
@@ -39,10 +39,13 @@ class ListPacientesService{
        // }
           //   return pacientes;
 
-        const pacientes = await pacientesRepository.createQueryBuilder().paginate();
+     //   const pacientes = await pacientesRepository.createQueryBuilder().paginate();
 
-        return pacientes as IPaginationPacientes;
+     //   return pacientes as IPaginationPacientes;
 
+
+         const pacientes = await pacientesRepository.find();
+        return pacientes;
 
     }
 }

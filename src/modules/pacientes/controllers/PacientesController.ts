@@ -44,6 +44,9 @@ export default class PacientesController{
 
   public async update(request: Request, response: Response): Promise<Response>{
 
+    console.log('testees');
+
+
         const { nome,cpf,rg,telefone,datanascimento,endereco,email } = request.body;
         const { id } = request.params;
         const updatePacientes = new UpdatePacientesService();

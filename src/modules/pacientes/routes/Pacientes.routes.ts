@@ -41,8 +41,17 @@ pacientesRouter.put(
                     isAuthenticated,
                     celebrate({
                             [Segments.BODY]:{
-                                name: Joi.string().required(),
-                                  cpf: Joi.string().required()
+
+                                id: Joi.string().required(),
+                                nome: Joi.string().required(),
+                                cpf: Joi.string().required(),
+                                rg: Joi.string().required(),
+                                telefone: Joi.string().required(),
+                                datanascimento: Joi.string().required(),
+                                endereco: Joi.string().required(),
+                                email: Joi.string().required(),
+                                created_at: Joi.string().required(),
+                                updated_at: Joi.string().required()
                             },
                             [Segments.PARAMS]:{
                                 id: Joi.string().uuid().required(),
