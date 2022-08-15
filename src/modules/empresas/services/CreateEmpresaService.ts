@@ -31,7 +31,7 @@ class CreateEmpresaService{
                     convenio}: IRequest): Promise<Empresa>{
 
         //instaciou o repositorio para ter acesso aos metodos(save, delete... etc)
-    const empresaRepository = getCustomRepository(EmpresaRepository);
+        const empresaRepository = getCustomRepository(EmpresaRepository);
 
         const  empresaExists= await empresaRepository.findByName(nome)
 
@@ -53,6 +53,7 @@ class CreateEmpresaService{
                     esocial,
                     convenio
         });
+
 
         await empresaRepository.save(empresa)
 

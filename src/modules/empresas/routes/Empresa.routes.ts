@@ -32,9 +32,9 @@ empresasRouter.post(
                                 telefone: Joi.string().required(),
                                 email: Joi.string().required(),
                                 responsavel: Joi.string().required(),
-                                esocial: Joi.string().required(),
-                                convenio: Joi.string().required(),
-                               
+                                esocial: Joi.boolean().required(),
+                                convenio: Joi.boolean().required(),
+
                          },
                     }),
                     empresasController.create
@@ -54,8 +54,8 @@ empresasRouter.put(
                                 telefone: Joi.string().required(),
                                 email: Joi.string().required(),
                                 responsavel: Joi.string().required(),
-                                esocial: Joi.string().required(),
-                                convenio: Joi.string().required(),
+                                esocial: Joi.boolean().required(),
+                                convenio: Joi.boolean().required(),
                                 created_at: Joi.string().required(),
                                 updated_at: Joi.string().required(),
                             },
