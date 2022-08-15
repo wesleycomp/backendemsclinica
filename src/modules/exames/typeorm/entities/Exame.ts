@@ -25,7 +25,7 @@ class Exame {
      especialidademedica: EspecialidadeMedica;
 
      @Column()
-     nome: string;
+     name: string;
 
      @Column('decimal')
      valoravista: number;

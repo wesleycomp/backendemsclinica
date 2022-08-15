@@ -5,36 +5,37 @@ import { ExameRepository } from "../typeorm/repositories/ExameRepository";
 
 interface IRequest{
     id: string;
+    name:string;
 
 }
 
 
 class UpdateExameService{
 
-    public async execute({id, }: IRequest): Promise<Exame>{
+    public async execute({id, name }: IRequest): Promise<Exame>{
 
             //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
         const exameRepository = getCustomRepository(ExameRepository);
-        const Exame = await exameRepository.findOne(id);
+        const exame = await exameRepository.findOne(id);
 
-        if(!Exame){
+        if(!exame){
             throw new AppError('Exame não encontrada')
         }
 
 
         const ExameExists= await exameRepository.findByName(name)
 
-        if(ExameExists && name != Exame.name){
+        if(ExameExists && name != exame.name){
 
             throw new AppError('Exame ja existente')
         }
 
-        Exame.name = name;
+        exame.name = name;
 
 
-        await exameRepository.save(Exame)
+        await exameRepository.save(exame)
 
-        return Exame;
+        return exame;
     }
 }
 
