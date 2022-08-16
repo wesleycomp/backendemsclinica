@@ -24,8 +24,14 @@ ExameRouter.post(
                     isAuthenticated,
                     celebrate({
                         [Segments.BODY]:{
-                            name: Joi.string().required(),
                             especialidademedica_id: Joi.string().required(),
+                            name: Joi.string().required(),
+                            valoravista: Joi.number().required(),
+                               valormedico: Joi.number().required(),
+                                valorems: Joi.number().required(),
+                                ativo: Joi.boolean().required(),
+                                created_at: Joi.string().required(),
+                                updated_at: Joi.string().required(),
                         },
                     }),
                     exameController.create
@@ -37,8 +43,12 @@ ExameRouter.put(
                     celebrate({
                             [Segments.BODY]:{
                                 id: Joi.string().required(),
-                                name: Joi.string().required(),
                                 especialidademedica_id: Joi.string().required(),
+                                name: Joi.string().required(),
+                                valoravista: Joi.number().required(),
+                                valormedico: Joi.number().required(),
+                                valorems: Joi.number().required(),
+                                ativo: Joi.boolean().required(),
                                 created_at: Joi.string().required(),
                                 updated_at: Joi.string().required(),
                             },

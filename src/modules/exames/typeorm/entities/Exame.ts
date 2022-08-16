@@ -7,12 +7,6 @@ import { Column,
   PrimaryGeneratedColumn,
   UpdateDateColumn,} from 'typeorm';
 
-//especialidadeMedica
-//valorAvista
-//valorMedico
-//valorEms
-//ativo
-
 
 @Entity('exame')
 class Exame {
@@ -23,6 +17,9 @@ class Exame {
      @ManyToOne(() => EspecialidadeMedica)
      @JoinColumn( {name: 'especialidademedica_id'})
      especialidademedica: EspecialidadeMedica;
+
+     @Column()
+     especialidademedica_id: string;
 
      @Column()
      name: string;
@@ -48,4 +45,3 @@ class Exame {
 }
 
 export default Exame;
-

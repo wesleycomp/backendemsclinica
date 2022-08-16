@@ -13,8 +13,6 @@ class EspecialidadeMedica {
      @Column()
      name: string;
 
-     cbo: string;
-
      @CreateDateColumn()
      created_at: Date;
 

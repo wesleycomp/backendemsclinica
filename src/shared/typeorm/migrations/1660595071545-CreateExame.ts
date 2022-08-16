@@ -19,12 +19,7 @@ export class CreateExame1660595071545 implements MigrationInterface {
             name: 'name',
             type: 'varchar',
           },
-           {
-            name: 'especialidademedica_id',
-            type: 'varchar',
-          },
-
-           {
+          {
             name: 'valoravista',
             type: 'number',
           },
@@ -59,7 +54,7 @@ export class CreateExame1660595071545 implements MigrationInterface {
   }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('funcao');
+        await queryRunner.dropTable('exame');
     }
 
 }

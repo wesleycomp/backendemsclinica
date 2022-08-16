@@ -1,10 +1,11 @@
-import { getCustomRepository } from "typeorm";
+  import { getCustomRepository } from "typeorm";
 import AppError from '@shared/errors/AppError';
 import { hash } from 'bcryptjs'
 import Pacientes from '../typeorm/entities/Pacientes';
 import {PacientesRepository}  from "../typeorm/repositories/PacientesRepository";
 
 interface IRequest{
+    
     nome: string;
     cpf: string;
     rg: string;
@@ -12,6 +13,7 @@ interface IRequest{
     datanascimento: Date;
     endereco: string;
     email: string;
+
 }
 
 class CreatePacientesService{
@@ -22,9 +24,10 @@ class CreatePacientesService{
         const emailExists = await pacientesRepository.findByCpf(cpf);
 
         if(emailExists){
-            throw new AppError('Paciente ja Cadastrado');
-        }
 
+            throw new AppError('Paciente ja Cadastrado');
+
+        }
 
         const paciente = pacientesRepository.create({
             nome,
@@ -38,7 +41,6 @@ class CreatePacientesService{
 
         await pacientesRepository.save(paciente);
         return paciente;
-
     }
 }
 

@@ -2,35 +2,51 @@ import { getCustomRepository } from "typeorm";
 import Exame from "../typeorm/entities/Exame";
 import { ExameRepository } from "../typeorm/repositories/ExameRepository";
 import AppError from '@shared/errors/AppError';
+import EspecialidadeMedicaRepository from "@modules/especialidademedica/typeorm/repositories/EspecialidadeMedicaRepository";
 
-interface IRequest{
-    name: string;
+
+
+interface IExame{
+
     especialidademedica_id: string;
+    name: string;
+    valoravista: number;
+    valormedico: number;
+    valorems: number;
+    ativo: boolean;
+
 }
 
 class CreateExameService{
 
-    public async execute({name,especialidademedica_id}: IRequest): Promise<Exame>{
+    public async execute({especialidademedica_id,name,valoravista,valormedico,valorems,ativo}: IExame): Promise<Exame>{
 
         //instaciou o repositorio para ter acesso aos metodos(save, delete... etc)
     const exameRepository = getCustomRepository(ExameRepository);
 
-        const ExameExists= await exameRepository.findByName(name)
+        const exameExists= await exameRepository.findByName(name)
 
-        if(ExameExists){
+        if(exameExists){
 
             throw new AppError('Exame ja existente')
 
         }
 
-        const Exame = exameRepository.create({
+
+        const exame = exameRepository.create({
+
+            especialidademedica_id,
             name,
-            especialidademedica_id
+            valoravista,
+            valormedico,
+            valorems,
+            ativo
+
         });
 
-        await exameRepository.save(Exame)
+        await exameRepository.save(exame);
 
-        return Exame;
+        return exame;
 
     }
 }

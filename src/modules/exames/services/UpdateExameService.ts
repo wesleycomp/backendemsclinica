@@ -3,16 +3,21 @@ import { getCustomRepository } from "typeorm";
 import Exame from "../typeorm/entities/Exame";
 import { ExameRepository } from "../typeorm/repositories/ExameRepository";
 
-interface IRequest{
-    id: string;
-    name:string;
+interface IExame{
+
+    id:string,
+    especialidademedica_id: string;
+    name: string;
+    valoravista: number;
+    valormedico: number;
+    valorems: number;
+    ativo: boolean;
 
 }
 
-
 class UpdateExameService{
 
-    public async execute({id, name }: IRequest): Promise<Exame>{
+    public async execute({id,especialidademedica_id,name,valoravista,valormedico,valorems,ativo}: IExame): Promise<Exame>{
 
             //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
         const exameRepository = getCustomRepository(ExameRepository);
@@ -22,7 +27,6 @@ class UpdateExameService{
             throw new AppError('Exame não encontrada')
         }
 
-
         const ExameExists= await exameRepository.findByName(name)
 
         if(ExameExists && name != exame.name){
@@ -31,7 +35,11 @@ class UpdateExameService{
         }
 
         exame.name = name;
-
+         exame.especialidademedica_id = especialidademedica_id;
+          exame.valoravista = valoravista;
+           exame.valormedico = valormedico;
+            exame.valorems = valorems;
+             exame.ativo = ativo;
 
         await exameRepository.save(exame)
 
