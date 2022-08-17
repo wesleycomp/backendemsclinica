@@ -1,6 +1,7 @@
 import { getCustomRepository } from "typeorm";
 import Exame from "../typeorm/entities/Exame";
 import { ExameRepository } from "../typeorm/repositories/ExameRepository";
+import AppError from '@shared/errors/AppError';
 
 
 // interface IPaginationexame{
@@ -18,13 +19,13 @@ import { ExameRepository } from "../typeorm/repositories/ExameRepository";
 // }
 
 
-class ListexameService{
+class ListExameService{
 
     public async execute(): Promise<Exame[]>{
 
          //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
-        const exameRepository = getCustomRepository(ExameRepository);
-        const exame = exameRepository.find();
+       const exameRepository = getCustomRepository(ExameRepository);
+       const exame = exameRepository.findAll();
      //   const exame = await funcoesRepository.createQueryBuilder().paginate();
 
         //console.log(exame)
@@ -32,4 +33,4 @@ class ListexameService{
     }
 }
 
-export default ListexameService;
+export default ListExameService;

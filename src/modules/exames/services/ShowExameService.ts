@@ -1,6 +1,6 @@
 import { getCustomRepository } from "typeorm";
-import Funcao from "../typeorm/entities/Exame";
-import { FuncaoRepository } from "../typeorm/repositories/ExameRepository";
+import Exame from "../typeorm/entities/Exame";
+import { ExameRepository } from "../typeorm/repositories/ExameRepository";
 import AppError from '@shared/errors/AppError';
 
 interface IRequest{
@@ -10,18 +10,18 @@ interface IRequest{
 
 class ShowFuncaoService{
 
-    public async execute({id}: IRequest): Promise<Funcao>{
+    public async execute({id}: IRequest): Promise<Exame>{
 
        //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
-        const funcoesRepository = getCustomRepository(FuncaoRepository);
-        const funcao = await funcoesRepository.findOne(id);
+        const exameRepository = getCustomRepository(ExameRepository);
+        const exame = await exameRepository.findById(id);
 
-        if(!funcao){
-            throw new AppError('Função não encontrada')
+        if(!exame){
+            throw new AppError('Exame não encontrado')
         }
 
 
-        return funcao;
+        return exame;
 
 
     }

@@ -18,7 +18,6 @@ ExameRouter.get(
                     }),
                     exameController.show
                 )
-
 ExameRouter.post(
                     '/',
                     isAuthenticated,
@@ -34,7 +33,6 @@ ExameRouter.post(
                     }),
                     exameController.create
                 )
-
 ExameRouter.put(
                     '/:id',
                     isAuthenticated,
@@ -55,7 +53,6 @@ ExameRouter.put(
                         }),
                     exameController.update
                 )
-
 ExameRouter.delete(
                         '/:id',
                         isAuthenticated,
@@ -66,5 +63,4 @@ ExameRouter.delete(
                         }),
                         exameController.delete
                     )
-
 export default ExameRouter;

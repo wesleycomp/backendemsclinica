@@ -10,18 +10,18 @@ export default class ExameController{
     public async index(request: Request, response: Response): Promise<Response>{
 
         const listExame = new ListExameService();
-        const Exame = await listExame.execute();
+        const exame = await listExame.execute();
 
-        return response.json(Exame);
+        return response.json(exame);
     }
 
     public async show(request: Request, response: Response): Promise<Response>{
 
         const { id } = request.params;
         const showExame = new ShowExameService();
-        const Exame = await showExame.execute({ id })
+        const exame = await showExame.execute({ id })
 
-        return response.json(Exame);
+        return response.json(exame);
 
     }
 
