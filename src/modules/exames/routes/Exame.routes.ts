@@ -27,11 +27,9 @@ ExameRouter.post(
                             especialidademedica_id: Joi.string().required(),
                             name: Joi.string().required(),
                             valoravista: Joi.number().required(),
-                               valormedico: Joi.number().required(),
-                                valorems: Joi.number().required(),
-                                ativo: Joi.boolean().required(),
-                                created_at: Joi.string().required(),
-                                updated_at: Joi.string().required(),
+                            valormedico: Joi.number().required(),
+                            valorems: Joi.number().required(),
+                            ativo: Joi.boolean().required()
                         },
                     }),
                     exameController.create
@@ -48,9 +46,8 @@ ExameRouter.put(
                                 valoravista: Joi.number().required(),
                                 valormedico: Joi.number().required(),
                                 valorems: Joi.number().required(),
-                                ativo: Joi.boolean().required(),
-                                created_at: Joi.string().required(),
-                                updated_at: Joi.string().required(),
+                                ativo: Joi.boolean().required()
+
                             },
                             [Segments.PARAMS]:{
                                 id: Joi.string().uuid().required(),

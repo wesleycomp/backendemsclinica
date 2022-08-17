@@ -2,8 +2,6 @@ import { getCustomRepository } from "typeorm";
 import Exame from "../typeorm/entities/Exame";
 import { ExameRepository } from "../typeorm/repositories/ExameRepository";
 import AppError from '@shared/errors/AppError';
-import EspecialidadeMedicaRepository from "@modules/especialidademedica/typeorm/repositories/EspecialidadeMedicaRepository";
-
 
 
 interface IExame{
@@ -14,7 +12,7 @@ interface IExame{
     valormedico: number;
     valorems: number;
     ativo: boolean;
-
+    
 }
 
 class CreateExameService{
@@ -27,27 +25,20 @@ class CreateExameService{
         const exameExists= await exameRepository.findByName(name)
 
         if(exameExists){
-
             throw new AppError('Exame ja existente')
-
         }
 
-
         const exame = exameRepository.create({
-
             especialidademedica_id,
             name,
             valoravista,
             valormedico,
             valorems,
             ativo
-
         });
 
         await exameRepository.save(exame);
-
         return exame;
-
     }
 }
 

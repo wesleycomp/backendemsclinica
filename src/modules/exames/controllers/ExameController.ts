@@ -27,8 +27,7 @@ export default class ExameController{
 
     public async create(request: Request, response: Response): Promise<Response>{
 
-        const { name,valoravista,valormedico,valorems,ativo } = request.body;
-        const { especialidademedica_id } = request.params;
+        const {especialidademedica_id,name,valoravista,valormedico,valorems,ativo } = request.body;
         const createExame = new CreateExameService();
         const exame = await createExame.execute({
                 especialidademedica_id,
