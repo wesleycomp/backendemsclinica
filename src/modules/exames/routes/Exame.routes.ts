@@ -44,7 +44,9 @@ ExameRouter.put(
                                 valoravista: Joi.number().required(),
                                 valormedico: Joi.number().required(),
                                 valorems: Joi.number().required(),
-                                ativo: Joi.boolean().required()
+                                ativo: Joi.boolean().required(),
+                                created_at: Joi.string().required(),
+                                updated_at: Joi.string().required()
 
                             },
                             [Segments.PARAMS]:{

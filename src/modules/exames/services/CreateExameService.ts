@@ -12,7 +12,7 @@ interface IExame{
     valormedico: number;
     valorems: number;
     ativo: boolean;
-    
+
 }
 
 class CreateExameService{
@@ -27,6 +27,8 @@ class CreateExameService{
         if(exameExists){
             throw new AppError('Exame ja existente')
         }
+
+
 
         const exame = exameRepository.create({
             especialidademedica_id,
