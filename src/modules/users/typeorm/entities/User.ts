@@ -14,6 +14,9 @@ class User{
     @Column()
     password: string
 
+    @Column()
+    perfil: string
+
     @CreateDateColumn()
     created_at: Date;
 

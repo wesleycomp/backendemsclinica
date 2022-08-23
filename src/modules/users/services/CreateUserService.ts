@@ -7,12 +7,13 @@ import {UsersRepository}  from "../typeorm/repositories/UsersRepository";
 interface IRequest{
     name: string,
     email: string,
-    password: string
+    password: string,
+    perfil: string
 }
 
 class CreateUserService{
 
-    public async execute({name, email, password}: IRequest): Promise<User>{
+    public async execute({name, email, password, perfil}: IRequest): Promise<User>{
 
         const usersRepository = getCustomRepository(UsersRepository);
         const emailExists = await usersRepository.findByEmail(email);
@@ -27,6 +28,7 @@ class CreateUserService{
             name,
             email,
             password:hashedPassword,
+            perfil,
         });
 
         await usersRepository.save(user);

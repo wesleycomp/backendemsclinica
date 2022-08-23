@@ -18,7 +18,6 @@ export class CreateUsers1655230153765 implements MigrationInterface {
                     {
                         name: 'name',
                         type: 'varchar'
-
                     },
                     {
                         name: 'email',
@@ -27,6 +26,10 @@ export class CreateUsers1655230153765 implements MigrationInterface {
                     },
                     {
                         name: 'password',
+                        type: 'varchar',
+                    },
+                    {
+                        name: 'perfil',
                         type: 'varchar',
                     },
                     {
@@ -39,11 +42,9 @@ export class CreateUsers1655230153765 implements MigrationInterface {
                         type: 'timestamp',
                         default: 'now()',
                     }
-
                 ]
             })
         )
-
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
