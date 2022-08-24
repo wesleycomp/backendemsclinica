@@ -8,6 +8,7 @@ export class CreateEspecialidadeMedica1660588879708 implements MigrationInterfac
         new Table({
         name: 'especialidademedica',
         columns: [
+            
           {
             name: 'id',
             type: 'uuid',

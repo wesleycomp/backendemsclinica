@@ -15,10 +15,12 @@ export class CreateExame1660595071545 implements MigrationInterface {
             generationStrategy: 'uuid',
             default: 'uuid_generate_v4()',
           },
+
           {
             name: 'name',
             type: 'varchar',
           },
+
           {
             name: 'valoravista',
             type: 'number',
@@ -43,6 +45,7 @@ export class CreateExame1660595071545 implements MigrationInterface {
             type: 'timestamp',
             default: 'now()',
           },
+
           {
             name: 'updated_at',
             type: 'timestamp',

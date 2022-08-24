@@ -15,11 +15,13 @@ export class AddEspecialidadeMedicaIdToExame1660671462161 implements MigrationIn
         await queryRunner.createForeignKey(
             'exame',
             new TableForeignKey({
+
                 name:'EspecialidadesExame',
                 columnNames: ['especialidademedica_id'],
                 referencedTableName: 'especialidademedica',
                 referencedColumnNames: ['id'],
                 onDelete: 'SET NULL',
+                
             }),
         );
     }

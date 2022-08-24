@@ -15,6 +15,7 @@ export class CreatePacientes1657136785635 implements MigrationInterface {
                         generationStrategy: 'uuid',
                         default: 'uuid_generate_v4()',
                     },
+
                     {
                         name: 'nome',
                         type: 'varchar'
