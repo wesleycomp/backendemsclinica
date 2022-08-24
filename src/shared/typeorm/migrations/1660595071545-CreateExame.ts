@@ -23,17 +23,26 @@ export class CreateExame1660595071545 implements MigrationInterface {
 
           {
             name: 'valoravista',
-            type: 'number',
+            type: 'numeric',
+            precision: 10,
+            scale: 2,
+            default: 0,
           },
 
           {
             name: 'valormedico',
-            type: 'number',
+            type: 'numeric',
+            precision: 10,
+            scale: 2,
+            default: 0,
           },
 
           {
             name: 'valorems',
-            type: 'number',
+            type: 'numeric',
+            precision: 10,
+            scale: 2,
+            default: 0,
           },
            {
             name: 'ativo',
