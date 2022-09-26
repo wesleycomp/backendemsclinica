@@ -10,6 +10,7 @@ import usersRouter from '@modules/users/routes/users.routes';
 import exameRouter from '@modules/exames/routes/Exame.routes';
 
 import { Router } from 'express';
+import convenioempresaRouter from '@modules/convenioempresa/routes/ConvenioEmpresa.routes';
 
 const routes = Router();
 routes.use('/empresa', empresasRouter);
@@ -21,6 +22,7 @@ routes.use('/profile', profileRouter);
 routes.use('/paciente', pacientesRouter);
 routes.use('/exame', exameRouter);
 routes.use('/especialidademedica', especialidadeMedicaRouter);
+routes.use('/convenioempresa', convenioempresaRouter);
 
 routes.use('/', ( request, response) => {
 
