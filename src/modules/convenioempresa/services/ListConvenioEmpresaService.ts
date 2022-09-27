@@ -24,9 +24,8 @@ class ListConvenioEmpresaService{
 
          //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
         const convenioEmpresaRepository = getCustomRepository(ConvenioEmpresaRepository);
-        const ConvenioEmpresa = convenioEmpresaRepository.find();
-     //   const ConvenioEmpresa = await convenioEmpresaRepository.createQueryBuilder().paginate();
-
+        const ConvenioEmpresa = convenioEmpresaRepository.findAll();//reescrevi para buscar a empresa e o exame no msmo objeto
+        //   const ConvenioEmpresa = await convenioEmpresaRepository.createQueryBuilder().paginate();
         //console.log(ConvenioEmpresa)
         return ConvenioEmpresa;
     }

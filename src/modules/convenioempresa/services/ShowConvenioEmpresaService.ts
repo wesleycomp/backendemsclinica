@@ -7,7 +7,6 @@ interface IRequest{
     id: string
 }
 
-
 class ShowConvenioEmpresaService{
 
     public async execute({id}: IRequest): Promise<ConvenioEmpresa>{
@@ -20,10 +19,7 @@ class ShowConvenioEmpresaService{
             throw new AppError('Convenio Empresa não encontrado')
         }
 
-
         return ConvenioEmpresa;
-
-
     }
 }
 

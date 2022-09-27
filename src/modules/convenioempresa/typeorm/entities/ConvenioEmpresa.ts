@@ -1,4 +1,5 @@
 import Empresa from '@modules/empresas/typeorm/entities/Empresa';
+import EspecialidadeMedica from '@modules/especialidademedica/typeorm/entities/EspecialidadeMedica';
 import Exame from '@modules/exames/typeorm/entities/Exame';
 import { Column,
   CreateDateColumn,
@@ -23,11 +24,11 @@ class ConvenioEmpresa{
           @JoinColumn( {name: 'exame_id'})
           exame: Exame;
 
+
+
           @Column()
           exame_id: string;
 
-     @Column()
-     idexame: string;
 
      @Column({type: "decimal", precision: 10, scale: 2, default: 0})
      valorexame: number;

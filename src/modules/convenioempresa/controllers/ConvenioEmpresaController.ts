@@ -22,21 +22,23 @@ export default class ConvenioEmpresaController{
         const ConvenioEmpresa = await showConvenioEmpresa.execute({ id })
 
         return response.json(ConvenioEmpresa);
-
     }
 
     public async create(request: Request, response: Response): Promise<Response>{
 
-        const { idempresa,
-                idexame,
+        const {
+                empresa_id,
+                exame_id,
                 valorexame,
                 valormedico,
                 valorems,
-                ativo } = request.body;
+                ativo
+               } = request.body;
+
         const createConvenioEmpresa = new CreateConvenioEmpresaService();
         const ConvenioEmpresa = await createConvenioEmpresa.execute({
-                idempresa,
-                idexame,
+                empresa_id,
+                exame_id,
                 valorexame,
                 valormedico,
                 valorems,
@@ -50,8 +52,8 @@ export default class ConvenioEmpresaController{
   public async update(request: Request, response: Response): Promise<Response>{
 
         const {
-                 idempresa,
-                 idexame,
+                 empresa_id,
+                 exame_id,
                  valorexame,
                  valormedico,
                  valorems,
@@ -63,7 +65,8 @@ export default class ConvenioEmpresaController{
 
         const ConvenioEmpresa = await updateConvenioEmpresa.execute({
             id,
-            idexame,
+            empresa_id,
+            exame_id,
             valorexame,
             valormedico,
             valorems,
