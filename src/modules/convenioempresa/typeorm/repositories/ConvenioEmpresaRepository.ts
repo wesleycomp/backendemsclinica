@@ -30,7 +30,7 @@ export class ConvenioEmpresaRepository extends Repository<ConvenioEmpresa>{
 
         public async findAll(): Promise<ConvenioEmpresa[]> {
         const exame = await this.find({
-            relations: ['empresa','exame']
+            relations: ['empresa','exame','exame.especialidademedica']
         });
         return exame;
     }
