@@ -17,9 +17,9 @@ export default class ConvenioEmpresaController{
 
     public async show(request: Request, response: Response): Promise<Response>{
 
-        const { id } = request.params;
+        const { empresa_id } = request.params;
         const showConvenioEmpresa = new ShowConvenioEmpresaService();
-        const ConvenioEmpresa = await showConvenioEmpresa.execute({ id })
+        const ConvenioEmpresa = await showConvenioEmpresa.execute({ empresa_id })
 
         return response.json(ConvenioEmpresa);
     }

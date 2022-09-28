@@ -4,19 +4,19 @@ import { ConvenioEmpresaRepository } from "../typeorm/repositories/ConvenioEmpre
 import AppError from '@shared/errors/AppError';
 
 interface IRequest{
-    id: string
+    empresa_id: string
 }
 
 class ShowConvenioEmpresaService{
 
-    public async execute({id}: IRequest): Promise<ConvenioEmpresa>{
+    public async execute({empresa_id}: IRequest): Promise<ConvenioEmpresa>{
 
        //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
         const convenioEmpresaRepository = getCustomRepository(ConvenioEmpresaRepository);
-        const ConvenioEmpresa = await convenioEmpresaRepository.findOne(id);
+        const ConvenioEmpresa = await convenioEmpresaRepository.findOne(empresa_id);
 
         if(!ConvenioEmpresa){
-            throw new AppError('Convenio Empresa não encontrado')
+            throw new AppError('Convenio desta Empresa não encontrado')
         }
 
         return ConvenioEmpresa;

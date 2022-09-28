@@ -23,12 +23,11 @@ class ListExameService{
 
     public async execute(): Promise<Exame[]>{
 
-         //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
+       //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
        const exameRepository = getCustomRepository(ExameRepository);
        const exame = exameRepository.findAll();
-     //   const exame = await funcoesRepository.createQueryBuilder().paginate();
-
-        //console.log(exame)
+       // const exame = await funcoesRepository.createQueryBuilder().paginate();
+       //console.log(exame)
         return exame;
     }
 }
