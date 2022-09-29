@@ -40,6 +40,7 @@ convenioempresaRouter.put(
                     //isAuthenticated,
                     celebrate({
                             [Segments.BODY]:{
+                                id: Joi.string().required(),
                                 empresa_id: Joi.string().required(),
                                 exame_id: Joi.string().required(),
                                 valorexame: Joi.number().required(),
