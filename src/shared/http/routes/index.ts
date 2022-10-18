@@ -25,7 +25,6 @@ routes.use('/especialidademedica', especialidadeMedicaRouter);
 routes.use('/convenioempresa', convenioempresaRouter);
 
 routes.use('/', ( request, response) => {
-
     return response.json({ message: 'Hello Dev'});
 });
 

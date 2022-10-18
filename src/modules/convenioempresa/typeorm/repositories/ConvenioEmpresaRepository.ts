@@ -10,7 +10,8 @@ export class ConvenioEmpresaRepository extends Repository<ConvenioEmpresa>{
         const convenioempresa = await this.findOne({
             where: {
                 empresa_id
-            }
+            },
+            relations: ['empresa','exame','exame.especialidademedica']
         })
 
         return convenioempresa;
@@ -19,11 +20,14 @@ export class ConvenioEmpresaRepository extends Repository<ConvenioEmpresa>{
 
        public async findById(id: string): Promise<ConvenioEmpresa | undefined> {
 
-        const convenioempresa = await this.findOne({
-            where: {
+
+              const convenioempresa = await this.findOne({
+                where: {
                      id,
                    }
-        })
+           // relations: ['empresa','exame','exame.especialidademedica']
+        });
+
         return convenioempresa;
 
     }

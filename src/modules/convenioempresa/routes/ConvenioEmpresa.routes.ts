@@ -9,11 +9,11 @@ const convenioempresaController = new ConvenioEmpresaController();
 convenioempresaRouter.get('/',  convenioempresaController.index)
 
 convenioempresaRouter.get(
-                    '/:id',
-                    isAuthenticated,
+                    '/:empresa_id',
+                   // isAuthenticated,
                     celebrate({
                         [Segments.PARAMS]:{
-                            id: Joi.string().uuid().required(),
+                            empresa_id: Joi.string().uuid().required(),
                         },
                     }),
                     convenioempresaController.show
