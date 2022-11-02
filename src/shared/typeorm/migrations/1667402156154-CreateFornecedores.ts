@@ -1,12 +1,12 @@
 import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
-export class CreatePacientes1657136785635 implements MigrationInterface {
+export class CreateFornecedores1667402156154 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
 
-        await  queryRunner.createTable(
-            new Table({
-                name: 'pacientes',
+              await  queryRunner.createTable(
+                new Table({
+                name: 'fornecedores',
                 columns: [
                     {
                         name: 'id',
@@ -15,77 +15,28 @@ export class CreatePacientes1657136785635 implements MigrationInterface {
                         generationStrategy: 'uuid',
                         default: 'uuid_generate_v4()',
                     },
-
-                     {
-                        name: 'matricula',
-                        type: 'varchar',
-                        isNullable:false
-                    },
-
-                    {
-                        name: 'dataentradaempresa',
-                        type: 'timestamp',
-                    },
-                    {
-                        name: 'descricaoatividade',
-                        type: 'varchar',
-                        isNullable:false
-                    },
-
-
                     {
                         name: 'nome',
                         type: 'varchar'
                     },
                     {
+                        name: 'cnpj',
+                        type: 'varchar'
+                    },
+                    {
                         name: 'cpf',
                         type: 'varchar',
-                        isUnique: true
-                    },
-                    {
-                        name: 'rg',
-                        type: 'varchar',
-                    },
-
-                    {
-                        name: 'telefone',
-                        type: 'varchar',
-                        isNullable:false
-                    },
-                     {
-                        name: 'genero',
-                        type: 'varchar',
                         isNullable:true
                     },
-
-                     {
-                        name: 'tiposanguineo',
-                        type: 'varchar',
-                        isNullable:true
-                    },
-
-
                     {
-                        name: 'nacionalidade',
-                        type: 'varchar',
-                        isNullable:false
-                    },
-
-                    {
-                        name: 'nis',
+                        name: 'inscricaoestadual',
                         type: 'varchar',
                         isNullable:true
                     },
                     {
-                        name: 'ctps',
+                        name: 'inscricaomunicipal',
                         type: 'varchar',
-                        isNullable:false
-                    },
-
-                    {
-                        name: 'datanascimento',
-                        type: 'timestamp',
-                        isNullable:false
+                        isNullable:true
                     },
                     {
                         name: 'endereco',
@@ -93,9 +44,23 @@ export class CreatePacientes1657136785635 implements MigrationInterface {
                         isNullable:true
                     },
                     {
+                        name: 'telefone',
+                        type: 'varchar',
+                        isNullable:false
+                    },
+                    {
                         name: 'email',
                         type: 'varchar',
                         isNullable:true
+                    },
+                    {
+                        name: 'responsavel',
+                        type: 'varchar',
+                        isNullable:false
+                    },
+                    {
+                        name: 'ehlaboratorio',
+                        type: 'boolean'
                     },
                     {
                         name: 'created_at',
@@ -111,11 +76,10 @@ export class CreatePacientes1657136785635 implements MigrationInterface {
                 ]
             })
         )
-
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-         await queryRunner.dropTable('pacientes');
+         await queryRunner.dropTable('fornecedores');
     }
 
 }

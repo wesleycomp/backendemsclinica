@@ -5,11 +5,25 @@ import Pacientes from '../typeorm/entities/Pacientes';
 import {PacientesRepository}  from "../typeorm/repositories/PacientesRepository";
 
 interface IRequest{
-    
+
+   empresa_id: string;
+    funcao_id: string;
+    categoriatrabalhador_id: string;
+    matricula: string;
+    dataentradaempresa: Date;
+    descricaoatividade: string;
+
     nome: string;
     cpf: string;
     rg: string;
     telefone: string;
+
+    genero: string;
+    tiposanguineo: string;
+    nacionalidade: string;
+    nis: string;
+    ctps: string;
+
     datanascimento: Date;
     endereco: string;
     email: string;
@@ -18,7 +32,24 @@ interface IRequest{
 
 class CreatePacientesService{
 
-    public async execute({nome, cpf, rg, telefone, datanascimento,email,endereco }: IRequest): Promise<Pacientes>{
+    public async execute({empresa_id,
+        funcao_id,
+        categoriatrabalhador_id,
+        matricula,
+        dataentradaempresa,
+        descricaoatividade,
+        nome,
+        cpf,
+        rg,
+        telefone,
+        genero,
+        tiposanguineo,
+        nacionalidade,
+        nis,
+        ctps,
+        datanascimento,
+        endereco,
+        email }: IRequest): Promise<Pacientes>{
 
         const pacientesRepository = getCustomRepository(PacientesRepository);
         const emailExists = await pacientesRepository.findByCpf(cpf);
@@ -30,10 +61,21 @@ class CreatePacientesService{
         }
 
         const paciente = pacientesRepository.create({
+            empresa_id,
+            funcao_id,
+            categoriatrabalhador_id,
+            matricula,
+            dataentradaempresa,
+            descricaoatividade,
             nome,
             cpf,
             rg,
             telefone,
+            genero,
+            tiposanguineo,
+            nacionalidade,
+            nis,
+            ctps,
             datanascimento,
             endereco,
             email

@@ -1,5 +1,6 @@
 import {MigrationInterface, QueryRunner, TableColumn, TableForeignKey} from "typeorm";
 
+
 export class AddConvenioEmpresa1664134205704 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {

@@ -1,12 +1,13 @@
 import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
-export class CreatePacientes1657136785635 implements MigrationInterface {
+export class CreateMedicos1667402061251 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
 
-        await  queryRunner.createTable(
+
+      await  queryRunner.createTable(
             new Table({
-                name: 'pacientes',
+                name: 'medicos',
                 columns: [
                     {
                         name: 'id',
@@ -15,24 +16,6 @@ export class CreatePacientes1657136785635 implements MigrationInterface {
                         generationStrategy: 'uuid',
                         default: 'uuid_generate_v4()',
                     },
-
-                     {
-                        name: 'matricula',
-                        type: 'varchar',
-                        isNullable:false
-                    },
-
-                    {
-                        name: 'dataentradaempresa',
-                        type: 'timestamp',
-                    },
-                    {
-                        name: 'descricaoatividade',
-                        type: 'varchar',
-                        isNullable:false
-                    },
-
-
                     {
                         name: 'nome',
                         type: 'varchar'
@@ -45,47 +28,26 @@ export class CreatePacientes1657136785635 implements MigrationInterface {
                     {
                         name: 'rg',
                         type: 'varchar',
+                        isNullable:true
                     },
-
+                    {
+                        name: 'crm',
+                        type: 'varchar',
+                        isNullable:false
+                    },
+                     {
+                        name: 'ufcrm',
+                        type: 'varchar',
+                        isNullable:false
+                    },
                     {
                         name: 'telefone',
                         type: 'varchar',
-                        isNullable:false
-                    },
-                     {
-                        name: 'genero',
-                        type: 'varchar',
                         isNullable:true
                     },
-
-                     {
-                        name: 'tiposanguineo',
-                        type: 'varchar',
-                        isNullable:true
-                    },
-
-
-                    {
-                        name: 'nacionalidade',
-                        type: 'varchar',
-                        isNullable:false
-                    },
-
-                    {
-                        name: 'nis',
-                        type: 'varchar',
-                        isNullable:true
-                    },
-                    {
-                        name: 'ctps',
-                        type: 'varchar',
-                        isNullable:false
-                    },
-
                     {
                         name: 'datanascimento',
-                        type: 'timestamp',
-                        isNullable:false
+                        type: 'timestamp'
                     },
                     {
                         name: 'endereco',
@@ -112,10 +74,11 @@ export class CreatePacientes1657136785635 implements MigrationInterface {
             })
         )
 
+
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-         await queryRunner.dropTable('pacientes');
+      await queryRunner.dropTable('medicos');
     }
 
 }
