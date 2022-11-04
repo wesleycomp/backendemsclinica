@@ -19,7 +19,7 @@ export class AddAsoPaciente1667411815140 implements MigrationInterface {
             new TableForeignKey({
                 name:'PacienteAsoPaciente',
                 columnNames: ['paciente_id'],
-                referencedTableName: 'pacientes',
+                referencedTableName: 'paciente',
                 referencedColumnNames: ['id'],
                 onDelete: 'SET NULL',
             }),
@@ -41,7 +41,7 @@ export class AddAsoPaciente1667411815140 implements MigrationInterface {
             new TableForeignKey({
                 name:'EmpresaAsoPaciente',
                 columnNames: ['empresa_id'],
-                referencedTableName: 'empresas',
+                referencedTableName: 'empresa',
                 referencedColumnNames: ['id'],
                 onDelete: 'SET NULL',
             }),
@@ -104,7 +104,7 @@ export class AddAsoPaciente1667411815140 implements MigrationInterface {
             new TableForeignKey({
                 name:'MedicoAsoPaciente',
                 columnNames: ['medico_id'],
-                referencedTableName: 'medicos',
+                referencedTableName: 'medico',
                 referencedColumnNames: ['id'],
                 onDelete: 'SET NULL',
             }),

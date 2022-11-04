@@ -5,7 +5,7 @@ export class CreateCategoriaTrabalhadores1667402101672 implements MigrationInter
     public async up(queryRunner: QueryRunner): Promise<void> {
            await  queryRunner.createTable(
             new Table({
-                name: 'categoriatrabalhadores',
+                name: 'categoriatrabalhador',
                 columns: [
                     {
                         name: 'id',

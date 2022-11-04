@@ -27,7 +27,7 @@ export class AddConvenioEmpresa1664134205704 implements MigrationInterface {
             new TableForeignKey({
                 name:'EmpresaConvenioEmpresa',
                 columnNames: ['empresa_id'],
-                referencedTableName: 'empresas',
+                referencedTableName: 'empresa',
                 referencedColumnNames: ['id'],
                 onDelete: 'SET NULL',
             }),

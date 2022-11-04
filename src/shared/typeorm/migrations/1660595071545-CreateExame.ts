@@ -20,7 +20,10 @@ export class CreateExame1660595071545 implements MigrationInterface {
             name: 'name',
             type: 'varchar',
           },
-
+          {
+              name: 'codigoesocial',
+              type: 'varchar'
+          },
           {
             name: 'valoravista',
             type: 'numeric',

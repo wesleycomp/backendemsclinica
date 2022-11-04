@@ -6,7 +6,7 @@ export class CreateFornecedores1667402156154 implements MigrationInterface {
 
               await  queryRunner.createTable(
                 new Table({
-                name: 'fornecedores',
+                name: 'fornecedor',
                 columns: [
                     {
                         name: 'id',
@@ -79,7 +79,7 @@ export class CreateFornecedores1667402156154 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-         await queryRunner.dropTable('fornecedores');
+         await queryRunner.dropTable('fornecedor');
     }
 
 }

@@ -17,11 +17,11 @@ export class CreateExameAso1667523418388 implements MigrationInterface {
                     },
                     {
                         name: 'aso_id',
-                        type: 'vachar'
+                        type: 'varchar'
                     },
                     {
                         name: 'exame_id',
-                        type: 'vachar'
+                        type: 'varchar'
                     },
                     {
                         name: 'dataexame',

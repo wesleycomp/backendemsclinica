@@ -6,7 +6,7 @@ export class CreateEmpresas1660063950987 implements MigrationInterface {
 
               await  queryRunner.createTable(
                 new Table({
-                name: 'empresas',
+                name: 'empresa',
                 columns: [
                     {
                         name: 'id',

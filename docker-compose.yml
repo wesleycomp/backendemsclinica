@@ -23,7 +23,7 @@ services:
        #- .docker/dbdata:/Library/PostgreSQL/10/data
        - .docker/dbdata:/var/lib/postgres/data
     environment:
-       - POSTGRES_PASSWORD=r44gru
+       - POSTGRES_PASSWORD=docker
        - POSTGRES_DB=emsclinica
 
   redis:

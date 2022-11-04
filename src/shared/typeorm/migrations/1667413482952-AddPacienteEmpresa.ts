@@ -6,7 +6,7 @@ export class AddPacienteEmpresa1667413482952 implements MigrationInterface {
 
 
       await queryRunner.addColumn(
-            'pacientes',
+            'paciente',
         new TableColumn({
             name:'empresa_id',
             type: 'uuid',
@@ -14,11 +14,11 @@ export class AddPacienteEmpresa1667413482952 implements MigrationInterface {
         }),
         );
         await queryRunner.createForeignKey(
-            'pacientes',
+            'paciente',
             new TableForeignKey({
                 name:'EmpresaPaciente',
                 columnNames: ['empresa_id'],
-                referencedTableName: 'empresas',
+                referencedTableName: 'empresa',
                 referencedColumnNames: ['id'],
                 onDelete: 'SET NULL',
             }),
@@ -27,7 +27,7 @@ export class AddPacienteEmpresa1667413482952 implements MigrationInterface {
 
 
        await queryRunner.addColumn(
-            'pacientes',
+            'paciente',
         new TableColumn({
             name:'funcao_id',
             type: 'uuid',
@@ -36,7 +36,7 @@ export class AddPacienteEmpresa1667413482952 implements MigrationInterface {
         );
 
            await queryRunner.createForeignKey(
-            'pacientes',
+            'paciente',
             new TableForeignKey({
                 name:'FuncaoPaciente',
                 columnNames: ['funcao_id'],
@@ -49,7 +49,7 @@ export class AddPacienteEmpresa1667413482952 implements MigrationInterface {
 
 
       await queryRunner.addColumn(
-            'pacientes',
+            'paciente',
         new TableColumn({
             name:'categoriatrabalhador_id',
             type: 'uuid',
@@ -58,11 +58,11 @@ export class AddPacienteEmpresa1667413482952 implements MigrationInterface {
         );
 
            await queryRunner.createForeignKey(
-            'pacientes',
+            'paciente',
             new TableForeignKey({
                 name:'CategoriaTrabalhadorPaciente',
                 columnNames: ['categoriatrabalhador_id'],
-                referencedTableName: 'categoriatrabalhadores',
+                referencedTableName: 'categoriatrabalhador',
                 referencedColumnNames: ['id'],
                 onDelete: 'SET NULL',
             }),
@@ -72,13 +72,13 @@ export class AddPacienteEmpresa1667413482952 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-         await queryRunner.dropForeignKey('pacientes', 'EmpresaPaciente');
-         await queryRunner.dropForeignKey('pacientes', 'FuncaoPaciente');
-         await queryRunner.dropForeignKey('pacientes', 'CategoriaTrabalhadorPaciente');
+         await queryRunner.dropForeignKey('paciente', 'EmpresaPaciente');
+         await queryRunner.dropForeignKey('paciente', 'FuncaoPaciente');
+         await queryRunner.dropForeignKey('paciente', 'CategoriaTrabalhadorPaciente');
 
-        await queryRunner.dropColumn('pacientes', 'empresa_id');
-        await queryRunner.dropColumn('pacientes', 'funcao_id');
-        await queryRunner.dropColumn('pacientes', 'categoriatrabalhador_id');
+        await queryRunner.dropColumn('paciente', 'empresa_id');
+        await queryRunner.dropColumn('paciente', 'funcao_id');
+        await queryRunner.dropColumn('paciente', 'categoriatrabalhador_id');
 
     }
 

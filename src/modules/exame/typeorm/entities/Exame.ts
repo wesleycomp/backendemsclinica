@@ -1,37 +1,35 @@
-import Empresa from '@modules/empresa/typeorm/entities/Empresa';
 import EspecialidadeMedica from '@modules/especialidademedica/typeorm/entities/EspecialidadeMedica';
-import Exame from '@modules/exame/typeorm/entities/Exame';
 import { Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,JoinColumn,ManyToOne} from 'typeorm';
+  UpdateDateColumn,} from 'typeorm';
 
-@Entity('convenioempresa')
-class ConvenioEmpresa{
+
+@Entity('exame')
+class Exame {
 
      @PrimaryGeneratedColumn('uuid')
      id: string;
 
-          @ManyToOne(() => Empresa)
-          @JoinColumn( {name: 'empresa_id'})
-          empresa: Empresa;
+     @ManyToOne(() => EspecialidadeMedica)
+     @JoinColumn( {name: 'especialidademedica_id'})
+     especialidademedica: EspecialidadeMedica;
 
-          @Column()
-          empresa_id: string;
+     @Column()
+     especialidademedica_id: string;
 
-          @ManyToOne(() => Exame)
-          @JoinColumn( {name: 'exame_id'})
-          exame: Exame;
+     @Column()
+     name: string;
 
-
-
-          @Column()
-          exame_id: string;
+     @Column()
+     codigoesocial: string;
 
 
      @Column({type: "decimal", precision: 10, scale: 2, default: 0})
-     valorexame: number;
+     valoravista: number;
 
      @Column({type: "decimal", precision: 10, scale: 2, default: 0})
      valormedico: number;
@@ -50,5 +48,4 @@ class ConvenioEmpresa{
 
 }
 
-export default ConvenioEmpresa;
-
+export default Exame;
