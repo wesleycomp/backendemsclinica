@@ -15,18 +15,22 @@ export class CreateEmpresas1660063950987 implements MigrationInterface {
                         generationStrategy: 'uuid',
                         default: 'uuid_generate_v4()',
                     },
-
-
                     {
                         name: 'nome',
                         type: 'varchar'
                     },
                     {
                         name: 'cnpj',
-                        type: 'varchar',
-                        isUnique: true
+                        type: 'varchar'
                     },
-                    
+                    {
+                        name: 'cpf',
+                        type: 'varchar'
+                    },
+                    {
+                        name: 'ideEmpregador',
+                        type: 'varchar'
+                    },
                     {
                         name: 'inscricaoestadual',
                         type: 'varchar',

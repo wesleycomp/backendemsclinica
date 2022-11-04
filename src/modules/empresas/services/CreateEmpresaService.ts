@@ -6,6 +6,8 @@ import AppError from '@shared/errors/AppError';
 interface IRequest{
     nome: string;
     cnpj: string;
+    cpf: string;
+    ideEmpregador: string;
     inscricaoestadual: string;
     inscricaomunicipal: string;
     endereco: string;
@@ -21,6 +23,8 @@ class CreateEmpresaService{
     public async execute({
                     nome,
                     cnpj,
+                    cpf,
+                    ideEmpregador,
                     inscricaoestadual,
                     inscricaomunicipal,
                     endereco,
@@ -44,6 +48,8 @@ class CreateEmpresaService{
         const empresa = empresaRepository.create({
                     nome,
                     cnpj,
+                    cpf,
+                    ideEmpregador,
                     inscricaoestadual,
                     inscricaomunicipal,
                     endereco,
@@ -54,11 +60,8 @@ class CreateEmpresaService{
                     convenio
         });
 
-
         await empresaRepository.save(empresa)
-
         return empresa;
-
     }
 }
 

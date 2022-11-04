@@ -7,6 +7,8 @@ interface IRequest{
     id: string;
     nome: string;
     cnpj: string;
+    cpf: string;
+    ideEmpregador: string;
     inscricaoestadual: string;
     inscricaomunicipal: string;
     endereco: string;
@@ -15,7 +17,6 @@ interface IRequest{
     responsavel: string;
     esocial: boolean;
     convenio: boolean;
-
 }
 
 
@@ -24,6 +25,8 @@ class UpdateEmpresaService{
     public async execute({ id,
                     nome,
                     cnpj,
+                    cpf,
+                    ideEmpregador,
                     inscricaoestadual,
                     inscricaomunicipal,
                     endereco,
@@ -52,6 +55,8 @@ class UpdateEmpresaService{
 
         Empresa.nome = nome;
         Empresa.cnpj = cnpj;
+        Empresa.cpf = cpf;
+        Empresa.ideEmpregador = ideEmpregador;
         Empresa.inscricaoestadual=inscricaoestadual;
         Empresa.inscricaomunicipal=inscricaomunicipal;
         Empresa.endereco=endereco;

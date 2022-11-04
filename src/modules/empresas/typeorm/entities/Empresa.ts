@@ -14,7 +14,13 @@ class Empresa {
      nome: string;
 
      @Column()
+     cpf: string;
+
+     @Column()
      cnpj: string;
+
+     @Column()
+     ideEmpregador: string;
 
      @Column()
      inscricaoestadual: string;

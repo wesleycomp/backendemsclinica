@@ -26,6 +26,8 @@ empresasRouter.post(
                         [Segments.BODY]:{
                                 nome: Joi.string().required(),
                                 cnpj: Joi.string().required(),
+                                cpf: Joi.string().required(),
+                                ideEmpregador: Joi.string().required(),
                                 inscricaoestadual: Joi.string().required(),
                                 inscricaomunicipal: Joi.string().required(),
                                 endereco: Joi.string().required(),
@@ -48,6 +50,8 @@ empresasRouter.put(
                                 id: Joi.string().required(),
                                 nome: Joi.string().required(),
                                 cnpj: Joi.string().required(),
+                                cpf: Joi.string().required(),
+                                ideEmpregador: Joi.string().required(),
                                 inscricaoestadual: Joi.string().required(),
                                 inscricaomunicipal: Joi.string().required(),
                                 endereco: Joi.string().required(),
