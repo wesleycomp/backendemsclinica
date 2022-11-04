@@ -27,12 +27,12 @@ export default class ExameController{
 
     public async create(request: Request, response: Response): Promise<Response>{
 
-        const {especialidademedica_id,name,codigoesocial,valoravista,valormedico,valorems,ativo } = request.body;
+        const {especialidademedica_id,name,procRealizado,valoravista,valormedico,valorems,ativo } = request.body;
         const createExame = new CreateExameService();
         const exame = await createExame.execute({
                 especialidademedica_id,
                 name,
-                codigoesocial,
+                procRealizado,
                 valoravista,
                 valormedico,
                 valorems,
@@ -45,7 +45,7 @@ export default class ExameController{
 
   public async update(request: Request, response: Response): Promise<Response>{
 
-        const { name,codigoesocial,valoravista,valormedico,valorems,ativo,especialidademedica_id  } = request.body;
+        const { name,procRealizado,valoravista,valormedico,valorems,ativo,especialidademedica_id  } = request.body;
         const { id } = request.params;
         const updateExame = new UpdateExameService();
 
@@ -53,7 +53,7 @@ export default class ExameController{
                 id,
                 especialidademedica_id,
                 name,
-                codigoesocial,
+                procRealizado,
                 valoravista,
                 valormedico,
                 valorems,

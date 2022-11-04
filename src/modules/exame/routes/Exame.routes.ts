@@ -25,7 +25,7 @@ ExameRouter.post(
                         [Segments.BODY]:{
                             especialidademedica_id: Joi.string().required(),
                             name: Joi.string().required(),
-                            codigoesocial: Joi.string().required(),
+                            procRealizado: Joi.string().required(),
                             valoravista: Joi.number().required(),
                             valormedico: Joi.number().required(),
                             valorems: Joi.number().required(),
@@ -42,7 +42,7 @@ ExameRouter.put(
                                 id: Joi.string().required(),
                                 especialidademedica_id: Joi.string().required(),
                                 name: Joi.string().required(),
-                                codigoesocial: Joi.string().required(),
+                                procRealizado: Joi.string().required(),
                                 valoravista: Joi.number().required(),
                                 valormedico: Joi.number().required(),
                                 valorems: Joi.number().required(),

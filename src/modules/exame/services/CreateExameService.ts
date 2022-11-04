@@ -8,7 +8,7 @@ interface IExame{
 
     especialidademedica_id: string;
     name: string;
-    codigoesocial: string;
+    procRealizado: string;
     valoravista: number;
     valormedico: number;
     valorems: number;
@@ -18,7 +18,7 @@ interface IExame{
 
 class CreateExameService{
 
-    public async execute({especialidademedica_id,name,codigoesocial,valoravista,valormedico,valorems,ativo}: IExame): Promise<Exame>{
+    public async execute({especialidademedica_id,name,procRealizado,valoravista,valormedico,valorems,ativo}: IExame): Promise<Exame>{
 
         //instaciou o repositorio para ter acesso aos metodos(save, delete... etc)
     const exameRepository = getCustomRepository(ExameRepository);
@@ -34,7 +34,7 @@ class CreateExameService{
         const exame = exameRepository.create({
             especialidademedica_id,
             name,
-            codigoesocial,
+            procRealizado,
             valoravista,
             valormedico,
             valorems,

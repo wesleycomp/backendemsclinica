@@ -21,7 +21,7 @@ export class CreateExame1660595071545 implements MigrationInterface {
             type: 'varchar',
           },
           {
-              name: 'codigoesocial',
+              name: 'procRealizado',
               type: 'varchar'
           },
           {
