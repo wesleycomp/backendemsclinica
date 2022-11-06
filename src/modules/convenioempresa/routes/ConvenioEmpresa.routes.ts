@@ -6,7 +6,7 @@ import isAuthenticated from '../../../shared/http/middlewares/isAuthenticated';
 const convenioempresaRouter = Router();
 const convenioempresaController = new ConvenioEmpresaController();
 
-convenioempresaRouter.get('/',  convenioempresaController.index)
+//convenioempresaRouter.get('/',  convenioempresaController.index)
 
 convenioempresaRouter.get(
                     '/:empresa_id',

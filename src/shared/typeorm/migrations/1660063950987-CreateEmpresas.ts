@@ -25,19 +25,23 @@ export class CreateEmpresas1660063950987 implements MigrationInterface {
                     },
                     {
                         name: 'cpf',
-                        type: 'varchar'
+                        type: 'varchar',
+                        isNullable:true
                     },
                     {
                         name: 'ideEmpregador',
-                        type: 'varchar'
+                        type: 'varchar',
+                        isNullable:true
                     },
                     {
                         name: 'inscricaoestadual',
                         type: 'varchar',
+                        isNullable:true
                     },
                     {
                         name: 'inscricaomunicipal',
                         type: 'varchar',
+                        isNullable:true
                     },
                     {
                         name: 'endereco',
@@ -47,7 +51,7 @@ export class CreateEmpresas1660063950987 implements MigrationInterface {
                     {
                         name: 'telefone',
                         type: 'varchar',
-                        isNullable:false
+                        isNullable:true
                     },
                     {
                         name: 'email',

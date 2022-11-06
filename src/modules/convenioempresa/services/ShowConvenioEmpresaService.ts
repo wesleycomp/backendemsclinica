@@ -9,7 +9,7 @@ interface IRequest{
 
 class ShowConvenioEmpresaService{
 
-    public async execute({empresa_id}: IRequest): Promise<ConvenioEmpresa>{
+    public async execute({empresa_id}: IRequest): Promise<ConvenioEmpresa[]>{
 
        //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
         const convenioEmpresaRepository = getCustomRepository(ConvenioEmpresaRepository);

@@ -5,18 +5,44 @@ import ConvenioEmpresa from '../entities/ConvenioEmpresa'
 @EntityRepository(ConvenioEmpresa)
 export class ConvenioEmpresaRepository extends Repository<ConvenioEmpresa>{
 
-    public async findByEmpresa(empresa_id: string): Promise<ConvenioEmpresa | undefined>{
+     //     public async findAll(): Promise<ConvenioEmpresa[]> {
+     //   const exame = await this.find({
+    //        relations: ['empresa','exame','exame.especialidademedica']
+    //    });
+    //    return exame;
+   // }
 
-        const convenioempresa = await this.findOne({
+
+    public async findByEmpresa(empresa_id: string): Promise<ConvenioEmpresa[] | undefined>{
+
+        const convenioempresa = await this.find({
             where: {
-                empresa_id
+               empresa_id: empresa_id
             },
             relations: ['empresa','exame','exame.especialidademedica']
-        })
+        });
+
+       // console.log(convenioempresa)
 
         return convenioempresa;
     }
 
+
+/* funcao acima anteriormente
+    public async findByEmpresa(empresa_id: string): Promise<ConvenioEmpresa | undefined>{
+
+        const convenioempresa = await this.findOne({
+            where: {
+               empresa_id: empresa_id
+            },
+            relations: ['empresa','exame','exame.especialidademedica']
+        });
+
+       // console.log(convenioempresa)
+
+        return convenioempresa;
+    }
+*/
 
        public async findById(id: string): Promise<ConvenioEmpresa | undefined> {
 
