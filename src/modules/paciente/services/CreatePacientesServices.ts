@@ -32,7 +32,8 @@ interface IRequest{
 
 class CreatePacientesService{
 
-    public async execute({empresa_id,
+    public async execute({
+        empresa_id,
         funcao_id,
         categoriatrabalhador_id,
         matricula,
@@ -49,7 +50,8 @@ class CreatePacientesService{
         ctps,
         datanascimento,
         endereco,
-        email }: IRequest): Promise<Pacientes>{
+        email
+    }: IRequest): Promise<Pacientes>{
 
         const pacientesRepository = getCustomRepository(PacientesRepository);
         const emailExists = await pacientesRepository.findByCpf(cpf);

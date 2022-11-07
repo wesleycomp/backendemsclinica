@@ -26,16 +26,47 @@ export default class PacientesController{
 
     public async create(request: Request, response: Response): Promise<Response>{
 
-        const { nome,cpf,rg,telefone,datanascimento,endereco,email } = request.body;
+        const {
+            empresa_id,
+            funcao_id,
+            categoriatrabalhador_id,
+            matricula,
+            dataentradaempresa,
+            descricaoatividade,
+            nome,
+            cpf,
+            rg,
+            telefone,
+            datanascimento,
+            endereco,
+            email,
+            genero,
+            tiposanguineo,
+            nacionalidade,
+            nis,
+            ctps
+        } = request.body;
+
         const createPacientes = new CreatePacientesService();
         const pacientes = await createPacientes.execute({
-                nome,
-                cpf,
-                rg,
-                telefone,
-                datanascimento,
-                endereco,
-                email
+            empresa_id,
+            funcao_id,
+            categoriatrabalhador_id,
+            matricula,
+            dataentradaempresa,
+            descricaoatividade,
+            nome,
+            cpf,
+            rg,
+            telefone,
+            datanascimento,
+            endereco,
+            email,
+            genero,
+            tiposanguineo,
+            nacionalidade,
+            nis,
+            ctps
         });
 
         return response.json(pacientes);
@@ -47,19 +78,47 @@ export default class PacientesController{
    // console.log('testees');
 
 
-        const { nome,cpf,rg,telefone,datanascimento,endereco,email } = request.body;
-        const { id } = request.params;
-        const updatePacientes = new UpdatePacientesService();
-
-        const pacientes = await updatePacientes.execute({
-            id,
+        const { empresa_id,
+            funcao_id,
+            categoriatrabalhador_id,
+            matricula,
+            dataentradaempresa,
+            descricaoatividade,
             nome,
             cpf,
             rg,
             telefone,
             datanascimento,
             endereco,
-            email
+            email,
+            genero,
+            tiposanguineo,
+            nacionalidade,
+            nis,
+            ctps } = request.body;
+        const { id } = request.params;
+        const updatePacientes = new UpdatePacientesService();
+
+        const pacientes = await updatePacientes.execute({
+            id,
+            empresa_id,
+            funcao_id,
+            categoriatrabalhador_id,
+            matricula,
+            dataentradaempresa,
+            descricaoatividade,
+            nome,
+            cpf,
+            rg,
+            telefone,
+            datanascimento,
+            endereco,
+            email,
+            genero,
+            tiposanguineo,
+            nacionalidade,
+            nis,
+            ctps
         });
 
         return response.json(pacientes);

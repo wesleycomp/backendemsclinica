@@ -11,6 +11,7 @@ import exameRouter from '@modules/exame/routes/Exame.routes';
 
 import { Router } from 'express';
 import convenioempresaRouter from '@modules/convenioempresa/routes/ConvenioEmpresa.routes';
+import categoriatrabalhadoresRouter from '@modules/categoriaTrabalhadores/routes/CategoriaTrabalhadores.routes';
 
 const routes = Router();
 routes.use('/empresa', empresasRouter);
@@ -23,6 +24,8 @@ routes.use('/paciente', pacientesRouter);
 routes.use('/exame', exameRouter);
 routes.use('/especialidademedica', especialidadeMedicaRouter);
 routes.use('/convenioempresa', convenioempresaRouter);
+routes.use('/categoriatrabalhador',  categoriatrabalhadoresRouter);
+
 
 routes.use('/', ( request, response) => {
     return response.json({ message: 'Hello Dev'});

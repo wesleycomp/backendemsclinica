@@ -24,10 +24,25 @@ pacientesRouter.post(
                     isAuthenticated,
                     celebrate({
                         [Segments.BODY]:{
+                            empresa_id: Joi.string().required(),
+                            funcao_id: Joi.string().required(),
+                            categoriatrabalhador_id: Joi.string().required(),
+                            matricula: Joi.string().required(),
+                            dataentradaempresa: Joi.string().required(),
+                            descricaoatividade: Joi.string().required(),
+
                             nome: Joi.string().required(),
                             cpf: Joi.string().required(),
                             rg: Joi.string().required(),
                             telefone: Joi.string().required(),
+
+                            genero: Joi.string().required(),
+                            tiposanguineo: Joi.string().required(),
+                            nacionalidade: Joi.string().required(),
+                            nis: Joi.string().required(),
+                            ctps: Joi.string().required(),
+
+
                             datanascimento: Joi.string().required(),
                             endereco: Joi.string().required(),
                             email: Joi.string().required(),
@@ -42,16 +57,32 @@ pacientesRouter.put(
                     celebrate({
                             [Segments.BODY]:{
 
-                                id: Joi.string().required(),
-                                nome: Joi.string().required(),
-                                cpf: Joi.string().required(),
-                                rg: Joi.string().required(),
-                                telefone: Joi.string().required(),
-                                datanascimento: Joi.string().required(),
-                                endereco: Joi.string().required(),
-                                email: Joi.string().required(),
-                                created_at: Joi.string().required(),
-                                updated_at: Joi.string().required()
+                            id: Joi.string().required(),
+                            empresa_id: Joi.string().required(),
+                            funcao_id: Joi.string().required(),
+                            categoriatrabalhador_id: Joi.string().required(),
+                            matricula: Joi.string().required(),
+                            dataentradaempresa: Joi.string().required(),
+                            descricaoatividade: Joi.string().required(),
+
+                            nome: Joi.string().required(),
+                            cpf: Joi.string().required(),
+                            rg: Joi.string().required(),
+                            telefone: Joi.string().required(),
+
+                            genero: Joi.string().required(),
+                            tiposanguineo: Joi.string().required(),
+                            nacionalidade: Joi.string().required(),
+                            nis: Joi.string().required(),
+                            ctps: Joi.string().required(),
+
+
+                            datanascimento: Joi.string().required(),
+                            endereco: Joi.string().required(),
+                            email: Joi.string().required(),
+                            created_at: Joi.string().required(),
+                            updated_at: Joi.string().required()
+
                             },
                             [Segments.PARAMS]:{
                                 id: Joi.string().uuid().required(),
