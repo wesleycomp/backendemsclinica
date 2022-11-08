@@ -18,7 +18,7 @@ export class CreateAso1667402135627 implements MigrationInterface {
                     },
                     {
                         name: 'dataemissaoaso',
-                        type: 'timestamp'
+                        type: 'date'
                     },
                     {
                         name: 'resultado',

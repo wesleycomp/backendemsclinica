@@ -1,6 +1,6 @@
 import { getCustomRepository } from "typeorm";
-import Pacientes from "../typeorm/entities/Paciente";
-import PacientesRepository from "../typeorm/repositories/PacientesRepository";
+import Nacionaliade from "../typeorm/entities/Nacionalidade";
+import CategoriaTrabalhadorRepository from "../typeorm/repositories/NacionalidadeRepository";
 import RedisCache from "@shared/cache/RedisCache";
 
 
@@ -19,13 +19,12 @@ import RedisCache from "@shared/cache/RedisCache";
 // }
 
 
-class ListPacientesService{
+class ListCategoriaTrabalhadoresService{
 
-
-    public async execute(): Promise<Pacientes[]>{
+    public async execute(): Promise<Nacionaliade[]>{
 
          //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
-        const pacientesRepository = getCustomRepository(PacientesRepository);
+        const pacientesRepository = getCustomRepository(CategoriaTrabalhadorRepository);
 
         // const redisCache = new RedisCache();
 
@@ -46,27 +45,9 @@ class ListPacientesService{
 
 
          const pacientes = await pacientesRepository.find();
-
-
-             //   (pacientes).forEach(function(item){
-
-                //console.log(item.datanascimento.toLocaleDateString('pt-BR', {timeZone: 'UTC'}))
-
-               //  item.datanascimento=item.datanascimento.toLocaleDateString('pt-BR', {timeZone: 'UTC'})
-
-                  //item.datanascimento =  new Date(item.datanascimento)
-
-                 // item.datanascimento = new Date(item.datanascimento).toLocaleDateString('en-GB');
-
-                //    console.log(item.datanascimento)
-
-             //   })
-
-
-
         return pacientes;
 
     }
 }
 
-export default ListPacientesService;
+export default ListCategoriaTrabalhadoresService;

@@ -11,6 +11,9 @@ export default class PacientesController{
 
         const listPacientes = new ListPacientesService();
         const pacientes = await listPacientes.execute();
+
+
+
         return response.json(pacientes);
     }
 

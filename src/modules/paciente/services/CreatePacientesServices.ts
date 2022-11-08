@@ -84,6 +84,9 @@ class CreatePacientesService{
         });
 
         await pacientesRepository.save(paciente);
+
+console.log(paciente)
+
         return paciente;
     }
 }

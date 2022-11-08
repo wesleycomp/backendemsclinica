@@ -24,7 +24,7 @@ export class CreatePacientes1657136785635 implements MigrationInterface {
 
                     {
                         name: 'dataentradaempresa',
-                        type: 'timestamp',
+                        type: 'date',
                     },
                     {
                         name: 'descricaoatividade',
@@ -84,7 +84,7 @@ export class CreatePacientes1657136785635 implements MigrationInterface {
 
                     {
                         name: 'datanascimento',
-                        type: 'timestamp',
+                        type: 'date',
                         isNullable:false
                     },
                     {
