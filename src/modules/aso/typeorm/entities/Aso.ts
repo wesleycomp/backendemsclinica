@@ -55,6 +55,8 @@ class Aso {
     @Column()
      medico_id: string;
 
+     @Column()
+     tipopagamento: string;
 
     @Column()
      resultado: string;

@@ -27,15 +27,20 @@ export default class ExameController{
 
     public async create(request: Request, response: Response): Promise<Response>{
 
-        const {especialidademedica_id,name,valoravista,valormedico,valorems,ativo } = request.body;
+        const {dataemissaoaso,paciente_id,empresa_id,tipoexame_id,tipoaso_id,tipopagamento,medico_id,resultado,temexames,transmissaoesocial,ativo} = request.body;
         const createExame = new CreateExameService();
         const exame = await createExame.execute({
-                especialidademedica_id,
-                name,
-                valoravista,
-                valormedico,
-                valorems,
-                ativo
+            dataemissaoaso,
+            paciente_id,
+            empresa_id,
+            tipoexame_id,
+            tipoaso_id,
+            tipopagamento,
+            medico_id,
+            resultado,
+            temexames,
+            transmissaoesocial,
+            ativo
         });
 
         return response.json(exame);
@@ -44,18 +49,35 @@ export default class ExameController{
 
   public async update(request: Request, response: Response): Promise<Response>{
 
-        const { name,valoravista,valormedico,valorems,ativo,especialidademedica_id  } = request.body;
+        const {
+            dataemissaoaso,
+            paciente_id,
+            empresa_id,
+            tipoexame_id,
+            tipoaso_id,
+            tipopagamento,
+            medico_id,
+            resultado,
+            temexames,
+            transmissaoesocial,
+            ativo
+        } = request.body;
         const { id } = request.params;
         const updateExame = new UpdateExameService();
 
         const exame = await updateExame.execute({
                 id,
-                especialidademedica_id,
-                name,
-                valoravista,
-                valormedico,
-                valorems,
-                ativo
+                  dataemissaoaso,
+            paciente_id,
+            empresa_id,
+            tipoexame_id,
+            tipoaso_id,
+            tipopagamento,
+            medico_id,
+            resultado,
+            temexames,
+            transmissaoesocial,
+            ativo
         });
 
         return response.json(exame);

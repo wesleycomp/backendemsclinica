@@ -16,7 +16,7 @@ class ShowAsosService{
         const aso = await asosRepository.findById(id);
 
         if(!aso){
-            throw new AppError('Exame não encontrado')
+            throw new AppError('Aso não encontrado')
         }
 
         return aso;
