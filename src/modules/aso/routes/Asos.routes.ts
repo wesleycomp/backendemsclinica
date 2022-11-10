@@ -23,12 +23,17 @@ AsoRouter.post(
                     isAuthenticated,
                     celebrate({
                         [Segments.BODY]:{
-                            especialidademedica_id: Joi.string().required(),
-                            name: Joi.string().required(),
-                            valoravista: Joi.number().required(),
-                            valormedico: Joi.number().required(),
-                            valorems: Joi.number().required(),
-                            ativo: Joi.boolean().required()
+                            dataemissaoaso:Joi.string().required(),
+                            paciente_id:Joi.string().required(),
+                            empresa_id:Joi.string().required(),
+                            tipoexame_id: Joi.string().required(),
+                            tipoaso_id: Joi.string().required(),
+                            tipopagamento: Joi.number().required(),
+                            medico_id: Joi.number().required(),
+                            resultado: Joi.number().required(),
+                            temexames: Joi.boolean().required(),
+                            transmissaoesocial: Joi.boolean().required(),
+                            ativo: Joi.boolean().required(),
                         },
                     }),
                     asoController.create
@@ -39,11 +44,16 @@ AsoRouter.put(
                     celebrate({
                             [Segments.BODY]:{
                                 id: Joi.string().required(),
-                                especialidademedica_id: Joi.string().required(),
-                                name: Joi.string().required(),
-                                valoravista: Joi.number().required(),
-                                valormedico: Joi.number().required(),
-                                valorems: Joi.number().required(),
+                                dataemissaoaso:Joi.string().required(),
+                                paciente_id:Joi.string().required(),
+                                empresa_id:Joi.string().required(),
+                                tipoexame_id: Joi.string().required(),
+                                tipoaso_id: Joi.string().required(),
+                                tipopagamento: Joi.number().required(),
+                                medico_id: Joi.number().required(),
+                                resultado: Joi.number().required(),
+                                temexames: Joi.boolean().required(),
+                                transmissaoesocial: Joi.boolean().required(),
                                 ativo: Joi.boolean().required(),
                                 created_at: Joi.string().required(),
                                 updated_at: Joi.string().required()
