@@ -14,6 +14,8 @@ import convenioempresaRouter from '@modules/convenioempresa/routes/ConvenioEmpre
 import categoriatrabalhadoresRouter from '@modules/categoriaTrabalhadores/routes/CategoriaTrabalhadores.routes';
 import nacionalidadeRouter from '@modules/nacionalidade/routes/Nacionalidade.routes';
 import tipoasoRouter from '@modules/tipoaso/routes/TipoAso.routes';
+import medicoRouter from '@modules/medico/routes/Medicos.routes';
+
 
 const routes = Router();
 routes.use('/empresa', empresasRouter);
@@ -29,6 +31,7 @@ routes.use('/convenioempresa', convenioempresaRouter);
 routes.use('/categoriatrabalhador',  categoriatrabalhadoresRouter);
 routes.use('/nacionalidade',  nacionalidadeRouter);
 routes.use('/tipoaso',  tipoasoRouter);
+routes.use('/medico',  medicoRouter);
 
 routes.use('/', ( request, response) => {
     return response.json({ message: 'Hello Dev'});
