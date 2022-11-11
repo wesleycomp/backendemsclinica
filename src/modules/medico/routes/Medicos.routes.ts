@@ -27,10 +27,12 @@ MedicosRouter.post(
                             nome: Joi.string().required(),
                             cpf: Joi.string().required(),
                             rg: Joi.string().required(),
+                            crm: Joi.string().required(),
+                            ufcrm: Joi.string().required(),
                             telefone: Joi.string().required(),
                             datanascimento: Joi.string().required(),
                             endereco: Joi.string().required(),
-                            email: Joi.string().required(),
+                            email: Joi.string().required()
                         },
                     }),
                     medicosController.create
@@ -41,11 +43,12 @@ MedicosRouter.put(
                     isAuthenticated,
                     celebrate({
                             [Segments.BODY]:{
-
                                 id: Joi.string().required(),
                                 nome: Joi.string().required(),
                                 cpf: Joi.string().required(),
                                 rg: Joi.string().required(),
+                                crm: Joi.string().required(),
+                                ufcrm: Joi.string().required(),
                                 telefone: Joi.string().required(),
                                 datanascimento: Joi.string().required(),
                                 endereco: Joi.string().required(),

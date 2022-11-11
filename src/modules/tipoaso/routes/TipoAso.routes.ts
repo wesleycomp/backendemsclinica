@@ -18,6 +18,4 @@ tipoAsoRouter.get(
                     }),
                     tipoAsoController.show
                 )
-
-
 export default tipoAsoRouter;

@@ -13,13 +13,13 @@ class ShowtipoPagamentosService{
 
        //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
         const tipoPagamentosRepository = getCustomRepository(TipoPagamentoRepository);
-        const paciente = await tipoPagamentosRepository.findOne(id);
+        const tipopagamento = await tipoPagamentosRepository.findOne(id);
 
-        if(!paciente){
+        if(!tipopagamento){
             throw new AppError('Tipo Pagamento não encontrado')
         }
 
-        return paciente;
+        return tipopagamento;
     }
 }
 

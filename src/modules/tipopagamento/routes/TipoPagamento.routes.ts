@@ -19,5 +19,4 @@ tipoPagamentoRouter.get(
                     tipoPagamentoController.show
                 )
 
-
 export default tipoPagamentoRouter;

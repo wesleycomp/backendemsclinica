@@ -15,6 +15,7 @@ import categoriatrabalhadoresRouter from '@modules/categoriaTrabalhadores/routes
 import nacionalidadeRouter from '@modules/nacionalidade/routes/Nacionalidade.routes';
 import tipoasoRouter from '@modules/tipoaso/routes/TipoAso.routes';
 import medicoRouter from '@modules/medico/routes/Medicos.routes';
+import tipoPagamentoRouter from '@modules/tipopagamento/routes/TipoPagamento.routes';
 
 
 const routes = Router();
@@ -31,6 +32,7 @@ routes.use('/convenioempresa', convenioempresaRouter);
 routes.use('/categoriatrabalhador',  categoriatrabalhadoresRouter);
 routes.use('/nacionalidade',  nacionalidadeRouter);
 routes.use('/tipoaso',  tipoasoRouter);
+routes.use('/tipopagamento',  tipoPagamentoRouter);
 routes.use('/medico',  medicoRouter);
 
 routes.use('/', ( request, response) => {

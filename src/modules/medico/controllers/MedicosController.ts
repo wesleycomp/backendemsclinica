@@ -26,12 +26,14 @@ export default class MedicosController{
 
     public async create(request: Request, response: Response): Promise<Response>{
 
-        const { nome,cpf,rg,telefone,datanascimento,endereco,email } = request.body;
+        const { nome,cpf,rg,crm,ufcrm,telefone,datanascimento,endereco,email } = request.body;
         const createMedicos = new CreateMedicosService();
         const Medicos = await createMedicos.execute({
                 nome,
                 cpf,
                 rg,
+                crm,
+                ufcrm,
                 telefone,
                 datanascimento,
                 endereco,
@@ -47,7 +49,7 @@ export default class MedicosController{
    // console.log('testees');
 
 
-        const { nome,cpf,rg,telefone,datanascimento,endereco,email } = request.body;
+        const { nome,cpf,rg,crm,ufcrm,telefone,datanascimento,endereco,email } = request.body;
         const { id } = request.params;
         const updateMedicos = new UpdateMedicosService();
 
@@ -56,6 +58,8 @@ export default class MedicosController{
             nome,
             cpf,
             rg,
+            crm,
+            ufcrm,
             telefone,
             datanascimento,
             endereco,

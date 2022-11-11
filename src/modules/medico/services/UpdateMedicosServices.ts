@@ -11,6 +11,8 @@ interface IRequest {
     nome: string;
     cpf: string;
     rg: string;
+    crm  : string;
+    ufcrm: string;
     telefone: string;
     datanascimento: Date;
     endereco: string;
@@ -24,6 +26,8 @@ class UpdateProfileService{
                             nome,
                             cpf,
                             rg,
+                            crm,
+                            ufcrm,
                             telefone,
                             datanascimento,
                             endereco,
@@ -32,22 +36,24 @@ class UpdateProfileService{
 
          //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
         const medicosRepository = getCustomRepository(MedicosRepository);
-        const paciente = await medicosRepository.findById(id);
+        const medico = await medicosRepository.findById(id);
 
-        if(!paciente){
-            throw new AppError('Paciente not found.')
+        if(!medico){
+            throw new AppError('medico not found.')
         }
 
-            paciente.nome = nome;
-            paciente.cpf = cpf;
-            paciente.rg = rg;
-            paciente.telefone = telefone;
-            paciente.datanascimento = datanascimento;
-            paciente.endereco = endereco;
-            paciente.email = email;
-            await medicosRepository.save(paciente);
+            medico.nome = nome;
+            medico.cpf = cpf;
+            medico.rg = rg;
+            medico.crm = crm;
+            medico.ufcrm = ufcrm;
+            medico.telefone = telefone;
+            medico.datanascimento = datanascimento;
+            medico.endereco = endereco;
+            medico.email = email;
+            await medicosRepository.save(medico);
 
-            return paciente;
+            return medico;
     }
 }
 

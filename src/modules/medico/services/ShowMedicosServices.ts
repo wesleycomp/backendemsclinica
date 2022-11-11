@@ -12,14 +12,14 @@ class ShowMedicosService{
     public async execute({id}: IRequest): Promise<Medicos>{
 
        //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
-        const pacienteRepository = getCustomRepository(MedicosRepository);
-        const paciente = await pacienteRepository.findOne(id);
+        const medicoRepository = getCustomRepository(MedicosRepository);
+        const medico = await medicoRepository.findOne(id);
 
-        if(!paciente){
-            throw new AppError('Paciente não encontrado')
+        if(!medico){
+            throw new AppError('medico não encontrado')
         }
 
-        return paciente;
+        return medico;
     }
 }
 

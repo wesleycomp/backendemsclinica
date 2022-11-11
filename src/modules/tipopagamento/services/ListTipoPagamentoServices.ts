@@ -4,7 +4,7 @@ import TipoPagamentoRepository from "../typeorm/repositories/TipoPagamentoReposi
 import RedisCache from "@shared/cache/RedisCache";
 
 
-// interface IPaginationPacientes{
+// interface IPaginationtipopagamentos{
 
 //     from: number;
 //     to: number;
@@ -14,7 +14,7 @@ import RedisCache from "@shared/cache/RedisCache";
 //     prev_page: number | null;
 //     next_page: number | null;
 //     last_page: number | null;
-//     data: Pacientes[];
+//     data: tipopagamentos[];
 
 // }
 
@@ -24,28 +24,10 @@ class ListTipoPagamentoesService{
     public async execute(): Promise<TipoPagamento[]>{
 
          //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
-        const pacientesRepository = getCustomRepository(TipoPagamentoRepository);
+        const tipopagamentosRepository = getCustomRepository(TipoPagamentoRepository);
 
-        // const redisCache = new RedisCache();
-
-        // let pacientes = await redisCache.recover<Pacientes[]>('api-emsclinica-PACIENTES_LIST', )
-
-       // if(!pacientes){
-
-        // pacientes = await pacientesRepository.find();
-
-        //     await redisCache.save('api-emsclinica-PACIENTES_LIST', pacientes);
-
-       // }
-          //   return pacientes;
-
-     //   const pacientes = await pacientesRepository.createQueryBuilder().paginate();
-
-     //   return pacientes as IPaginationPacientes;
-
-
-         const pacientes = await pacientesRepository.find();
-        return pacientes;
+         const tipopagamentos = await tipopagamentosRepository.find();
+        return tipopagamentos;
 
     }
 }
