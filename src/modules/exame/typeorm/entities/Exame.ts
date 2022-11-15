@@ -1,4 +1,5 @@
-import EspecialidadeMedica from '@modules/especialidademedica/typeorm/entities/EspecialidadeMedica';
+import Procedimentos from '@modules/procedimentos/typeorm/entities/Procedimentos';
+import EspecialidadeMedica from '@modules/procedimentos/typeorm/entities/Procedimentos';
 import { Column,
   CreateDateColumn,
   Entity,
@@ -14,19 +15,15 @@ class Exame {
      @PrimaryGeneratedColumn('uuid')
      id: string;
 
-     @ManyToOne(() => EspecialidadeMedica)
-     @JoinColumn( {name: 'especialidademedica_id'})
-     especialidademedica: EspecialidadeMedica;
+     @ManyToOne(() => Procedimentos)
+     @JoinColumn( {name: 'procedimento_id'})
+     procedimento: Procedimentos;
 
      @Column()
-     especialidademedica_id: string;
+     procedimento_id: string;
 
      @Column()
      name: string;
-
-     @Column()
-     procRealizado: string;
-
 
      @Column({type: "decimal", precision: 10, scale: 2, default: 0})
      valoravista: number;

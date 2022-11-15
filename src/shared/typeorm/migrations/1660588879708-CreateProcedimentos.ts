@@ -6,9 +6,9 @@ export class CreateEspecialidadeMedica1660588879708 implements MigrationInterfac
 
     await queryRunner.createTable(
         new Table({
-        name: 'especialidademedica',
+        name: 'procedimentos',
         columns: [
-            
+
           {
             name: 'id',
             type: 'uuid',
@@ -20,7 +20,10 @@ export class CreateEspecialidadeMedica1660588879708 implements MigrationInterfac
             name: 'name',
             type: 'varchar',
           },
-
+{
+            name: 'codigoesocial',
+            type: 'varchar',
+          },
           {
             name: 'created_at',
             type: 'timestamp',

@@ -7,14 +7,11 @@ import AppError from '@shared/errors/AppError';
 interface IExameAso{
     aso_id: string;
     exame_id: string;
-    medico_id: string;
-    dataexame: Date;
-    datavalidadeexame: Date;
     ativo: boolean;
 }
 class CreateExameAsoService{
 
-    public async execute({aso_id,exame_id,dataexame,datavalidadeexame,medico_id,ativo}: IExameAso): Promise<ExamesAso>{
+    public async execute({aso_id,exame_id,ativo}: IExameAso): Promise<ExamesAso>{
 
         //instaciou o repositorio para ter acesso aos metodos(save, delete... etc)
     const examesAsoRepository = getCustomRepository(ExamesAsoRepository);
@@ -26,12 +23,7 @@ class CreateExameAsoService{
       //  }
 
         const examesAso = examesAsoRepository.create({
-           aso_id,
-           exame_id,
-           dataexame,
-           datavalidadeexame,
-           medico_id,
-           ativo
+         aso_id,exame_id,ativo
         });
 
         await examesAsoRepository.save(examesAso);

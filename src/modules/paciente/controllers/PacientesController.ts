@@ -45,7 +45,7 @@ export default class PacientesController{
             email,
             genero,
             tiposanguineo,
-            nacionalidade,
+            nacionalidade_id,
             nis,
             ctps
         } = request.body;
@@ -67,7 +67,7 @@ export default class PacientesController{
             email,
             genero,
             tiposanguineo,
-            nacionalidade,
+            nacionalidade_id,
             nis,
             ctps
         });
@@ -96,7 +96,7 @@ export default class PacientesController{
             email,
             genero,
             tiposanguineo,
-            nacionalidade,
+            nacionalidade_id,
             nis,
             ctps } = request.body;
         const { id } = request.params;
@@ -119,7 +119,7 @@ export default class PacientesController{
             email,
             genero,
             tiposanguineo,
-            nacionalidade,
+            nacionalidade_id,
             nis,
             ctps
         });

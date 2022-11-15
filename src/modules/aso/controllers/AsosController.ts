@@ -5,12 +5,12 @@ import ListExameService from "../services/ListAsosService";
 import ShowExameService from "../services/ShowAsosService";
 import UpdateExameService from "../services/UpdateAsosService";
 
-export default class ExameController{
+export default class AsosController{
 
     public async index(request: Request, response: Response): Promise<Response>{
         const listExame = new ListExameService();
         const exame = await listExame.execute();
-        
+
         return response.json(exame);
     }
 
@@ -26,15 +26,15 @@ export default class ExameController{
 
     public async create(request: Request, response: Response): Promise<Response>{
 
-        const {dataemissaoaso,paciente_id,empresa_id,tipoexame_id,tipoaso_id,tipopagamento,medico_id,resultado,temexames,transmissaoesocial,ativo} = request.body;
+        const {dataemissaoaso,paciente_id,empresa_id,funcao_id,tipoaso_id,tipopagamento_id,medico_id,resultado,temexames,transmissaoesocial,ativo} = request.body;
         const createExame = new CreateExameService();
         const exame = await createExame.execute({
             dataemissaoaso,
             paciente_id,
             empresa_id,
-            tipoexame_id,
+            funcao_id,
             tipoaso_id,
-            tipopagamento,
+            tipopagamento_id,
             medico_id,
             resultado,
             temexames,
@@ -52,9 +52,9 @@ export default class ExameController{
             dataemissaoaso,
             paciente_id,
             empresa_id,
-            tipoexame_id,
+            funcao_id,
             tipoaso_id,
-            tipopagamento,
+            tipopagamento_id,
             medico_id,
             resultado,
             temexames,
@@ -69,9 +69,9 @@ export default class ExameController{
             dataemissaoaso,
             paciente_id,
             empresa_id,
-            tipoexame_id,
+            funcao_id,
             tipoaso_id,
-            tipopagamento,
+            tipopagamento_id,
             medico_id,
             resultado,
             temexames,

@@ -13,7 +13,7 @@ class ShowPacientesService{
 
        //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
         const pacienteRepository = getCustomRepository(PacientesRepository);
-        const paciente = await pacienteRepository.findOne(id);
+        const paciente = await pacienteRepository.findById(id);
 
         if(!paciente){
             throw new AppError('Paciente não encontrado')

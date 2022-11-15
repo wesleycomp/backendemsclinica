@@ -1,25 +1,21 @@
 import { Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
-  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,} from 'typeorm';
+import { ColumnMetadata } from 'typeorm/metadata/ColumnMetadata';
 
-
-@Entity('tipoexame')
-class TipoExame {
+@Entity('procedimentos')
+class Procedimentos {
 
      @PrimaryGeneratedColumn('uuid')
      id: string;
 
+     @Column()
+     name: string;
 
      @Column()
-     descricao: string;
-
-
-     @Column()
-     ativo: boolean;
+     codigoesocial: string;
 
      @CreateDateColumn()
      created_at: Date;
@@ -29,4 +25,5 @@ class TipoExame {
 
 }
 
-export default TipoExame;
+export default Procedimentos;
+

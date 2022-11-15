@@ -6,9 +6,8 @@ import { ExameRepository } from "../typeorm/repositories/ExameRepository";
 interface IExame{
 
     id:string,
-    especialidademedica_id: string;
+    procedimento_id: string;
     name: string;
-    procRealizado: string;
     valoravista: number;
     valormedico: number;
     valorems: number;
@@ -18,7 +17,7 @@ interface IExame{
 
 class UpdateExameService{
 
-    public async execute({id,especialidademedica_id,name,procRealizado,valoravista,valormedico,valorems,ativo}: IExame): Promise<Exame>{
+    public async execute({id,procedimento_id,name,valoravista,valormedico,valorems,ativo}: IExame): Promise<Exame>{
 
             //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
         const exameRepository = getCustomRepository(ExameRepository);
@@ -36,8 +35,7 @@ class UpdateExameService{
         }
 
         exame.name = name;
-        exame.procRealizado= procRealizado;
-         exame.especialidademedica_id = especialidademedica_id;
+         exame.procedimento_id = procedimento_id;
           exame.valoravista = valoravista;
            exame.valormedico = valormedico;
             exame.valorems = valorems;

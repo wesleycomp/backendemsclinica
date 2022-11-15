@@ -66,7 +66,7 @@ export class CreatePacientes1657136785635 implements MigrationInterface {
 
 
                     {
-                        name: 'nacionalidade',
+                        name: 'nacionalidade_id',
                         type: 'varchar',
                         isNullable:false
                     },

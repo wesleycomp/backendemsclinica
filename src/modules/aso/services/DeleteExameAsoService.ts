@@ -6,7 +6,7 @@ interface IRequest{
 }
 
 
-class DeleteAsoService{
+class DeleteExameAsoService{
 
     public async execute({id}: IRequest): Promise<void>{
 
@@ -23,4 +23,4 @@ class DeleteAsoService{
     }
 }
 
-export default DeleteAsoService;
+export default DeleteExameAsoService;

@@ -21,7 +21,9 @@ export class PacientesRepository extends Repository<Pacientes>{
         const paciente = await this.findOne({
             where: {
                      id,
-                   }
+                   },
+       relations: ['empresa','funcao','categoriatrabalhador','nacionalidade']
+
         })
         return paciente;
 

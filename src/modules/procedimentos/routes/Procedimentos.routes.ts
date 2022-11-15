@@ -1,14 +1,14 @@
 import { Router } from 'express'
-import EspecialidadeMedicaController from '../controllers/EspecialidadeMedicaController';
+import ProcedimentosController from '../controllers/ProcedimentosController';
 import { celebrate, Joi, Segments } from 'celebrate';
 import isAuthenticated from '../../../shared/http/middlewares/isAuthenticated';
 
-const especialidadeMedicaRouter = Router();
-const especialidadeMedicaController = new EspecialidadeMedicaController();
+const procedimentosRouter = Router();
+const procedimentosController = new ProcedimentosController();
 
-especialidadeMedicaRouter.get('/', isAuthenticated, especialidadeMedicaController.index)
+procedimentosRouter.get('/', isAuthenticated, procedimentosController.index)
 
-especialidadeMedicaRouter.get(
+procedimentosRouter.get(
                     '/:id',
                     isAuthenticated,
                     celebrate({
@@ -16,10 +16,10 @@ especialidadeMedicaRouter.get(
                             id: Joi.string().uuid().required(),
                         },
                     }),
-                    especialidadeMedicaController.show
+                    procedimentosController.show
                 )
 
-especialidadeMedicaRouter.post(
+procedimentosRouter.post(
                     '/',
                     isAuthenticated,
                     celebrate({
@@ -27,10 +27,10 @@ especialidadeMedicaRouter.post(
                             name: Joi.string().required(),
                         },
                     }),
-                    especialidadeMedicaController.create
+                    procedimentosController.create
                 )
 
-especialidadeMedicaRouter.put(
+procedimentosRouter.put(
                     '/:id',
                     isAuthenticated,
                     celebrate({
@@ -44,10 +44,10 @@ especialidadeMedicaRouter.put(
                                 id: Joi.string().uuid().required(),
                             },
                         }),
-                    especialidadeMedicaController.update
+                    procedimentosController.update
                 )
 
-especialidadeMedicaRouter.delete(
+procedimentosRouter.delete(
                         '/:id',
                         isAuthenticated,
                         celebrate({
@@ -55,7 +55,7 @@ especialidadeMedicaRouter.delete(
                                 id: Joi.string().uuid().required(),
                             },
                         }),
-                        especialidadeMedicaController.delete
+                        procedimentosController.delete
                     )
 
-export default especialidadeMedicaRouter;
+export default procedimentosRouter;

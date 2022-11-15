@@ -8,9 +8,9 @@ interface IAso{
     dataemissaoaso:Date;
     paciente_id: string;
     empresa_id: string;
-    tipoexame_id: string;
+    funcao_id: string;
     tipoaso_id: string;
-    tipopagamento: string;
+    tipopagamento_id: string;
     medico_id: string;
     resultado: string;
     temexames: boolean;
@@ -20,7 +20,7 @@ interface IAso{
 
 class UpdateAsoService{
 
-    public async execute({id,dataemissaoaso,paciente_id,empresa_id,tipoexame_id,tipoaso_id,tipopagamento,medico_id,resultado,temexames,transmissaoesocial,ativo}: IAso): Promise<Aso>{
+    public async execute({id,dataemissaoaso,paciente_id,empresa_id,funcao_id,tipoaso_id,tipopagamento_id,medico_id,resultado,temexames,transmissaoesocial,ativo}: IAso): Promise<Aso>{
 
             //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
         const asoRepository = getCustomRepository(AsosRepository);
@@ -33,9 +33,9 @@ class UpdateAsoService{
         aso.dataemissaoaso = dataemissaoaso;
         aso.paciente_id = paciente_id;
         aso.empresa_id = empresa_id;
-        aso.tipoexame_id = tipoexame_id;
+        aso.funcao_id = funcao_id;
         aso.tipoaso_id = tipoaso_id;
-        aso.tipopagamento=tipopagamento;
+        aso.tipopagamento_id=tipopagamento_id;
         aso.medico_id = medico_id;
         aso.resultado = resultado;
         aso.temexames=temexames;

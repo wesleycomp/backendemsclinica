@@ -1,9 +1,9 @@
 import { Request , Response } from "express";
 import CreateEspecialidadeMedicaService from "../services/CreateEspecialidadeMedicaService";
-import DeleteEspecialidadeMedicaService from "../services/DeleteEspecialidadeMedicaService";
-import ListEspecialidadeMedicaService from "../services/ListEspecialidadeMedicaService";
-import ShowEspecialidadeMedicaService from "../services/ShowEspecialidadeMedicaService";
-import UpdateEspecialidadeMedicaService from "../services/UpdateEspecialidadeMedicaService";
+import DeleteEspecialidadeMedicaService from "../services/DeleteProcedimentosService";
+import ListEspecialidadeMedicaService from "../services/ListProcedimentosService";
+import ShowEspecialidadeMedicaService from "../services/ShowProcedimentosService";
+import UpdateEspecialidadeMedicaService from "../services/UpdateProcedimentosService";
 
 export default class EspecialidadeMedicasController{
 

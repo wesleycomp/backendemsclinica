@@ -1,5 +1,5 @@
 import Empresa from '@modules/empresa/typeorm/entities/Empresa';
-import EspecialidadeMedica from '@modules/especialidademedica/typeorm/entities/EspecialidadeMedica';
+import EspecialidadeMedica from '@modules/procedimentos/typeorm/entities/Procedimentos';
 import Exame from '@modules/exame/typeorm/entities/Exame';
 import { Column,
   CreateDateColumn,
@@ -23,8 +23,6 @@ class ConvenioEmpresa{
           @ManyToOne(() => Exame)
           @JoinColumn( {name: 'exame_id'})
           exame: Exame;
-
-
 
           @Column()
           exame_id: string;

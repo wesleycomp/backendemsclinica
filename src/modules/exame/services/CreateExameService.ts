@@ -6,9 +6,8 @@ import AppError from '@shared/errors/AppError';
 
 interface IExame{
 
-    especialidademedica_id: string;
+    procedimento_id: string;
     name: string;
-    procRealizado: string;
     valoravista: number;
     valormedico: number;
     valorems: number;
@@ -18,7 +17,7 @@ interface IExame{
 
 class CreateExameService{
 
-    public async execute({especialidademedica_id,name,procRealizado,valoravista,valormedico,valorems,ativo}: IExame): Promise<Exame>{
+    public async execute({procedimento_id,name,valoravista,valormedico,valorems,ativo}: IExame): Promise<Exame>{
 
         //instaciou o repositorio para ter acesso aos metodos(save, delete... etc)
     const exameRepository = getCustomRepository(ExameRepository);
@@ -29,12 +28,9 @@ class CreateExameService{
             throw new AppError('Exame ja existente')
         }
 
-
-
         const exame = exameRepository.create({
-            especialidademedica_id,
+            procedimento_id,
             name,
-            procRealizado,
             valoravista,
             valormedico,
             valorems,

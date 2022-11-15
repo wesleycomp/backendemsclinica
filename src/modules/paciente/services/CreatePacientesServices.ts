@@ -20,7 +20,7 @@ interface IRequest{
 
     genero: string;
     tiposanguineo: string;
-    nacionalidade: string;
+    nacionalidade_id: string;
     nis: string;
     ctps: string;
 
@@ -45,7 +45,7 @@ class CreatePacientesService{
         telefone,
         genero,
         tiposanguineo,
-        nacionalidade,
+        nacionalidade_id,
         nis,
         ctps,
         datanascimento,
@@ -75,7 +75,7 @@ class CreatePacientesService{
             telefone,
             genero,
             tiposanguineo,
-            nacionalidade,
+            nacionalidade_id,
             nis,
             ctps,
             datanascimento,

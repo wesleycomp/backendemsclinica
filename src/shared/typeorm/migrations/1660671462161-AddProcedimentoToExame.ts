@@ -6,7 +6,7 @@ export class AddEspecialidadeMedicaIdToExame1660671462161 implements MigrationIn
         await queryRunner.addColumn(
             'exame',
         new TableColumn({
-            name:'especialidademedica_id',
+            name:'procedimentos_id',
             type: 'uuid',
             isNullable: true,
         }),
@@ -16,19 +16,19 @@ export class AddEspecialidadeMedicaIdToExame1660671462161 implements MigrationIn
             'exame',
             new TableForeignKey({
 
-                name:'EspecialidadesExame',
-                columnNames: ['especialidademedica_id'],
-                referencedTableName: 'especialidademedica',
+                name:'ProcedimentosExames',
+                columnNames: ['procedimento_id'],
+                referencedTableName: 'procedimentos',
                 referencedColumnNames: ['id'],
                 onDelete: 'SET NULL',
-                
+
             }),
         );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropForeignKey('exame', 'EspecialidadesExame');
-        await queryRunner.dropColumn('exame', 'especialidademedica_id');
+        await queryRunner.dropForeignKey('exame', 'ProcedimentosExames');
+        await queryRunner.dropColumn('exame', 'procedimento_id');
     }
 
 }

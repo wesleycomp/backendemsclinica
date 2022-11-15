@@ -38,7 +38,7 @@ pacientesRouter.post(
 
                             genero: Joi.string().required(),
                             tiposanguineo: Joi.string().required(),
-                            nacionalidade: Joi.string().required(),
+                            nacionalidade_id: Joi.string().required(),
                             nis: Joi.string().required(),
                             ctps: Joi.string().required(),
 
@@ -72,7 +72,7 @@ pacientesRouter.put(
 
                             genero: Joi.string().required(),
                             tiposanguineo: Joi.string().required(),
-                            nacionalidade: Joi.string().required(),
+                            nacionalidade_id: Joi.string().required(),
                             nis: Joi.string().required(),
                             ctps: Joi.string().required(),
 

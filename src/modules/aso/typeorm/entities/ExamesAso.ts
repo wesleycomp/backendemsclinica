@@ -1,6 +1,6 @@
 import ListAsosService from '@modules/aso/services/ListAsosService';
 import Empresa from '@modules/empresa/typeorm/entities/Empresa';
-import EspecialidadeMedica from '@modules/especialidademedica/typeorm/entities/EspecialidadeMedica';
+import EspecialidadeMedica from '@modules/procedimentos/typeorm/entities/Procedimentos';
 import Exame from '@modules/exame/typeorm/entities/Exame';
 import Medico from '@modules/medico/typeorm/entities/Medico';
 import Pacientes from '@modules/paciente/typeorm/entities/Paciente';
@@ -22,20 +22,19 @@ class ExameAso {
      @PrimaryGeneratedColumn('uuid')
      id: string;
 
+    @ManyToOne(() => Aso)
+    @JoinColumn( {name: 'aso_id'})
+     aso: Aso;
     @Column()
      aso_id: string;
 
+
+    @ManyToOne(() => Exame)
+    @JoinColumn( {name: 'exame_id'})
+     exame: Exame;
     @Column()
      exame_id: string;
 
-    @Column()
-     medico_id: string;
-
-    @Column()
-    dataexame: Date;
-
-    @Column()
-    datavalidadeexame: Date;
 
     @Column()
      ativo: boolean;

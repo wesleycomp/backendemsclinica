@@ -4,8 +4,6 @@ export class AddAsoPaciente1667411815140 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
 
-
-
     await queryRunner.addColumn(
             'aso',
         new TableColumn({
@@ -48,25 +46,6 @@ export class AddAsoPaciente1667411815140 implements MigrationInterface {
         );
 
 
-        await queryRunner.addColumn(
-            'aso',
-        new TableColumn({
-            name:'tipoexame_id',
-            type: 'uuid',
-            isNullable: true,
-        }),
-        );
-
-        await queryRunner.createForeignKey(
-            'aso',
-            new TableForeignKey({
-                name:'TipoExameAsoPaciente',
-                columnNames: ['tipoexame_id'],
-                referencedTableName: 'tipoexame',
-                referencedColumnNames: ['id'],
-                onDelete: 'SET NULL',
-            }),
-        );
 
 
        await queryRunner.addColumn(
@@ -111,22 +90,71 @@ export class AddAsoPaciente1667411815140 implements MigrationInterface {
         );
 
 
+
+
+
+
+      await queryRunner.addColumn(
+            'aso',
+        new TableColumn({
+            name:'tipopagamento_id',
+            type: 'uuid',
+            isNullable: true,
+        }),
+        );
+       await queryRunner.createForeignKey(
+            'aso',
+            new TableForeignKey({
+                name:'TipoPagamentoAso',
+                columnNames: ['tipopagamento_id'],
+                referencedTableName: 'tipopagamento',
+                referencedColumnNames: ['id'],
+                onDelete: 'SET NULL',
+            }),
+        );
+
+
+
+
+      await queryRunner.addColumn(
+            'aso',
+        new TableColumn({
+            name:'funcao_id',
+            type: 'uuid',
+            isNullable: true,
+        }),
+        );
+       await queryRunner.createForeignKey(
+            'aso',
+            new TableForeignKey({
+                name:'FuncaoPacienteAso',
+                columnNames: ['funcao_id'],
+                referencedTableName: 'funcao',
+                referencedColumnNames: ['id'],
+                onDelete: 'SET NULL',
+            }),
+        );
+
+
+
+
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
 
          await queryRunner.dropForeignKey('aso', 'PacienteAsoPaciente');
          await queryRunner.dropForeignKey('aso', 'EmpresaAsoPaciente');
-         await queryRunner.dropForeignKey('aso', 'TipoExameAsoPaciente');
          await queryRunner.dropForeignKey('aso', 'TipoAsoPaciente');
          await queryRunner.dropForeignKey('aso', 'MedicoAsoPaciente');
+         await queryRunner.dropForeignKey('aso', 'TipoPagamentoAso');
+            await queryRunner.dropForeignKey('aso', 'FuncaoPacienteAso');
 
          await queryRunner.dropColumn('aso', 'paciente_id');
          await queryRunner.dropColumn('aso', 'empresa_id');
-         await queryRunner.dropColumn('aso', 'tipoexame_id');
          await queryRunner.dropColumn('aso', 'tipoaso_id');
          await queryRunner.dropColumn('aso', 'medico_id');
-
+         await queryRunner.dropColumn('aso', 'tipopagamento_id');
+         await queryRunner.dropColumn('aso', 'funcao_id');
     }
 
 }

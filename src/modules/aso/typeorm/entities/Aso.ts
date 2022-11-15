@@ -1,7 +1,9 @@
 import Empresa from '@modules/empresa/typeorm/entities/Empresa';
-import EspecialidadeMedica from '@modules/especialidademedica/typeorm/entities/EspecialidadeMedica';
+import EspecialidadeMedica from '@modules/procedimentos/typeorm/entities/Procedimentos';
+import Funcao from '@modules/funcao/typeorm/entities/Funcao';
 import Medico from '@modules/medico/typeorm/entities/Medico';
 import Pacientes from '@modules/paciente/typeorm/entities/Paciente';
+import TipoPagamento from '@modules/tipopagamento/typeorm/entities/TipoPagamento';
 import { Column,
   CreateDateColumn,
   Entity,
@@ -11,7 +13,7 @@ import { Column,
   PrimaryGeneratedColumn,
   UpdateDateColumn,} from 'typeorm';
 import TipoAso from './TipoAso';
-import TipoExame from './TipoExame';
+
 
 
 @Entity('aso')
@@ -34,12 +36,11 @@ class Aso {
     @Column()
      empresa_id: string;
 
-
-    @ManyToOne(() => TipoExame)
-    @JoinColumn( {name: 'tipoexame_id'})
-     tipoexame: TipoExame;
+   @ManyToOne(() => Funcao)
+    @JoinColumn( {name: 'funcao_id'})
+     funcao: Funcao;
     @Column()
-     tipoexame_id: string;
+     funcao_id: string;
 
 
     @ManyToOne(() => TipoAso)
@@ -55,8 +56,13 @@ class Aso {
     @Column()
      medico_id: string;
 
-     @Column()
-     tipopagamento: string;
+
+    @ManyToOne(() => TipoPagamento)
+    @JoinColumn( {name: 'tipopagamento_id'})
+     tipopagamento: TipoPagamento;
+    @Column()
+     tipopagamento_id: string;
+
 
     @Column()
      resultado: string;

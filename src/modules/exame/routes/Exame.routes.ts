@@ -3,12 +3,12 @@ import ExameController from '../controllers/ExameController';
 import { celebrate, Joi, Segments } from 'celebrate';
 import isAuthenticated from '../../../shared/http/middlewares/isAuthenticated';
 
-const ExameRouter = Router();
+const exameRouter = Router();
 const exameController = new ExameController();
 
-ExameRouter.get('/', isAuthenticated, exameController.index)
+exameRouter.get('/', isAuthenticated, exameController.index)
 
-ExameRouter.get(
+exameRouter.get(
                     '/:id',
                     isAuthenticated,
                     celebrate({
@@ -18,14 +18,13 @@ ExameRouter.get(
                     }),
                     exameController.show
                 )
-ExameRouter.post(
+exameRouter.post(
                     '/',
                     isAuthenticated,
                     celebrate({
                         [Segments.BODY]:{
-                            especialidademedica_id: Joi.string().required(),
+                            procedimento_id: Joi.string().required(),
                             name: Joi.string().required(),
-                            procRealizado: Joi.string().required(),
                             valoravista: Joi.number().required(),
                             valormedico: Joi.number().required(),
                             valorems: Joi.number().required(),
@@ -34,15 +33,14 @@ ExameRouter.post(
                     }),
                     exameController.create
                 )
-ExameRouter.put(
+exameRouter.put(
                     '/:id',
                     isAuthenticated,
                     celebrate({
                             [Segments.BODY]:{
                                 id: Joi.string().required(),
-                                especialidademedica_id: Joi.string().required(),
+                                procedimento_id: Joi.string().required(),
                                 name: Joi.string().required(),
-                                procRealizado: Joi.string().required(),
                                 valoravista: Joi.number().required(),
                                 valormedico: Joi.number().required(),
                                 valorems: Joi.number().required(),
@@ -57,7 +55,7 @@ ExameRouter.put(
                         }),
                     exameController.update
                 )
-ExameRouter.delete(
+exameRouter.delete(
                         '/:id',
                         isAuthenticated,
                         celebrate({
@@ -67,4 +65,4 @@ ExameRouter.delete(
                         }),
                         exameController.delete
                     )
-export default ExameRouter;
+export default exameRouter;
