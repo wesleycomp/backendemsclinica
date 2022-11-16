@@ -83,9 +83,9 @@ export class AddPacienteEmpresa1667413482952 implements MigrationInterface {
            await queryRunner.createForeignKey(
             'paciente',
             new TableForeignKey({
-                name:'Nacioanlidade',
+                name:'NacionalidadePaciente',
                 columnNames: ['nacionalidade_id'],
-                referencedTableName: 'nacioanlidade',
+                referencedTableName: 'nacionalidade',
                 referencedColumnNames: ['id'],
                 onDelete: 'SET NULL',
             }),
@@ -98,7 +98,7 @@ export class AddPacienteEmpresa1667413482952 implements MigrationInterface {
          await queryRunner.dropForeignKey('paciente', 'EmpresaPaciente');
          await queryRunner.dropForeignKey('paciente', 'FuncaoPaciente');
          await queryRunner.dropForeignKey('paciente', 'CategoriaTrabalhadorPaciente');
-  await queryRunner.dropForeignKey('paciente', 'Nacionalidade');
+         await queryRunner.dropForeignKey('paciente', 'NacionalidadePaciente');
 
 
         await queryRunner.dropColumn('paciente', 'empresa_id');
