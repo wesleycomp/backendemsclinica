@@ -22,8 +22,9 @@ export class ExameRepository extends Repository<Exame>{
 
         public async findAll(): Promise<Exame[]> {
         const exame = await this.find({
-            relations: ['procedimentos']
+            relations: ['procedimento']
         });
+
         return exame;
     }
 

@@ -11,9 +11,6 @@ export default class PacientesController{
 
         const listPacientes = new ListPacientesService();
         const pacientes = await listPacientes.execute();
-
-
-
         return response.json(pacientes);
     }
 
@@ -24,7 +21,6 @@ export default class PacientesController{
         const pacientes = await showPacientes.execute({ id })
 
         return response.json(pacientes);
-
     }
 
     public async create(request: Request, response: Response): Promise<Response>{
@@ -77,9 +73,6 @@ export default class PacientesController{
 
 
   public async update(request: Request, response: Response): Promise<Response>{
-
-   // console.log('testees');
-
 
         const { empresa_id,
             funcao_id,
