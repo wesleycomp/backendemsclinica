@@ -29,6 +29,19 @@ export class PacientesRepository extends Repository<Pacientes>{
 
     }
 
+
+
+        public async findPacientesAll(): Promise<Pacientes[]> {
+
+        const paciente = await this.find({
+
+       relations: ['empresa','funcao','categoriatrabalhador','nacionalidade']
+
+        })
+        return paciente;
+
+    }
+
     public async findByCpf(cpf: string): Promise<Pacientes | undefined> {
 
         const paciente = await this.findOne({
