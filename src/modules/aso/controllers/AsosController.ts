@@ -1,5 +1,6 @@
 import { Request , Response } from "express";
 import CreateAsoService from "../services/CreateAsosService";
+import CreateXMLService from "../services/CreateXMLService";
 import DeleteAsoService from "../services/DeleteAsosService";
 import ListAsoService from "../services/ListAsosService";
 import ShowAsoService from "../services/ShowAsosService";
@@ -24,6 +25,19 @@ export default class AsosController{
         return response.json(exame);
 
     }
+
+
+
+    public async geraXML(request: Request, response: Response): Promise<Response>{
+
+        const { aso_id } = request.params;
+        const geraXml = new CreateXMLService();
+        const xml = await geraXml.execute({ aso_id })
+
+        return response.json(xml);
+
+    }
+
 
     public async create(request: Request, response: Response): Promise<Response>{
 

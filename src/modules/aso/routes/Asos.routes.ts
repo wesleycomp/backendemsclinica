@@ -18,6 +18,16 @@ AsoRouter.get(
                     }),
                     asoController.show
                 )
+ AsoRouter.get(
+                    '/xml/:aso_id',
+                    isAuthenticated,
+                    celebrate({
+                        [Segments.PARAMS]:{
+                            aso_id: Joi.string().uuid().required(),
+                        },
+                    }),
+                    asoController.geraXML
+                )
 AsoRouter.post(
                     '/',
                     isAuthenticated,

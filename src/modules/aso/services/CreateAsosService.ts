@@ -24,7 +24,7 @@ class CreateAsoService{
         //instaciou o repositorio para ter acesso aos metodos(save, delete... etc)
     const asoRepository = getCustomRepository(AsosRepository);
 
-      //  const exameExists= await asoRepository.findByName(name)
+      //const exameExists= await asoRepository.findByName(name)
 
       //  if(exameExists){
       //      throw new AppError('Exame ja existente')
