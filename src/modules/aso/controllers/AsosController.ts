@@ -23,10 +23,7 @@ export default class AsosController{
         const exame = await showExame.execute({ id })
 
         return response.json(exame);
-
     }
-
-
 
     public async geraXML(request: Request, response: Response): Promise<Response>{
 
@@ -35,7 +32,6 @@ export default class AsosController{
         const xml = await geraXml.execute({ aso_id })
 
         return response.json(xml);
-
     }
 
 
@@ -105,5 +101,4 @@ export default class AsosController{
 
         return response.json([]);
     }
-
  }

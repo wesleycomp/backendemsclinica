@@ -41,13 +41,11 @@ export class ConvenioEmpresa1664132384879 implements MigrationInterface {
             name: 'ativo',
             type: 'boolean',
           },
-
           {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',
           },
-
           {
             name: 'updated_at',
             type: 'timestamp',

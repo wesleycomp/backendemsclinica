@@ -20,7 +20,7 @@ export class CreateEspecialidadeMedica1660588879708 implements MigrationInterfac
             name: 'name',
             type: 'varchar',
           },
-{
+          {
             name: 'codigoesocial',
             type: 'varchar',
           },

@@ -31,7 +31,6 @@ export class CreateExame1660595071545 implements MigrationInterface {
             scale: 2,
             default: 0,
           },
-
           {
             name: 'valormedico',
             type: 'numeric',
@@ -39,7 +38,6 @@ export class CreateExame1660595071545 implements MigrationInterface {
             scale: 2,
             default: 0,
           },
-
           {
             name: 'valorems',
             type: 'numeric',
@@ -47,17 +45,15 @@ export class CreateExame1660595071545 implements MigrationInterface {
             scale: 2,
             default: 0,
           },
-           {
+          {
             name: 'ativo',
             type: 'boolean',
           },
-
           {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',
           },
-
           {
             name: 'updated_at',
             type: 'timestamp',

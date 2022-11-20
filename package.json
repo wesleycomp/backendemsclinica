@@ -64,11 +64,13 @@
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.5-lts.1",
+    "pem": "^1.14.6",
     "pg": "^8.7.3",
     "redis": "^4.2.0",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.41",
     "typeorm-pagination": "^2.0.3",
+    "xml-crypto": "^2.1.5",
     "xmlbuilder": "^15.1.1"
   }
 }
