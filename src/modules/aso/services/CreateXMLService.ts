@@ -5,9 +5,8 @@ import AppError from '@shared/errors/AppError';
 import { type } from "os";
 var builder = require('xmlbuilder');
 const fs = require('fs');
-var pem = require('pem')
-var SignedXml = require('xml-crypto').SignedXml
-var myKeyInfo = require('xml-crypto').myKeyInfo
+const crypto = require('crypto');
+const buffer = require('buffer');
 
 interface IExameAso{
     aso_id: string;
@@ -106,39 +105,64 @@ class CreateXMLService{
      //   console.log('O arquivo foi criado!');
         });
 
+console.log('inicio')
+//XXXXXXXXXXX  CONFIGURAÇAO DO CERTIFICADO XXXXXXXXXXXX
+// const pem = await PfxToPem.toPem({
+//     path: './certificado/VIVIANPARRA30858646000175.pfx',
+//     password: '12345678'
+// });
+
+console.log("Reading File...\n");
+// Reading file
+const asoXml = fs.readFileSync('./xml/arquivoTesteXml.xml');
+console.log(`File content: ${asoXml}`);
+
+// Convert string to buffer
+const xmlEms = Buffer.from(asoXml);
+
+
+var myKey = fs.readFileSync("./certificado/key.pem", "utf8").replace("-----BEGIN RSA PRIVATE KEY-----", "").replace("-----END RSA PRIVATE KEY-----", "").trim();
+console.log("My key is: ", myKey);
+
+
+
+// Sign the data and returned signature in buffer
+const sign = crypto.sign("SHA256", xmlEms , myKey);
+// Convert returned buffer to base64
+const signature = sign.toString('base64');
+
+// Printing the signature
+console.log(`Signature:\n\n ${signature}`);
+
+
 //ASSINA O ARQUIVO XML
-const pfx = fs.readFile("./certificado/VIVIANPARRA30858646000175.pfx");
-pem.readPkcs12("./certificado/VIVIANPARRA30858646000175.pfx", { p12Password: "12345678" }, (err, cert) => {
+//const pfx = fs.readFile("./certificado/VIVIANPARRA30858646000175.pfx");
+// console.log('passou aki 2')
+// pem.readPkcs12("./certificado/VIVIANPARRA30858646000175.pfx", { p12Password: "12345678" }, (err:any, cert:any) => {
+// console.log('passou aki 3')
+// //var certificado = cert.cert.toString().replace('-----BEGIN CERTIFICATE-----', '').trim().replace('-----END CERTIFICATE-----', '').trim().replace(/(\r\n\t|\n|\r\t)/gm,"");
+//  // console.log('testando certificado 1');
+//   console.log(cert)
+//   //console.log('testando certificado 2');
+//  // console.log(cert.cert)
+//  // console.log('testando certificado 3');
+
+//  // const result = cert.cert ? cert.cert.toString() : ''
+//   console.log(cert.cert)
+//  // console.log('testando certificado 4');
+// //  console.log(result)
 
 
-
-
-//var certificado = cert.cert.toString().replace('-----BEGIN CERTIFICATE-----', '').trim().replace('-----END CERTIFICATE-----', '').trim().replace(/(\r\n\t|\n|\r\t)/gm,"");
- // console.log('testando certificado 1');
-  console.log(cert)
-  //console.log('testando certificado 2');
- // console.log(cert.cert)
- // console.log('testando certificado 3');
-
- // const result = cert.cert ? cert.cert.toString() : ''
-  console.log(cert.cert)
- // console.log('testando certificado 4');
-//  console.log(result)
-
-
-/*
-var sig = new SignedXml()
-sig.addReference("//*[local-name(.)='SignedInfo']", ['http://www.w3.org/2000/09/xmldsig#enveloped-signature', 'http://www.w3.org/TR/2001/REC-xml-c14n-20010315'])
-sig.canonicalizationAlgorithm = "http://www.w3.org/TR/2001/REC-xml-c14n-20010315"
-sig.signingKey = fs.readFileSync('./certificado/ICP-Brasilv2.crt')
-sig.keyInfoProvider = new myKeyInfo(certificado)
-sig.computeSignature(xml, { location: {reference: "//*[local-name(.)='infEvento']", action: 'after'}})
-fs.writeFileSync("./xml/arquivoTesteXml.xml", sig.getSignedXml())
-*/
-});
-
-
-
+// /*
+// var sig = new SignedXml()
+// sig.addReference("//*[local-name(.)='SignedInfo']", ['http://www.w3.org/2000/09/xmldsig#enveloped-signature', 'http://www.w3.org/TR/2001/REC-xml-c14n-20010315'])
+// sig.canonicalizationAlgorithm = "http://www.w3.org/TR/2001/REC-xml-c14n-20010315"
+// sig.signingKey = fs.readFileSync('./certificado/ICP-Brasilv2.crt')
+// sig.keyInfoProvider = new myKeyInfo(certificado)
+// sig.computeSignature(xml, { location: {reference: "//*[local-name(.)='infEvento']", action: 'after'}})
+// fs.writeFileSync("./xml/arquivoTesteXml.xml", sig.getSignedXml())
+// */
+// });
       //  await examesAsoRepository.save(examesAso);
         return xmlEsocial;
     }
