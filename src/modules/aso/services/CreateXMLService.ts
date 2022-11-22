@@ -105,7 +105,7 @@ class CreateXMLService{
      //   console.log('O arquivo foi criado!');
         });
 
-console.log('inicio')
+//console.log('inicio')
 //XXXXXXXXXXX  CONFIGURAÇAO DO CERTIFICADO XXXXXXXXXXXX
 // const pem = await PfxToPem.toPem({
 //     path: './certificado/VIVIANPARRA30858646000175.pfx',
@@ -114,25 +114,25 @@ console.log('inicio')
 
 console.log("Reading File...\n");
 // Reading file
-const asoXml = fs.readFileSync('./xml/arquivoTesteXml.xml');
-console.log(`File content: ${asoXml}`);
+//const asoXml = fs.readFileSync('./xml/arquivoTesteXml.xml');
+//console.log(`File content: ${asoXml}`);
 
 // Convert string to buffer
-const xmlEms = Buffer.from(asoXml);
+//const xmlEms = Buffer.from(asoXml);
 
 
-var myKey = fs.readFileSync("./certificado/key.pem", "utf8").replace("-----BEGIN RSA PRIVATE KEY-----", "").replace("-----END RSA PRIVATE KEY-----", "").trim();
+var myKey = fs.readFile("./certificado/key.pem", "utf8") //.replace("-----BEGIN ENCRYPTED PRIVATE KEY-----", "").replace("-----END ENCRYPTED PRIVATE KEY-----", "").trim();
 console.log("My key is: ", myKey);
 
 
 
 // Sign the data and returned signature in buffer
-const sign = crypto.sign("SHA256", xmlEms , myKey);
+//const sign = crypto.sign("SHA256", xmlEms , myKey);
 // Convert returned buffer to base64
-const signature = sign.toString('base64');
+//const signature = sign.toString('base64');
 
 // Printing the signature
-console.log(`Signature:\n\n ${signature}`);
+//console.log(`Signature:\n\n ${signature}`);
 
 
 //ASSINA O ARQUIVO XML
