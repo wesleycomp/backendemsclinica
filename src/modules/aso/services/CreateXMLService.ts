@@ -99,29 +99,19 @@ class CreateXMLService{
 //     password: '12345678'
 // });
 
-<<<<<<< HEAD
+
 //console.log("Reading File...\n");
 // Reading fileconst asoXml = fs.readFileSync('./xml/arquivoTesteXml.xml','utf-8')
 // console.log(asoXml);
 //
-=======
-console.log("Reading File...\n");
-// Reading file
-//const asoXml = fs.readFileSync('./xml/arquivoTesteXml.xml');
-//console.log(`File content: ${asoXml}`);
 
-// Convert string to buffer
-//const xmlEms = Buffer.from(asoXml);
->>>>>>> e243252e1c19a5f8753890bff417afb26546c582
 
 //const xmlaso = await fs.readFileSync('./xml/arquivoTesteXml.xml', "utf8");
 
-<<<<<<< HEAD
-// console.log(xmlEsocial)
-=======
+
 var myKey = fs.readFile("./certificado/key.pem", "utf8") //.replace("-----BEGIN ENCRYPTED PRIVATE KEY-----", "").replace("-----END ENCRYPTED PRIVATE KEY-----", "").trim();
 console.log("My key is: ", myKey);
->>>>>>> e243252e1c19a5f8753890bff417afb26546c582
+
 
 // Convert string to buffer
 ////const xmlEms = Buffer.from(asoXml);
