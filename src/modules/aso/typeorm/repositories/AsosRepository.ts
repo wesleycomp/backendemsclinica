@@ -1,5 +1,6 @@
 import { EntityRepository, Repository } from 'typeorm'
 import Aso from '../entities/Aso'
+const fs = require('fs');
 
 @EntityRepository(Aso)
 export class AsosRepository extends Repository<Aso>{
@@ -12,18 +13,32 @@ export class AsosRepository extends Repository<Aso>{
         })
         return aso;
     }
-       public async findById(id: string): Promise<Aso | undefined> {
+
+    public async findById(id: string): Promise<Aso | undefined> {
         const aso = await this.findOne(id,{
             relations: ['empresa','tipoaso','medico']
         });
         return aso;
     }
-        public async findAll(): Promise<Aso[]> {
+
+    public async findAll(): Promise<Aso[]> {
         const aso = await this.find({
             relations: ['empresa','tipoaso','medico','paciente','tipopagamento']
         });
         return aso;
     }
+
+
+
+    // public async findXML(): Promise<String | undefined> {
+    //     const xmlaso = await fs.readFile('./xml/arquivoTesteXml.xml', "utf8");
+
+    //                 console.log(xmlaso)
+
+    //     return xmlaso;
+    // }
+
+
 
 }
 export default AsosRepository;
