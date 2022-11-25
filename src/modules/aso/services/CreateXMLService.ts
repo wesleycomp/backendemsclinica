@@ -130,14 +130,13 @@ class CreateXMLService{
             console.log('passou aki 1')
             var sig = new SignedXml();
 
-                sig.addReference("//*[local-name(.)='evtMonit']")
+              //  sig.addReference("//*[local-name(.)='evtMonit']")
                 console.log('passou aki 2' )
-
                 sig.signingKey= fs.readFileSync('./certificado/certificado.key') //fs.readFileSync("./certificado/certificado.pem", { encoding: "utf8" })
                 sig.keyInfoProvider = new FileKeyInfo("./certificado/certificado2.pem")
                 sig.canonicalizationAlgorithm= 'http://www.w3.org/TR/2001/REC-xml-c14n-20010315'
                 sig.signatureAlgorithm = 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256'; // set signing algorithme
-                sig.addReference("/*", ['http://www.w3.org/2000/09/xmldsig#enveloped-signature', 'http://www.w3.org/TR/2001/REC-xml-c14n-20010315'],'http://www.w3.org/2001/04/xmlenc#sha256');
+                sig.addReference("//*[local-name(.)='evtMonit']", ['http://www.w3.org/2000/09/xmldsig#enveloped-signature', 'http://www.w3.org/TR/2001/REC-xml-c14n-20010315'],'http://www.w3.org/2001/04/xmlenc#sha256');
 
                // sig.HashAlgorithms='http://www.w3.org/2001/04/xmlenc#sha256'
               // console.log('passou aki 3'+sig.signingKey)N
@@ -147,7 +146,6 @@ class CreateXMLService{
               // SignedXml.HashAlgorithms["http://myDigestAlgorithm"] = 'http://www.w3.org/2001/04/xmlenc#sha256'
 
               //  sig.addReference("/*", ["http://MyTransformation"], "http://myDigestAlgorithm")
-
                 sig.computeSignature(xmlEsocial)
                 console.log('passou aki 4')
                 //fs.writeFileSync("./xml/arquivoTesteXml.xml", sig.getSignedXml())
