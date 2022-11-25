@@ -130,6 +130,7 @@ class CreateXMLService {
             console.log('passou aki 1')
             var sig = new SignedXml();
 
+
             //  sig.addReference("//*[local-name(.)='evtMonit']")
             console.log('passou aki 2')
             sig.signingKey = fs.readFileSync('./certificado/certificado.key') //fs.readFileSync("./certificado/certificado.pem", { encoding: "utf8" })
