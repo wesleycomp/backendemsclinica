@@ -22,27 +22,12 @@ interface IExameAso {
 
 class CreateXMLService {
 
-    //   public async creaMyKeyInfote(request: Request, response: Response): Promise<Response>{
-
-    //                return "<X509Data></ X509Data>"
-    //   }
-<<<<<<< HEAD
-
-
-
 
     public async execute({ aso_id }: IExameAso): Promise<Aso | undefined> {
-=======
-    public async execute({aso_id}: IExameAso): Promise<Aso | undefined>{
->>>>>>> 078158549049504b0044550feefc382fdd9724dd
+
         //instaciou o repositorio para ter acesso aos metodos(save, delete... etc)
         const examesAsoRepository = getCustomRepository(AsosRepository);
         const dadosAso = await examesAsoRepository.findById(aso_id)
-
-        // var xml = builder.create('root')
-        //         .ele('xmlbuilder')
-        //             .ele('repo', {'type': 'git'}, 'git://github.com/oozcitak/xmlbuilder-js.git')
-        //         .end({ pretty: true});
 
         var xmlEsocial = builder.create('eSocial', { version: '1.0', encoding: 'UTF-8' })
             .att('xmlns', 'http://www.esocial.gov.br/schema/lote/eventos/envio/vx_x_x')
@@ -105,126 +90,38 @@ class CreateXMLService {
         //  //   console.log('O arquivo foi criado!');
         //     });
 
-        //console.log('inicio')
-        //XXXXXXXXXXX  CONFIGURAÇAO DO CERTIFICADO XXXXXXXXXXXX
-        // const pem = await PfxToPem.toPem({
-        //     path: './certificado/VIVIANPARRA30858646000175.pfx',
-        //     password: '12345678'
-        // });
 
 
-        //console.log("Reading File...\n");
-        // Reading fileconst asoXml = fs.readFileSync('./xml/arquivoTesteXml.xml','utf-8')
-        // console.log(asoXml);
-        //
-
-<<<<<<< HEAD
 
         //const xmlaso = await fs.readFileSync('./xml/arquivoTesteXml.xml', "utf8");
 
 
         // var myKey = fs.readFile("./certificado/key.pem", "utf8") //.replace("-----BEGIN ENCRYPTED PRIVATE KEY-----", "").replace("-----END ENCRYPTED PRIVATE KEY-----", "").trim();
         // console.log("My key is: ", myKey);
-
-
-
-
-        try {
-=======
-//const xmlaso = await fs.readFileSync('./xml/arquivoTesteXml.xml', "utf8");
-
-
-// var myKey = fs.readFile("./certificado/key.pem", "utf8") //.replace("-----BEGIN ENCRYPTED PRIVATE KEY-----", "").replace("-----END ENCRYPTED PRIVATE KEY-----", "").trim();
-// console.log("My key is: ", myKey);
-              try{
->>>>>>> 078158549049504b0044550feefc382fdd9724dd
-
-               //  const {pemKey, pemCertificate, commonName} = p12.getPemFromP12("certs/sign.p12", this.config.signPassword);
-
+      try{
 
             console.log('passou aki 1')
             var sig = new SignedXml();
-                //sig.addReference("//*[local-name(.)='evtMonit']")
-                console.log('passou aki 2')
 
-<<<<<<< HEAD
-
-            //  sig.addReference("//*[local-name(.)='evtMonit']")
             console.log('passou aki 2')
-            sig.signingKey = fs.readFileSync('./certificado/certificado.key') //fs.readFileSync("./certificado/certificado.pem", { encoding: "utf8" })
-            sig.keyInfoProvider = new FileKeyInfo("./certificado/certificado2.pem")
-            sig.canonicalizationAlgorithm = 'http://www.w3.org/TR/2001/REC-xml-c14n-20010315'
-            sig.signatureAlgorithm = 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256'; // set signing algorithme
-            sig.addReference("//*[local-name(.)='evtMonit']", ['http://www.w3.org/2000/09/xmldsig#enveloped-signature', 'http://www.w3.org/TR/2001/REC-xml-c14n-20010315'], 'http://www.w3.org/2001/04/xmlenc#sha256');
+            sig.signingKey = fs.readFileSync('./certificado/mycaservercertkey.pem') //fs.readFileSync("./certificado/certificado.pem", { encoding: "utf8" })
 
-            // sig.HashAlgorithms='http://www.w3.org/2001/04/xmlenc#sha256'
-            // console.log('passou aki 3'+sig.signingKey)N
-            // console.log(sig.signingKey)
-            //***********************   TESTE PERSONALIZAR ALGORITIMO   ********************************* */
-            // SignedXml.CanonicalizationAlgorithms["http://MyTransformation"] =['http://www.w3.org/2000/09/xmldsig#enveloped-signature', 'http://www.w3.org/TR/2001/REC-xml-c14n-20010315']
-            // SignedXml.HashAlgorithms["http://myDigestAlgorithm"] = 'http://www.w3.org/2001/04/xmlenc#sha256'
-
-            //  sig.addReference("/*", ["http://MyTransformation"], "http://myDigestAlgorithm")
-            sig.computeSignature(xmlEsocial)
-            console.log('passou aki 4')
-            //fs.writeFileSync("./xml/arquivoTesteXml.xml", sig.getSignedXml())
-            fs.writeFileSync('./xml/arquivoTesteXml.xml', sig.getSignedXml());
-            console.log('passou aki final')
-
-        } catch (e) {
-
-=======
-              //  sig.signingKey= fs.readFileSync('./certificado/mycaservercertkey.pem') //fs.readFileSync("./certificado/certificado.pem", { encoding: "utf8" })
-              //  sig.keyInfoProvider = new FileKeyInfo(sig.signingKey) // certificate is the base64 encoded string
-           //     console.log(sig.keyInfoProvider)
-
-
-//const cert = new X509Certificate(fs.readFileSync('./certificado/certificado.pem'))
-
-//const cert = '234234234aefbc'
- //const cert = new crypto.X509Certificate(fs.readFileSync('./certificado/mycaservercertkey.pem'))
-
-//const cert = new  X509Certificate(Buffer.from(fs.readFileSync('./certificado/certificado.crt'), 'base64'),"12345678")
-
-  //   console.log(cert)
-
-//testadndo
-
-
-//signer.keyInfoProvider = new CertKeyInfo('./certificado/mycaservercertkey.pem');
-const x509 = new X509Certificate(fs.readFileSync('./certificado/novopem.pem'));
-
-
-
-const cert = x509.toString()
-
+            //signer.keyInfoProvider = new CertKeyInfo('./certificado/mycaservercertkey.pem');
+            const x509 = new X509Certificate(fs.readFileSync('./certificado/novopem.pem'));
+            const cert = x509.toString()
 
                 sig.keyInfoProvider = {
-                        getKeyInfo: function () {
+
+                    getKeyInfo: function () {
                         return "<X509Data><X509Certificate>" + cert + "</X509Certificate></X509Data>";
                         }
 
                     };
 
-// //EXEMPLO 1
-//  sig.keyInfoProvider = {
-//     getKeyInfo: (key, prefix) => {
-//       return `<X509Data><X509SubjectName>${
-//         variable_with_your_subject
-//       }</X509SubjectName><X509Certificate>${var_with_base64_public_key_without_BEGIN_END_CERTIFICTATE}</X509Certificate></X509Data>`;
-//     }
-//   };
                 sig.canonicalizationAlgorithm= 'http://www.w3.org/TR/2001/REC-xml-c14n-20010315'
                 sig.signatureAlgorithm = 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256'; // set signing algorithme
                 sig.addReference("/*", ['http://www.w3.org/2000/09/xmldsig#enveloped-signature', 'http://www.w3.org/TR/2001/REC-xml-c14n-20010315'],'http://www.w3.org/2001/04/xmlenc#sha256');
 
-              // sig.HashAlgorithms='http://www.w3.org/2001/04/xmlenc#sha256'
-              // console.log('passou aki 3'+sig.signingKey)N
-              // console.log(sig.signingKey)
-              //***********************   TESTE PERSONALIZAR ALGORITIMO   ********************************* */
-              // SignedXml.CanonicalizationAlgorithms["http://MyTransformation"] =['http://www.w3.org/2000/09/xmldsig#enveloped-signature', 'http://www.w3.org/TR/2001/REC-xml-c14n-20010315']
-              // SignedXml.HashAlgorithms["http://myDigestAlgorithm"] = 'http://www.w3.org/2001/04/xmlenc#sha256'
-              //  sig.addReference("/*", ["http://MyTransformation"], "http://myDigestAlgorithm")
 
                 sig.computeSignature(xmlEsocial)
                 console.log('passou aki 4')
@@ -232,58 +129,10 @@ const cert = x509.toString()
                 fs.writeFileSync('./xml/arquivoTesteXml.xml', sig.getSignedXml());
                 console.log('passou aki final')
 
-               } catch (e) {
->>>>>>> 078158549049504b0044550feefc382fdd9724dd
+               }catch (e) {
             console.log(e);
         }
 
-
-
-
-        //var myKey = fs.readFileSync("./certificado/key.pem", "utf8").replace("-----BEGIN RSA PRIVATE KEY-----", "").replace("-----END RSA PRIVATE KEY-----", "").trim();
-
-        //var myKey = await fs.readFileSync("./certificado/key.pem", "utf8").replace("-----BEGIN ENCRYPTED PRIVATE KEY-----", "").replace("-----END ENCRYPTED PRIVATE KEY-----", "").trim();
-        //console.log("My key is: ", myKey);
-
-
-        // Sign the data and returned signature in buffer
-        //const sign = crypto.sign("SHA256", xmlEms , myKey);
-        // Convert returned buffer to base64
-        //const signature = sign.toString('base64');
-
-        // Printing the signature
-        //console.log(`Signature:\n\n ${signature}`);
-
-
-        //ASSINA O ARQUIVO XML
-        //const pfx = fs.readFile("./certificado/VIVIANPARRA30858646000175.pfx");
-        // console.log('passou aki 2')
-        // pem.readPkcs12("./certificado/VIVIANPARRA30858646000175.pfx", { p12Password: "12345678" }, (err:any, cert:any) => {
-        // console.log('passou aki 3')
-        // //var certificado = cert.cert.toString().replace('-----BEGIN CERTIFICATE-----', '').trim().replace('-----END CERTIFICATE-----', '').trim().replace(/(\r\n\t|\n|\r\t)/gm,"");
-        //  // console.log('testando certificado 1');
-        //   console.log(cert)
-        //   //console.log('testando certificado 2');
-        //  // console.log(cert.cert)
-        //  // console.log('testando certificado 3');
-
-        //  // const result = cert.cert ? cert.cert.toString() : ''
-        //   console.log(cert.cert)
-        //  // console.log('testando certificado 4');
-        // //  console.log(result)
-
-
-        // /*
-        // var sig = new SignedXml()
-        // sig.addReference("//*[local-name(.)='SignedInfo']", ['http://www.w3.org/2000/09/xmldsig#enveloped-signature', 'http://www.w3.org/TR/2001/REC-xml-c14n-20010315'])
-        // sig.canonicalizationAlgorithm = "http://www.w3.org/TR/2001/REC-xml-c14n-20010315"
-        // sig.signingKey = fs.readFileSync('./certificado/ICP-Brasilv2.crt')
-        // sig.keyInfoProvider = new myKeyInfo(certificado)
-        // sig.computeSignature(xml, { location: {reference: "//*[local-name(.)='infEvento']", action: 'after'}})
-        // fs.writeFileSync("./xml/arquivoTesteXml.xml", sig.getSignedXml())
-        // */
-        // });
-        //  await examesAsoRepository.save(examesAso);
         return xmlEsocial;
     }
 }
