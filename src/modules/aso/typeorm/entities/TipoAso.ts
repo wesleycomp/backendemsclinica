@@ -1,25 +1,21 @@
 import { Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
-  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,} from 'typeorm';
 
-
 @Entity('tipoaso')
-class TipoAso {
+class TipoAso{
 
      @PrimaryGeneratedColumn('uuid')
      id: string;
 
-
      @Column()
      descricao: string;
 
-
      @Column()
      ativo: boolean;
+
 
      @CreateDateColumn()
      created_at: Date;
@@ -30,3 +26,4 @@ class TipoAso {
 }
 
 export default TipoAso;
+

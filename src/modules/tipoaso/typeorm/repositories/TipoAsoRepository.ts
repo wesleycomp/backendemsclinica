@@ -1,5 +1,5 @@
 import { EntityRepository, Repository } from 'typeorm'
-import TipoAso from '../entities/TipoAso'
+import TipoAso from '../../../aso/typeorm/entities/TipoAso'
 
 @EntityRepository(TipoAso)
 export class TipoAsoRepository extends Repository<TipoAso>{

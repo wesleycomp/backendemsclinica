@@ -2,8 +2,6 @@ import { getCustomRepository } from "typeorm";
 import Aso from "../typeorm/entities/Aso";
 import { AsosRepository } from "../typeorm/repositories/AsosRepository";
 import AppError from '@shared/errors/AppError';
-import { type } from "os";
-import { request } from "express";
 
 var builder = require('xmlbuilder');
 const fs = require('fs');
@@ -11,9 +9,9 @@ const fs = require('fs');
 const Buffer = require('buffer').Buffer
 
 var SignedXml = require('xml-crypto').SignedXml
-var FileKeyInfo = require('xml-crypto').FileKeyInfo
+//var FileKeyInfo = require('xml-crypto').FileKeyInfo
 const { X509Certificate } = require('crypto')
-
+const soapRequest = require('easy-soap-request');
 
 interface IExameAso {
     aso_id: string;
@@ -22,16 +20,26 @@ interface IExameAso {
 
 class CreateXMLService {
 
-
-    public async execute({ aso_id }: IExameAso): Promise<Aso | undefined> {
+    public async execute({ aso_id }:IExameAso):Promise<Aso|undefined> {
 
         //instaciou o repositorio para ter acesso aos metodos(save, delete... etc)
         const examesAsoRepository = getCustomRepository(AsosRepository);
         const dadosAso = await examesAsoRepository.findById(aso_id)
 
-        var xmlEsocial = builder.create('eSocial', { version: '1.0', encoding: 'UTF-8' })
-            .att('xmlns', 'http://www.esocial.gov.br/schema/lote/eventos/envio/vx_x_x')
-            .att('grupo', '1')// 1- evento tabelas 2- evento n periodicos 3- eventos periodicos
+        //var xmlEsocial = builder.create('eSocial', { version: '1.0', encoding: 'UTF-8' })
+
+        var xmlEsocial = builder.create('soap:Envelope', { version: '1.0', encoding: 'UTF-8' })
+            .att('xmlns:soap', 'http://schemas.xmlsoap.org/soap/envelope/')
+            .att('xmlns:v1', 'http://www.esocial.gov.br/schema/lote/eventos/envio/v1_1_1')
+            .ele('soap:Body')
+            .ele('v1:EnviarLoteEventos')
+            .ele('v1:loteEventos')
+            .ele('eSocial',{ 'xmlns':'http://www.esocial.gov.br/schema/lote/eventos/envio/v1_1_1'} )
+            .ele('envioLoteEventos', { 'grupo': '1' })
+            .ele('eventos')
+            .ele('evento', { 'Id': 'ID1308586460000002022111915322000001' })
+            .ele('eSocial',{ 'xmlns':'http://www.esocial.gov.br/schema/evt/evtMonit/v_S_01_00_00'} )
+            //.att('grupo', '1')// 1- evento tabelas 2- evento n periodicos 3- eventos periodicos
             .ele('evtMonit', { 'Id': 'ID1308586460000002022111915322000001' })//ja esta com o ID ok-- falta acrescentar autincrement nos 6 ultimos digitos
             .ele('ideEvento')
             .ele('indRetif', '1').up()
@@ -73,7 +81,16 @@ class CreateXMLService {
             .up()//fecho o medico responsavel
             .up()//fecho o exMedOcup
             .up()//fecho o evtMonit
-            .end({ pretty: true }); //fecho Esocial
+            .up()//fecho o Esocial
+            .up()//fecho o evento
+            .up()//fecho o eventos
+            .up()//fecho o envioLoteEventos
+            .up()//fecho o eSocial
+            .up()//fecho o v1:loteEventos
+            .up()//fecho o v1:EnviarLoteEventos
+            .up()//fecho soap:Body
+            .end({ pretty: true }); //fechso ap:Envelope
+
 
 
         //CRIA A PASTA DOS XML
@@ -106,9 +123,12 @@ class CreateXMLService {
             console.log('passou aki 2')
             sig.signingKey = fs.readFileSync('./certificado/mycaservercertkey.pem') //fs.readFileSync("./certificado/certificado.pem", { encoding: "utf8" })
 
-            //signer.keyInfoProvider = new CertKeyInfo('./certificado/mycaservercertkey.pem');
-            const x509 = new X509Certificate(fs.readFileSync('./certificado/novopem.pem'));
-            const cert = x509.toString()
+           // sig.keyInfoProvider = new FileKeyInfo('./certificado/mycaservercertkey.pem');
+
+            const x509 = new X509Certificate(fs.readFileSync('./certificado/cag.pem'));
+           // console.log(x509.publicKey)
+
+            const cert = x509.toString().replace('-----BEGIN CERTIFICATE-----', '').trim().replace('-----END CERTIFICATE-----', '').trim().replace(/(\r\n\t|\n|\r\t)/gm,"");
 
                 sig.keyInfoProvider = {
 
@@ -132,6 +152,32 @@ class CreateXMLService {
                }catch (e) {
             console.log(e);
         }
+
+
+
+
+                        // example data    XXXXXXXXXXXXX   TRANSMISSAO XXXXXXXXSXXXXXXXXXXXXXXXXXX
+
+                        const url = 'https://webservices.envio.esocial.gov.br/servicos/empregador/enviarloteeventos/WsEnviarLoteEventos.svc';
+                        const sampleHeaders = {
+                        'user-agent': 'sampleTest',
+                        'Content-Type': 'text/xml;charset=UTF-8',
+                        'soapAction': 'https://graphical.weather.gov/xml/DWMLgen/wsdl/ndfdXML.wsdl#LatLonListZipCode',
+                        };
+                        const xml = fs.readFileSync('./xml/arquivoTesteXml.xml', 'utf-8');
+
+                        // usage of module
+                        (async () => {
+                        const { response } = await soapRequest({ url: url, headers: sampleHeaders, xml: xml }); // Optional timeout parameter(milliseconds)
+                        const { headers, body, statusCode } = response;
+                        console.log(headers);
+                        console.log(body);
+                        console.log(statusCode);
+                        })();
+
+
+
+
 
         return xmlEsocial;
     }

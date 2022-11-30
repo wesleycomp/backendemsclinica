@@ -1,5 +1,5 @@
 import { getCustomRepository } from "typeorm";
-import TipoAso from "../typeorm/entities/TipoAso";
+import TipoAso from "../../aso/typeorm/entities/TipoAso";
 import { TipoAsoRepository } from "../typeorm/repositories/TipoAsoRepository";
 import AppError from '@shared/errors/AppError';
 
