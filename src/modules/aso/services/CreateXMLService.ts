@@ -146,7 +146,7 @@ class CreateXMLService {
                 sig.computeSignature(xmlEsocial)
                 console.log('passou aki 4')
                 //fs.writeFileSync("./xml/arquivoTesteXml.xml", sig.getSignedXml())
-                fs.writeFileSync('./xml/arquivoTesteXml.xml', sig.getSignedXml());
+                fs.writeFileSync('./xml/arquivoTesteXml2.xml', sig.getSignedXml());
                 console.log('passou aki final')
 
                }catch (e) {
