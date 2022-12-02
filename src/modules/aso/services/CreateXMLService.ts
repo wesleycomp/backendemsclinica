@@ -125,7 +125,7 @@ class CreateXMLService {
 
            // sig.keyInfoProvider = new FileKeyInfo('./certificado/mycaservercertkey.pem');
 
-            const x509 = new X509Certificate(fs.readFileSync('./certificado/cag.pem'));
+            const x509 = new X509Certificate(fs.readFileSync('./certificado/mycaservercert1.pem'));
            // console.log(x509.publicKey)
 
             const cert = x509.toString().replace('-----BEGIN CERTIFICATE-----', '').trim().replace('-----END CERTIFICATE-----', '').trim().replace(/(\r\n\t|\n|\r\t)/gm,"");
@@ -161,8 +161,7 @@ class CreateXMLService {
                         const url = 'https://webservices.envio.esocial.gov.br/servicos/empregador/enviarloteeventos/WsEnviarLoteEventos.svc';
                         const sampleHeaders = {
                         'user-agent': 'sampleTest',
-                        'Content-Type': 'text/xml;charset=UTF-8',
-                        'soapAction': 'https://graphical.weather.gov/xml/DWMLgen/wsdl/ndfdXML.wsdl#LatLonListZipCode',
+                        'Content-Type': 'text/xml;charset=UTF-8'
                         };
                         const xml = fs.readFileSync('./xml/arquivoTesteXml.xml', 'utf-8');
 
