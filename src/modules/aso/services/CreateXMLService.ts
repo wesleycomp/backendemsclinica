@@ -149,10 +149,6 @@ class CreateXMLService {
                 fs.writeFileSync('./xml/arquivoTesteXml2.xml', sig.getSignedXml());
                 console.log('passou aki final')
 
-               }catch (e) {
-            console.log(e);
-        }
-
 
 
 
@@ -175,6 +171,10 @@ class CreateXMLService {
                         })();
 
 
+
+        } catch (e) {
+            console.log(e);
+        }
 
 
 
