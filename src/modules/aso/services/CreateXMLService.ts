@@ -25,16 +25,9 @@ class CreateXMLService {
         //instaciou o repositorio para ter acesso aos metodos(save, delete... etc)
         const examesAsoRepository = getCustomRepository(AsosRepository);
         const dadosAso = await examesAsoRepository.findById(aso_id)
-
         //var xmlEsocial = builder.create('eSocial', { version: '1.0', encoding: 'UTF-8' })
-
-        var xmlEsocial = builder.create('soap:Envelope', { version: '1.0', encoding: 'UTF-8' })
-            .att('xmlns:soap', 'http://schemas.xmlsoap.org/soap/envelope/')
-            .att('xmlns:v1', 'http://www.esocial.gov.br/schema/lote/eventos/envio/v1_1_1')
-            .ele('soap:Body')
-            .ele('v1:EnviarLoteEventos')
-            .ele('v1:loteEventos')
-            .ele('eSocial',{ 'xmlns':'http://www.esocial.gov.br/schema/lote/eventos/envio/v1_1_1'} )
+        var xmlEsocial = builder.create('eSocial', { version: '1.0', encoding: 'UTF-8' })
+            .att('xmlns', 'http://www.esocial.gov.br/schema/lote/eventos/envio/v1_1_1')
             .ele('envioLoteEventos', { 'grupo': '1' })
             .ele('eventos')
             .ele('evento', { 'Id': 'ID1308586460000002022111915322000001' })
@@ -85,11 +78,7 @@ class CreateXMLService {
             .up()//fecho o evento
             .up()//fecho o eventos
             .up()//fecho o envioLoteEventos
-            .up()//fecho o eSocial
-            .up()//fecho o v1:loteEventos
-            .up()//fecho o v1:EnviarLoteEventos
-            .up()//fecho soap:Body
-            .end({ pretty: true }); //fechso ap:Envelope
+            .end({ pretty: true }); //fechso eSocial
 
 
 
@@ -146,18 +135,11 @@ class CreateXMLService {
                 sig.computeSignature(xmlEsocial)
                 console.log('passou aki 4')
                 //fs.writeFileSync("./xml/arquivoTesteXml.xml", sig.getSignedXml())
-                fs.writeFileSync('./xml/arquivoTesteXml.xml', sig.getSignedXml());
-                console.log('passou aki final')
-
-               }catch (e) {
-            console.log(e);
-        }
-
-
+                fs.writeFileSync('./xml/arquivoTesteXml2.xml', sig.getSignedXml());
+                console.log('passou aki final gerar xml')
 
 
                         // example data    XXXXXXXXXXXXX   TRANSMISSAO XXXXXXXXSXXXXXXXXXXXXXXXXXX
-
                         const url = 'https://webservices.envio.esocial.gov.br/servicos/empregador/enviarloteeventos/WsEnviarLoteEventos.svc';
                         const sampleHeaders = {
                         'user-agent': 'sampleTest',
@@ -175,7 +157,11 @@ class CreateXMLService {
                         console.log(statusCode);
                         })();
 
+          console.log('passou aki final envio lote xml')
 
+               }catch (e) {
+            console.log(e);
+        }
 
 
 
