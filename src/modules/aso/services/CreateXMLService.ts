@@ -20,7 +20,7 @@ interface IExameAso {
 
 class CreateXMLService {
 
-    public async execute({ aso_id }:IExameAso):Promise<Aso|undefined> {
+    public async execute({ aso_id }: IExameAso): Promise<Aso | undefined> {
 
         //instaciou o repositorio para ter acesso aos metodos(save, delete... etc)
         const examesAsoRepository = getCustomRepository(AsosRepository);
@@ -31,7 +31,7 @@ class CreateXMLService {
             .ele('envioLoteEventos', { 'grupo': '1' })
             .ele('eventos')
             .ele('evento', { 'Id': 'ID1308586460000002022111915322000001' })
-            .ele('eSocial',{ 'xmlns':'http://www.esocial.gov.br/schema/evt/evtMonit/v_S_01_00_00'} )
+            .ele('eSocial', { 'xmlns': 'http://www.esocial.gov.br/schema/evt/evtMonit/v_S_01_00_00' })
             //.att('grupo', '1')// 1- evento tabelas 2- evento n periodicos 3- eventos periodicos
             .ele('evtMonit', { 'Id': 'ID1308586460000002022111915322000001' })//ja esta com o ID ok-- falta acrescentar autincrement nos 6 ultimos digitos
             .ele('ideEvento')
@@ -96,15 +96,12 @@ class CreateXMLService {
         //  //   console.log('O arquivo foi criado!');
         //     });
 
-
-
-
         //const xmlaso = await fs.readFileSync('./xml/arquivoTesteXml.xml', "utf8");
 
 
         // var myKey = fs.readFile("./certificado/key.pem", "utf8") //.replace("-----BEGIN ENCRYPTED PRIVATE KEY-----", "").replace("-----END ENCRYPTED PRIVATE KEY-----", "").trim();
         // console.log("My key is: ", myKey);
-      try{
+        try {
 
             console.log('passou aki 1')
             var sig = new SignedXml();
@@ -112,54 +109,54 @@ class CreateXMLService {
             console.log('passou aki 2')
             sig.signingKey = fs.readFileSync('./certificado/mycaservercertkey.pem') //fs.readFileSync("./certificado/certificado.pem", { encoding: "utf8" })
 
-           // sig.keyInfoProvider = new FileKeyInfo('./certificado/mycaservercertkey.pem');
+            // sig.keyInfoProvider = new FileKeyInfo('./certificado/mycaservercertkey.pem');
 
             const x509 = new X509Certificate(fs.readFileSync('./certificado/cag.pem'));
-           // console.log(x509.publicKey)
+            // console.log(x509.publicKey)
 
-            const cert = x509.toString().replace('-----BEGIN CERTIFICATE-----', '').trim().replace('-----END CERTIFICATE-----', '').trim().replace(/(\r\n\t|\n|\r\t)/gm,"");
+            const cert = x509.toString().replace('-----BEGIN CERTIFICATE-----', '').trim().replace('-----END CERTIFICATE-----', '').trim().replace(/(\r\n\t|\n|\r\t)/gm, "");
 
-                sig.keyInfoProvider = {
+            sig.keyInfoProvider = {
 
-                    getKeyInfo: function () {
-                        return "<X509Data><X509Certificate>" + cert + "</X509Certificate></X509Data>";
-                        }
+                getKeyInfo: function () {
+                    return "<X509Data><X509Certificate>" + cert + "</X509Certificate></X509Data>";
+                }
 
-                    };
+            };
 
-                sig.canonicalizationAlgorithm= 'http://www.w3.org/TR/2001/REC-xml-c14n-20010315'
-                sig.signatureAlgorithm = 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256'; // set signing algorithme
-                sig.addReference("/*", ['http://www.w3.org/2000/09/xmldsig#enveloped-signature', 'http://www.w3.org/TR/2001/REC-xml-c14n-20010315'],'http://www.w3.org/2001/04/xmlenc#sha256');
-
-
-                sig.computeSignature(xmlEsocial)
-                console.log('passou aki 4')
-                //fs.writeFileSync("./xml/arquivoTesteXml.xml", sig.getSignedXml())
-                fs.writeFileSync('./xml/arquivoTesteXml2.xml', sig.getSignedXml());
-                console.log('passou aki final gerar xml')
+            sig.canonicalizationAlgorithm = 'http://www.w3.org/TR/2001/REC-xml-c14n-20010315'
+            sig.signatureAlgorithm = 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256'; // set signing algorithme
+            sig.addReference("/*", ['http://www.w3.org/2000/09/xmldsig#enveloped-signature', 'http://www.w3.org/TR/2001/REC-xml-c14n-20010315'], 'http://www.w3.org/2001/04/xmlenc#sha256');
 
 
-                        // example data    XXXXXXXXXXXXX   TRANSMISSAO XXXXXXXXSXXXXXXXXXXXXXXXXXX
-                        const url = 'https://webservices.envio.esocial.gov.br/servicos/empregador/enviarloteeventos/WsEnviarLoteEventos.svc';
-                        const sampleHeaders = {
-                        'user-agent': 'sampleTest',
-                        'Content-Type': 'text/xml;charset=UTF-8',
-                        'soapAction': 'https://graphical.weather.gov/xml/DWMLgen/wsdl/ndfdXML.wsdl#LatLonListZipCode',
-                        };
-                        const xml = fs.readFileSync('./xml/arquivoTesteXml.xml', 'utf-8');
+            sig.computeSignature(xmlEsocial)
+            console.log('passou aki 4')
+            //fs.writeFileSync("./xml/arquivoTesteXml.xml", sig.getSignedXml())
+            fs.writeFileSync('./xml/arquivoTesteXml2.xml', sig.getSignedXml());
+            console.log('passou aki final gerar xml')
 
-                        // usage of module
-                        (async () => {
-                        const { response } = await soapRequest({ url: url, headers: sampleHeaders, xml: xml }); // Optional timeout parameter(milliseconds)
-                        const { headers, body, statusCode } = response;
-                        console.log(headers);
-                        console.log(body);
-                        console.log(statusCode);
-                        })();
 
-          console.log('passou aki final envio lote xml')
+            // example data    XXXXXXXXXXXXX   TRANSMISSAO XXXXXXXXSXXXXXXXXXXXXXXXXXX
+            const url = 'https://webservices.envio.esocial.gov.br/servicos/empregador/enviarloteeventos/WsEnviarLoteEventos.svc';
+            const sampleHeaders = {
+                'user-agent': 'sampleTest',
+                'Content-Type': 'text/xml;charset=UTF-8',
+                'soapAction': 'https://graphical.weather.gov/xml/DWMLgen/wsdl/ndfdXML.wsdl#LatLonListZipCode',
+            };
+            const xml = fs.readFileSync('./xml/arquivoTesteXml.xml', 'utf-8');
 
-               }catch (e) {
+            // usage of module
+            (async () => {
+                const { response } = await soapRequest({ url: url, headers: sampleHeaders, xml: xml }); // Optional timeout parameter(milliseconds)
+                const { headers, body, statusCode } = response;
+                console.log(headers);
+                console.log(body);
+                console.log(statusCode);
+            })();
+
+            console.log('passou aki final envio lote xml')
+
+        } catch (e) {
             console.log(e);
         }
 
