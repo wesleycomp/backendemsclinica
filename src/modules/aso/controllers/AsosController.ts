@@ -1,6 +1,7 @@
 import { Request , Response } from "express";
 import CreateAsoService from "../services/CreateAsosService";
 import CreateXMLService from "../services/CreateXMLService";
+import CreateTxt2Tecnospeed from "../services/CreateTxt2Tecnospeed";
 import DeleteAsoService from "../services/DeleteAsosService";
 import ListAsoService from "../services/ListAsosService";
 import ShowAsoService from "../services/ShowAsosService";
@@ -33,6 +34,18 @@ export default class AsosController{
 
         return response.json(xml);
     }
+
+    public async geraTXT2TecnoSpeed (request: Request, response: Response): Promise<Response>{
+
+        const { aso_id } = request.params;
+        const geraXml = new CreateTxt2Tecnospeed();
+        const xml = await geraXml.execute({ aso_id })
+
+        return response.json(xml);
+
+
+    }
+
 
 
     public async create(request: Request, response: Response): Promise<Response>{

@@ -34,7 +34,7 @@ export class AddExameAso1667523491570 implements MigrationInterface {
             }),
         );
 
-await queryRunner.createForeignKey(
+        await queryRunner.createForeignKey(
             'exameaso',
             new TableForeignKey({
                 name:'ExameAsoPaciente',

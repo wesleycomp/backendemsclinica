@@ -28,6 +28,16 @@ AsoRouter.get(
                     }),
                     asoController.geraXML
                 )
+AsoRouter.get(
+                    '/txt2/:aso_id',
+                    isAuthenticated,
+                    celebrate({
+                        [Segments.PARAMS]:{
+                            aso_id: Joi.string().uuid().required(),
+                        },
+                    }),
+                    asoController.geraTXT2TecnoSpeed
+                )
 AsoRouter.post(
                     '/',
                     isAuthenticated,

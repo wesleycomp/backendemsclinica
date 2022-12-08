@@ -1,14 +1,20 @@
+import NaturezaJuridica from '@modules/naturezajuridica/typeorm/entities/NaturezaJuridica';
 import { Column,
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,} from 'typeorm';
+  UpdateDateColumn,ManyToOne,JoinColumn} from 'typeorm';
 
 @Entity('empresa')
 class Empresa {
 
      @PrimaryGeneratedColumn('uuid')
      id: string;
+
+     @ManyToOne(() => NaturezaJuridica)
+     @JoinColumn( {name: 'naturezajuridica_id'})
+     procedimento: NaturezaJuridica;
+
 
      @Column()
      nome: string;
@@ -27,6 +33,7 @@ class Empresa {
 
      @Column()
      inscricaomunicipal: string;
+
 
      @Column()
      endereco: string;
