@@ -2,7 +2,7 @@ import { getCustomRepository } from "typeorm";
 import Aso from "../typeorm/entities/Aso";
 import { AsosRepository } from "../typeorm/repositories/AsosRepository";
 //import AppError from '@shared/errors/AppError';
-//var httpsAgent = require('https-agent');
+var httpsAgent = require('https-agent');
 var https = require('https');
 var builder = require('xmlbuilder');
 const fs = require('fs');
@@ -147,9 +147,13 @@ class CreateXMLService {
                 'soapAction': 'https://graphical.weather.gov/xml/DWMLgen/wsdl/ndfdXML.wsdl#LatLonListZipCode',
             };
             const xml = fs.readFileSync('./xml/arquivoTesteXml.xml', 'utf-8');
-            const agent = new https({
-            ca: fs.readFileSync('./certificado/cadeiaEsocial.pem')
-            });
+            // const agent = new https.Agent({
+            // ca: fs.readFileSync('./certificado/cadeiaEsocial.pem')
+            // });
+
+var agent = httpsAgent({
+  pfx: fs.readFileSync('./certificado/cadeiaEsocial.pem')
+});
             // usage of module
             (async () => {
                 const { response } = await soapRequest({ url: url, headers: sampleHeaders, xml: xml,  extraOpts: {httpsAgent: agent}, }); // Optional timeout parameter(milliseconds)
