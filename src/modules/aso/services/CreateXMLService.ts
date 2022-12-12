@@ -133,26 +133,15 @@ class CreateXMLService {
             console.log('passou aki 4')
             //fs.writeFileSync("./xml/arquivoTesteXml.xml", sig.getSignedXml())
             fs.writeFileSync('./xml/arquivoTesteXml2.xml', sig.getSignedXml());
-            console.log('passou aki final gerar xml')
+            console.log('passou aki final gerar xm')
 
-<<<<<<< Updated upstream
-=======
                         const url = 'https://webservices.producaorestrita.esocial.gov.br/servicos/empregador/enviarloteeventos/WsEnviarLoteEventos.svc?singleWsdl';
                         const sampleHeaders = {
                         'user-agent': 'sampleTest',
                         'Content-Type': 'text/xml;charset=UTF-8'
                         };
                         const xml = fs.readFileSync('./xml/arquivoTesteXml.xml', 'utf-8');
->>>>>>> Stashed changes
 
-            // example data    XXXXXXXXXXXXX   TRANSMISSAO XXXXXXXXSXXXXXXXXXXXXXXXXXX
-            const url = 'https://webservices.producaorestrita.esocial.gov.br/servicos/empregador/enviarloteeventos/WsEnviarLoteEventos.svc?singleWsdl';
-            const sampleHeaders = {
-                'user-agent': 'sampleTest',
-                'Content-Type': 'text/xml;charset=UTF-8',
-                'soapAction': 'https://graphical.weather.gov/xml/DWMLgen/wsdl/ndfdXML.wsdl#LatLonListZipCode',
-            };
-            const xml = fs.readFileSync('./xml/arquivoTesteXml.xml', 'utf-8');
 
             // usage of module
             (async () => {
