@@ -128,7 +128,6 @@ class CreateXMLService {
             sig.signatureAlgorithm = 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256'; // set signing algorithme
             sig.addReference("/*", ['http://www.w3.org/2000/09/xmldsig#enveloped-signature', 'http://www.w3.org/TR/2001/REC-xml-c14n-20010315'], 'http://www.w3.org/2001/04/xmlenc#sha256');
 
-
             sig.computeSignature(xmlEsocial)
             console.log('passou aki 4')
             //fs.writeFileSync("./xml/arquivoTesteXml.xml", sig.getSignedXml())
