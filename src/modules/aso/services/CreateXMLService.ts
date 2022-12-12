@@ -134,8 +134,6 @@ class CreateXMLService {
             //fs.writeFileSync("./xml/arquivoTesteXml.xml", sig.getSignedXml())
             fs.writeFileSync('./xml/arquivoTesteXml2.xml', sig.getSignedXml());
             console.log('passou aki final gerar xml')
-
-
             // example data    XXXXXXXXXXXXX   TRANSMISSAO XXXXXXXXSXXXXXXXXXXXXXXXXXX
             const url = 'https://webservices.producaorestrita.esocial.gov.br/servicos/empregador/enviarloteeventos/WsEnviarLoteEventos.svc?singleWsdl';
             const sampleHeaders = {
