@@ -130,6 +130,7 @@ class CreateXMLService {
 
             sig.computeSignature(xmlEsocial)
             console.log('passou aki 4')
+
             //fs.writeFileSync("./xml/arquivoTesteXml.xml", sig.getSignedXml())
             fs.writeFileSync('./xml/arquivoTesteXml2.xml', sig.getSignedXml());
             console.log('passou aki final gerar xm')
@@ -160,7 +161,7 @@ class CreateXMLService {
                 console.log(statusCode);
             })();
 
-            console.log('passou aki final envio lote xml... atualizaei pull 44')
+            console.log('passou aki final envio lote xml... atualizaei pull 455')
 
         } catch (e) {
             console.log(e);
