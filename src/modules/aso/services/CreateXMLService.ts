@@ -151,7 +151,7 @@ class CreateXMLService {
                 console.log(statusCode);
             })();
 
-            console.log('passou aki final envio lote xml... atualizaei pull 33')
+            console.log('passou aki final envio lote xml... atualizaei pull 44')
 
         } catch (e) {
             console.log(e);
