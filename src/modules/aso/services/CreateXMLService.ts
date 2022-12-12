@@ -137,7 +137,7 @@ class CreateXMLService {
 
 
             // example data    XXXXXXXXXXXXX   TRANSMISSAO XXXXXXXXSXXXXXXXXXXXXXXXXXX
-            const url = 'https://webservices.envio.esocial.gov.br/servicos/empregador/enviarloteeventos/WsEnviarLoteEventos.svc';
+            const url = 'https://webservices.producaorestrita.esocial.gov.br/servicos/empregador/enviarloteeventos/WsEnviarLoteEventos.svc?singleWsdl';
             const sampleHeaders = {
                 'user-agent': 'sampleTest',
                 'Content-Type': 'text/xml;charset=UTF-8',
