@@ -1,8 +1,9 @@
 import { getCustomRepository } from "typeorm";
 import Aso from "../typeorm/entities/Aso";
 import { AsosRepository } from "../typeorm/repositories/AsosRepository";
-import AppError from '@shared/errors/AppError';
-
+//import AppError from '@shared/errors/AppError';
+//var httpsAgent = require('https-agent');
+var https = require('https');
 var builder = require('xmlbuilder');
 const fs = require('fs');
 
@@ -135,7 +136,7 @@ class CreateXMLService {
             fs.writeFileSync('./xml/arquivoTesteXml2.xml', sig.getSignedXml());
             console.log('passou aki final gerar xm')
 
-           
+
 
             console.log('passou aki final gerar xml')
             // example data    XXXXXXXXXXXXX   TRANSMISSAO XXXXXXXXSXXXXXXXXXXXXXXXXXX
@@ -146,10 +147,12 @@ class CreateXMLService {
                 'soapAction': 'https://graphical.weather.gov/xml/DWMLgen/wsdl/ndfdXML.wsdl#LatLonListZipCode',
             };
             const xml = fs.readFileSync('./xml/arquivoTesteXml.xml', 'utf-8');
-
+            const agent = new https({
+            ca: fs.readFileSync('./certificado/cadeiaEsocial.pem')
+            });
             // usage of module
             (async () => {
-                const { response } = await soapRequest({ url: url, headers: sampleHeaders, xml: xml }); // Optional timeout parameter(milliseconds)
+                const { response } = await soapRequest({ url: url, headers: sampleHeaders, xml: xml,  extraOpts: {httpsAgent: agent}, }); // Optional timeout parameter(milliseconds)
                 const { headers, body, statusCode } = response;
                 console.log(headers);
                 console.log(body);
