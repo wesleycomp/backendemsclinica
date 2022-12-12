@@ -147,9 +147,11 @@ class CreateXMLService {
                 'soapAction': 'https://graphical.weather.gov/xml/DWMLgen/wsdl/ndfdXML.wsdl#LatLonListZipCode',
             };
             const xml = fs.readFileSync('./xml/arquivoTesteXml.xml', 'utf-8');
-            const agent = new https({
+            const agent = new https.Agent({
             ca: fs.readFileSync('./certificado/cadeiaEsocial.pem')
             });
+
+
             // usage of module
             (async () => {
                 const { response } = await soapRequest({ url: url, headers: sampleHeaders, xml: xml,  extraOpts: {httpsAgent: agent}, }); // Optional timeout parameter(milliseconds)
