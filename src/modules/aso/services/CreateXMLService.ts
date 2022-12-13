@@ -162,21 +162,17 @@ class CreateXMLService {
               //     console.log(body);
               //     console.log(statusCode);
               // })();
-
-
-           soap.createClientAsync(url, function(err, client) {
+           soap.createClientAsync(url,function(err, client) {
                     if(err) return console.log(err);
-console.log("passou por aqui")
-
-                   // console.log(client);
+                     client.setSecurity(new soap.ClientSSLSecurity(
+                      fs.readFileSync('./certificado/cadeiaEsocial.pem')
+                    ));
+                        console.log("passou por aqui")
                 });
-
             console.log('passou aki final envio lote xml... atualizaei pull 455')
-
         } catch (e) {
             console.log(e);
         }
-
         return xmlEsocial;
     }
 }
