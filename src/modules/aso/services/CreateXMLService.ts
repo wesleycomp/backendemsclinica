@@ -164,9 +164,12 @@ class CreateXMLService {
               // })();
 
 
-           soap.createClientAsync(url, function(err, client) {
+           soap.createClientAsync(url,function(err, client) {
                     if(err) return console.log(err);
-console.log("passou por aqui")
+                     client.setSecurity(new soap.ClientSSLSecurity(
+                      fs.readFileSync('./certificado/cadeiaEsocial.pem')
+                    ));
+                        console.log("passou por aqui")
 
                    // console.log(client);
                 });
