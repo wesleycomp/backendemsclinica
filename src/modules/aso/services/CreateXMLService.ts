@@ -151,26 +151,23 @@ class CreateXMLService {
             // ca: fs.readFileSync('./certificado/cadeiaEsocial.pem')
             // });
 
-// var agent = httpsAgent({
-//   pfx: fs.readFileSync('./certificado/cadeiaEsocial.pem')
-// });
+            // var agent = httpsAgent({
+            //   pfx: fs.readFileSync('./certificado/cadeiaEsocial.pem')
+            // });
             // usage of module
-            // (async () => {
-            //     const { response } = await soapRequest({ url: url, headers: sampleHeaders, xml: xml,  extraOpts: {httpsAgent: agent}, }); // Optional timeout parameter(milliseconds)
-            //     const { headers, body, statusCode } = response;
-            //     console.log(headers);
-            //     console.log(body);
-            //     console.log(statusCode);
-            // })();
-
-soap.createClient(url, {wsdl_options: {cert: fs.readFileSync('./certificado/cadeiaEsocial.pem'),}}, function(err, client){
-
-    console.log(client);
-
-})
+              // (async () => {
+               //     const { response } = await soapRequest({ url: url, headers: sampleHeaders, xml: xml,  extraOpts: {httpsAgent: agent}, }); // Optional timeout parameter(milliseconds)
+              //     const { headers, body, statusCode } = response;
+              //     console.log(headers);
+              //     console.log(body);
+              //     console.log(statusCode);
+              // })();
 
 
-
+           soap.createClientAsync(url, function(err, client) {
+                    if(err) return console.log(err);
+                    console.log(client);
+                });
 
             console.log('passou aki final envio lote xml... atualizaei pull 455')
 
