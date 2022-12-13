@@ -166,7 +166,9 @@ class CreateXMLService {
 
            soap.createClientAsync(url, function(err, client) {
                     if(err) return console.log(err);
-                    console.log(client);
+console.log("passou por aqui")
+
+                   // console.log(client);
                 });
 
             console.log('passou aki final envio lote xml... atualizaei pull 455')
