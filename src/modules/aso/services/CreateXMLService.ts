@@ -165,7 +165,7 @@ class CreateXMLService {
 
 soap.createClient(url, {wsdl_options: {cert: fs.readFileSync('./certificado/cadeiaEsocial.pem'),}}, function(err, client){
 
-    console.log(client.describe());
+    console.log(client);
 
 })
 
