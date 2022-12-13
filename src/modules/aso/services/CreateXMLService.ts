@@ -8,7 +8,7 @@ var builder = require('xmlbuilder');
 const fs = require('fs');
 
 const Buffer = require('buffer').Buffer
-
+var soap = require('soap')
 var SignedXml = require('xml-crypto').SignedXml
 //var FileKeyInfo = require('xml-crypto').FileKeyInfo
 const { X509Certificate } = require('crypto')
@@ -141,27 +141,36 @@ class CreateXMLService {
             console.log('passou aki final gerar xml')
             // example data    XXXXXXXXXXXXX   TRANSMISSAO XXXXXXXXSXXXXXXXXXXXXXXXXXX
             const url = 'https://webservices.producaorestrita.esocial.gov.br/servicos/empregador/enviarloteeventos/WsEnviarLoteEventos.svc?singleWsdl';
-            const sampleHeaders = {
-                'user-agent': 'sampleTest',
-                'Content-Type': 'text/xml;charset=UTF-8',
-                'soapAction': 'https://graphical.weather.gov/xml/DWMLgen/wsdl/ndfdXML.wsdl#LatLonListZipCode',
-            };
+            // const sampleHeaders = {
+            //     'user-agent': 'sampleTest',
+            //     'Content-Type': 'text/xml;charset=UTF-8',
+            //     'soapAction': 'https://graphical.weather.gov/xml/DWMLgen/wsdl/ndfdXML.wsdl#LatLonListZipCode',
+            // };
             const xml = fs.readFileSync('./xml/arquivoTesteXml.xml', 'utf-8');
             // const agent = new https.Agent({
             // ca: fs.readFileSync('./certificado/cadeiaEsocial.pem')
             // });
 
-var agent = httpsAgent({
-  pfx: fs.readFileSync('./certificado/cadeiaEsocial.pem')
-});
+// var agent = httpsAgent({
+//   pfx: fs.readFileSync('./certificado/cadeiaEsocial.pem')
+// });
             // usage of module
-            (async () => {
-                const { response } = await soapRequest({ url: url, headers: sampleHeaders, xml: xml,  extraOpts: {httpsAgent: agent}, }); // Optional timeout parameter(milliseconds)
-                const { headers, body, statusCode } = response;
-                console.log(headers);
-                console.log(body);
-                console.log(statusCode);
-            })();
+            // (async () => {
+            //     const { response } = await soapRequest({ url: url, headers: sampleHeaders, xml: xml,  extraOpts: {httpsAgent: agent}, }); // Optional timeout parameter(milliseconds)
+            //     const { headers, body, statusCode } = response;
+            //     console.log(headers);
+            //     console.log(body);
+            //     console.log(statusCode);
+            // })();
+
+soap.createClient(url, {wsdl_options: {cert: fs.readFileSync('./certificado/cadeiaEsocial.pem'),}}, function(err, client){
+
+    console.log(client.describe());
+
+})
+
+
+
 
             console.log('passou aki final envio lote xml... atualizaei pull 455')
 
