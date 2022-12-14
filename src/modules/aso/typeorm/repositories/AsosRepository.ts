@@ -23,7 +23,7 @@ export class AsosRepository extends Repository<Aso>{
 
     public async findAll(): Promise<Aso[]> {
         const aso = await this.find({
-            relations: ['empresa','tipoaso','medico','paciente','tipopagamento']
+            relations: ['empresa','tipoaso','medico','paciente','paciente.funcao','tipopagamento']
         });
         return aso;
     }
