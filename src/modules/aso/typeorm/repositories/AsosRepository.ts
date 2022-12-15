@@ -28,8 +28,6 @@ export class AsosRepository extends Repository<Aso>{
         return aso;
     }
 
-
-
     // public async findXML(): Promise<String | undefined> {
     //     const xmlaso = await fs.readFile('./xml/arquivoTesteXml.xml', "utf8");
 
@@ -37,8 +35,6 @@ export class AsosRepository extends Repository<Aso>{
 
     //     return xmlaso;
     // }
-
-
 
 }
 export default AsosRepository;

@@ -27,13 +27,11 @@ class Paciente{
      @Column()
      categoriatrabalhador_id: string;
 
-
      @ManyToOne(() => Nacionalidade)
      @JoinColumn( {name: 'nacionalidade_id'})
      nacionalidade: Nacionalidade;
      @Column()
      nacionalidade_id: string;
-
 
     @Column()
      matricula: string;
@@ -61,7 +59,6 @@ class Paciente{
 
     @Column()
      tiposanguineo: string;
-
 
     @Column()
      nis: string;
