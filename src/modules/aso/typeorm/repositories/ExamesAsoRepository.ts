@@ -18,11 +18,10 @@ export class ExamesAsoRepository extends Repository<ExameAso>{
             relations: ['exame','aso','aso.empresa','aso.paciente','aso.medico','aso.funcao','aso.tipoaso','aso.tipopagamento']
         });
         return exameAso;
-    }
+      }
 
         public async findAll(): Promise<ExameAso[]> {
         const exameAso = await this.find({
-
         // relations: ['exame','aso','aso.empresa','aso.paciente','aso.medico','aso.funcao','aso.tipoaso','aso.tipopagamento']
          });
         return exameAso;
@@ -42,29 +41,17 @@ export class ExamesAsoRepository extends Repository<ExameAso>{
 
     }
 
-
-
-        public async findByAsoAll(aso_id: string): Promise<ExameAso[] | undefined>{
+   public async findByAsoAll(aso_id: string): Promise<ExameAso[] | undefined>{
   // console.log(aso_id)
 
         const exameAso = await this.find({
              where: {
                aso_id: aso_id
             },
-         relations: ['aso','exame','aso.empresa','aso.paciente']
+             relations: ['aso','exame','aso.empresa','aso.paciente']
          });
-
-
-
         return exameAso;
-
     }
-
-
-
-
-
-
 
 }
 export default ExamesAsoRepository;
