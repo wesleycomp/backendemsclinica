@@ -11,7 +11,6 @@ export default class ConvenioEmpresaController{
 
         const listConvenioEmpresa = new ListConvenioEmpresaService();
         const ConvenioEmpresa = await listConvenioEmpresa.execute();
-
         return response.json(ConvenioEmpresa);
     }
 
@@ -20,7 +19,6 @@ export default class ConvenioEmpresaController{
         const { empresa_id } = request.params;
         const showConvenioEmpresa = new ShowConvenioEmpresaService();
         const ConvenioEmpresa = await showConvenioEmpresa.execute({ empresa_id })
-
         return response.json(ConvenioEmpresa);
     }
 
@@ -85,7 +83,6 @@ export default class ConvenioEmpresaController{
         const { id } = request.params;
         const deleteConvenioEmpresa = new DeleteConvenioEmpresaService();
         await deleteConvenioEmpresa.execute({ id })
-
         return response.json([]);
     }
 
