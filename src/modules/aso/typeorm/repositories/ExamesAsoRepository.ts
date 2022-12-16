@@ -43,7 +43,6 @@ export class ExamesAsoRepository extends Repository<ExameAso>{
 
    public async findByAsoAll(aso_id: string): Promise<ExameAso[] | undefined>{
   // console.log(aso_id)
-
         const exameAso = await this.find({
              where: {
                aso_id: aso_id
@@ -52,6 +51,5 @@ export class ExamesAsoRepository extends Repository<ExameAso>{
          });
         return exameAso;
     }
-
 }
 export default ExamesAsoRepository;

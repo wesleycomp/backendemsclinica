@@ -14,7 +14,7 @@ export class AddConvenioEmpresa1664134205704 implements MigrationInterface {
         );
 
        await queryRunner.addColumn(
-            'convenioempresa',
+            'convenioexame',
         new TableColumn({
             name:'exame_id',
             type: 'uuid',
@@ -22,7 +22,16 @@ export class AddConvenioEmpresa1664134205704 implements MigrationInterface {
         }),
         );
 
-           await queryRunner.createForeignKey(
+        await queryRunner.addColumn(
+            'conveniouser',
+        new TableColumn({
+            name:'user_id',
+            type: 'uuid',
+            isNullable: true,
+        }),
+        );
+
+       await queryRunner.createForeignKey(
             'convenioempresa',
             new TableForeignKey({
                 name:'EmpresaConvenioEmpresa',
@@ -33,10 +42,8 @@ export class AddConvenioEmpresa1664134205704 implements MigrationInterface {
             }),
         );
 
-
-
        await queryRunner.createForeignKey(
-            'convenioempresa',
+            'convenioexame',
             new TableForeignKey({
                 name:'ExameConvenioEmpresa',
                 columnNames: ['exame_id'],
@@ -46,13 +53,24 @@ export class AddConvenioEmpresa1664134205704 implements MigrationInterface {
             }),
         );
 
+        await queryRunner.createForeignKey(
+            'conveniouser',
+            new TableForeignKey({
+                name:'UserConvenioEmpresa',
+                columnNames: ['user_id'],
+                referencedTableName: 'user',
+                referencedColumnNames: ['id'],
+                onDelete: 'SET NULL',
+            }),
+        );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
          await queryRunner.dropForeignKey('convenioempresa', 'EmpresaConvenioEmpresa');
-         await queryRunner.dropForeignKey('convenioempresa', 'ExameConvenioEmpresa');
+         await queryRunner.dropForeignKey('convenioexame', 'ExameConvenioEmpresa');
+         await queryRunner.dropForeignKey('conveniouser', 'UserConvenioEmpresa');
          await queryRunner.dropColumn('convenioempresa', 'empresa_id');
-         await queryRunner.dropColumn('convenioempresa', 'exame_id');
+         await queryRunner.dropColumn('convenioexame', 'exame_id');
+         await queryRunner.dropColumn('conveniouser', 'user_id');
     }
-
 }

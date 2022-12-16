@@ -29,7 +29,8 @@ convenioempresaRouter.post(
                             valorexame: Joi.number().required(),
                             valormedico: Joi.number().required(),
                             valorems: Joi.number().required(),
-                            ativo: Joi.boolean().required()
+                            ativo: Joi.boolean().required(),
+                            user_id: Joi.string().required(),
                         },
                     }),
                     convenioempresaController.create
@@ -47,6 +48,7 @@ convenioempresaRouter.put(
                                 valormedico: Joi.number().required(),
                                 valorems: Joi.number().required(),
                                 ativo: Joi.boolean().required(),
+                                user_id: Joi.string().required(),
                                 created_at: Joi.string().required(),
                                 updated_at: Joi.string().required(),
                             },

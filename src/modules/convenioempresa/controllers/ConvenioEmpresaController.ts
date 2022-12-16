@@ -32,7 +32,8 @@ export default class ConvenioEmpresaController{
                 valorexame,
                 valormedico,
                 valorems,
-                ativo
+                ativo,
+                user_id
                } = request.body;
 
         const createConvenioEmpresa = new CreateConvenioEmpresaService();
@@ -42,7 +43,8 @@ export default class ConvenioEmpresaController{
                 valorexame,
                 valormedico,
                 valorems,
-                ativo
+                ativo,
+                user_id
         });
 
         return response.json(ConvenioEmpresa);
@@ -57,7 +59,8 @@ export default class ConvenioEmpresaController{
                  valorexame,
                  valormedico,
                  valorems,
-                 ativo
+                 ativo,
+                 user_id
                 } = request.body;
         const { id } = request.params;
 
@@ -70,7 +73,8 @@ export default class ConvenioEmpresaController{
             valorexame,
             valormedico,
             valorems,
-            ativo
+            ativo,
+            user_id
         });
 
         return response.json(ConvenioEmpresa);

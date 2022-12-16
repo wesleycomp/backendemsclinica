@@ -6,6 +6,7 @@ import { Column,
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,JoinColumn,ManyToOne} from 'typeorm';
+import User from '@modules/users/typeorm/entities/User';
 
 @Entity('convenioempresa')
 class ConvenioEmpresa{
@@ -26,6 +27,16 @@ class ConvenioEmpresa{
 
           @Column()
           exame_id: string;
+
+
+
+          @ManyToOne(() => User)
+          @JoinColumn( {name: 'user_id'})
+          user: Exame;
+
+
+            @Column()
+            user_id: string;
 
 
      @Column({type: "decimal", precision: 10, scale: 2, default: 0})
