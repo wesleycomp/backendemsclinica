@@ -37,6 +37,12 @@ class Exame {
      @Column()
      ativo: boolean;
 
+     @Column()
+     usuariocadastro: string;
+
+     @Column()
+     usuarioedicao: string;
+
      @CreateDateColumn()
      created_at: Date;
 

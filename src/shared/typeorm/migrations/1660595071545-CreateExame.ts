@@ -15,7 +15,6 @@ export class CreateExame1660595071545 implements MigrationInterface {
             generationStrategy: 'uuid',
             default: 'uuid_generate_v4()',
           },
-
           {
             name: 'name',
             type: 'varchar',
@@ -48,6 +47,14 @@ export class CreateExame1660595071545 implements MigrationInterface {
           {
             name: 'ativo',
             type: 'boolean',
+          },
+          {
+            name: 'usuariocadastro',
+             type: 'varchar'
+          },
+          {
+            name: 'usuarioedicao',
+             type: 'varchar'
           },
           {
             name: 'created_at',
