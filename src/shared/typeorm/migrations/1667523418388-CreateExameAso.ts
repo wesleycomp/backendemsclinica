@@ -36,6 +36,10 @@ export class CreateExameAso1667523418388 implements MigrationInterface {
                         type: 'boolean'
                     },
                     {
+                        name:'usuariocadastro',
+                        type: 'varchar'
+                    },
+                    {
                         name: 'created_at',
                         type: 'timestamp',
                         default: 'now()',
