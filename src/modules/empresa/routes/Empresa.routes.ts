@@ -18,7 +18,6 @@ empresasRouter.get(
                     }),
                     empresasController.show
                 )
-
 empresasRouter.post(
                     '/',
                     isAuthenticated,
@@ -36,7 +35,7 @@ empresasRouter.post(
                                 responsavel: Joi.string().required(),
                                 esocial: Joi.boolean().required(),
                                 convenio: Joi.boolean().required(),
-
+                                observacao:Joi.string().allow('', null).default('')
                          },
                     }),
                     empresasController.create
@@ -62,6 +61,7 @@ empresasRouter.put(
                                 convenio: Joi.boolean(),
                                 created_at: Joi.string().required(),
                                 updated_at: Joi.string().required(),
+                                observacao:Joi.string().allow('', null).default('')
                             },
                             [Segments.PARAMS]:{
                                 id: Joi.string().uuid().required(),

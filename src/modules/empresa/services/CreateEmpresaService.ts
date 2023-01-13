@@ -16,6 +16,7 @@ interface IRequest{
     responsavel: string;
     esocial: boolean;
     convenio: boolean;
+    observacao: string;
 }
 
 class CreateEmpresaService{
@@ -32,7 +33,8 @@ class CreateEmpresaService{
                     email,
                     responsavel,
                     esocial,
-                    convenio}: IRequest): Promise<Empresa>{
+                    convenio,
+                    observacao}: IRequest): Promise<Empresa>{
 
         //instaciou o repositorio para ter acesso aos metodos(save, delete... etc)
         const empresaRepository = getCustomRepository(EmpresaRepository);
@@ -57,7 +59,8 @@ class CreateEmpresaService{
                     email,
                     responsavel,
                     esocial,
-                    convenio
+                    convenio,
+                    observacao
         });
 
         await empresaRepository.save(empresa)

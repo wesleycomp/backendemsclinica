@@ -47,6 +47,9 @@ class Empresa {
      @Column()
      responsavel: string;
 
+      @Column()
+      observacao: string;
+
      @Column()
      esocial: boolean;
 
