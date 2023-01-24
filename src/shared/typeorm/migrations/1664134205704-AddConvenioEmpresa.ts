@@ -14,7 +14,7 @@ export class AddConvenioEmpresa1664134205704 implements MigrationInterface {
         );
 
        await queryRunner.addColumn(
-            'convenioexame',
+            'convenioempresa',
         new TableColumn({
             name:'exame_id',
             type: 'uuid',
@@ -23,7 +23,7 @@ export class AddConvenioEmpresa1664134205704 implements MigrationInterface {
         );
 
         await queryRunner.addColumn(
-            'conveniouser',
+            'convenioempresa',
         new TableColumn({
             name:'user_id',
             type: 'uuid',
@@ -43,7 +43,7 @@ export class AddConvenioEmpresa1664134205704 implements MigrationInterface {
         );
 
        await queryRunner.createForeignKey(
-            'convenioexame',
+            'convenioempresa',
             new TableForeignKey({
                 name:'ExameConvenioEmpresa',
                 columnNames: ['exame_id'],
@@ -54,7 +54,7 @@ export class AddConvenioEmpresa1664134205704 implements MigrationInterface {
         );
 
         await queryRunner.createForeignKey(
-            'conveniouser',
+            'convenioempresa',
             new TableForeignKey({
                 name:'UserConvenioEmpresa',
                 columnNames: ['user_id'],

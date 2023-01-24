@@ -1,6 +1,6 @@
 import {MigrationInterface, QueryRunner, TableColumn, TableForeignKey} from "typeorm";
 
-export class AddAsoPaciente1667411815140 implements MigrationInterface {
+export class AddAsoPaciente1670529982020 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
 

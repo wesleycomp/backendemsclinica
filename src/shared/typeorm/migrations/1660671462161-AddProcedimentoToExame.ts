@@ -6,7 +6,7 @@ export class AddEspecialidadeMedicaIdToExame1660671462161 implements MigrationIn
         await queryRunner.addColumn(
             'exame',
         new TableColumn({
-            name:'procedimentos_id',
+            name:'procedimento_id',
             type: 'uuid',
             isNullable: true,
         }),

@@ -16,14 +16,6 @@ export class CreateExameAso1667523418388 implements MigrationInterface {
                         default: 'uuid_generate_v4()',
                     },
                     {
-                        name: 'aso_id',
-                        type: 'varchar'
-                    },
-                    {
-                        name: 'exame_id',
-                        type: 'varchar'
-                    },
-                    {
                         name: 'dataexame',
                         type: 'timestamp'
                     },

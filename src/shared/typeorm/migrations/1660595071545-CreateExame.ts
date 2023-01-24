@@ -20,10 +20,6 @@ export class CreateExame1660595071545 implements MigrationInterface {
             type: 'varchar',
           },
           {
-              name: 'procRealizado',
-              type: 'varchar'
-          },
-          {
             name: 'valoravista',
             type: 'numeric',
             precision: 10,
