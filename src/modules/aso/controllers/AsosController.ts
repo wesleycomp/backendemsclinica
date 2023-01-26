@@ -50,7 +50,7 @@ export default class AsosController{
 
     public async create(request: Request, response: Response): Promise<Response>{
 
-        const {dataemissaoaso,paciente_id,empresa_id,funcao_id,tipoaso_id,tipopagamento_id,medico_id,resultado,temexames,transmissaoesocial,ativo} = request.body;
+        const {dataemissaoaso,paciente_id,empresa_id,funcao_id,tipoaso_id,tipopagamento_id,medico_id,resultado,temexames,transmissaoesocial,ativo,user_id} = request.body;
         const createExame = new CreateAsoService();
         const exame = await createExame.execute({
             dataemissaoaso,
@@ -63,7 +63,8 @@ export default class AsosController{
             resultado,
             temexames,
             transmissaoesocial,
-            ativo
+            ativo,
+            user_id
         });
 
         return response.json(exame);
@@ -83,7 +84,8 @@ export default class AsosController{
             resultado,
             temexames,
             transmissaoesocial,
-            ativo
+            ativo,
+            user_id
         } = request.body;
         const { id } = request.params;
         const updateExame = new UpdateAsoService();
@@ -100,7 +102,8 @@ export default class AsosController{
             resultado,
             temexames,
             transmissaoesocial,
-            ativo
+            ativo,
+            user_id
         });
 
         return response.json(exame);

@@ -13,6 +13,7 @@ import { Column,
   PrimaryGeneratedColumn,
   UpdateDateColumn,} from 'typeorm';
 import TipoAso from './TipoAso';
+import User from '@modules/users/typeorm/entities/User';
 
 
 
@@ -55,6 +56,13 @@ class Aso {
      medico: Medico;
     @Column()
      medico_id: string;
+
+
+    @ManyToOne(() => User)
+    @JoinColumn( {name: 'user_id'})
+     user: User;
+    @Column()
+     user_id: string;
 
 
     @ManyToOne(() => TipoPagamento)

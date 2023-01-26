@@ -15,11 +15,12 @@ interface IAso{
     temexames: boolean;
     transmissaoesocial: boolean;
     ativo: boolean;
+    user_id: string;
 }
 
 class CreateAsoService{
 
-    public async execute({dataemissaoaso,paciente_id,empresa_id,funcao_id,tipoaso_id,tipopagamento_id,medico_id,resultado,temexames,transmissaoesocial,ativo}: IAso): Promise<Aso>{
+    public async execute({dataemissaoaso,paciente_id,empresa_id,funcao_id,tipoaso_id,tipopagamento_id,medico_id,resultado,temexames,transmissaoesocial,ativo,user_id}: IAso): Promise<Aso>{
 
         //instaciou o repositorio para ter acesso aos metodos(save, delete... etc)
     const asoRepository = getCustomRepository(AsosRepository);
@@ -38,7 +39,8 @@ class CreateAsoService{
             resultado,
             temexames,
             transmissaoesocial,
-            ativo
+            ativo,
+            user_id
         });
 
         await asoRepository.save(aso);

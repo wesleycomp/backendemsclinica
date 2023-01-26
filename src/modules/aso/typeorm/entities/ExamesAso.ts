@@ -35,9 +35,6 @@ class ExameAso {
     @Column()
      exame_id: string;
 
-    @Column()
-    usuariocadastro: string;
-
 
     @Column()
      ativo: boolean;

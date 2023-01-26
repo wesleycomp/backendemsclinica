@@ -102,6 +102,7 @@ export class AddAsoPaciente1670529982020 implements MigrationInterface {
             isNullable: true,
         }),
         );
+
        await queryRunner.createForeignKey(
             'aso',
             new TableForeignKey({
@@ -135,7 +136,24 @@ export class AddAsoPaciente1670529982020 implements MigrationInterface {
             }),
         );
 
-
+   await queryRunner.addColumn(
+            'aso',
+        new TableColumn({
+            name:'user_id',
+            type: 'uuid',
+            isNullable: true,
+        }),
+        );
+       await queryRunner.createForeignKey(
+            'aso',
+            new TableForeignKey({
+                name:'UserPacienteAso',
+                columnNames: ['user_id'],
+                referencedTableName: 'user',
+                referencedColumnNames: ['id'],
+                onDelete: 'SET NULL',
+            }),
+        );
 
 
     }
@@ -147,8 +165,10 @@ export class AddAsoPaciente1670529982020 implements MigrationInterface {
          await queryRunner.dropForeignKey('aso', 'TipoAsoPaciente');
          await queryRunner.dropForeignKey('aso', 'MedicoAsoPaciente');
          await queryRunner.dropForeignKey('aso', 'TipoPagamentoAso');
-            await queryRunner.dropForeignKey('aso', 'FuncaoPacienteAso');
+         await queryRunner.dropForeignKey('aso', 'FuncaoPacienteAso');
+         await queryRunner.dropForeignKey('aso', 'UserPacienteAso');
 
+         await queryRunner.dropColumn('aso', 'user_id');
          await queryRunner.dropColumn('aso', 'paciente_id');
          await queryRunner.dropColumn('aso', 'empresa_id');
          await queryRunner.dropColumn('aso', 'tipoaso_id');

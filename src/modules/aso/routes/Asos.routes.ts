@@ -45,6 +45,7 @@ AsoRouter.post(
                         [Segments.BODY]:{
                             dataemissaoaso:Joi.string().required(),
                             paciente_id:Joi.string().required(),
+                            user_id:Joi.string().required(),
                             empresa_id: Joi.string().required(),
                             funcao_id: Joi.string().required(),
                             tipoaso_id: Joi.string().required(),
@@ -76,7 +77,8 @@ AsoRouter.put(
                                 transmissaoesocial: Joi.boolean().required(),
                                 ativo: Joi.boolean().required(),
                                 created_at: Joi.string().required(),
-                                updated_at: Joi.string().required()
+                                updated_at: Joi.string().required(),
+                                user_id:Joi.string().required()
                             },
                             [Segments.PARAMS]:{
                                 id: Joi.string().uuid().required(),

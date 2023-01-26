@@ -25,8 +25,7 @@ ExameAsoRouter.post(
                         [Segments.BODY]:{
                             aso_id:Joi.string().required(),
                             exame_id:Joi.string().required(),
-                            ativo: Joi.boolean().allow('', null).default('true'),
-                            usuariocadastro:Joi.string().required(),
+                            ativo: Joi.boolean().allow('', null).default('true')
                         },
                     }),
                     exameAsoController.create

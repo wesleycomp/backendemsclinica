@@ -30,15 +30,13 @@ export default class ExameAsoController{
         const {
             aso_id,
             exame_id,
-            ativo,
-            usuariocadastro,
+            ativo
         } = request.body;
         const createExame = new CreateExameAsoService();
         const exame = await createExame.execute({
             aso_id,
             exame_id,
-            ativo,
-            usuariocadastro
+            ativo
         });
 
         return response.json(exame);
