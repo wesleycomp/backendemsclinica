@@ -21,6 +21,16 @@ export class AsosRepository extends Repository<Aso>{
         return aso;
     }
 
+  public async findAllFichaExameById(id: string): Promise<Aso | undefined> {
+        const aso = await this.findOne(id,{
+           relations: ['empresa','tipoaso','medico','paciente','paciente.funcao','tipopagamento']
+      });
+        return aso;
+    }
+
+
+
+
     public async findAll(): Promise<Aso[]> {
         const aso = await this.find({
             relations: ['empresa','tipoaso','medico','paciente','paciente.funcao','tipopagamento']

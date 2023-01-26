@@ -18,6 +18,18 @@ AsoRouter.get(
                     }),
                     asoController.show
                 )
+
+AsoRouter.get(
+                    '/fichaexame/:id',
+                    isAuthenticated,
+                    celebrate({
+                        [Segments.PARAMS]:{
+                            id: Joi.string().uuid().required(),
+                        },
+                    }),
+                    asoController.showFichaExame
+                )
+
  AsoRouter.get(
                     '/xml/:aso_id',
                     isAuthenticated,

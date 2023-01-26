@@ -5,6 +5,8 @@ import CreateTxt2Tecnospeed from "../services/CreateTxt2Tecnospeed";
 import DeleteAsoService from "../services/DeleteAsosService";
 import ListAsoService from "../services/ListAsosService";
 import ShowAsoService from "../services/ShowAsosService";
+import ShowFichaExameService from "../services/ShowFichaExameService";
+
 import UpdateAsoService from "../services/UpdateAsosService";
 
 export default class AsosController{
@@ -25,6 +27,17 @@ export default class AsosController{
 
         return response.json(exame);
     }
+
+    public async showFichaExame(request: Request, response: Response): Promise<Response>{
+
+        const { id } = request.params;
+        const showExame = new ShowFichaExameService();
+        const exame = await showExame.execute({ id })
+
+        return response.json(exame);
+    }
+
+
 
     public async geraXML(request: Request, response: Response): Promise<Response>{
 
