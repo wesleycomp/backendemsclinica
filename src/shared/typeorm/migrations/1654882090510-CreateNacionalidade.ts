@@ -15,7 +15,6 @@ export class CreateNacionalidade1654882090510 implements MigrationInterface {
             generationStrategy: 'uuid',
             default: 'uuid_generate_v4()',
           },
-
           {
             name: 'nomepais',
             type: 'varchar',

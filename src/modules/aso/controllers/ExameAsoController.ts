@@ -26,28 +26,30 @@ export default class ExameAsoController{
     }
 
     public async create(request: Request, response: Response): Promise<Response>{
-
         const {
             aso_id,
             exame_id,
+            valorexame,
+            valormedico,
+            valorems,
             ativo
         } = request.body;
         const createExame = new CreateExameAsoService();
         const exame = await createExame.execute({
             aso_id,
             exame_id,
+            valorexame,
+            valormedico,
+            valorems,
             ativo
         });
-
         return response.json(exame);
     }
 
    public async delete(request: Request, response: Response): Promise<Response>{
-
         const { id } = request.params;
         const deleteFuncao = new DeleteExameAsoService()
         await deleteFuncao.execute({ id })
-
         return response.json([]);
     }
 

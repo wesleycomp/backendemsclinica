@@ -35,6 +35,15 @@ class ExameAso {
     @Column()
      exame_id: string;
 
+    @Column({type: "decimal", precision: 10, scale: 2, default: 0})
+     valorexame: number;
+
+     @Column({type: "decimal", precision: 10, scale: 2, default: 0})
+     valormedico: number;
+
+     @Column({type: "decimal", precision: 10, scale: 2, default: 0})
+     valorems: number;
+
 
     @Column()
      ativo: boolean;

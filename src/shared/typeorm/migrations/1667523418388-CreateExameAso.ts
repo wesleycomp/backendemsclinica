@@ -23,6 +23,27 @@ export class CreateExameAso1667523418388 implements MigrationInterface {
                         name: 'datavalidadeexame',
                         type: 'timestamp'
                     },
+                     {
+                        name: 'valorexame',
+                        type: 'numeric',
+                        precision: 10,
+                        scale: 2,
+                        default: 0,
+                    },
+                    {
+                        name: 'valormedico',
+                        type: 'numeric',
+                        precision: 10,
+                        scale: 2,
+                        default: 0,
+                    },
+                    {
+                        name: 'valorems',
+                        type: 'numeric',
+                        precision: 10,
+                        scale: 2,
+                        default: 0,
+                    },
                     {
                         name: 'ativo',
                         type: 'boolean'

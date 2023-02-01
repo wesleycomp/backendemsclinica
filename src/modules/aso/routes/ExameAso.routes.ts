@@ -25,6 +25,9 @@ ExameAsoRouter.post(
                         [Segments.BODY]:{
                             aso_id:Joi.string().required(),
                             exame_id:Joi.string().required(),
+                            valorexame: Joi.number().required(),
+                            valormedico: Joi.number().required(),
+                            valorems: Joi.number().required(),
                             ativo: Joi.boolean().allow('', null).default('true')
                         },
                     }),
