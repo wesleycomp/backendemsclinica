@@ -22,15 +22,15 @@ class ShowExamesAsosService{
     }
 
 
-    public async executeValoresAso({aso_id}: IRequest): Promise<ExamesAso[]>{
+    public async executeValoresAso({aso_id}: IRequest): Promise<ExamesAso[] | undefined>{
 
         const examesAsosRepository = getCustomRepository(ExamesAsoRepository);
-        const examesAso2 = await examesAsosRepository.findExamesByAso(aso_id);
+        const examesAso = await examesAsosRepository.findExamesByAso(aso_id);
 
-        if(!examesAso2){
+        if(!examesAso){
             throw new AppError('Aso não encontrado')
         }
-        return examesAso2;
+        return examesAso;
     }
 
 

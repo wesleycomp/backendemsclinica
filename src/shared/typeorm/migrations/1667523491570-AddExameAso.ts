@@ -56,7 +56,7 @@ export class AddExameAso1667523491570 implements MigrationInterface {
          await queryRunner.dropForeignKey('exameaso', 'AsoPacienteExame');
          await queryRunner.dropForeignKey('exameaso', 'ExameAsoPaciente');
          await queryRunner.dropColumn('exameaso', 'aso_id');
-        await queryRunner.dropColumn('exameaso', 'exame_id');
+         await queryRunner.dropColumn('exameaso', 'exame_id');
 
     }
 
