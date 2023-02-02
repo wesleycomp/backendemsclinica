@@ -18,6 +18,16 @@ ExameAsoRouter.get(
                     }),
                     exameAsoController.show
                 )
+ ExameAsoRouter.get(
+                    '/valores/:aso_id',
+                    isAuthenticated,
+                    celebrate({
+                        [Segments.PARAMS]:{
+                            aso_id: Joi.string().uuid().required(),
+                        },
+                    }),
+                    exameAsoController.showAsoValores
+                )
 ExameAsoRouter.post(
                     '/',
                     isAuthenticated,

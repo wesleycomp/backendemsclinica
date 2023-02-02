@@ -25,6 +25,17 @@ export default class ExameAsoController{
 
     }
 
+    public async showAsoValores(request: Request, response: Response): Promise<Response>{
+
+        const { aso_id } = request.params;
+        const showExameAso = new ShowExameAsoService();
+        const exame = await showExameAso.executeValoresAso({ aso_id })
+
+        return response.json(exame);
+
+    }
+
+
     public async create(request: Request, response: Response): Promise<Response>{
         const {
             aso_id,

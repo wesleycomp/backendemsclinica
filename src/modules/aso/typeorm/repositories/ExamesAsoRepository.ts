@@ -20,6 +20,18 @@ export class ExamesAsoRepository extends Repository<ExameAso>{
         return exameAso;
       }
 
+
+
+      public async findExamesByAso(aso_id: string): Promise<ExameAso[] | undefined> {
+        const exameAso = await this.find({ where: {
+               aso_id: aso_id
+            },
+            relations: ['exame','aso','aso.empresa','aso.paciente','aso.medico','aso.funcao','aso.tipoaso','aso.tipopagamento']
+        });
+        return exameAso;
+      }
+
+
         public async findAll(): Promise<ExameAso[]> {
         const exameAso = await this.find({
         // relations: ['exame','aso','aso.empresa','aso.paciente','aso.medico','aso.funcao','aso.tipoaso','aso.tipopagamento']
