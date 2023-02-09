@@ -16,6 +16,11 @@ export class CreateAso1667402135627 implements MigrationInterface {
                         generationStrategy: 'uuid',
                         default: 'uuid_generate_v4()',
                     },
+                     {
+                        name: 'user_edit',
+                        type: 'varchar',
+                        isNullable:false
+                    },
                     {
                         name: 'dataemissaoaso',
                         type: 'date'

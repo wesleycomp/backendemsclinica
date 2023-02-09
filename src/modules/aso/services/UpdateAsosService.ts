@@ -16,12 +16,13 @@ interface IAso{
     temexames: boolean;
     transmissaoesocial: boolean;
     ativo: boolean;
-     user_id:string;
+    user_id:string;
+    user_edit:string;
 }
 
 class UpdateAsoService{
 
-    public async execute({id,dataemissaoaso,paciente_id,empresa_id,funcao_id,tipoaso_id,tipopagamento_id,medico_id,resultado,temexames,transmissaoesocial,ativo,user_id}: IAso): Promise<Aso>{
+    public async execute({id,dataemissaoaso,paciente_id,empresa_id,funcao_id,tipoaso_id,tipopagamento_id,medico_id,resultado,user_edit,temexames,transmissaoesocial,ativo}: IAso): Promise<Aso>{
 
             //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
         const asoRepository = getCustomRepository(AsosRepository);
@@ -42,7 +43,7 @@ class UpdateAsoService{
         aso.temexames=temexames;
         aso.transmissaoesocial=transmissaoesocial;
         aso.ativo = ativo;
-        aso.user_id = user_id;
+        aso.user_edit = user_edit;
 
         await asoRepository.save(aso)
 
