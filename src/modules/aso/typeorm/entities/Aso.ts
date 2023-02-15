@@ -14,14 +14,17 @@ import { Column,
   UpdateDateColumn,} from 'typeorm';
 import TipoAso from './TipoAso';
 import User from '@modules/users/typeorm/entities/User';
-
-
+import { Serializable } from 'child_process';
 
 @Entity('aso')
 class Aso {
 
      @PrimaryGeneratedColumn('uuid')
      id: string;
+
+    @Column()
+    codigoaso: Number;
+
     @Column()
     dataemissaoaso: Date;
 
@@ -37,7 +40,7 @@ class Aso {
     @Column()
      empresa_id: string;
 
-   @ManyToOne(() => Funcao)
+    @ManyToOne(() => Funcao)
     @JoinColumn( {name: 'funcao_id'})
      funcao: Funcao;
     @Column()
