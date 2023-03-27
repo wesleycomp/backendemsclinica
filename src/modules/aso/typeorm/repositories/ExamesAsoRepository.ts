@@ -32,10 +32,13 @@ export class ExamesAsoRepository extends Repository<ExameAso>{
 
 
 
-    public async findAll(): Promise<ExameAso[]> {
+    public async findExamesRealizados(): Promise<ExameAso[] | undefined> {
+
         const exameAso = await this.find({
-        // relations: ['exame','aso','aso.empresa','aso.paciente','aso.medico','aso.funcao','aso.tipoaso','aso.tipopagamento']
-         });
+        // relations: ['exameaso','exameaso.aso','exameaso.aso.empresa','exameaso.aso.paciente','exameaso.aso.medico','exameaso.aso.funcao','exameaso.aso.tipoaso','exameaso.aso.tipopagamento']
+        relations: ['exameaso']
+    });
+
         return exameAso;
     }
 

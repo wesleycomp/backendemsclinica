@@ -9,10 +9,21 @@ import ShowExameAsoService from "../services/ShowExamesAsosService";
 export default class ExameAsoController{
 
     public async index(request: Request, response: Response): Promise<Response>{
+
         const listExamesAso = new ListExamesAsoService();
         const examesAso = await listExamesAso.execute();
 
         return response.json(examesAso);
+    }
+
+
+
+    public async showExames(request: Request, response: Response): Promise<Response>{
+
+        const showExameAso = new ShowExameAsoService();
+        const exame = await showExameAso.executeExames()
+
+        return response.json(exame);
     }
 
     public async show(request: Request, response: Response): Promise<Response>{
@@ -22,7 +33,6 @@ export default class ExameAsoController{
         const exame = await showExameAso.execute({ aso_id })
 
         return response.json(exame);
-
     }
 
     public async showAsoValores(request: Request, response: Response): Promise<Response>{
@@ -32,7 +42,6 @@ export default class ExameAsoController{
         const exame = await showExameAso.executeValoresAso({ aso_id })
 
         return response.json(exame);
-
     }
 
 

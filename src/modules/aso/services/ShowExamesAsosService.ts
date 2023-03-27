@@ -22,6 +22,21 @@ class ShowExamesAsosService{
     }
 
 
+
+    public async executeExames(): Promise<ExamesAso[] | undefined>{
+          //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
+
+        const examesAsosRepository = getCustomRepository(ExamesAsoRepository);
+        const examesAso = await examesAsosRepository.findExamesRealizados();
+
+        if(!examesAso){
+            throw new AppError('Aso não encontrado')
+        }
+
+        return examesAso;
+    }
+
+
     public async executeValoresAso({aso_id}: IRequest): Promise<ExamesAso[] | undefined>{
 
         const examesAsosRepository = getCustomRepository(ExamesAsoRepository);

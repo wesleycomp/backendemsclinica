@@ -25,6 +25,7 @@ export class AsosRepository extends Repository<Aso>{
         const aso = await this.findOne(id,{
            relations: ['empresa','tipoaso','medico','paciente','paciente.funcao','tipopagamento']
       });
+
         return aso;
     }
 
