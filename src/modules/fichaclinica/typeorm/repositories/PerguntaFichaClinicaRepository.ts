@@ -11,7 +11,5 @@ export class PerguntaFichaClinicaRepository extends Repository<PerguntaFichaClin
         });
         return perguntaFichaClinica;
     }
-
-
 }
 export default PerguntaFichaClinicaRepository;
