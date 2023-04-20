@@ -19,12 +19,38 @@ class ShowEmpresaService{
         if(!empresa){
             throw new AppError('Empresa não encontrada')
         }
-
-
         return empresa;
-
-
     }
+
+
+        public async executeEmpresaNome({id}: IRequest): Promise<Empresa[]>{
+
+
+       //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
+        const empresaRepository = getCustomRepository(EmpresaRepository);
+        const empresa = await empresaRepository.findByName(id);
+
+            if(!empresa){
+                throw new AppError('Empresa não encontrada')
+            }
+            return empresa;
+        }
+
+         public async executeEmpresaCnpj({id}: IRequest): Promise<Empresa[]>{
+
+       //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
+        const empresaRepository = getCustomRepository(EmpresaRepository);
+        const empresa = await empresaRepository.findByCnpj(id);
+
+            if(!empresa){
+                throw new AppError('Empresa não encontrada')
+            }
+            return empresa;
+        }
+
+
+
+
 }
 
 export default ShowEmpresaService;

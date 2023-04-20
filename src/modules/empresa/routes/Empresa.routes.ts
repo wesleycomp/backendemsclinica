@@ -18,6 +18,31 @@ empresasRouter.get(
                     }),
                     empresasController.show
                 )
+
+ empresasRouter.get(
+                    '/consulta/:id',
+                    isAuthenticated,
+                    celebrate({
+                        [Segments.PARAMS]:{
+                            id: Joi.string().required(),
+                        },
+                    }),
+
+                    empresasController.showEmpresaNome
+                )
+
+
+ empresasRouter.get(
+                    '/consultacnpj/:id',
+                    isAuthenticated,
+                    celebrate({
+                        [Segments.PARAMS]:{
+                            id: Joi.string().required(),
+                        },
+                    }),
+                    empresasController.showEmpresaCnpj
+                )
+
 empresasRouter.post(
                     '/',
                     isAuthenticated,
