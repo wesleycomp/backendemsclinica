@@ -39,7 +39,8 @@ class CreateEmpresaService{
         //instaciou o repositorio para ter acesso aos metodos(save, delete... etc)
         const empresaRepository = getCustomRepository(EmpresaRepository);
 
-        const  empresaExists= await empresaRepository.findByName(nome)
+        const empresaExists= await empresaRepository.verificaCNPJ(cnpj)
+
 
         if(empresaExists){
 

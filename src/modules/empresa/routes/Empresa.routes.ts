@@ -24,7 +24,7 @@ empresasRouter.get(
                     isAuthenticated,
                     celebrate({
                         [Segments.PARAMS]:{
-                            id: Joi.string().required(),
+                            id: Joi.string().uppercase().required(),
                         },
                     }),
 
@@ -48,7 +48,7 @@ empresasRouter.post(
                     isAuthenticated,
                     celebrate({
                         [Segments.BODY]:{
-                                nome: Joi.string().required(),
+                                nome: Joi.string().uppercase().required(),
                                 cnpj: Joi.string().required(),
                                 cpf:  Joi.string().allow('', null).default(''),
                                 ideEmpregador: Joi.string().allow('', null).default(''),
@@ -60,7 +60,7 @@ empresasRouter.post(
                                 responsavel: Joi.string().required(),
                                 esocial: Joi.boolean().required(),
                                 convenio: Joi.boolean().required(),
-                                observacao:Joi.string().allow('', null).default('')
+                                observacao:Joi.string().uppercase().allow('', null).default('')
                          },
                     }),
                     empresasController.create

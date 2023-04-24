@@ -14,7 +14,7 @@ class ShowEmpresaService{
 
        //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
         const empresaRepository = getCustomRepository(EmpresaRepository);
-        const empresa = await empresaRepository.findOne(id);
+        const empresa = await empresaRepository.verificaCNPJ(id);
 
         if(!empresa){
             throw new AppError('Empresa não encontrada')

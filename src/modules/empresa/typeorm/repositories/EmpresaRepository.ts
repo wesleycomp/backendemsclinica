@@ -21,6 +21,19 @@ export class EmpresaRepository extends Repository<Empresa>{
         return empresa;
     }
 
+
+    public async verificaCNPJ(id: string): Promise<Empresa | undefined>{
+ //const { Op } = require("sequelize");
+
+        const empresa = await this.findOne({
+            where: {
+                cnpj: id
+            }
+        })
+        return empresa;
+    }
+
+
    public async findByCnpj(id: string): Promise<Empresa[] | undefined>{
  //const { Op } = require("sequelize");
 
