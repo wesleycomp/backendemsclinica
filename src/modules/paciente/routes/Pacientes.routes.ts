@@ -31,7 +31,7 @@ pacientesRouter.post(
                             dataentradaempresa: Joi.string().required(),
                             descricaoatividade: Joi.string().required(),
 
-                            nome: Joi.string().required(),
+                            nome: Joi.string().uppercase().required(),
                             cpf: Joi.string().required(),
                             rg: Joi.string().required(),
                             telefone: Joi.string().required(),
@@ -65,7 +65,7 @@ pacientesRouter.put(
                             dataentradaempresa: Joi.string().required(),
                             descricaoatividade: Joi.string().required(),
 
-                            nome: Joi.string().required(),
+                            nome: Joi.string().uppercase().required(),
                             cpf: Joi.string().required(),
                             rg: Joi.string().required(),
                             telefone: Joi.string().required(),

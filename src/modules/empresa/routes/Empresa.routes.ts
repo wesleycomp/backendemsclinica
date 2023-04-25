@@ -72,7 +72,7 @@ empresasRouter.put(
                     celebrate({
                             [Segments.BODY]:{
                                 id: Joi.string().required(),
-                                nome: Joi.string().required(),
+                                nome: Joi.string().uppercase().required(),
                                 cnpj: Joi.string().required(),
                                 cpf: Joi.string().allow('', null),
                                 ideEmpregador: Joi.string().allow('', null),

@@ -24,7 +24,7 @@ procedimentosRouter.post(
                     isAuthenticated,
                     celebrate({
                         [Segments.BODY]:{
-                            name: Joi.string().required(),
+                            name: Joi.string().uppercase().required(),
                         },
                     }),
                     procedimentosController.create

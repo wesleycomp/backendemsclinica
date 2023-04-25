@@ -24,7 +24,7 @@ exameRouter.post(
                     celebrate({
                         [Segments.BODY]:{
                             procedimento_id: Joi.string().required(),
-                            name: Joi.string().required(),
+                            name: Joi.string().uppercase().required(),
                             valoravista: Joi.number().required(),
                             valormedico: Joi.number().required(),
                             valorems: Joi.number().required(),
@@ -42,7 +42,7 @@ exameRouter.put(
                             [Segments.BODY]:{
                                 id: Joi.string().required(),
                                 procedimento_id: Joi.string().required(),
-                                name: Joi.string().required(),
+                                name: Joi.string().uppercase().required(),
                                 valoravista: Joi.number().required(),
                                 valormedico: Joi.number().required(),
                                 valorems: Joi.number().required(),

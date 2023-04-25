@@ -24,7 +24,7 @@ MedicosRouter.post(
                     isAuthenticated,
                     celebrate({
                         [Segments.BODY]:{
-                            nome: Joi.string().required(),
+                            nome: Joi.string().uppercase().required(),
                             cpf: Joi.string().required(),
                             rg: Joi.string().required(),
                             crm: Joi.string().required(),
@@ -44,7 +44,7 @@ MedicosRouter.put(
                     celebrate({
                             [Segments.BODY]:{
                                 id: Joi.string().required(),
-                                nome: Joi.string().required(),
+                                nome: Joi.string().uppercase().required(),
                                 cpf: Joi.string().required(),
                                 rg: Joi.string().required(),
                                 crm: Joi.string().required(),
