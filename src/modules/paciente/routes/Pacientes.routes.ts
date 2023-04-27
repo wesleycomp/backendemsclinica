@@ -19,6 +19,28 @@ pacientesRouter.get(
                     pacientesController.show
                 )
 
+ pacientesRouter.get(
+                    '/consulta/:id',
+                    isAuthenticated,
+                    celebrate({
+                        [Segments.PARAMS]:{
+                            id: Joi.string().uppercase().required(),
+                        },
+                    }),
+                    pacientesController.showPacienteNome
+                )
+
+ pacientesRouter.get(
+                    '/consultacpf/:id',
+                    isAuthenticated,
+                    celebrate({
+                        [Segments.PARAMS]:{
+                            id: Joi.string().required(),
+                        },
+                    }),
+                    pacientesController.showPacienteCpf
+                )
+
 pacientesRouter.post(
                     '/',
                     isAuthenticated,

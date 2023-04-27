@@ -27,7 +27,6 @@ export default class EmpresaController{
 
    public async showEmpresaNome(request: Request, response: Response): Promise<Response>{
 
-
         const { id } = request.params;
         const showEmpresas = new ShowEmpresaService();
         const empresa = await showEmpresas.executeEmpresaNome({ id })

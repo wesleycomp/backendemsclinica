@@ -27,10 +27,8 @@ empresasRouter.get(
                             id: Joi.string().uppercase().required(),
                         },
                     }),
-
                     empresasController.showEmpresaNome
                 )
-
 
  empresasRouter.get(
                     '/consultacnpj/:id',
