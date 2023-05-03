@@ -1,4 +1,4 @@
-import { EntityRepository, Repository } from 'typeorm'
+import { Between, EntityRepository, Repository } from 'typeorm'
 import ExameAso from '../entities/ExamesAso'
 
 @EntityRepository(ExameAso)
@@ -18,7 +18,7 @@ export class ExamesAsoRepository extends Repository<ExameAso>{
             relations: ['exame','aso','aso.empresa','aso.paciente','aso.medico','aso.funcao','aso.tipoaso','aso.tipopagamento']
         });
         return exameAso;
-      }
+    }
 
     public async findExamesByAso(aso_id: string): Promise<ExameAso[] | undefined> {
         const exameAso = await this.find({ where: {
@@ -29,7 +29,20 @@ export class ExamesAsoRepository extends Repository<ExameAso>{
         return exameAso;
       }
 
+  public async findExamesRealizadosPeriodo(datainicio: string,datafim: string): Promise<ExameAso[] | undefined> {
+//console.log(datainicio,datafim)
 
+        const exameAso = await this.find({
+          where:{
+           created_at: Between(datainicio,datafim)
+          },
+//  nome: Like('%'+id+'%')
+         relations: ['exame','aso','aso.empresa','aso.paciente','aso.medico','aso.funcao','aso.tipoaso','aso.tipopagamento','aso.user']
+    //  relations: ['aso']
+        });
+
+        return exameAso;
+    }
 
 
     public async findExamesRealizados(): Promise<ExameAso[] | undefined> {

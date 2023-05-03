@@ -18,6 +18,21 @@ ExameAsoRouter.get(
                     }),
                     exameAsoController.show
                 )
+
+ExameAsoRouter.get(
+                    '/listexames/:datainicio/:datafim',
+                    isAuthenticated,
+                    celebrate({
+                        [Segments.PARAMS]:{
+                            datainicio: Joi.string().required(),
+                            datafim: Joi.string().required(),
+                        },
+                    }),
+                    exameAsoController.showExamesPeriodo
+                )
+
+
+
  ExameAsoRouter.get(
                     '/valores/:aso_id',
                     isAuthenticated,
