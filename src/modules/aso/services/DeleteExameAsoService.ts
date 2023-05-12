@@ -1,6 +1,6 @@
 import { getCustomRepository } from "typeorm";
 import { ExamesAsoRepository } from "../typeorm/repositories/ExamesAsoRepository";
-
+import AppError from '@shared/errors/AppError';
 interface IRequest{
     id: string
 }

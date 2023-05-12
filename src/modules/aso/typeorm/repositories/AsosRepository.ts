@@ -30,7 +30,9 @@ export class AsosRepository extends Repository<Aso>{
     }
 
     public async findAll(): Promise<Aso[]> {
-        const aso = await this.find({
+        const aso = await this.find({ where: {
+               ativo: true
+            },
             relations: ['empresa','tipoaso','medico','paciente','paciente.funcao','tipopagamento']
         });
         return aso;
