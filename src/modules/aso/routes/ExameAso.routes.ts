@@ -6,8 +6,6 @@ import isAuthenticated from '../../../shared/http/middlewares/isAuthenticated';
 const ExameAsoRouter = Router();
 const exameAsoController = new ExameAsoController();
 
-//ExameAsoRouter.get('/', exameAsoController.showExames)
-
 ExameAsoRouter.get(
                     '/:aso_id',
                     isAuthenticated,
@@ -30,8 +28,6 @@ ExameAsoRouter.get(
                     }),
                     exameAsoController.showExamesPeriodo
                 )
-
-
 
  ExameAsoRouter.get(
                     '/valores/:aso_id',

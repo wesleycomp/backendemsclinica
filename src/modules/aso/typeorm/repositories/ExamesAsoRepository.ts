@@ -36,7 +36,7 @@ export class ExamesAsoRepository extends Repository<ExameAso>{
           where:{
            created_at: Between(datainicio,datafim)
           },
-//  nome: Like('%'+id+'%')
+        //  nome: Like('%'+id+'%')
          relations: ['exame','aso','aso.empresa','aso.paciente','aso.medico','aso.funcao','aso.tipoaso','aso.tipopagamento','aso.user']
     //  relations: ['aso']
         });
