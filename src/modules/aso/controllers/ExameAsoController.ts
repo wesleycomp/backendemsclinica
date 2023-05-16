@@ -79,10 +79,10 @@ export default class ExameAsoController{
 
    public async delete(request: Request, response: Response): Promise<Response>{
         const { id } = request.params;
-        const deleteFuncao = new DeleteExameAsoService()
+        const deleteExameAso = new DeleteExameAsoService()
 
-        await deleteFuncao.execute({ id })
-        await deleteFuncao.executeRemoveAso({ id })
+        await deleteExameAso.execute({ id })
+        await deleteExameAso.executeRemoveAso({ id })
         return response.json([]);
     }
 

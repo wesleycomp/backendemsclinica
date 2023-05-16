@@ -51,7 +51,7 @@ pacientesRouter.post(
                             categoriatrabalhador_id: Joi.string().required(),
                             matricula: Joi.string().required(),
                             dataentradaempresa: Joi.string().required(),
-                            descricaoatividade: Joi.string().required(),
+                            descricaoatividade: Joi.string().allow('', null).default(''),
 
                             nome: Joi.string().uppercase().required(),
                             cpf: Joi.string().required(),
@@ -59,10 +59,10 @@ pacientesRouter.post(
                             telefone: Joi.string().required(),
 
                             genero: Joi.string().required(),
-                            tiposanguineo: Joi.string().required(),
+                            tiposanguineo: Joi.string().allow('', null).default(''),
                             nacionalidade_id: Joi.string().required(),
-                            nis: Joi.string().required(),
-                            ctps: Joi.string().required(),
+                            nis: Joi.string().allow('', null).default(''),
+                            ctps: Joi.string().allow('', null).default(''),
 
 
                             datanascimento: Joi.string().required(),
