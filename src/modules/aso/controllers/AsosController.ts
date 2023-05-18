@@ -8,6 +8,7 @@ import ShowAsoService from "../services/ShowAsosService";
 import ShowFichaExameService from "../services/ShowFichaExameService";
 
 import UpdateAsoService from "../services/UpdateAsosService";
+import DeleteExameAsoService from "../services/DeleteExameAsoService";
 
 export default class AsosController{
 
@@ -129,8 +130,12 @@ export default class AsosController{
    public async delete(request: Request, response: Response): Promise<Response>{
 
         const { id } = request.params;
-        const deleteExame = new DeleteAsoService();
-        await deleteExame.execute({ id })
+
+        const deleteExamesAso = new DeleteExameAsoService()
+        const deleteAso = new DeleteAsoService();
+
+        await deleteExamesAso.execute({ id })
+        await deleteAso.execute({ id })
 
         return response.json([]);
     }

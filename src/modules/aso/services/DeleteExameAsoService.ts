@@ -27,20 +27,20 @@ class DeleteExameAsoService{
     }
 
 
-      public async executeRemoveAso({id}: IRequest): Promise<void>{
+    //   public async executeRemoveAso({id}: IRequest): Promise<void>{
 
-        //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
-        const asoRepository = getCustomRepository(AsosRepository);
+    //     //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
+    //     const asoRepository = getCustomRepository(AsosRepository);
 
-        const aso = await asoRepository.findOne(id)
+    //     const aso = await asoRepository.findOne(id)
 
-        if(!aso){
-            throw new AppError('Aso não encontrada')
-        }
+    //     if(!aso){
+    //         throw new AppError('Aso não encontrada')
+    //     }
 
-        await asoRepository.remove(aso)
+    //     await asoRepository.remove(aso)
 
-    }
+    // }
 }
 
 export default DeleteExameAsoService;

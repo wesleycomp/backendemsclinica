@@ -32,7 +32,7 @@ class DeleteAsoService{
 
         });
 
-       asoRepository.save(alteracoesUsuarios);
+        await asoRepository.save(alteracoesUsuarios);
 
         await asoRepository.remove(aso)
 
