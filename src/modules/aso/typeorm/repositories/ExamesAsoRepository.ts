@@ -29,6 +29,15 @@ export class ExamesAsoRepository extends Repository<ExameAso>{
         return exameAso;
       }
 
+    public async findExamesAso(aso_id: string): Promise<ExameAso[] | undefined> {
+        const exameAso = await this.find({ where: {
+               aso_id: aso_id
+            },
+        });
+        return exameAso;
+      }
+
+
   public async findExamesRealizadosPeriodo(datainicio: string,datafim: string): Promise<ExameAso[] | undefined> {
 //console.log(datainicio,datafim)
 

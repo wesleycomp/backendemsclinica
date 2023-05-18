@@ -14,11 +14,11 @@ class DeleteExameAsoService{
         //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
         const exameAsoRepository = getCustomRepository(ExamesAsoRepository);
        // const asoRepository = getCustomRepository(AsosRepository);
-        const exameAso = await exameAsoRepository.findOne(id);
+        const exameAso = await exameAsoRepository.findExamesAso(id);
        // const aso = await asoRepository.findOne(id)
 
         if(!exameAso){
-            throw new AppError('Aso não encontrada')
+            throw new AppError('ExameAso não encontrada')
         }
 
         await exameAsoRepository.remove(exameAso)
