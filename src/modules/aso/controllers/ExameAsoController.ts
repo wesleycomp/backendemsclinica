@@ -82,7 +82,7 @@ export default class ExameAsoController{
         const deleteExameAso = new DeleteExameAsoService()
 
         await deleteExameAso.execute({ id })
-        await deleteExameAso.executeRemoveAso({ id })
+     //   await deleteExameAso.executeRemoveAso({ id })
         return response.json([]);
     }
 
