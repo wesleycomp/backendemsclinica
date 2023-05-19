@@ -5,7 +5,6 @@ import isAuthenticated from '../../../shared/http/middlewares/isAuthenticated';
 
 const AsoRouter = Router();
 const asoController = new AsoController();
-const asoController = new AsoController();
 
 AsoRouter.get('/', isAuthenticated, asoController.index)
 

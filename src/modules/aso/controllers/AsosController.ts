@@ -134,9 +134,9 @@ export default class AsosController{
         const deleteExamesAso = new DeleteExameAsoService()
         const deleteAso = new DeleteAsoService();
 
-         deleteExamesAso.execute({ id })
-         await deleteAso.execute({ id })
+        await deleteExamesAso.execute({id}),
 
+        await deleteAso.execute({id})
 
 
         return response.json([]);

@@ -33,8 +33,9 @@ export class AsosRepository extends Repository<Aso>{
         const aso = await this.find({ where: {
                ativo: true
             },
-            relations: ['empresa','tipoaso','medico','paciente','paciente.funcao','tipopagamento']
+          relations: ['empresa','tipoaso','medico','paciente','paciente.funcao','tipopagamento']
         });
+//console.log(aso)
         return aso;
     }
 

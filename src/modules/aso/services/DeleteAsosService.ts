@@ -2,7 +2,7 @@ import { getCustomRepository } from "typeorm";
 import { AsosRepository } from "../typeorm/repositories/AsosRepository";
 
 import AppError from '@shared/errors/AppError';
-import AlteracoesUsuariosRepository from "../typeorm/repositories/AlteracoesUsuariosRepository";
+//import AlteracoesUsuariosRepository from "../typeorm/repositories/AlteracoesUsuariosRepository";
 
 interface IRequest{
     id: string
@@ -15,7 +15,7 @@ class DeleteAsoService{
 
         //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
         const asoRepository = getCustomRepository(AsosRepository);
-        const alteracoesUsuariosRepository = getCustomRepository(AlteracoesUsuariosRepository);
+       // const alteracoesUsuariosRepository = getCustomRepository(AlteracoesUsuariosRepository);
         const aso = await asoRepository.findOne(id);
 
         if(!aso){
