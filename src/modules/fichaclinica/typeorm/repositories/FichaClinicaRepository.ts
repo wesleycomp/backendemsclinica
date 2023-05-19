@@ -38,5 +38,14 @@ export class FichaClinicaRepository extends Repository<FichaClinica>{
         return fichaClinica;
     }
 
+
+     public async findFichaClinicaAso(aso_id: string): Promise<FichaClinica [] | undefined> {
+        const fichaClinicaAso = await this.find({ where: {
+               aso_id: aso_id
+            },
+        });
+        return fichaClinicaAso;
+      }
+
 }
 export default FichaClinicaRepository;

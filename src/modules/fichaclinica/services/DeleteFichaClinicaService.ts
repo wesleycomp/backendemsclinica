@@ -12,7 +12,7 @@ class DeleteFichaClinicaService{
 
         //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
         const fichaClinicaRepository = getCustomRepository(FichaClinicaRepository);
-        const fichaClinica = await fichaClinicaRepository.findOne(id);
+        const fichaClinica = await fichaClinicaRepository.findFichaClinicaAso(id);
 
         if(!fichaClinica){
             throw new AppError('Ficha Clinica não encontrada')
@@ -21,6 +21,12 @@ class DeleteFichaClinicaService{
         await fichaClinicaRepository.remove(fichaClinica)
 
     }
+
+
+
+
+
+
 }
 
 export default DeleteFichaClinicaService;

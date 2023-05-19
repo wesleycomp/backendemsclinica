@@ -9,6 +9,7 @@ import ShowFichaExameService from "../services/ShowFichaExameService";
 
 import UpdateAsoService from "../services/UpdateAsosService";
 import DeleteExameAsoService from "../services/DeleteExameAsoService";
+import DeleteFichaClinicaService from "@modules/fichaclinica/services/DeleteFichaClinicaService";
 
 export default class AsosController{
 
@@ -133,9 +134,10 @@ export default class AsosController{
 
         const deleteExamesAso = new DeleteExameAsoService()
         const deleteAso = new DeleteAsoService();
+         const deleteFichaClinicaAso = new DeleteFichaClinicaService()
 
         await deleteExamesAso.execute({id}),
-
+        await deleteFichaClinicaAso.execute({id})
         await deleteAso.execute({id})
 
 
