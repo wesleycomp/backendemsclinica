@@ -5,7 +5,11 @@ import CreateTxt2Tecnospeed from "../services/CreateTxt2Tecnospeed";
 import DeleteAsoService from "../services/DeleteAsosService";
 import ListAsoService from "../services/ListAsosService";
 import ShowAsoService from "../services/ShowAsosService";
+import ShowFichaExameService from "../services/ShowFichaExameService";
+
 import UpdateAsoService from "../services/UpdateAsosService";
+import DeleteExameAsoService from "../services/DeleteExameAsoService";
+import DeleteFichaClinicaService from "@modules/fichaclinica/services/DeleteFichaClinicaService";
 
 export default class AsosController{
 
@@ -25,6 +29,17 @@ export default class AsosController{
 
         return response.json(exame);
     }
+
+    public async showFichaExame(request: Request, response: Response): Promise<Response>{
+
+        const { id } = request.params;
+        const showExame = new ShowFichaExameService();
+        const exame = await showExame.execute({ id })
+
+        return response.json(exame);
+    }
+
+
 
     public async geraXML(request: Request, response: Response): Promise<Response>{
 
@@ -50,7 +65,7 @@ export default class AsosController{
 
     public async create(request: Request, response: Response): Promise<Response>{
 
-        const {dataemissaoaso,paciente_id,empresa_id,funcao_id,tipoaso_id,tipopagamento_id,medico_id,resultado,temexames,transmissaoesocial,ativo} = request.body;
+        const {dataemissaoaso,paciente_id,empresa_id,funcao_id,tipoaso_id,tipopagamento_id,medico_id,resultado,user_edit,temexames,transmissaoesocial,ativo,user_id} = request.body;
         const createExame = new CreateAsoService();
         const exame = await createExame.execute({
             dataemissaoaso,
@@ -61,9 +76,11 @@ export default class AsosController{
             tipopagamento_id,
             medico_id,
             resultado,
+            user_edit,
             temexames,
             transmissaoesocial,
-            ativo
+            ativo,
+            user_id
         });
 
         return response.json(exame);
@@ -81,9 +98,12 @@ export default class AsosController{
             tipopagamento_id,
             medico_id,
             resultado,
+            user_edit,
             temexames,
             transmissaoesocial,
-            ativo
+            ativo,
+            user_id
+
         } = request.body;
         const { id } = request.params;
         const updateExame = new UpdateAsoService();
@@ -98,9 +118,11 @@ export default class AsosController{
             tipopagamento_id,
             medico_id,
             resultado,
+            user_edit,
             temexames,
             transmissaoesocial,
-            ativo
+            ativo,
+            user_id
         });
 
         return response.json(exame);
@@ -109,8 +131,15 @@ export default class AsosController{
    public async delete(request: Request, response: Response): Promise<Response>{
 
         const { id } = request.params;
-        const deleteExame = new DeleteAsoService();
-        await deleteExame.execute({ id })
+
+        const deleteExamesAso = new DeleteExameAsoService()
+        const deleteAso = new DeleteAsoService();
+         const deleteFichaClinicaAso = new DeleteFichaClinicaService()
+
+        await deleteExamesAso.execute({id}),
+        await deleteFichaClinicaAso.execute({id})
+        await deleteAso.execute({id})
+
 
         return response.json([]);
     }

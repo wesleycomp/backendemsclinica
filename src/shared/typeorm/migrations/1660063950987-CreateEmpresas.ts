@@ -64,6 +64,11 @@ export class CreateEmpresas1660063950987 implements MigrationInterface {
                         isNullable:true
                     },
                     {
+                        name:'observacao',
+                        type:'varchar',
+                        isNullable:true
+                    },
+                    {
                         name: 'esocial',
                         type: 'boolean'
                     },

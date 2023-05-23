@@ -63,14 +63,6 @@ export class CreatePacientes1657136785635 implements MigrationInterface {
                         type: 'varchar',
                         isNullable:true
                     },
-
-
-                    {
-                        name: 'nacionalidade_id',
-                        type: 'varchar',
-                        isNullable:false
-                    },
-
                     {
                         name: 'nis',
                         type: 'varchar',

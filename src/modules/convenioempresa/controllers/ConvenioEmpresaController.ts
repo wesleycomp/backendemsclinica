@@ -11,7 +11,6 @@ export default class ConvenioEmpresaController{
 
         const listConvenioEmpresa = new ListConvenioEmpresaService();
         const ConvenioEmpresa = await listConvenioEmpresa.execute();
-
         return response.json(ConvenioEmpresa);
     }
 
@@ -20,7 +19,6 @@ export default class ConvenioEmpresaController{
         const { empresa_id } = request.params;
         const showConvenioEmpresa = new ShowConvenioEmpresaService();
         const ConvenioEmpresa = await showConvenioEmpresa.execute({ empresa_id })
-
         return response.json(ConvenioEmpresa);
     }
 
@@ -32,7 +30,8 @@ export default class ConvenioEmpresaController{
                 valorexame,
                 valormedico,
                 valorems,
-                ativo
+                ativo,
+                user_id
                } = request.body;
 
         const createConvenioEmpresa = new CreateConvenioEmpresaService();
@@ -42,7 +41,8 @@ export default class ConvenioEmpresaController{
                 valorexame,
                 valormedico,
                 valorems,
-                ativo
+                ativo,
+                user_id
         });
 
         return response.json(ConvenioEmpresa);
@@ -57,7 +57,8 @@ export default class ConvenioEmpresaController{
                  valorexame,
                  valormedico,
                  valorems,
-                 ativo
+                 ativo,
+                 user_id
                 } = request.body;
         const { id } = request.params;
 
@@ -70,7 +71,8 @@ export default class ConvenioEmpresaController{
             valorexame,
             valormedico,
             valorems,
-            ativo
+            ativo,
+            user_id
         });
 
         return response.json(ConvenioEmpresa);
@@ -81,7 +83,6 @@ export default class ConvenioEmpresaController{
         const { id } = request.params;
         const deleteConvenioEmpresa = new DeleteConvenioEmpresaService();
         await deleteConvenioEmpresa.execute({ id })
-
         return response.json([]);
     }
 

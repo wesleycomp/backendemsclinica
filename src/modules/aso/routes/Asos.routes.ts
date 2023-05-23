@@ -18,6 +18,18 @@ AsoRouter.get(
                     }),
                     asoController.show
                 )
+
+AsoRouter.get(
+                    '/fichaexame/:id',
+                    isAuthenticated,
+                    celebrate({
+                        [Segments.PARAMS]:{
+                            id: Joi.string().uuid().required(),
+                        },
+                    }),
+                    asoController.showFichaExame
+                )
+
  AsoRouter.get(
                     '/xml/:aso_id',
                     isAuthenticated,
@@ -45,12 +57,14 @@ AsoRouter.post(
                         [Segments.BODY]:{
                             dataemissaoaso:Joi.string().required(),
                             paciente_id:Joi.string().required(),
+                            user_id:Joi.string().required(),
                             empresa_id: Joi.string().required(),
                             funcao_id: Joi.string().required(),
                             tipoaso_id: Joi.string().required(),
                             tipopagamento_id: Joi.string().required(),
                             medico_id: Joi.string().required(),
                             resultado: Joi.string().allow('', null).default(''),
+                            user_edit: Joi.string().allow('', null).default(''),
                             temexames: Joi.boolean().allow('', null).default('true'),
                             transmissaoesocial: Joi.boolean().allow('', null).default('false'),
                             ativo: Joi.boolean().allow('', null).default('true'),
@@ -69,6 +83,7 @@ AsoRouter.put(
                                 empresa_id:Joi.string().required(),
                                 funcao_id: Joi.string().required(),
                                 tipoaso_id: Joi.string().required(),
+                                user_edit: Joi.string().required(),
                                 tipopagamento_id: Joi.string().required(),
                                 medico_id: Joi.string().required(),
                                 resultado: Joi.string().allow('', null).default(''),
@@ -76,7 +91,8 @@ AsoRouter.put(
                                 transmissaoesocial: Joi.boolean().required(),
                                 ativo: Joi.boolean().required(),
                                 created_at: Joi.string().required(),
-                                updated_at: Joi.string().required()
+                                updated_at: Joi.string().required(),
+                                user_id:Joi.string().required()
                             },
                             [Segments.PARAMS]:{
                                 id: Joi.string().uuid().required(),

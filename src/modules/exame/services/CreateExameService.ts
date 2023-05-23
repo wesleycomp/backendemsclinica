@@ -12,12 +12,14 @@ interface IExame{
     valormedico: number;
     valorems: number;
     ativo: boolean;
+    usuariocadastro: string;
+    usuarioedicao: string;
 
 }
 
 class CreateExameService{
 
-    public async execute({procedimento_id,name,valoravista,valormedico,valorems,ativo}: IExame): Promise<Exame>{
+    public async execute({procedimento_id,name,valoravista,valormedico,valorems,ativo,usuariocadastro,usuarioedicao}: IExame): Promise<Exame>{
 
         //instaciou o repositorio para ter acesso aos metodos(save, delete... etc)
     const exameRepository = getCustomRepository(ExameRepository);
@@ -34,7 +36,9 @@ class CreateExameService{
             valoravista,
             valormedico,
             valorems,
-            ativo
+            ativo,
+            usuariocadastro,
+            usuarioedicao
         });
 
         await exameRepository.save(exame);

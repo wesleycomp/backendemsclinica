@@ -19,7 +19,7 @@ export class ConvenioEmpresaRepository extends Repository<ConvenioEmpresa>{
             where: {
                empresa_id: empresa_id
             },
-            relations: ['empresa','exame','exame.especialidademedica']
+            relations: ['empresa','exame','exame.procedimento','user']
         });
 
        // console.log(convenioempresa)

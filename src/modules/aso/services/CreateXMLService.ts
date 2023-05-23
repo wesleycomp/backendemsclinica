@@ -2,7 +2,7 @@ import { getCustomRepository } from "typeorm";
 import Aso from "../typeorm/entities/Aso";
 import { AsosRepository } from "../typeorm/repositories/AsosRepository";
 //import AppError from '@shared/errors/AppError';
-var httpsAgent = require('https-agent');
+//var httpsAgent = require('https-agent');
 var https = require('https');
 var builder = require('xmlbuilder');
 const fs = require('fs');
@@ -162,13 +162,13 @@ class CreateXMLService {
               //     console.log(body);
               //     console.log(statusCode);
               // })();
-           soap.createClientAsync(url,function(err, client) {
-                    if(err) return console.log(err);
-                     client.setSecurity(new soap.ClientSSLSecurity(
-                      fs.readFileSync('./certificado/cadeiaEsocial.pem')
-                    ));
-                        console.log("passou por aqui")
-                });
+       //    soap.createClientAsync(url,function(err, client) {
+      //              if(err) return console.log(err);
+       //              client.setSecurity(new soap.ClientSSLSecurity(
+      //                fs.readFileSync('./certificado/cadeiaEsocial.pem')
+        //            ));
+      //                  console.log("passou por aqui")
+       //         });
             console.log('passou aki final envio lote xml... atualizaei pull 455')
         } catch (e) {
             console.log(e);

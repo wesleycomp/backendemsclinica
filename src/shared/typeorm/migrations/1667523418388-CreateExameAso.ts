@@ -16,14 +16,6 @@ export class CreateExameAso1667523418388 implements MigrationInterface {
                         default: 'uuid_generate_v4()',
                     },
                     {
-                        name: 'aso_id',
-                        type: 'varchar'
-                    },
-                    {
-                        name: 'exame_id',
-                        type: 'varchar'
-                    },
-                    {
                         name: 'dataexame',
                         type: 'timestamp'
                     },
@@ -31,9 +23,34 @@ export class CreateExameAso1667523418388 implements MigrationInterface {
                         name: 'datavalidadeexame',
                         type: 'timestamp'
                     },
+                     {
+                        name: 'valorexame',
+                        type: 'numeric',
+                        precision: 10,
+                        scale: 2,
+                        default: 0,
+                    },
+                    {
+                        name: 'valormedico',
+                        type: 'numeric',
+                        precision: 10,
+                        scale: 2,
+                        default: 0,
+                    },
+                    {
+                        name: 'valorems',
+                        type: 'numeric',
+                        precision: 10,
+                        scale: 2,
+                        default: 0,
+                    },
                     {
                         name: 'ativo',
                         type: 'boolean'
+                    },
+                    {
+                        name:'usuariocadastro',
+                        type: 'varchar'
                     },
                     {
                         name: 'created_at',

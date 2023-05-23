@@ -19,6 +19,28 @@ pacientesRouter.get(
                     pacientesController.show
                 )
 
+ pacientesRouter.get(
+                    '/consulta/:id',
+                    isAuthenticated,
+                    celebrate({
+                        [Segments.PARAMS]:{
+                            id: Joi.string().uppercase().required(),
+                        },
+                    }),
+                    pacientesController.showPacienteNome
+                )
+
+ pacientesRouter.get(
+                    '/consultacpf/:id',
+                    isAuthenticated,
+                    celebrate({
+                        [Segments.PARAMS]:{
+                            id: Joi.string().required(),
+                        },
+                    }),
+                    pacientesController.showPacienteCpf
+                )
+
 pacientesRouter.post(
                     '/',
                     isAuthenticated,
@@ -29,18 +51,18 @@ pacientesRouter.post(
                             categoriatrabalhador_id: Joi.string().required(),
                             matricula: Joi.string().required(),
                             dataentradaempresa: Joi.string().required(),
-                            descricaoatividade: Joi.string().required(),
+                            descricaoatividade: Joi.string().allow('', null).default(''),
 
-                            nome: Joi.string().required(),
+                            nome: Joi.string().uppercase().required(),
                             cpf: Joi.string().required(),
                             rg: Joi.string().required(),
                             telefone: Joi.string().required(),
 
                             genero: Joi.string().required(),
-                            tiposanguineo: Joi.string().required(),
+                            tiposanguineo: Joi.string().allow('', null).default(''),
                             nacionalidade_id: Joi.string().required(),
-                            nis: Joi.string().required(),
-                            ctps: Joi.string().required(),
+                            nis: Joi.string().allow('', null).default(''),
+                            ctps: Joi.string().allow('', null).default(''),
 
 
                             datanascimento: Joi.string().required(),
@@ -65,7 +87,7 @@ pacientesRouter.put(
                             dataentradaempresa: Joi.string().required(),
                             descricaoatividade: Joi.string().required(),
 
-                            nome: Joi.string().required(),
+                            nome: Joi.string().uppercase().required(),
                             cpf: Joi.string().required(),
                             rg: Joi.string().required(),
                             telefone: Joi.string().required(),

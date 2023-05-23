@@ -1,15 +1,21 @@
-import { EntityRepository, Repository } from "typeorm";
+import { EntityRepository, Like, Repository } from "typeorm";
 import Pacientes from "../entities/Paciente";
+ const { Op } = require("sequelize");
 
 @EntityRepository(Pacientes)
 export class PacientesRepository extends Repository<Pacientes>{
 
-    public async findByName(name: string): Promise<Pacientes | undefined> {
+     public async findByName(id: string): Promise<Pacientes[] | undefined>{
+ //const { Op } = require("sequelize");
 
-        const paciente = await this.findOne({
-               where: {
-                        name,
-                      }
+        const paciente = await this.find({
+            where: {
+              //  nome: id
+               nome: Like('%'+id+'%')
+             //nome: { [Op.like]: `%${id}%` }
+            },
+       relations: ['empresa','funcao','categoriatrabalhador','nacionalidade']
+
         })
 
         return paciente;
@@ -26,9 +32,23 @@ export class PacientesRepository extends Repository<Pacientes>{
 
         })
         return paciente;
-
     }
 
+  public async pesquisaByCpf(id: string): Promise<Pacientes[] | undefined>{
+ //const { Op } = require("sequelize");
+
+        const paciente = await this.find({
+            where: {
+              //  nome: id
+               cpf: Like('%'+id+'%')
+             //nome: { [Op.like]: `%${id}%` }
+            },
+           relations: ['empresa','funcao','categoriatrabalhador','nacionalidade']
+
+        })
+
+        return paciente;
+    }
 
 
         public async findPacientesAll(): Promise<Pacientes[]> {

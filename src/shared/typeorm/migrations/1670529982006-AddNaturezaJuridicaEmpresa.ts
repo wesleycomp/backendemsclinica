@@ -4,7 +4,7 @@ export class AddNaturezaJuridicaEmpresa1670529982006 implements MigrationInterfa
 
     public async up(queryRunner: QueryRunner): Promise<void> {
  await queryRunner.addColumn(
-            'naturezajuridicaempresa',
+            'empresa',
         new TableColumn({
             name:'naturezajuridica_id',
             type: 'uuid',
@@ -14,7 +14,7 @@ export class AddNaturezaJuridicaEmpresa1670529982006 implements MigrationInterfa
 
 
         await queryRunner.createForeignKey(
-            'naturezajuridicaempresa',
+            'empresa',
             new TableForeignKey({
                 name:'NaturezaJuridicaEmpresa',
                 columnNames: ['naturezajuridica_id'],

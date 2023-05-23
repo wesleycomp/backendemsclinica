@@ -16,19 +16,37 @@ export class AsosRepository extends Repository<Aso>{
 
     public async findById(id: string): Promise<Aso | undefined> {
         const aso = await this.findOne(id,{
-            relations: ['empresa','tipoaso','medico']
+            relations: ['empresa','tipoaso','medico','paciente']
         });
+        return aso;
+    }
+
+    public async findAllFichaExameById(id: string): Promise<Aso | undefined> {
+        const aso = await this.findOne(id,{
+           relations: ['empresa','tipoaso','medico','paciente','paciente.funcao','tipopagamento']
+      });
+
         return aso;
     }
 
     public async findAll(): Promise<Aso[]> {
-        const aso = await this.find({
-            relations: ['empresa','tipoaso','medico','paciente','tipopagamento']
+        const aso = await this.find({ where: {
+               ativo: true
+            },
+          relations: ['empresa','tipoaso','medico','paciente','paciente.funcao','tipopagamento']
         });
+//console.log(aso)
         return aso;
     }
 
+//    public async findOne(id: string): Promise<Aso> {
+//         const aso = await this.find({ where: {
+//                id: id
+//             },
 
+//         });
+//         return aso;
+//     }
 
     // public async findXML(): Promise<String | undefined> {
     //     const xmlaso = await fs.readFile('./xml/arquivoTesteXml.xml', "utf8");
@@ -37,8 +55,6 @@ export class AsosRepository extends Repository<Aso>{
 
     //     return xmlaso;
     // }
-
-
 
 }
 export default AsosRepository;

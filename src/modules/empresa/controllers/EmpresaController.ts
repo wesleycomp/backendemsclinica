@@ -25,9 +25,31 @@ export default class EmpresaController{
 
     }
 
+   public async showEmpresaNome(request: Request, response: Response): Promise<Response>{
+
+        const { id } = request.params;
+        const showEmpresas = new ShowEmpresaService();
+        const empresa = await showEmpresas.executeEmpresaNome({ id })
+
+        return response.json(empresa);
+
+    }
+
+
+       public async showEmpresaCnpj(request: Request, response: Response): Promise<Response>{
+
+        const { id } = request.params;
+        const showEmpresas = new ShowEmpresaService();
+        const empresa = await showEmpresas.executeEmpresaCnpj({ id })
+
+        return response.json(empresa);
+
+    }
+
+
     public async create(request: Request, response: Response): Promise<Response>{
 
-        const { nome, cnpj, cpf, ideEmpregador, inscricaoestadual, inscricaomunicipal,endereco,telefone,email,responsavel,esocial,convenio } = request.body;
+        const { nome, cnpj, cpf, ideEmpregador, inscricaoestadual, inscricaomunicipal,endereco,telefone,email,responsavel,esocial,convenio,observacao } = request.body;
 
         const createEmpresa = new CreateEmpresaService();
 
@@ -43,7 +65,8 @@ export default class EmpresaController{
                     email,
                     responsavel,
                     esocial,
-                    convenio
+                    convenio,
+                    observacao
         });
 
         return response.json(empresa);
@@ -64,7 +87,8 @@ export default class EmpresaController{
                email,
                responsavel,
                esocial,
-               convenio } = request.body;
+               convenio,
+               observacao } = request.body;
 
         const { id } = request.params;
 
@@ -84,7 +108,8 @@ export default class EmpresaController{
                     email,
                     responsavel,
                     esocial,
-                    convenio
+                    convenio,
+                    observacao
         });
 
         return response.json(empresa);

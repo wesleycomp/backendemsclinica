@@ -10,11 +10,12 @@ interface IRequest{
     valormedico: number;
     valorems: number;
     ativo: boolean;
+    user_id: string;
 }
 
 class CreateConvenioEmpresaService{
 
-    public async execute({empresa_id,exame_id,valorexame,valorems,valormedico,ativo}: IRequest): Promise<ConvenioEmpresa>{
+    public async execute({empresa_id,exame_id,valorexame,valorems,valormedico,ativo,user_id}: IRequest): Promise<ConvenioEmpresa>{
 
         //instaciou o repositorio para ter acesso aos metodos(save, delete... etc)
     const convenioempresaRepository = getCustomRepository(ConvenioEmpresaRepository);
@@ -28,7 +29,7 @@ class CreateConvenioEmpresaService{
         }
 
         const ConvenioEmpresa = convenioempresaRepository.create({
-            empresa_id,exame_id,valorexame,valorems,valormedico,ativo
+            empresa_id,exame_id,valorexame,valorems,valormedico,ativo,user_id
         });
 
         await convenioempresaRepository.save(ConvenioEmpresa)

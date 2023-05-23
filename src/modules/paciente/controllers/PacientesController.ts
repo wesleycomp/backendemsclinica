@@ -23,6 +23,32 @@ export default class PacientesController{
         return response.json(pacientes);
     }
 
+public async showPacienteNome(request: Request, response: Response): Promise<Response>{
+
+
+        const { id } = request.params;
+        const showPacientes = new ShowPacientesService();
+        const paciente = await showPacientes.executePacienteNome({ id })
+
+        return response.json(paciente);
+
+    }
+
+
+       public async showPacienteCpf(request: Request, response: Response): Promise<Response>{
+
+        const { id } = request.params;
+        const showPacientes = new ShowPacientesService();
+        const paciente = await showPacientes.executePacienteCpf({ id })
+
+        return response.json(paciente);
+
+    }
+
+
+
+
+
     public async create(request: Request, response: Response): Promise<Response>{
 
         const {
