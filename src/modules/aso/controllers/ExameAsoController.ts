@@ -5,7 +5,7 @@ import DeleteExameAsoService from "../services/DeleteExameAsoService";
 import ListExamesAsoService from "../services/ListExamesAsoService";
 import ShowExameAsoService from "../services/ShowExamesAsosService";
 
-
+//teste git
 export default class ExameAsoController{
 
     public async index(request: Request, response: Response): Promise<Response>{
