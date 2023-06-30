@@ -1,4 +1,5 @@
 import Exame from '@modules/exame/typeorm/entities/Exame';
+import TipoPagamento from '@modules/tipopagamento/typeorm/entities/TipoPagamento';
 
 import { Column,
   CreateDateColumn,
@@ -26,6 +27,14 @@ class ExameAso {
      exame: Exame;
     @Column()
      exame_id: string;
+
+
+    @ManyToOne(() => TipoPagamento)
+    @JoinColumn( {name: 'tipopagamento_id'})
+     tipopagamento: TipoPagamento;
+    @Column()
+     tipopagamento_id: string;
+
 
     @Column({type: "decimal", precision: 10, scale: 2, default: 0})
      valorexame: number;

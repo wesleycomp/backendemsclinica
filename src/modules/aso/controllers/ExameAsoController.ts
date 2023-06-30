@@ -63,7 +63,8 @@ export default class ExameAsoController{
             valorexame,
             valormedico,
             valorems,
-            ativo
+            ativo,
+            tipopagamento_id
         } = request.body;
         const createExame = new CreateExameAsoService();
         const exame = await createExame.execute({
@@ -72,7 +73,8 @@ export default class ExameAsoController{
             valorexame,
             valormedico,
             valorems,
-            ativo
+            ativo,
+            tipopagamento_id
         });
         return response.json(exame);
     }

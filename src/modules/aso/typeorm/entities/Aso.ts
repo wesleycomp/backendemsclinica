@@ -3,18 +3,15 @@ import EspecialidadeMedica from '@modules/procedimentos/typeorm/entities/Procedi
 import Funcao from '@modules/funcao/typeorm/entities/Funcao';
 import Medico from '@modules/medico/typeorm/entities/Medico';
 import Pacientes from '@modules/paciente/typeorm/entities/Paciente';
-import TipoPagamento from '@modules/tipopagamento/typeorm/entities/TipoPagamento';
 import { Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,} from 'typeorm';
 import TipoAso from './TipoAso';
 import User from '@modules/users/typeorm/entities/User';
-import { Serializable } from 'child_process';
 
 @Entity('aso')
 class Aso {
@@ -71,12 +68,6 @@ class Aso {
      @Column()
      user_edit: string;
 
-
-    @ManyToOne(() => TipoPagamento)
-    @JoinColumn( {name: 'tipopagamento_id'})
-     tipopagamento: TipoPagamento;
-    @Column()
-     tipopagamento_id: string;
 
 
     @Column()

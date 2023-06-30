@@ -8,7 +8,6 @@ import UpdateExameService from "../services/UpdateExameService";
 export default class ExameController{
 
     public async index(request: Request, response: Response): Promise<Response>{
-
         const listExame = new ListExameService();
         const exame = await listExame.execute();
         return response.json(exame);

@@ -49,7 +49,8 @@ ExameAsoRouter.post(
                             valorexame: Joi.number().required(),
                             valormedico: Joi.number().required(),
                             valorems: Joi.number().required(),
-                            ativo: Joi.boolean().allow('', null).default('true')
+                            ativo: Joi.boolean().allow('', null).default('true'),
+                            tipopagamento_id: Joi.string().required(),
                         },
                     }),
                     exameAsoController.create
