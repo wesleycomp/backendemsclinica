@@ -64,6 +64,7 @@ AsoRouter.post(
                             medico_id: Joi.string().required(),
                             resultado: Joi.string().allow('', null).default(''),
                             user_edit: Joi.string().allow('', null).default(''),
+                            tipopagamento_id: Joi.string().required(),
                             transmissaoesocial: Joi.boolean().allow('', null).default('false'),
                             ativo: Joi.boolean().allow('', null).default('true'),
                         },

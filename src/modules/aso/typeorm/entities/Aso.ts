@@ -12,6 +12,7 @@ import { Column,
   UpdateDateColumn,} from 'typeorm';
 import TipoAso from './TipoAso';
 import User from '@modules/users/typeorm/entities/User';
+import TipoPagamento from '@modules/tipopagamento/typeorm/entities/TipoPagamento';
 
 @Entity('aso')
 class Aso {
@@ -63,6 +64,14 @@ class Aso {
      user: User;
     @Column()
      user_id: string;
+
+
+   @ManyToOne(() => User)
+    @JoinColumn( {name: 'tipopagamento_id'})
+     tipopagamento: TipoPagamento;
+    @Column()
+     tipopagamento_id: string;
+
 
      @Column()
      user_edit: string;
