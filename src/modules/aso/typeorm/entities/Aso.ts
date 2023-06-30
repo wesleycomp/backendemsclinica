@@ -64,17 +64,12 @@ class Aso {
     @Column()
      user_id: string;
 
-
      @Column()
      user_edit: string;
-
-
 
     @Column()
      resultado: string;
 
-    @Column()
-     temexames: boolean;
 
     @Column()
      transmissaoesocial: boolean;
