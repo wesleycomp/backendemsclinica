@@ -1,7 +1,9 @@
 import { Console } from "console";
 import { Request, Response } from "express";
 import CreateUserService from "../services/CreateUserService";
+import UpdateUserService from "../services/UpdateUserServices";
 import ListUserService from "../services/ListUserService";
+
 import ShowUserService from "../services/ShowUserService";
 
 export default class UsersController{
@@ -37,6 +39,23 @@ export default class UsersController{
 
             return response.json(user);
         }
+        public async update(request: Request, response: Response): Promise<Response>{
 
+            const {id, name,
+                email,
+                password,
+                perfil } = request.body;
+            const resetPassword =  new UpdateUserService();
+
+           await resetPassword.execute({
+                    id,
+                    name,
+                    email,
+                    password,
+                    perfil
+            })
+
+            return response.status(204).json();
+        }
 
 }

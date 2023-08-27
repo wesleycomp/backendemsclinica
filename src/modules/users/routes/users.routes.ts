@@ -27,6 +27,19 @@ usersRouter.post(
     }),
     usersController.create,
 );
+    usersRouter.put(
+        '/edit',
+        celebrate({
+            [Segments.BODY]:{
+            id: Joi.string().uuid().required(),
+            name: Joi.string().required(),
+            email: Joi.string().email().required(),
+            password: Joi.string().required(),
+            perfil: Joi.string().required(),
+        },
+    }),
+    usersController.update,
+);
 
     usersRouter.patch(
         '/avatar',
