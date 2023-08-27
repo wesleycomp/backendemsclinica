@@ -44,6 +44,8 @@ usersRouter.post(
     usersController.update,
 );
 
+
+
     usersRouter.patch(
         '/avatar',
         isAuthenticated,

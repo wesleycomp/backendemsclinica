@@ -41,11 +41,13 @@ export default class UsersController{
         }
         public async update(request: Request, response: Response): Promise<Response>{
 
-            const {id, name,
+            const {
+                name,
                 email,
                 password,
                 perfil } = request.body;
-            const resetPassword =  new UpdateUserService();
+             const { id } = request.params;
+                const resetPassword =  new UpdateUserService();
 
            await resetPassword.execute({
                     id,
