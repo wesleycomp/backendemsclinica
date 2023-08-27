@@ -8,6 +8,8 @@ import ShowAsoService from "../services/ShowAsosService";
 import ShowFichaExameService from "../services/ShowFichaExameService";
 
 import UpdateAsoService from "../services/UpdateAsosService";
+import DeleteExameAsoService from "../services/DeleteExameAsoService";
+import DeleteFichaClinicaService from "@modules/fichaclinica/services/DeleteFichaClinicaService";
 
 export default class AsosController{
 
@@ -63,7 +65,7 @@ export default class AsosController{
 
     public async create(request: Request, response: Response): Promise<Response>{
 
-        const {dataemissaoaso,paciente_id,empresa_id,funcao_id,tipoaso_id,tipopagamento_id,medico_id,resultado,temexames,transmissaoesocial,ativo,user_id} = request.body;
+        const {dataemissaoaso,paciente_id,empresa_id,funcao_id,tipoaso_id,medico_id,resultado,user_edit,tipopagamento_id,transmissaoesocial,ativo,user_id} = request.body;
         const createExame = new CreateAsoService();
         const exame = await createExame.execute({
             dataemissaoaso,
@@ -71,10 +73,10 @@ export default class AsosController{
             empresa_id,
             funcao_id,
             tipoaso_id,
-            tipopagamento_id,
             medico_id,
             resultado,
-            temexames,
+            user_edit,
+            tipopagamento_id,
             transmissaoesocial,
             ativo,
             user_id
@@ -92,13 +94,14 @@ export default class AsosController{
             empresa_id,
             funcao_id,
             tipoaso_id,
-            tipopagamento_id,
             medico_id,
             resultado,
-            temexames,
+            user_edit,
+            tipopagamento_id,
             transmissaoesocial,
             ativo,
             user_id
+
         } = request.body;
         const { id } = request.params;
         const updateExame = new UpdateAsoService();
@@ -110,10 +113,9 @@ export default class AsosController{
             empresa_id,
             funcao_id,
             tipoaso_id,
-            tipopagamento_id,
             medico_id,
             resultado,
-            temexames,
+            user_edit,
             transmissaoesocial,
             ativo,
             user_id
@@ -125,8 +127,15 @@ export default class AsosController{
    public async delete(request: Request, response: Response): Promise<Response>{
 
         const { id } = request.params;
-        const deleteExame = new DeleteAsoService();
-        await deleteExame.execute({ id })
+
+        const deleteExamesAso = new DeleteExameAsoService()
+        const deleteAso = new DeleteAsoService();
+         const deleteFichaClinicaAso = new DeleteFichaClinicaService()
+
+        await deleteExamesAso.execute({id}),
+        await deleteFichaClinicaAso.execute({id})
+        await deleteAso.execute({id})
+
 
         return response.json([]);
     }

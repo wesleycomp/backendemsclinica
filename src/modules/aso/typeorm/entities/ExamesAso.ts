@@ -1,20 +1,14 @@
-import ListAsosService from '@modules/aso/services/ListAsosService';
-import Empresa from '@modules/empresa/typeorm/entities/Empresa';
-import EspecialidadeMedica from '@modules/procedimentos/typeorm/entities/Procedimentos';
 import Exame from '@modules/exame/typeorm/entities/Exame';
-import Medico from '@modules/medico/typeorm/entities/Medico';
-import Pacientes from '@modules/paciente/typeorm/entities/Paciente';
+import TipoPagamento from '@modules/tipopagamento/typeorm/entities/TipoPagamento';
+
 import { Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,} from 'typeorm';
 import Aso from './Aso';
-
-
 
 @Entity('exameaso')
 class ExameAso {
@@ -28,12 +22,19 @@ class ExameAso {
     @Column()
      aso_id: string;
 
-
     @ManyToOne(() => Exame)
     @JoinColumn( {name: 'exame_id'})
      exame: Exame;
     @Column()
      exame_id: string;
+
+
+    @ManyToOne(() => TipoPagamento)
+    @JoinColumn( {name: 'tipopagamento_id'})
+     tipopagamento: TipoPagamento;
+    @Column()
+     tipopagamento_id: string;
+
 
     @Column({type: "decimal", precision: 10, scale: 2, default: 0})
      valorexame: number;
@@ -43,7 +44,6 @@ class ExameAso {
 
     @Column({type: "decimal", precision: 10, scale: 2, default: 0})
      valorems: number;
-
 
     @Column()
      ativo: boolean;

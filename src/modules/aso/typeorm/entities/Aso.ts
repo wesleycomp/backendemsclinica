@@ -3,25 +3,26 @@ import EspecialidadeMedica from '@modules/procedimentos/typeorm/entities/Procedi
 import Funcao from '@modules/funcao/typeorm/entities/Funcao';
 import Medico from '@modules/medico/typeorm/entities/Medico';
 import Pacientes from '@modules/paciente/typeorm/entities/Paciente';
-import TipoPagamento from '@modules/tipopagamento/typeorm/entities/TipoPagamento';
 import { Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,} from 'typeorm';
 import TipoAso from './TipoAso';
 import User from '@modules/users/typeorm/entities/User';
-
-
+import TipoPagamento from '@modules/tipopagamento/typeorm/entities/TipoPagamento';
 
 @Entity('aso')
 class Aso {
 
      @PrimaryGeneratedColumn('uuid')
      id: string;
+
+    @Column()
+    codigoaso: Number;
+
     @Column()
     dataemissaoaso: Date;
 
@@ -37,7 +38,7 @@ class Aso {
     @Column()
      empresa_id: string;
 
-   @ManyToOne(() => Funcao)
+    @ManyToOne(() => Funcao)
     @JoinColumn( {name: 'funcao_id'})
      funcao: Funcao;
     @Column()
@@ -65,18 +66,19 @@ class Aso {
      user_id: string;
 
 
-    @ManyToOne(() => TipoPagamento)
+   @ManyToOne(() => User)
     @JoinColumn( {name: 'tipopagamento_id'})
      tipopagamento: TipoPagamento;
     @Column()
      tipopagamento_id: string;
 
 
+     @Column()
+     user_edit: string;
+
     @Column()
      resultado: string;
 
-    @Column()
-     temexames: boolean;
 
     @Column()
      transmissaoesocial: boolean;

@@ -90,10 +90,6 @@ export class AddAsoPaciente1670529982020 implements MigrationInterface {
         );
 
 
-
-
-
-
       await queryRunner.addColumn(
             'aso',
         new TableColumn({

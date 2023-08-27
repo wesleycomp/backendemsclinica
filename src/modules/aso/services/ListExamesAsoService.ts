@@ -6,13 +6,13 @@ import AppError from '@shared/errors/AppError';
 
 class ListExamesAsoService{
 
-    public async execute(): Promise<ExamesAso[]>{
+    public async execute(): Promise<ExamesAso[] | undefined>{
 
        //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
        const examesAsoRepository = getCustomRepository(ExamesAsoRepository);
-       const examesAso = examesAsoRepository.findAll();
+       const examesAso = examesAsoRepository.findExamesRealizados();
        // const exame = await funcoesRepository.createQueryBuilder().paginate();
-       //console.log(exame)
+     //  console.log('passou akiii')
         return examesAso;
     }
 }

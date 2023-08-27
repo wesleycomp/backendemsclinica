@@ -18,12 +18,35 @@ empresasRouter.get(
                     }),
                     empresasController.show
                 )
+
+ empresasRouter.get(
+                    '/consulta/:id',
+                    isAuthenticated,
+                    celebrate({
+                        [Segments.PARAMS]:{
+                            id: Joi.string().uppercase().required(),
+                        },
+                    }),
+                    empresasController.showEmpresaNome
+                )
+
+ empresasRouter.get(
+                    '/consultacnpj/:id',
+                    isAuthenticated,
+                    celebrate({
+                        [Segments.PARAMS]:{
+                            id: Joi.string().required(),
+                        },
+                    }),
+                    empresasController.showEmpresaCnpj
+                )
+
 empresasRouter.post(
                     '/',
                     isAuthenticated,
                     celebrate({
                         [Segments.BODY]:{
-                                nome: Joi.string().required(),
+                                nome: Joi.string().uppercase().required(),
                                 cnpj: Joi.string().required(),
                                 cpf:  Joi.string().allow('', null).default(''),
                                 ideEmpregador: Joi.string().allow('', null).default(''),
@@ -35,7 +58,7 @@ empresasRouter.post(
                                 responsavel: Joi.string().required(),
                                 esocial: Joi.boolean().required(),
                                 convenio: Joi.boolean().required(),
-                                observacao:Joi.string().allow('', null).default('')
+                                observacao:Joi.string().uppercase().allow('', null).default('')
                          },
                     }),
                     empresasController.create
@@ -47,7 +70,7 @@ empresasRouter.put(
                     celebrate({
                             [Segments.BODY]:{
                                 id: Joi.string().required(),
-                                nome: Joi.string().required(),
+                                nome: Joi.string().uppercase().required(),
                                 cnpj: Joi.string().required(),
                                 cpf: Joi.string().allow('', null),
                                 ideEmpregador: Joi.string().allow('', null),

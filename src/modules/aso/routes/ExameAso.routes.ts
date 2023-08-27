@@ -6,8 +6,6 @@ import isAuthenticated from '../../../shared/http/middlewares/isAuthenticated';
 const ExameAsoRouter = Router();
 const exameAsoController = new ExameAsoController();
 
-//ExameAsoRouter.get('/', isAuthenticated, exameAsoController.index)
-
 ExameAsoRouter.get(
                     '/:aso_id',
                     isAuthenticated,
@@ -18,6 +16,19 @@ ExameAsoRouter.get(
                     }),
                     exameAsoController.show
                 )
+
+ExameAsoRouter.get(
+                    '/listexames/:datainicio/:datafim',
+                    isAuthenticated,
+                    celebrate({
+                        [Segments.PARAMS]:{
+                            datainicio: Joi.string().required(),
+                            datafim: Joi.string().required(),
+                        },
+                    }),
+                    exameAsoController.showExamesPeriodo
+                )
+
  ExameAsoRouter.get(
                     '/valores/:aso_id',
                     isAuthenticated,
@@ -38,7 +49,8 @@ ExameAsoRouter.post(
                             valorexame: Joi.number().required(),
                             valormedico: Joi.number().required(),
                             valorems: Joi.number().required(),
-                            ativo: Joi.boolean().allow('', null).default('true')
+                            ativo: Joi.boolean().allow('', null).default('true'),
+                            tipopagamento_id: Joi.string().required(),
                         },
                     }),
                     exameAsoController.create

@@ -24,7 +24,7 @@ fornecedorsRouter.post(
                     isAuthenticated,
                     celebrate({
                         [Segments.BODY]:{
-                                nome: Joi.string().required(),
+                                nome: Joi.string().uppercase().required(),
                                 cnpj: Joi.string().required(),
                                 inscricaoestadual: Joi.string().required(),
                                 inscricaomunicipal: Joi.string().required(),
@@ -46,7 +46,7 @@ fornecedorsRouter.put(
                     celebrate({
                             [Segments.BODY]:{
                                 id: Joi.string().required(),
-                                nome: Joi.string().required(),
+                                nome: Joi.string().uppercase().required(),
                                 cnpj: Joi.string().required(),
                                 inscricaoestadual: Joi.string().required(),
                                 inscricaomunicipal: Joi.string().required(),

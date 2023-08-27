@@ -18,7 +18,8 @@ import medicoRouter from '@modules/medico/routes/Medicos.routes';
 import tipoPagamentoRouter from '@modules/tipopagamento/routes/TipoPagamento.routes';
 import AsoRouter from '@modules/aso/routes/Asos.routes';
 import ExamesAsoRouter from '@modules/aso/routes/ExameAso.routes';
-
+import FichaClinicaRouter from '@modules/fichaclinica/routes/FichaClinica.routes';
+import FinanceiroRouter from '@modules/financeiro/routes/Financeiro.routes';
 
 const routes = Router();
 routes.use('/empresa', empresasRouter);
@@ -31,13 +32,15 @@ routes.use('/paciente', pacientesRouter);
 routes.use('/exame', exameRouter);
 routes.use('/procedimentos', procedimentosRouter);
 routes.use('/convenioempresa', convenioempresaRouter);
-routes.use('/categoriatrabalhador',  categoriatrabalhadoresRouter);
-routes.use('/nacionalidade',  nacionalidadeRouter);
-routes.use('/tipoaso',  tipoasoRouter);
-routes.use('/tipopagamento',  tipoPagamentoRouter);
+routes.use('/categoriatrabalhador', categoriatrabalhadoresRouter);
+routes.use('/nacionalidade', nacionalidadeRouter);
+routes.use('/tipoaso', tipoasoRouter);
+routes.use('/tipopagamento', tipoPagamentoRouter);
 routes.use('/medico',  medicoRouter);
 routes.use('/aso',  AsoRouter);
 routes.use('/examesaso',  ExamesAsoRouter);
+routes.use('/fichaclinica', FichaClinicaRouter);
+routes.use('/financeiro', FinanceiroRouter);
 
 routes.use('/', ( request, response) => {
     return response.json({ message: 'Hello Dev'});

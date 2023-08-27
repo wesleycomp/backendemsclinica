@@ -5,14 +5,36 @@ import DeleteExameAsoService from "../services/DeleteExameAsoService";
 import ListExamesAsoService from "../services/ListExamesAsoService";
 import ShowExameAsoService from "../services/ShowExamesAsosService";
 
-
+//teste git
 export default class ExameAsoController{
 
     public async index(request: Request, response: Response): Promise<Response>{
+
         const listExamesAso = new ListExamesAsoService();
         const examesAso = await listExamesAso.execute();
 
         return response.json(examesAso);
+    }
+
+  public async showExamesPeriodo(request: Request, response: Response): Promise<Response>{
+
+        const { datainicio } = request.params;
+        const { datafim } = request.params;
+        const showExameAso = new ShowExameAsoService();
+        const exame = await showExameAso.executeExamesPeriodo({datainicio,datafim})
+
+        return response.json(exame);
+
+        }
+
+
+
+    public async showExames(request: Request, response: Response): Promise<Response>{
+
+        const showExameAso = new ShowExameAsoService();
+        const exame = await showExameAso.executeExames()
+
+        return response.json(exame);
     }
 
     public async show(request: Request, response: Response): Promise<Response>{
@@ -22,7 +44,6 @@ export default class ExameAsoController{
         const exame = await showExameAso.execute({ aso_id })
 
         return response.json(exame);
-
     }
 
     public async showAsoValores(request: Request, response: Response): Promise<Response>{
@@ -32,7 +53,6 @@ export default class ExameAsoController{
         const exame = await showExameAso.executeValoresAso({ aso_id })
 
         return response.json(exame);
-
     }
 
 
@@ -43,7 +63,8 @@ export default class ExameAsoController{
             valorexame,
             valormedico,
             valorems,
-            ativo
+            ativo,
+            tipopagamento_id
         } = request.body;
         const createExame = new CreateExameAsoService();
         const exame = await createExame.execute({
@@ -52,15 +73,18 @@ export default class ExameAsoController{
             valorexame,
             valormedico,
             valorems,
-            ativo
+            ativo,
+            tipopagamento_id
         });
         return response.json(exame);
     }
 
    public async delete(request: Request, response: Response): Promise<Response>{
         const { id } = request.params;
-        const deleteFuncao = new DeleteExameAsoService()
-        await deleteFuncao.execute({ id })
+        const deleteExameAso = new DeleteExameAsoService()
+
+        await deleteExameAso.execute({ id })
+     //   await deleteExameAso.executeRemoveAso({ id })
         return response.json([]);
     }
 

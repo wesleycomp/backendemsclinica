@@ -23,6 +23,7 @@ class ListAsosService{
 
     public async execute(): Promise<Aso[]>{
 
+
        //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
        const asosRepository = getCustomRepository(AsosRepository);
        const aso = asosRepository.findAll();
