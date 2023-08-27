@@ -55,7 +55,7 @@ export default class UsersController{
                     perfil
             })
 
-            return response.status(204).json();
+            return response.json(resetPassword);
         }
 
 }
