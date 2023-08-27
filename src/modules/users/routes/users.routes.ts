@@ -28,15 +28,18 @@ usersRouter.post(
     usersController.create,
 );
     usersRouter.put(
-        '/edit',
+        '/:id',
         celebrate({
             [Segments.BODY]:{
-            id: Joi.string().uuid().required(),
+            id: Joi.string().required(),
             name: Joi.string().required(),
             email: Joi.string().email().required(),
             password: Joi.string().required(),
             perfil: Joi.string().required(),
         },
+          [Segments.PARAMS]:{
+                                id: Joi.string().uuid().required(),
+                            },
     }),
     usersController.update,
 );
