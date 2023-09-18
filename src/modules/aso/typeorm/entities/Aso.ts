@@ -66,7 +66,7 @@ class Aso {
      user_id: string;
 
 
-   @ManyToOne(() => User)
+   @ManyToOne(() => TipoPagamento)
     @JoinColumn( {name: 'tipopagamento_id'})
      tipopagamento: TipoPagamento;
     @Column()
