@@ -19,20 +19,19 @@ export class CreatePacientes1657136785635 implements MigrationInterface {
                      {
                         name: 'matricula',
                         type: 'varchar',
-                        isNullable:false
+                         isNullable:false
                     },
 
                     {
                         name: 'dataentradaempresa',
                         type: 'date',
+                        isNullable:false
                     },
                     {
                         name: 'descricaoatividade',
                         type: 'varchar',
                         isNullable:false
                     },
-
-
                     {
                         name: 'nome',
                         type: 'varchar'
@@ -87,7 +86,7 @@ export class CreatePacientes1657136785635 implements MigrationInterface {
                     {
                         name: 'email',
                         type: 'varchar',
-                        isNullable:true
+                        isNullable:false
                     },
                     {
                         name: 'created_at',
