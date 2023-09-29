@@ -23,7 +23,14 @@ export class CreateExameAso1667523418388 implements MigrationInterface {
                         name: 'datavalidadeexame',
                         type: 'timestamp'
                     },
-                     {
+                    {
+                        name: 'valorexamesemdesconto',
+                        type: 'numeric',
+                        precision: 10,
+                        scale: 2,
+                        default: 0,
+                    },
+                    {
                         name: 'valorexame',
                         type: 'numeric',
                         precision: 10,
@@ -47,10 +54,23 @@ export class CreateExameAso1667523418388 implements MigrationInterface {
                     {
                         name: 'ativo',
                         type: 'boolean'
+
                     },
                     {
-                        name:'usuariocadastro',
-                        type: 'varchar'
+                        name: 'desconto',
+                        type: 'boolean',
+                        isNullable: false,
+                        default: false
+                    },
+                    {
+                        name:'user_id',
+                        type: 'varchar',
+                        isNullable: false
+                    },
+                    {
+                        name:'user_desconto',
+                        type: 'varchar',
+                        isNullable: false
                     },
                     {
                         name: 'created_at',
@@ -62,7 +82,6 @@ export class CreateExameAso1667523418388 implements MigrationInterface {
                         type: 'timestamp',
                         default: 'now()',
                     }
-
                 ]
             })
         )

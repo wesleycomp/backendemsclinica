@@ -65,7 +65,7 @@ export default class AsosController{
 
     public async create(request: Request, response: Response): Promise<Response>{
 
-        const {dataemissaoaso,paciente_id,empresa_id,funcao_id,tipoaso_id,medico_id,resultado,user_edit,tipopagamento_id,transmissaoesocial,ativo,user_id} = request.body;
+        const {dataemissaoaso,paciente_id,empresa_id,funcao_id,tipoaso_id,medico_id,resultado,user_edit,tipopagamento_id,transmissaoesocial,ativo,user_id,exameavulso} = request.body;
         const createExame = new CreateAsoService();
         const exame = await createExame.execute({
             dataemissaoaso,
@@ -79,7 +79,8 @@ export default class AsosController{
             tipopagamento_id,
             transmissaoesocial,
             ativo,
-            user_id
+            user_id,
+            exameavulso
         });
 
         return response.json(exame);
