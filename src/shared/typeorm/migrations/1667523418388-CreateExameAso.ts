@@ -63,11 +63,6 @@ export class CreateExameAso1667523418388 implements MigrationInterface {
                         default: false
                     },
                     {
-                        name:'user_id',
-                        type: 'varchar',
-                        isNullable: false
-                    },
-                    {
                         name:'user_desconto',
                         type: 'varchar',
                         isNullable: false

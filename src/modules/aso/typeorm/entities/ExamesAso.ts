@@ -29,9 +29,6 @@ class ExameAso {
      exame_id: string;
 
      @Column()
-     user_id: string;
-
-     @Column()
      user_desconto: string;
 
     @ManyToOne(() => TipoPagamento)
