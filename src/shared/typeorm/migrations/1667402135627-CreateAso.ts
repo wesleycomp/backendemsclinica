@@ -42,12 +42,6 @@ export class CreateAso1667402135627 implements MigrationInterface {
                         name: 'transmissaoesocial',
                         type: 'boolean'
                     },
-                     {
-                        name: 'exameavulso',
-                        type: 'boolean',
-                        isNullable: true,
-                        default: false
-                    },
                     {
                         name: 'ativo',
                         type: 'boolean'
