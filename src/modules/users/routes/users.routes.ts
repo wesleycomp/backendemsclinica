@@ -36,6 +36,9 @@ usersRouter.post(
             email: Joi.string().email().required(),
             password: Joi.string().required(),
             perfil: Joi.string().required(),
+            created_at: Joi.string().required(),
+            updated_at: Joi.string().required(),
+
         }
     }),
     usersController.update,

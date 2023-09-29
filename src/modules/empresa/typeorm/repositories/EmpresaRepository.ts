@@ -1,7 +1,7 @@
 import { EntityRepository, Like, Repository } from 'typeorm'
 
 import Empresa from '../entities/Empresa'
- const { Op } = require("sequelize");
+ //const { Op } = require("sequelize");
 
 
 @EntityRepository(Empresa)

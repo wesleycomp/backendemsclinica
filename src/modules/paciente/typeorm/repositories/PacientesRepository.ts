@@ -1,6 +1,6 @@
 import { EntityRepository, Like, Repository } from "typeorm";
 import Pacientes from "../entities/Paciente";
- const { Op } = require("sequelize");
+ //const { Op } = require("sequelize");
 
 @EntityRepository(Pacientes)
 export class PacientesRepository extends Repository<Pacientes>{
