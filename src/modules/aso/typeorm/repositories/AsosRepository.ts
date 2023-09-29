@@ -16,7 +16,7 @@ export class AsosRepository extends Repository<Aso>{
 
     public async findById(id: string): Promise<Aso | undefined> {
         const aso = await this.findOne(id,{
-            relations: ['empresa','tipoaso','medico','paciente']
+            relations: ['empresa','tipoaso','medico','paciente','tipopagamento']
         });
         return aso;
     }
@@ -25,7 +25,6 @@ export class AsosRepository extends Repository<Aso>{
         const aso = await this.findOne(id,{
            relations: ['empresa','tipoaso','medico','paciente','paciente.funcao','tipopagamento']
       });
-
         return aso;
     }
 

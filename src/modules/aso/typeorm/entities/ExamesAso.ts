@@ -28,6 +28,11 @@ class ExameAso {
     @Column()
      exame_id: string;
 
+     @Column()
+     user_id: string;
+
+     @Column()
+     user_desconto: string;
 
     @ManyToOne(() => TipoPagamento)
     @JoinColumn( {name: 'tipopagamento_id'})
@@ -35,6 +40,8 @@ class ExameAso {
     @Column()
      tipopagamento_id: string;
 
+     @Column({type: "decimal", precision: 10, scale: 2, default: 0})
+     valorexamesemdesconto: number;
 
     @Column({type: "decimal", precision: 10, scale: 2, default: 0})
      valorexame: number;
@@ -47,6 +54,9 @@ class ExameAso {
 
     @Column()
      ativo: boolean;
+
+     @Column()
+     desconto: boolean;
 
     @CreateDateColumn()
      created_at: Date;

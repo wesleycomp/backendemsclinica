@@ -16,7 +16,8 @@ export class CreateAso1667402135627 implements MigrationInterface {
                     },
                     {
                         name: 'codigoaso',
-                        type: 'integer'
+                        type: 'integer',
+                        isNullable: false
                     },
                     {
                         name: 'user_edit',
@@ -38,6 +39,12 @@ export class CreateAso1667402135627 implements MigrationInterface {
                     {
                         name: 'transmissaoesocial',
                         type: 'boolean'
+                    },
+                     {
+                        name: 'exameavulso',
+                        type: 'boolean',
+                        isNullable: true,
+                        default: false
                     },
                     {
                         name: 'ativo',

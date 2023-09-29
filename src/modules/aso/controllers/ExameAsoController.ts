@@ -1,5 +1,6 @@
 import { Request , Response } from "express";
 import CreateExameAsoService from "../services/CreateExameAsoService";
+import  UpdateExameAsoService from "../services/UpdateExameAsoService";
 import DeleteExameAsoService from "../services/DeleteExameAsoService";
 
 import ListExamesAsoService from "../services/ListExamesAsoService";
@@ -64,7 +65,8 @@ export default class ExameAsoController{
             valormedico,
             valorems,
             ativo,
-            tipopagamento_id
+            tipopagamento_id,
+            user_id
         } = request.body;
         const createExame = new CreateExameAsoService();
         const exame = await createExame.execute({
@@ -74,10 +76,34 @@ export default class ExameAsoController{
             valormedico,
             valorems,
             ativo,
-            tipopagamento_id
+            tipopagamento_id,
+            user_id
         });
         return response.json(exame);
     }
+
+      public async update(request: Request, response: Response): Promise<Response>{
+
+        const {
+            desconto,
+            valorexamesemdesconto,
+            user_desconto,
+            updated_at
+
+        } = request.body;
+        const { id } = request.params;
+        const updateExame = new UpdateExameAsoService();
+
+        const exame = await updateExame.execute({
+            id,
+            desconto,
+            valorexamesemdesconto,
+            user_desconto
+        });
+
+        return response.json(exame);
+    }
+
 
    public async delete(request: Request, response: Response): Promise<Response>{
         const { id } = request.params;

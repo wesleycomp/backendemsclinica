@@ -84,6 +84,9 @@ class Aso {
      transmissaoesocial: boolean;
 
     @Column()
+     exameavulso: boolean;
+
+    @Column()
      ativo: boolean;
 
     @CreateDateColumn()

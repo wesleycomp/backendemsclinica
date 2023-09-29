@@ -67,6 +67,7 @@ AsoRouter.post(
                             tipopagamento_id: Joi.string().required(),
                             transmissaoesocial: Joi.boolean().allow('', null).default('false'),
                             ativo: Joi.boolean().allow('', null).default('true'),
+                            exameavulso:Joi.boolean().allow('', null).default('false')
                         },
                     }),
                     asoController.create
@@ -89,7 +90,8 @@ AsoRouter.put(
                                 ativo: Joi.boolean().required(),
                                 created_at: Joi.string().required(),
                                 updated_at: Joi.string().required(),
-                                user_id:Joi.string().required()
+                                user_id:Joi.string().required(),
+                                exameavulso:Joi.boolean().allow('', null).default('false')
                             },
                             [Segments.PARAMS]:{
                                 id: Joi.string().uuid().required(),

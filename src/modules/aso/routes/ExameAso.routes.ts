@@ -51,10 +51,28 @@ ExameAsoRouter.post(
                             valorems: Joi.number().required(),
                             ativo: Joi.boolean().allow('', null).default('true'),
                             tipopagamento_id: Joi.string().required(),
+                            user_id:Joi.string().required(),
                         },
                     }),
                     exameAsoController.create
                 )
+ExameAsoRouter.put(
+                    '/desconto/:id',
+                    isAuthenticated,
+                    celebrate({
+                        [Segments.BODY]:{
+                            id: Joi.string().required(),
+                            desconto: Joi.string().required(),
+                            valorexamesemdesconto: Joi.number().required(),
+                            user_desconto:Joi.string().required(),
+                            updated_at: Joi.string().required()
+                        },
+                    }),
+                    exameAsoController.update
+                )
+
+
+
 ExameAsoRouter.delete(
                         '/:id',
                         isAuthenticated,
