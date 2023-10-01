@@ -87,8 +87,7 @@ export default class ExameAsoController{
         const {
             desconto,
             valorexamesemdesconto,
-            user_desconto,
-            updated_at
+            user_desconto
 
         } = request.body;
         const { id } = request.params;
