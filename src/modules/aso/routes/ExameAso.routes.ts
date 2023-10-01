@@ -62,7 +62,7 @@ ExameAsoRouter.put(
                     celebrate({
                         [Segments.BODY]:{
                             id: Joi.string().required(),
-                            desconto: Joi.string().required(),
+                            desconto: Joi.boolean().required(),
                             valorexamesemdesconto: Joi.number().required(),
                             user_desconto:Joi.string().required(),
                             updated_at: Joi.string().required()
