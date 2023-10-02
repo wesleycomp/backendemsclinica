@@ -90,9 +90,9 @@ pacientesRouter.put(
                             telefone: Joi.string().required(),
 
                             genero: Joi.string().required(),
-                            tiposanguineo: Joi.string().required(),
+                             tiposanguineo: Joi.string().allow('', null).default(''),
                             nacionalidade_id: Joi.string().required(),
-                            nis: Joi.string().required(),
+                             nis: Joi.string().allow('', null).default(''),
                             ctps: Joi.string().allow('', null).default(''),
 
 
