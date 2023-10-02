@@ -81,7 +81,7 @@ pacientesRouter.put(
                             funcao_id: Joi.string().required(),
                             categoriatrabalhador_id: Joi.string().required(),
                             matricula: Joi.string().allow('', null).default(''),
-                            dataentradaempresa: Joi.string().allow('', null).default(''),
+                            dataentradaempresa: Joi.string().allow('', null).default('null'),
                             descricaoatividade: Joi.string().allow('', null).default(''),
 
                             nome: Joi.string().uppercase().required(),
