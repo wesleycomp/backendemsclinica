@@ -20,7 +20,6 @@ pacientesRouter.get(
                     pacientesController.show
                 )
 
-
  pacientesRouter.get(
                     '/consulta/:id',
                     isAuthenticated,
@@ -52,21 +51,17 @@ pacientesRouter.post(
                             funcao_id: Joi.string().required(),
                             categoriatrabalhador_id: Joi.string().required(),
                             matricula: Joi.string().allow('', null).default(''),
-                            dataentradaempresa: Joi.string().allow('', null).default(''),
+                            dataentradaempresa: Joi.string().allow('', null).default('null'),
                             descricaoatividade: Joi.string().allow('', null).default(''),
-
                             nome: Joi.string().uppercase().required(),
                             cpf: Joi.string().required(),
                             rg: Joi.string().required(),
                             telefone: Joi.string().required(),
-
                             genero: Joi.string().required(),
                             tiposanguineo: Joi.string().allow('', null).default(''),
                             nacionalidade_id: Joi.string().required(),
                             nis: Joi.string().allow('', null).default(''),
                             ctps: Joi.string().allow('', null).default(''),
-
-
                             datanascimento: Joi.string().required(),
                             endereco: Joi.string().allow('', null).default(''),
                             email: Joi.string().allow('', null).default(''),
