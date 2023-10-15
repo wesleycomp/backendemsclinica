@@ -84,6 +84,7 @@ AsoRouter.put(
                                 funcao_id: Joi.string().required(),
                                 tipoaso_id: Joi.string().required(),
                                 user_edit: Joi.string().required(),
+                                tipopagamento_id: Joi.string().required(),
                                 medico_id: Joi.string().required(),
                                 resultado: Joi.string().allow('', null).default(''),
                                 transmissaoesocial: Joi.boolean().required(),

@@ -97,11 +97,13 @@ export default class AsosController{
             medico_id,
             resultado,
             user_edit,
+            tipopagamento_id,
             transmissaoesocial,
             ativo,
             user_id
 
         } = request.body;
+        
         const { id } = request.params;
         const updateExame = new UpdateAsoService();
 
@@ -115,6 +117,7 @@ export default class AsosController{
             medico_id,
             resultado,
             user_edit,
+            tipopagamento_id,
             transmissaoesocial,
             ativo,
             user_id
