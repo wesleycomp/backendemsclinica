@@ -6,7 +6,6 @@ import DeleteExameAsoService from "../services/DeleteExameAsoService";
 
 import ListExamesAsoService from "../services/ListExamesAsoService";
 import ShowExameAsoService from "../services/ShowExamesAsosService";
-import CreateHistoricoExclusaoExameAso from "../services/CreateHistoricoExclusaoExameAso";
 
 //teste git
 export default class ExameAsoController{
@@ -107,12 +106,12 @@ export default class ExameAsoController{
 
 
    public async delete(request: Request, response: Response): Promise<Response>{
-        const { id, user_id } = request.params;
+        const { id} = request.params;
 
         const exameAsoRepository = new ShowExameAsoService();
-        const exameaso = exameAsoRepository.findExameAso({ id });
+      //  const exameaso = exameAsoRepository.findExameAso({ id });
 
-console.log(exameaso)
+
 
        /* const {
             exame_id,
