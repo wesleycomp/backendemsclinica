@@ -3,8 +3,10 @@ import CreateExameAsoService from "../services/CreateExameAsoService";
 import  UpdateExameAsoService from "../services/UpdateExameAsoService";
 import DeleteExameAsoService from "../services/DeleteExameAsoService";
 
+
 import ListExamesAsoService from "../services/ListExamesAsoService";
 import ShowExameAsoService from "../services/ShowExamesAsosService";
+import CreateHistoricoExclusaoExameAso from "../services/CreateHistoricoExclusaoExameAso";
 
 //teste git
 export default class ExameAsoController{
@@ -105,11 +107,40 @@ export default class ExameAsoController{
 
 
    public async delete(request: Request, response: Response): Promise<Response>{
-        const { id } = request.params;
-        const deleteExameAso = new DeleteExameAsoService()
+        const { id, user_id } = request.params;
 
+        const exameAsoRepository = new ShowExameAsoService();
+        const exameaso = exameAsoRepository.findExameAso({ id });
+
+console.log(exameaso)
+
+       /* const {
+            exame_id,
+            valorexame,
+            valormedico,
+            valorems,
+            ativo,
+            tipopagamento_id,
+                 } = exameaso;
+      */
+
+/*
+        const historioExclusaoExameAso = new CreateHistoricoExclusaoExameAso();
+        const historicoExclusaoExame = await historioExclusaoExameAso.execute({
+            aso_id,
+            exame_id,
+            valorexame,
+            valormedico,
+            valorems,
+            ativo,
+            tipopagamento_id,
+            user_id
+        });
+*/
+        const deleteExameAso = new DeleteExameAsoService()
         await deleteExameAso.execute({ id })
-     //   await deleteExameAso.executeRemoveAso({ id })
+
+
         return response.json([]);
     }
 

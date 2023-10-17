@@ -7,6 +7,10 @@ interface IRequest{
     aso_id: string
 }
 
+interface IRequestExameAso{
+     id: string
+}
+
 interface IRequest2{
     datainicio: string,
     datafim: string,
@@ -66,7 +70,18 @@ class ShowExamesAsosService{
     }
 
 
+    public async findExameAso({id}: IRequestExameAso): Promise<ExamesAso[]>{
+
+       //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
+        const exameAsoRepository = getCustomRepository(ExamesAsoRepository);
+        const exameAso = await exameAsoRepository.findByExameAso(id);
+
+        if(!exameAso){
+            throw new AppError('Exame Aso não encontrado')
+        }
+
+        return exameAso;
+    }
+
 }
-
 export default ShowExamesAsosService;
-

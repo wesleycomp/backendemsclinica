@@ -23,7 +23,7 @@ class UpdateAsoService{
 
     public async execute({id,dataemissaoaso,paciente_id,empresa_id,funcao_id,tipoaso_id,medico_id,resultado,user_edit,tipopagamento_id,transmissaoesocial,ativo}: IAso): Promise<Aso>{
 
-            //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
+        //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
         const asoRepository = getCustomRepository(AsosRepository);
         const aso = await asoRepository.findOne(id);
 
