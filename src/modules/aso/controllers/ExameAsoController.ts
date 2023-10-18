@@ -1,11 +1,11 @@
 import { Request , Response } from "express";
 import CreateExameAsoService from "../services/CreateExameAsoService";
-import  UpdateExameAsoService from "../services/UpdateExameAsoService";
-import DeleteExameAsoService from "../services/DeleteExameAsoService";
-
-
+import UpdateExameAsoService from "../services/UpdateExameAsoService";
 import ListExamesAsoService from "../services/ListExamesAsoService";
 import ShowExameAsoService from "../services/ShowExamesAsosService";
+import CreateHistoricoExclusaoExameAso from "../services/CreateHistoricoExclusaoExameAso";
+import ShowAsosService from "../services/ShowAsosService";
+import DeleteExameAsoService from "../services/DeleteExameAsoService";
 
 //teste git
 export default class ExameAsoController{
@@ -18,7 +18,7 @@ export default class ExameAsoController{
         return response.json(examesAso);
     }
 
-  public async showExamesPeriodo(request: Request, response: Response): Promise<Response>{
+   public async showExamesPeriodo(request: Request, response: Response): Promise<Response>{
 
         const { datainicio } = request.params;
         const { datafim } = request.params;
@@ -69,7 +69,9 @@ export default class ExameAsoController{
             tipopagamento_id,
             user_id
         } = request.body;
+
         const createExame = new CreateExameAsoService();
+
         const exame = await createExame.execute({
             aso_id,
             exame_id,
@@ -106,41 +108,39 @@ export default class ExameAsoController{
 
 
    public async delete(request: Request, response: Response): Promise<Response>{
-        const { id} = request.params;
+        const {id,usuario_id} = request.params;
+
+        console.log('WWWWGGGGGGGGGGGGGWWWWWWWWWWWWWWWYYYYYYYYYWWWWWWWWWWWWWWWWW')
 
         const exameAsoRepository = new ShowExameAsoService();
-      //  const exameaso = exameAsoRepository.findExameAso({ id });
+        const exameaso = await exameAsoRepository.findExameAso({ id });
 
+        const asoRepository = new ShowAsosService;
+        const aso = await asoRepository.execute({ id });
 
+        const aso_id: string = exameaso.aso_id
+        const exame_id: string = exameaso.exame_id
+        const tipopagamento_id: string = exameaso.tipopagamento_id
 
-       /* const {
-            exame_id,
-            valorexame,
-            valormedico,
-            valorems,
-            ativo,
-            tipopagamento_id,
-                 } = exameaso;
-      */
+        const paciente_id: string = aso.paciente_id
+        const empresa_id: string = aso.empresa_id
+        const funcao_id: string = aso.funcao_id
 
-/*
         const historioExclusaoExameAso = new CreateHistoricoExclusaoExameAso();
         const historicoExclusaoExame = await historioExclusaoExameAso.execute({
-            aso_id,
-            exame_id,
-            valorexame,
-            valormedico,
-            valorems,
-            ativo,
-            tipopagamento_id,
-            user_id
+           aso_id,
+           exame_id,
+           tipopagamento_id,
+           paciente_id,
+           empresa_id,
+           funcao_id,
+           usuario_id
         });
-*/
+
         const deleteExameAso = new DeleteExameAsoService()
         await deleteExameAso.execute({ id })
 
-
-        return response.json([]);
+        return response.json(historicoExclusaoExame);
     }
 
 

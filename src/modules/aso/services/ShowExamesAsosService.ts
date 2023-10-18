@@ -70,11 +70,11 @@ class ShowExamesAsosService{
     }
 
 
-    public async findExameAso({id}: IRequestExameAso): Promise<ExamesAso[]>{
+    public async findExameAso({id}: IRequestExameAso): Promise<ExamesAso>{
 
        //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
         const exameAsoRepository = getCustomRepository(ExamesAsoRepository);
-        const exameAso = await exameAsoRepository.findByExameAso(id);
+        const exameAso = await exameAsoRepository.findOne(id);
 
         if(!exameAso){
             throw new AppError('Exame Aso não encontrado')

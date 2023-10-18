@@ -103,7 +103,7 @@ export default class AsosController{
             user_id
 
         } = request.body;
-        
+
         const { id } = request.params;
         const updateExame = new UpdateAsoService();
 

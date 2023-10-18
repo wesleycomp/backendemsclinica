@@ -74,12 +74,12 @@ ExameAsoRouter.put(
 
 
 ExameAsoRouter.delete(
-                        '/:id/:user_id',
+                        '/:id/:usuario_id',
                         isAuthenticated,
                         celebrate({
                             [Segments.PARAMS]:{
                                 id: Joi.string().uuid().required(),
-                                user_id:Joi.string().uuid().required()
+                                usuario_id:Joi.string().uuid().required()
                             },
                         }),
                         exameAsoController.delete
