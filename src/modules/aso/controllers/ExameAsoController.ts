@@ -110,17 +110,18 @@ export default class ExameAsoController{
    public async delete(request: Request, response: Response): Promise<Response>{
         const {id,usuario_id} = request.params;
 
-        console.log('WWWWGGGGGGGGGGGGGWWWWWWWWWWWWWWWYYYYYYYYYWWWWWWWWWWWWWWWWW')
 
+        //PESQUISANDO na TABELA  EXAMEASO
         const exameAsoRepository = new ShowExameAsoService();
         const exameaso = await exameAsoRepository.findExameAso({ id });
-
-        const asoRepository = new ShowAsosService;
-        const aso = await asoRepository.execute({ id });
 
         const aso_id: string = exameaso.aso_id
         const exame_id: string = exameaso.exame_id
         const tipopagamento_id: string = exameaso.tipopagamento_id
+
+        //PESQUISANDO AGORA A ASO
+        const asoRepository = new ShowAsosService;
+        const aso = await asoRepository.findAso({ aso_id });
 
         const paciente_id: string = aso.paciente_id
         const empresa_id: string = aso.empresa_id
