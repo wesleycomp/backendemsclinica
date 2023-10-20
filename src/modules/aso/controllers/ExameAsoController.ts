@@ -6,6 +6,7 @@ import ShowExameAsoService from "../services/ShowExamesAsosService";
 import CreateHistoricoExclusaoExameAso from "../services/CreateHistoricoExclusaoExameAso";
 import ShowAsosService from "../services/ShowAsosService";
 import DeleteExameAsoService from "../services/DeleteExameAsoService";
+import utils from "@config/utils";
 
 //teste git
 export default class ExameAsoController{
@@ -110,6 +111,8 @@ export default class ExameAsoController{
    public async delete(request: Request, response: Response): Promise<Response>{
         const {id,usuario_id} = request.params;
 
+        const util = new utils()
+        var created_at  = util.formatDate(new Date());
 
         //PESQUISANDO na TABELA  EXAMEASO
         const exameAsoRepository = new ShowExameAsoService();
@@ -135,7 +138,8 @@ export default class ExameAsoController{
            paciente_id,
            empresa_id,
            funcao_id,
-           usuario_id
+           usuario_id,
+           created_at
         });
 
         const deleteExameAso = new DeleteExameAsoService()
@@ -143,6 +147,17 @@ export default class ExameAsoController{
 
         return response.json(historicoExclusaoExame);
     }
+
+
+
+   public async showExameAsoExcluidas(request: Request, response: Response): Promise<Response>{
+
+        const showExameAsoExcluida = new ShowExameAsoService();
+        const examesAsosExcluidas = await showExameAsoExcluida.listExamesAsoExluidas()
+        return response.json(examesAsosExcluidas);
+    }
+
+
 
 
  }

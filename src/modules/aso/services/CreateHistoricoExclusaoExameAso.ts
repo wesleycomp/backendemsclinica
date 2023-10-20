@@ -5,7 +5,6 @@ import AppError from '@shared/errors/AppError';
 
 
 interface IHistoricoExclusaoExameAso{
-
     aso_id: string;
     exame_id: string;
     tipopagamento_id: string;
@@ -13,11 +12,12 @@ interface IHistoricoExclusaoExameAso{
     empresa_id: string;
     funcao_id: string;
     usuario_id: string;
+    created_at: string
 }
 
 class CreateHistoricoExclusaoExameAso{
 
-    public async execute({aso_id,exame_id,tipopagamento_id,empresa_id,funcao_id,paciente_id,usuario_id}: IHistoricoExclusaoExameAso): Promise<HistoricoExclusaoExameAso>{
+    public async execute({aso_id,exame_id,tipopagamento_id,empresa_id,funcao_id,paciente_id,usuario_id,created_at}: IHistoricoExclusaoExameAso): Promise<HistoricoExclusaoExameAso>{
 
         //instaciou o repositorio para ter acesso aos metodos(save, delete... etc)
     const hostoricoExclusaoExameAsoRepository = getCustomRepository(HistoricoExclusaoExameAsoRepository);
@@ -28,7 +28,8 @@ class CreateHistoricoExclusaoExameAso{
            paciente_id,
            empresa_id,
            funcao_id,
-           usuario_id
+           usuario_id,
+           created_at
         });
 
         await hostoricoExclusaoExameAsoRepository.save(historicoExclusaoExameAso);

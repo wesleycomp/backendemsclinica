@@ -96,5 +96,10 @@ export class ExamesAsoRepository extends Repository<ExameAso>{
          });
         return exameAso;
     }
+
+
+
+
+
 }
 export default ExamesAsoRepository;

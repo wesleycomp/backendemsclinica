@@ -10,6 +10,7 @@ import ShowFichaExameService from "../services/ShowFichaExameService";
 import UpdateAsoService from "../services/UpdateAsosService";
 import DeleteExameAsoService from "../services/DeleteExameAsoService";
 import DeleteFichaClinicaService from "@modules/fichaclinica/services/DeleteFichaClinicaService";
+import ShowHistoricoEdicaoAsoService from "../services/ShowHistoricoEdicaoAsoService";
 
 export default class AsosController{
 
@@ -141,4 +142,15 @@ export default class AsosController{
 
         return response.json([]);
     }
+
+
+   public async showAsosEditadas(request: Request, response: Response): Promise<Response>{
+
+        const showAsosEditadas= new ShowHistoricoEdicaoAsoService();
+        const asosEditadas = await showAsosEditadas.execute()
+        return response.json(asosEditadas);
+    }
+
+
+
  }

@@ -46,14 +46,20 @@ class HistoricoEdicaoAso{
      @Column()
      idusuario: string;
 
-     @CreateDateColumn()
-     data_alteracao: Date;
-
      @Column()
      idtipoaso_antigo: string;
 
      @Column()
      idtipoaso_novo: string;
+
+     @CreateDateColumn()
+     created_at: Date;
+
+     @Column({
+        type: 'date',
+        default: () => 'NOW()',
+            })
+      data_alteracao: string;
 
 }
 

@@ -32,7 +32,13 @@ class HistoricoExclusaoExameAso{
      usuario_id: string;
 
      @CreateDateColumn()
-     data_exclusao: Date;
+     created_at: Date;
+
+     @Column({
+        type: 'date',
+        default: () => 'NOW()',
+            })
+      data_exclusao: string;
 
 }
 

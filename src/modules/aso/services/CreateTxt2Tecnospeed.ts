@@ -23,7 +23,7 @@ class CreateTxt2Tecnospeed {
         const examesAsoRepository = getCustomRepository(AsosRepository);
         const dadosAso = await examesAsoRepository.findById(aso_id)
 
-        console.log(dadosAso)
+        //console.log(dadosAso)
         //CRIA A PASTA DOS XML
           //      fs.mkdir('./tecnospeedTxts', { recursive: true }, (err: any) => {
           //          if (err) throw err;
