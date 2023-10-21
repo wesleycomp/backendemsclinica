@@ -20,7 +20,7 @@ AsoRouter.get(
                 )
 
  AsoRouter.get(
-                    '/asoseditadas',
+                    '/asoseditadas/historico',
                     isAuthenticated,
                     asoController.showAsosEditadas
                 )

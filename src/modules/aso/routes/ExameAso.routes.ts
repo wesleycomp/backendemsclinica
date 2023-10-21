@@ -8,7 +8,7 @@ const exameAsoController = new ExameAsoController();
 
 
 ExameAsoRouter.get(
-                    '/exameasoexcluida',
+                    '/historico/exameasoexcluida',
                     isAuthenticated,
                     exameAsoController.showExameAsoExcluidas
                 )
