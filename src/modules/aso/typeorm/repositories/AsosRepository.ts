@@ -1,5 +1,6 @@
 import { EntityRepository, Repository } from 'typeorm'
 import Aso from '../entities/Aso'
+import utils from '@config/utils';
 const fs = require('fs');
 
 @EntityRepository(Aso)
@@ -36,6 +37,21 @@ export class AsosRepository extends Repository<Aso>{
         });
 //console.log(aso)
         return aso;
+    }
+
+
+       public async findHistoricoAsosCriadas(): Promise<Aso[] | undefined>{
+
+        const util = new utils()
+        var data = util.formatDate(new Date());
+
+        const exameAso = await this.find({
+            where: {
+            data_criacao: data
+            }
+         });
+
+         return exameAso;
     }
 
 //    public async findOne(id: string): Promise<Aso> {

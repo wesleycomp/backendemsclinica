@@ -41,6 +41,22 @@ class ShowAsosService{
         return aso;
 
     }
+
+    public async listAsosCriadas(): Promise<Aso[]>{
+          //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
+          const asosCriadasRepository = getCustomRepository(AsosRepository);
+          const asosCriadas = await asosCriadasRepository.findHistoricoAsosCriadas();
+
+        if(!asosCriadas){
+            throw new AppError('Aso não encontrado')
+        }
+
+        return asosCriadas;
+    }
+
+
+
+
 }
 
 export default ShowAsosService;

@@ -24,6 +24,11 @@ AsoRouter.get(
                     isAuthenticated,
                     asoController.showAsosEditadas
                 )
+ AsoRouter.get(
+                    '/historico/asoscriadas',
+                    isAuthenticated,
+                    asoController.showAsosCriadas
+                )
 
 AsoRouter.get(
                     '/fichaexame/:id',

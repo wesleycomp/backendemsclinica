@@ -92,6 +92,12 @@ class Aso {
     @UpdateDateColumn()
      updated_at: Date;
 
+     @Column({
+        type: 'date',
+        default: () => 'NOW()',
+            })
+      data_criacao: string;
+
 }
 
 export default Aso;
