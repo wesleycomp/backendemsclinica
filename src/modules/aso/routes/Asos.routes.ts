@@ -9,7 +9,7 @@ const asoController = new AsoController();
 AsoRouter.get('/', isAuthenticated, asoController.index)
 
 AsoRouter.get(
-                    '/:id',
+                   '/:id',
                     isAuthenticated,
                     celebrate({
                         [Segments.PARAMS]:{
@@ -18,6 +18,7 @@ AsoRouter.get(
                     }),
                     asoController.show
                 )
+
  AsoRouter.get(
                     '/asoseditadas',
                     isAuthenticated,

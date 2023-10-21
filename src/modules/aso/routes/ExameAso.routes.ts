@@ -77,9 +77,6 @@ ExameAsoRouter.put(
                     }),
                     exameAsoController.update
                 )
-
-
-
 ExameAsoRouter.delete(
                         '/:id/:usuario_id',
                         isAuthenticated,
