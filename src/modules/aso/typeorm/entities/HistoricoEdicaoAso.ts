@@ -1,8 +1,8 @@
 import { Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,} from 'typeorm';
+         CreateDateColumn,
+         Entity,
+         PrimaryGeneratedColumn
+        } from 'typeorm';
 
 @Entity('historico_edicao_aso')
 class HistoricoEdicaoAso{
