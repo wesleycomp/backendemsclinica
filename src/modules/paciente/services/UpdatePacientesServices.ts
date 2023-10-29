@@ -32,7 +32,7 @@ interface IRequest {
 
 }
 
-class UpdateProfileService{
+class UpdatePacienteService{
 
     public async execute({ id,
         empresa_id,
@@ -57,11 +57,13 @@ class UpdateProfileService{
 
          //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
         const pacientesRepository = getCustomRepository(PacientesRepository);
-        const paciente = await pacientesRepository.findById(id);
+        const paciente = await pacientesRepository.findOne(id);
 
         if(!paciente){
             throw new AppError('Paciente não encontrado.')
         }
+
+        console.log('passou aki')
 
         paciente.empresa_id=empresa_id,
         paciente.funcao_id=funcao_id,
@@ -83,13 +85,15 @@ class UpdateProfileService{
 
             paciente.datanascimento = datanascimento;
             paciente.endereco = endereco;
-            paciente.email = email;
+          paciente.email = email;
 
 
+        console.log('passou aki 2')
             await pacientesRepository.save(paciente);
 
+        console.log('passou ak3')
             return paciente;
     }
 }
 
-export default UpdateProfileService;
+export default UpdatePacienteService;
