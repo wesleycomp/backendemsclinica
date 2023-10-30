@@ -33,7 +33,10 @@ export class AsosRepository extends Repository<Aso>{
         const aso = await this.find({ where: {
                ativo: true
             },
-          relations: ['empresa','tipoaso','medico','paciente','paciente.funcao','tipopagamento']
+          relations: ['empresa','tipoaso','medico','paciente','paciente.funcao','tipopagamento'],
+          order:{
+                 created_at:"DESC"
+            }
         });
 //console.log(aso)
         return aso;
@@ -49,6 +52,7 @@ export class AsosRepository extends Repository<Aso>{
             where: {
             data_criacao: data
             }
+
          });
 
          return exameAso;
