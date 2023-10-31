@@ -13,7 +13,7 @@ class HistoricoExameAsoExcluido{
      @Column()
      aso_id: string;
 
-     @CreateDateColumn()
+     @Column()
      exame_id: string;
 
      @Column()
@@ -46,8 +46,6 @@ class HistoricoExameAsoExcluido{
 
      @Column()
      user_desconto: string;
-
-
 
      @Column()
      desconto: boolean;

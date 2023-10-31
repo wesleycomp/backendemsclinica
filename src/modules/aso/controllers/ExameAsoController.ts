@@ -3,7 +3,7 @@ import CreateExameAsoService from "../services/CreateExameAsoService";
 import UpdateExameAsoService from "../services/UpdateExameAsoService";
 import ListExamesAsoService from "../services/ListExamesAsoService";
 import ShowExameAsoService from "../services/ShowExamesAsosService";
-import CreateHistoricoExclusaoExameAso from "../services/CreateHistoricoExclusaoExameAso";
+import CreateHistoricoExclusaoExameAso from "../services/CreateHistoricoExclusaoExameAsoService";
 import ShowAsosService from "../services/ShowAsosService";
 import DeleteExameAsoService from "../services/DeleteExameAsoService";
 import utils from "@config/utils";

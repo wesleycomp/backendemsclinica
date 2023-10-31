@@ -6,12 +6,18 @@ import DeleteAsoService from "../services/DeleteAsosService";
 import ListAsoService from "../services/ListAsosService";
 import ShowAsoService from "../services/ShowAsosService";
 import ShowFichaExameService from "../services/ShowFichaExameService";
-
 import UpdateAsoService from "../services/UpdateAsosService";
 import DeleteExameAsoService from "../services/DeleteExameAsoService";
 import DeleteFichaClinicaService from "@modules/fichaclinica/services/DeleteFichaClinicaService";
 import ShowHistoricoEdicaoAsoService from "../services/ShowHistoricoEdicaoAsoService";
 import ShowAsosService from "../services/ShowAsosService";
+import { Console } from "console";
+import User from "@modules/users/typeorm/entities/User";
+import { bool, boolean, string } from "joi";
+import HistoricoAsosExcluidasRepository from "../typeorm/repositories/HistoricoAsosExcluidasRepository";
+import CreateHistoricoAsoExcluidaService from "../services/CreateHistoricoAsoExcluidaService";
+import ShowExamesAsosService from "../services/ShowExamesAsosService";
+import CreatehistoricoExameAsoExcluidoService from "../services/CreatehistoricoExameAsoExcluidoService";
 
 export default class AsosController{
 
@@ -62,8 +68,6 @@ export default class AsosController{
 
 
     }
-
-
 
     public async create(request: Request, response: Response): Promise<Response>{
 
@@ -130,18 +134,107 @@ export default class AsosController{
 
    public async delete(request: Request, response: Response): Promise<Response>{
 
-        const { id } = request.params;
+        const { id,user_exclusao } = request.params;
 
         const deleteExamesAso = new DeleteExameAsoService()
         const deleteAso = new DeleteAsoService();
-         const deleteFichaClinicaAso = new DeleteFichaClinicaService()
+        const deleteFichaClinicaAso = new DeleteFichaClinicaService()
+        const asoService = new ShowAsoService()
+        const historicoAsosExcluidasService = new CreateHistoricoAsoExcluidaService()
+        const historicoExameAsoExcluidaService = new CreatehistoricoExameAsoExcluidoService()
+        const aso = await asoService.execute({ id });
 
-        await deleteExamesAso.execute({id}),
-        await deleteFichaClinicaAso.execute({id})
-        await deleteAso.execute({id})
+        const asoExameAsoService = new ShowExamesAsosService();
+        const aso_id:string= aso.id
+        const exameAso = await asoExameAsoService.execute({ aso_id });
+
+        //popula o objeto com os dados dos exames aso a ser excluida em um laco FOR
+        exameAso.forEach((item) => {
+
+                  var aso_id: string = item.aso_id;
+                  var exame_id: string = item.exame_id;
+                  var ativo: boolean = item.ativo;
+                  var created_at: Date = item.created_at;
+                  var updated_at: Date = item.updated_at;
+                  var valorexamesemdesconto: number = item.valorexamesemdesconto;
+                  var valorexame: number = item.valorexame;
+                  var valormedico: number = item.valormedico;
+                  var valorems: number = item.valorems;
+                  var tipopagamento_id: string = item.tipopagamento_id;
+                  var user_id: string = item.user_id;
+                  var user_desconto: string = item.user_desconto;
+                  var desconto: boolean = item.desconto;
 
 
+        //guarda os dados dos exames da ASO a sereme excluidos na tabela historico__exameaso_excluido
+        historicoExameAsoExcluidaService.execute({
+                    aso_id,
+                    exame_id,
+                    ativo,
+                    created_at,
+                    updated_at,
+                    valorexamesemdesconto,
+                    valorexame,
+                    valormedico,
+                    valorems,
+                    tipopagamento_id,
+                    user_id,
+                    user_desconto,
+                    desconto
+
+                })
+
+          });
+
+
+        //popula o objeto com os dados da aso a ser excluida
+        const dataemissaoaso: Date = aso.dataemissaoaso;
+        const paciente_id: string = aso.paciente_id;
+        const empresa_id: string = aso.empresa_id;
+        const funcao_id: string = aso.funcao_id;
+        const tipoaso_id: string = aso.tipoaso_id;
+        const medico_id: string = aso.medico_id;
+        const resultado: string = aso.resultado;
+        const transmissaoesocial: boolean = aso.transmissaoesocial;
+        const ativo: boolean = aso.ativo;
+        const created_at: Date = aso.created_at;
+        const updated_at: Date = aso.updated_at;
+        const user_id: string = aso.user_id;
+        const user_edit: string = aso.user_edit;
+        const codigoaso: Number = aso.codigoaso;
+        const tipopagamento_id: string = aso.tipopagamento_id;
+        const data_criacao: string = aso.data_criacao;
+
+        //guarda os dados da aso a ser  excluida na tabela historico_aso_excluida
+        await historicoAsosExcluidasService.execute({
+            dataemissaoaso,
+            paciente_id,
+            empresa_id,
+            funcao_id,
+            tipoaso_id,
+            medico_id,
+            resultado,
+            transmissaoesocial,
+            ativo,
+            created_at,
+            updated_at,
+            user_id,
+            user_edit,
+            codigoaso,
+            tipopagamento_id,
+            data_criacao,
+            user_exclusao
+        });
+
+
+
+            // await deleteExamesAso.execute({id})// corrigi
+            await deleteFichaClinicaAso.execute({id})
+            await deleteAso.execute({id,user_exclusao})
         return response.json([]);
+
+
+
     }
 
 

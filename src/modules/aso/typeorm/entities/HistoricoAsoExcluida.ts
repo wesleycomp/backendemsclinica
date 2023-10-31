@@ -47,11 +47,8 @@ class HistoricoAsoExcluida{
      @Column()
      user_id: string;
 
-
      @Column()
      user_edit: string;
-
-
 
      @Column()
      codigoaso: Number;
@@ -59,6 +56,11 @@ class HistoricoAsoExcluida{
      @Column()
      tipopagamento_id: string;
 
+     @CreateDateColumn()
+     data_criacao: Date;
+
+     @Column()
+     user_exclusao: string;
 }
 
 export default HistoricoAsoExcluida;

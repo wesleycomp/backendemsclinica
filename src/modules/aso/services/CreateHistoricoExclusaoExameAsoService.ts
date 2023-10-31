@@ -15,12 +15,12 @@ interface IHistoricoExclusaoExameAso{
     created_at: string
 }
 
-class CreateHistoricoExclusaoExameAso{
+class CreateHistoricoExclusaoExameAsoService{
 
     public async execute({aso_id,exame_id,tipopagamento_id,empresa_id,funcao_id,paciente_id,usuario_id,created_at}: IHistoricoExclusaoExameAso): Promise<HistoricoExclusaoExameAso>{
 
         //instaciou o repositorio para ter acesso aos metodos(save, delete... etc)
-    const hostoricoExclusaoExameAsoRepository = getCustomRepository(HistoricoExclusaoExameAsoRepository);
+       const hostoricoExclusaoExameAsoRepository = getCustomRepository(HistoricoExclusaoExameAsoRepository);
         const historicoExclusaoExameAso = hostoricoExclusaoExameAsoRepository.create({
            aso_id,
            exame_id,
@@ -37,4 +37,4 @@ class CreateHistoricoExclusaoExameAso{
     }
 }
 
-export default CreateHistoricoExclusaoExameAso;
+export default CreateHistoricoExclusaoExameAsoService;

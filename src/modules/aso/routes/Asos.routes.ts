@@ -112,11 +112,12 @@ AsoRouter.put(
                     asoController.update
                 )
 AsoRouter.delete(
-                        '/:id',
+                        '/:id/:user_exclusao',
                         isAuthenticated,
                         celebrate({
                             [Segments.PARAMS]:{
                                 id: Joi.string().uuid().required(),
+                                user_exclusao: Joi.string().required()
                             },
                         }),
                         asoController.delete
