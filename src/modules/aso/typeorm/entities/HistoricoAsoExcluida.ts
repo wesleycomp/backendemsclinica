@@ -10,6 +10,9 @@ class HistoricoAsoExcluida{
      @PrimaryGeneratedColumn('uuid')
      id: string;
 
+     @Column()
+     aso_id: string;
+
      @CreateDateColumn()
      dataemissaoaso: Date;
 
@@ -61,6 +64,13 @@ class HistoricoAsoExcluida{
 
      @Column()
      user_exclusao: string;
+
+    @Column({
+        type: 'date',
+        default: () => 'NOW()',
+            })
+      data_exclusao: string;
+
 }
 
 export default HistoricoAsoExcluida;

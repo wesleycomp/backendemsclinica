@@ -207,6 +207,7 @@ export default class AsosController{
 
         //guarda os dados da aso a ser  excluida na tabela historico_aso_excluida
         await historicoAsosExcluidasService.execute({
+            aso_id,
             dataemissaoaso,
             paciente_id,
             empresa_id,
@@ -228,7 +229,7 @@ export default class AsosController{
 
 
 
-            // await deleteExamesAso.execute({id})// corrigi
+            await deleteExamesAso.deleteExameAso({id})// corrigi
             await deleteFichaClinicaAso.execute({id})
             await deleteAso.execute({id,user_exclusao})
         return response.json([]);
