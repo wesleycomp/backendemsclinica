@@ -254,4 +254,11 @@ export default class AsosController{
     }
 
 
+       public async showAsosExcluidas(request: Request, response: Response): Promise<Response>{
+
+        const showAsosCriadas= new ShowAsosService();
+        const asosCriadas = await showAsosCriadas.listAsosCriadas()
+        return response.json(asosCriadas);
+    }
+
  }

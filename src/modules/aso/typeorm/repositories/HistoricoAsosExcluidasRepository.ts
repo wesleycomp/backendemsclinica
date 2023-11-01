@@ -15,7 +15,7 @@ export class HistoricoAsosExcluidasRepository extends Repository<HistoricoAsoExc
 
         const exameAso = await this.find({
             where: {
-            data_criacao: data
+            data_exclusao: data
             }
          });
 

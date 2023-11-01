@@ -2,6 +2,8 @@ import { getCustomRepository } from "typeorm";
 import Aso from "../typeorm/entities/Aso";
 import { AsosRepository } from "../typeorm/repositories/AsosRepository";
 import AppError from '@shared/errors/AppError';
+import HistoricoAsoExcluida from "../typeorm/entities/HistoricoAsoExcluida";
+import HistoricoAsosExcluidasRepository from "../typeorm/repositories/HistoricoAsosExcluidasRepository";
 
 interface IRequest{
     id: string
@@ -53,7 +55,17 @@ class ShowAsosService{
 
         return asosCriadas;
     }
+    public async listAsosExcluidas(): Promise<HistoricoAsoExcluida[]>{
+          //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
+          const asosExcluidasRepository = getCustomRepository(HistoricoAsosExcluidasRepository);
+          const asosExcluidas = await asosExcluidasRepository.findHistoricoAsosExcluidas();
 
+        if(!asosExcluidas){
+            throw new AppError('Aso não encontrado')
+        }
+
+        return asosExcluidas;
+    }
 
 
 

@@ -30,6 +30,12 @@ AsoRouter.get(
                     asoController.showAsosCriadas
                 )
 
+                 AsoRouter.get(
+                    '/historico/asosexcluidas',
+                    isAuthenticated,
+                    asoController.showAsosExcluidas
+                )
+
 AsoRouter.get(
                     '/fichaexame/:id',
                     isAuthenticated,
