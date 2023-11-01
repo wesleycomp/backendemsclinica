@@ -257,7 +257,7 @@ export default class AsosController{
        public async showAsosExcluidas(request: Request, response: Response): Promise<Response>{
 
         const showAsosCriadas= new ShowAsosService();
-        const asosCriadas = await showAsosCriadas.listAsosCriadas()
+        const asosCriadas = await showAsosCriadas.listAsosExcluidas()
         return response.json(asosCriadas);
     }
 
