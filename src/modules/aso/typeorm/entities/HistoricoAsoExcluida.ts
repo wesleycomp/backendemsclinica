@@ -1,8 +1,12 @@
 import { Column,
   CreateDateColumn,
-  Entity,
+  Entity,ManyToOne,JoinColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,} from 'typeorm';
+  import Empresa from '@modules/empresa/typeorm/entities/Empresa';
+  import Pacientes from '@modules/paciente/typeorm/entities/Paciente';
+  import User from '@modules/users/typeorm/entities/User';
+  import TipoPagamento from '@modules/tipopagamento/typeorm/entities/TipoPagamento';
 
 @Entity('historico_aso_excluida')
 class HistoricoAsoExcluida{
@@ -10,16 +14,23 @@ class HistoricoAsoExcluida{
      @PrimaryGeneratedColumn('uuid')
      id: string;
 
+
      @Column()
      aso_id: string;
 
      @CreateDateColumn()
      dataemissaoaso: Date;
 
-     @Column()
+    @ManyToOne(() => Pacientes)
+    @JoinColumn( {name: 'paciente_id'})
+     paciente: Pacientes;
+    @Column()
      paciente_id: string;
 
-     @Column()
+    @ManyToOne(() => Empresa)
+    @JoinColumn( {name: 'empresa_id'})
+     empresa: Empresa;
+    @Column()
      empresa_id: string;
 
      @Column()
@@ -47,7 +58,10 @@ class HistoricoAsoExcluida{
     @CreateDateColumn()
      updated_at: Date;
 
-     @Column()
+    @ManyToOne(() => User)
+    @JoinColumn( {name: 'user_id'})
+     user: User;
+    @Column()
      user_id: string;
 
      @Column()
@@ -56,20 +70,23 @@ class HistoricoAsoExcluida{
      @Column()
      codigoaso: Number;
 
-     @Column()
+   @ManyToOne(() => TipoPagamento)
+    @JoinColumn( {name: 'tipopagamento_id'})
+     tipopagamento: TipoPagamento;
+    @Column()
      tipopagamento_id: string;
 
      @CreateDateColumn()
      data_criacao: Date;
 
-     @Column()
+    @Column()
      user_exclusao: string;
 
     @Column({
-        type: 'date',
-        default: () => 'NOW()',
+                type: 'date',
+                default: () => 'NOW()',
             })
-      data_exclusao: string;
+     data_exclusao: string;
 
 }
 

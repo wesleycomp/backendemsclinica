@@ -15,6 +15,16 @@ const upload = multer(uploadConfig);
 
 usersRouter.get('/', isAuthenticated, usersController.index);
 
+usersRouter.get('/:id',
+                     isAuthenticated,
+                     celebrate({
+                        [Segments.PARAMS]:{
+                            id: Joi.string().uuid().required(),
+                        },
+                    }),
+                     usersController.show
+                     );
+
 usersRouter.post(
     '/',
     celebrate({

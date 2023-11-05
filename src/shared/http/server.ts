@@ -11,6 +11,7 @@ import AppError from '@shared/errors/AppError';
 import '@shared/typeorm';
 import uploadConfig from '@config/upload'
 
+const port = process.env.APP_API_PORT || 3333;
 const app = express();
 
 app.use(pagination)
@@ -19,8 +20,6 @@ app.use(express.json());
 app.use('/files', express.static(uploadConfig.directory))
 app.use(routes);
 app.use(errors());
-
-const port = process.env.APP_API_PORT || 3333;
 
 app.use(
     (error: Error, request: Request, response: Response, next: NextFunction) => {
@@ -39,8 +38,10 @@ app.use(
 
 });
 
-
-
-app.listen(port, () => {
+const server =  app.listen(port, () => {
   console.log('Servidor esta startado na port 3333');
 });
+
+
+
+
