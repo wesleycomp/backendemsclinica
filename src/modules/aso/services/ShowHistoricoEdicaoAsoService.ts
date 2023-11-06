@@ -19,16 +19,17 @@ class ShowHistoricoEdicaoAsoService{
     }
 
 
+    public async listAsosEditadas(): Promise<HistoricoEdicaoAso[]>{
+          //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
+          const asosEditadasRepository = getCustomRepository(HistoricoAsosEditadasRepository);
+          const asosEditadas = await asosEditadasRepository.findHistoricoAsosEditadas();
 
+        if(!asosEditadas){
+            throw new AppError('Aso não encontrado')
+        }
 
-
-
-
-
-
-
-
-
+        return asosEditadas;
+    }
 
 
 }

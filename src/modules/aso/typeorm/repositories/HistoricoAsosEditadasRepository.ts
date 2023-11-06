@@ -21,5 +21,8 @@ export class HistoricoAsosEditadasRepository extends Repository<HistoricoEdicaoA
 
          return exameAso;
     }
+
+
+
 }
 export default HistoricoAsosEditadasRepository;

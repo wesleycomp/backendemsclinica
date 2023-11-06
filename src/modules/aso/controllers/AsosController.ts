@@ -242,7 +242,7 @@ export default class AsosController{
    public async showAsosEditadas(request: Request, response: Response): Promise<Response>{
 
         const showAsosEditadas= new ShowHistoricoEdicaoAsoService();
-        const asosEditadas = await showAsosEditadas.execute()
+        const asosEditadas = await showAsosEditadas.listAsosEditadas()
         return response.json(asosEditadas);
     }
 
@@ -256,9 +256,9 @@ export default class AsosController{
 
        public async showAsosExcluidas(request: Request, response: Response): Promise<Response>{
 
-        const showAsosCriadas= new ShowAsosService();
-        const asosCriadas = await showAsosCriadas.listAsosExcluidas()
-        return response.json(asosCriadas);
+        const showAsosExcluidas= new ShowAsosService();
+        const asosExcluidas = await showAsosExcluidas.listAsosExcluidas()
+        return response.json(asosExcluidas);
     }
 
  }
