@@ -22,7 +22,8 @@ class ShowAsosService{
         const aso = await asosRepository.findById(id);
 
         if(!aso){
-            throw new AppError('Exame de Aso não encontrado')
+             throw new AppError('Exame de Aso não encontrado')
+            //return aso
         }
 
         return aso;
