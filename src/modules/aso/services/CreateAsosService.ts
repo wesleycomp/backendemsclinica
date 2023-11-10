@@ -10,6 +10,7 @@ interface IAso{
     funcao_id: string;
     tipoaso_id: string;
     medico_id: string;
+    medicoexaminador_id: string;
     resultado: string;
     user_edit: string;
     tipopagamento_id: string;
@@ -20,7 +21,7 @@ interface IAso{
 
 class CreateAsoService{
 
-    public async execute({dataemissaoaso,paciente_id,empresa_id,funcao_id,tipoaso_id,medico_id,resultado,user_edit,tipopagamento_id,transmissaoesocial,ativo,user_id}: IAso): Promise<Aso>{
+    public async execute({dataemissaoaso,paciente_id,empresa_id,funcao_id,tipoaso_id,medico_id,medicoexaminador_id,resultado,user_edit,tipopagamento_id,transmissaoesocial,ativo,user_id}: IAso): Promise<Aso>{
 
         //instaciou o repositorio para ter acesso aos metodos(save, delete... etc)
     const asoRepository = getCustomRepository(AsosRepository);
@@ -35,6 +36,7 @@ class CreateAsoService{
             funcao_id,
             tipoaso_id,
             medico_id,
+            medicoexaminador_id,
             resultado,
             user_edit,
             tipopagamento_id,

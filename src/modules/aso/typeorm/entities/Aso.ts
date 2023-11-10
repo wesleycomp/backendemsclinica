@@ -13,6 +13,7 @@ import { Column,
 import TipoAso from './TipoAso';
 import User from '@modules/users/typeorm/entities/User';
 import TipoPagamento from '@modules/tipopagamento/typeorm/entities/TipoPagamento';
+import MedicoExaminador from '@modules/medico/typeorm/entities/MedicoExaminador'
 
 @Entity('aso')
 class Aso {
@@ -57,6 +58,13 @@ class Aso {
      medico: Medico;
     @Column()
      medico_id: string;
+
+
+      @ManyToOne(() => MedicoExaminador)
+    @JoinColumn( {name: 'medicoexaminador_id'})
+     medicoexaminador: MedicoExaminador;
+    @Column()
+     medicoexaminador_id: string;
 
 
     @ManyToOne(() => User)

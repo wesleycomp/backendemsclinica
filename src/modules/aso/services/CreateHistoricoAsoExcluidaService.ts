@@ -10,7 +10,8 @@ interface IHistoricoAsoExcluida{
          empresa_id:string,
          funcao_id:string,
          tipoaso_id:string,
-         medico_id:string
+         medico_id:string,
+         medicoexaminador_id:string,
          resultado:string,
          transmissaoesocial:boolean,
          ativo:boolean,
@@ -27,7 +28,7 @@ interface IHistoricoAsoExcluida{
 
 class CreateHistoricoAsoExcluidaService{
 
-    public async execute({aso_id,dataemissaoaso,paciente_id,empresa_id,funcao_id,tipoaso_id,medico_id,resultado,transmissaoesocial,ativo,created_at,updated_at,user_id,user_edit,codigoaso,tipopagamento_id,data_criacao,user_exclusao}: IHistoricoAsoExcluida): Promise<HistoricoAsoExcluida>{
+    public async execute({aso_id,dataemissaoaso,paciente_id,empresa_id,funcao_id,tipoaso_id,medico_id,medicoexaminador_id,resultado,transmissaoesocial,ativo,created_at,updated_at,user_id,user_edit,codigoaso,tipopagamento_id,data_criacao,user_exclusao}: IHistoricoAsoExcluida): Promise<HistoricoAsoExcluida>{
 
         //instaciou o repositorio para ter acesso aos metodos(save, delete... etc)
     const historicoAsoExcluidaRepository = getCustomRepository(HistoricoAsosExcluidasRepository);
@@ -39,6 +40,7 @@ class CreateHistoricoAsoExcluidaService{
          funcao_id,
          tipoaso_id,
          medico_id,
+         medicoexaminador_id,
          resultado,
          transmissaoesocial,
          ativo,

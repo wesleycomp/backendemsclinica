@@ -71,7 +71,7 @@ export default class AsosController{
 
     public async create(request: Request, response: Response): Promise<Response>{
 
-        const {dataemissaoaso,paciente_id,empresa_id,funcao_id,tipoaso_id,medico_id,resultado,user_edit,tipopagamento_id,transmissaoesocial,ativo,user_id} = request.body;
+        const {dataemissaoaso,paciente_id,empresa_id,funcao_id,tipoaso_id,medico_id,medicoexaminador_id,resultado,user_edit,tipopagamento_id,transmissaoesocial,ativo,user_id} = request.body;
         const createExame = new CreateAsoService();
         const exame = await createExame.execute({
             dataemissaoaso,
@@ -80,6 +80,7 @@ export default class AsosController{
             funcao_id,
             tipoaso_id,
             medico_id,
+            medicoexaminador_id,
             resultado,
             user_edit,
             tipopagamento_id,
@@ -101,6 +102,7 @@ export default class AsosController{
             funcao_id,
             tipoaso_id,
             medico_id,
+            medicoexaminador_id,
             resultado,
             user_edit,
             tipopagamento_id,
@@ -121,6 +123,7 @@ export default class AsosController{
             funcao_id,
             tipoaso_id,
             medico_id,
+            medicoexaminador_id,
             resultado,
             user_edit,
             tipopagamento_id,
@@ -194,6 +197,7 @@ export default class AsosController{
         const funcao_id: string = aso.funcao_id;
         const tipoaso_id: string = aso.tipoaso_id;
         const medico_id: string = aso.medico_id;
+         const medicoexaminador_id: string = aso.medicoexaminador_id;
         const resultado: string = aso.resultado;
         const transmissaoesocial: boolean = aso.transmissaoesocial;
         const ativo: boolean = aso.ativo;
@@ -214,6 +218,7 @@ export default class AsosController{
             funcao_id,
             tipoaso_id,
             medico_id,
+            medicoexaminador_id,
             resultado,
             transmissaoesocial,
             ativo,

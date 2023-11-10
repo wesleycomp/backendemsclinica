@@ -1,12 +1,15 @@
 import { Router } from 'express'
 import MedicosController from '../controllers/MedicosController';
+import MedicoExaminadorController from '../controllers/MedicoExaminadorController';
 import { celebrate, Joi, Segments } from 'celebrate';
 import isAuthenticated from '../../../shared/http/middlewares/isAuthenticated';
 
 const MedicosRouter = Router();
 const medicosController = new MedicosController();
+const medicoExaminadorController = new MedicoExaminadorController()
 
 MedicosRouter.get('/', isAuthenticated, medicosController.index)
+MedicosRouter.get('/medicoexaminador', isAuthenticated, medicoExaminadorController.index)
 
 MedicosRouter.get(
                     '/:id',
@@ -17,6 +20,17 @@ MedicosRouter.get(
                         },
                     }),
                     medicosController.show
+                )
+
+MedicosRouter.get(
+                    '/medicoexaminador/:id',
+                    isAuthenticated,
+                    celebrate({
+                        [Segments.PARAMS]:{
+                            id: Joi.string().uuid().required(),
+                        },
+                    }),
+                    medicoExaminadorController.show
                 )
 
 MedicosRouter.post(

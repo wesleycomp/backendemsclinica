@@ -15,7 +15,7 @@ export class ExamesAsoRepository extends Repository<ExameAso>{
 
     public async findById(id: string): Promise<ExameAso | undefined> {
         const exameAso = await this.findOne(id,{
-            relations: ['exame','aso','aso.empresa','aso.paciente','aso.medico','aso.funcao','aso.tipoaso','aso.tipopagamento']
+            relations: ['exame','aso','aso.empresa','aso.paciente','aso.medico','aso.medicoexaminador','aso.funcao','aso.tipoaso','aso.tipopagamento']
         });
         return exameAso;
     }
@@ -58,7 +58,7 @@ export class ExamesAsoRepository extends Repository<ExameAso>{
            created_at: Between(datainicio,datafim)
           },
         //  nome: Like('%'+id+'%')
-         relations: ['exame','aso','aso.empresa','aso.paciente','aso.medico','aso.funcao','aso.tipoaso','aso.tipopagamento','aso.user']
+         relations: ['exame','aso','aso.empresa','aso.paciente','aso.medico','aso.medicoexaminador','aso.funcao','aso.tipoaso','aso.tipopagamento','aso.user']
     //  relations: ['aso']
         });
 

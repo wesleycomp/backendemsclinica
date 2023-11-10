@@ -42,6 +42,9 @@ class HistoricoAsoExcluida{
      @Column()
      medico_id: string;
 
+     @Column()
+     medicoexaminador_id: string;
+
 
      @Column()
      resultado: string;

@@ -17,14 +17,14 @@ export class AsosRepository extends Repository<Aso>{
 
     public async findById(id: string): Promise<Aso | undefined> {
         const aso = await this.findOne(id,{
-            relations: ['empresa','tipoaso','medico','paciente','tipopagamento']
+            relations: ['empresa','tipoaso','medico','medicoexaminador','paciente','tipopagamento']
         });
         return aso;
     }
 
     public async findAllFichaExameById(id: string): Promise<Aso | undefined> {
         const aso = await this.findOne(id,{
-           relations: ['empresa','tipoaso','medico','paciente','paciente.funcao','tipopagamento']
+           relations: ['empresa','tipoaso','medico','medicoexaminador','paciente','paciente.funcao','tipopagamento']
       });
         return aso;
     }
@@ -33,7 +33,7 @@ export class AsosRepository extends Repository<Aso>{
         const aso = await this.find({ where: {
                ativo: true
             },
-          relations: ['empresa','tipoaso','medico','paciente','paciente.funcao','tipopagamento'],
+          relations: ['empresa','tipoaso','medico','medicoexaminador','paciente','paciente.funcao','tipopagamento'],
           order:{
                  created_at:"DESC"
             }
