@@ -7,7 +7,7 @@ export default class MedicoExaminadorController{
     public async index(request: Request, response: Response): Promise<Response>{
 
         const showMedicoExaminadorService = new ShowMedicoExaminadorService();
-        const Medicos = await showMedicoExaminadorService.ListMedicoExaminador();
+        const Medicos = await showMedicoExaminadorService.ListAllMedicoExaminadorOrder();
         return response.json(Medicos);
     }
 

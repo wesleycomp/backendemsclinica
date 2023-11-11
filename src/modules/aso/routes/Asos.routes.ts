@@ -78,6 +78,7 @@ AsoRouter.post(
                             empresa_id: Joi.string().required(),
                             funcao_id: Joi.string().required(),
                             tipoaso_id: Joi.string().required(),
+                            medico_id: Joi.string().required(),
                             medicoexaminador_id: Joi.string().required(),
                             resultado: Joi.string().allow('', null).default(''),
                             user_edit: Joi.string().allow('', null).default(''),

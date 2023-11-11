@@ -30,6 +30,15 @@ class ShowExaminadorService{
         const medicoExaminador = await medicoExaminadorRepository.find();
         return medicoExaminador;
     }
+      public async ListAllMedicoExaminadorOrder(): Promise<MedicoExaminador[] | undefined>{
+
+         //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
+        const medicoExaminadorRepository = getCustomRepository(MedicoExaminadorRepository);
+        const medicoExaminador = await medicoExaminadorRepository.ListAllOrder();
+        return medicoExaminador;
+    }
+
+
 }
 
 export default ShowExaminadorService;
