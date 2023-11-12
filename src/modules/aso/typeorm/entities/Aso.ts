@@ -104,7 +104,7 @@ class Aso {
         type: 'date',
         default: () => 'NOW()',
             })
-      data_criacao: string;
+      data_cadastro_exame: string;
 
 }
 

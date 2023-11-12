@@ -64,6 +64,13 @@ class ExameAso {
     @UpdateDateColumn()
      updated_at: Date;
 
+    @Column({
+     type: 'date',
+        default: () => 'NOW()',
+            })
+    data_cadastro_exame: Date;
+
+
 }
 
 export default ExameAso;
