@@ -55,7 +55,7 @@ export class ExamesAsoRepository extends Repository<ExameAso>{
 
         const exameAso = await this.find({
           where:{
-           data_criacao: Between(datainicio,datafim)
+           created_at: Between(datainicio,datafim)
           },
         //  nome: Like('%'+id+'%')
          relations: ['exame','aso','aso.empresa','aso.paciente','aso.medico','aso.medicoexaminador','aso.funcao','aso.tipoaso','aso.tipopagamento','aso.user']
@@ -64,6 +64,7 @@ export class ExamesAsoRepository extends Repository<ExameAso>{
 
         return exameAso;
     }
+
 
 
     public async findExamesRealizados(): Promise<ExameAso[] | undefined> {
