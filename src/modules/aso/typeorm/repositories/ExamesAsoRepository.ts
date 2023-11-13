@@ -55,7 +55,7 @@ export class ExamesAsoRepository extends Repository<ExameAso>{
 
         const exameAso = await this.find({
           where:{
-           data_cadastro_exame: Between(datainicio,datafim)
+           created_at: Between(datainicio+' 00:00:00.000000',datafim+' 11:59:59.000000')
           },
         //  nome: Like('%'+id+'%')
          relations: ['exame','aso','aso.empresa','aso.paciente','aso.medico','aso.medicoexaminador','aso.funcao','aso.tipoaso','aso.tipopagamento','aso.user']
