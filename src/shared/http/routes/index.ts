@@ -20,6 +20,7 @@ import AsoRouter from '@modules/aso/routes/Asos.routes';
 import ExamesAsoRouter from '@modules/aso/routes/ExameAso.routes';
 import FichaClinicaRouter from '@modules/fichaclinica/routes/FichaClinica.routes';
 import FinanceiroRouter from '@modules/financeiro/routes/Financeiro.routes';
+import MedicoExaminadorRouter from '@modules/medicoexaminador/routes/MedicoExaminador.routes';
 
 const routes = Router();
 routes.use('/empresa', empresasRouter);
@@ -41,6 +42,7 @@ routes.use('/aso',  AsoRouter);
 routes.use('/examesaso',  ExamesAsoRouter);
 routes.use('/fichaclinica', FichaClinicaRouter);
 routes.use('/financeiro', FinanceiroRouter);
+routes.use('/medicoexaminador', MedicoExaminadorRouter);
 
 routes.use('/', ( request, response) => {
     return response.json({ message: 'Hello Dev'});

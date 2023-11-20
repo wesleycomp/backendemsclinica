@@ -1,5 +1,5 @@
 import { getCustomRepository } from "typeorm";
-import { MedicosRepository } from "../typeorm/repositories/MedicosRepository";
+import { MedicoExaminadorRepository } from "../typeorm/repositories/MedicoExaminadorRepository";
 import AppError from '@shared/errors/AppError';
 
     interface IRequest{
@@ -11,14 +11,14 @@ class DeleteMedicoExaminadorServices{
     public async execute({id}: IRequest): Promise<void>{
 
        //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
-        const pacienteRepository = getCustomRepository(MedicosRepository);
-        const paciente = await pacienteRepository.findOne(id);
+        const medicoExaminadorRepository = getCustomRepository(MedicoExaminadorRepository);
+        const medicoExaminador  = await medicoExaminadorRepository.findOne(id);
 
-        if(!paciente){
-            throw new AppError('Paciente não encontrado')
+        if(!medicoExaminador){
+            throw new AppError('medico Examinador não encontrado')
         }
 
-            await pacienteRepository.delete(paciente);
+            await medicoExaminadorRepository.delete(medicoExaminador);
        // return paciente;
     }
 }

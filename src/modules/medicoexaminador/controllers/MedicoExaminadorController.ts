@@ -1,5 +1,4 @@
 import { Request , Response } from "express";
-import ListMedicosService from "../services/ListMedicoExaminadorServices";
 import ShowMedicoExaminadorService from "../services/ShowMedicoExaminador";
 import CreateMedicoExaminadorServices from "../services/CreateMedicoExaminadorServices"
 import DeleteMedicoExaminadorServices from "../services/DeleteMedicoExaminadorServices";
@@ -24,7 +23,8 @@ export default class MedicoExaminadorController{
         return response.json(showMedicoExaminador);
 
     }
-public async create(request: Request, response: Response): Promise<Response>{
+
+    public async create(request: Request, response: Response): Promise<Response>{
 
         const { nome,cpf,rg,crm,ufcrm,telefone,datanascimento,endereco,email } = request.body;
         const createMedicos = new CreateMedicoExaminadorServices();
@@ -44,10 +44,7 @@ public async create(request: Request, response: Response): Promise<Response>{
     }
 
 
-  public async update(request: Request, response: Response): Promise<Response>{
-
-   // console.log('testees');
-
+    public async update(request: Request, response: Response): Promise<Response>{
 
         const { nome,cpf,rg,crm,ufcrm,telefone,datanascimento,endereco,email } = request.body;
         const { id } = request.params;

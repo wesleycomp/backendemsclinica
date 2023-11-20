@@ -21,7 +21,7 @@ MedicoExaminadorRouter.get(
                 )
 
 MedicoExaminadorRouter.get(
-                    '/medicoexaminador/:id',
+                    '/:id',
                     isAuthenticated,
                     celebrate({
                         [Segments.PARAMS]:{
