@@ -1,14 +1,15 @@
 import { Router } from 'express'
-import MedicosController from '../controllers/MedicosController';
+import MedicoExaminadorController from '../controllers/MedicoExaminadorController';
 import { celebrate, Joi, Segments } from 'celebrate';
 import isAuthenticated from '../../../shared/http/middlewares/isAuthenticated';
 
-const MedicosRouter = Router();
-const medicosController = new MedicosController();
+const MedicoExaminadorRouter = Router();
 
-MedicosRouter.get('/', isAuthenticated, medicosController.index)
+const medicoExaminadorController = new MedicoExaminadorController();
 
-MedicosRouter.get(
+MedicoExaminadorRouter.get('/', isAuthenticated, medicoExaminadorController.index)
+
+MedicoExaminadorRouter.get(
                     '/:id',
                     isAuthenticated,
                     celebrate({
@@ -16,10 +17,21 @@ MedicosRouter.get(
                             id: Joi.string().uuid().required(),
                         },
                     }),
-                    medicosController.show
+                    medicoExaminadorController.show
                 )
 
-MedicosRouter.post(
+MedicoExaminadorRouter.get(
+                    '/medicoexaminador/:id',
+                    isAuthenticated,
+                    celebrate({
+                        [Segments.PARAMS]:{
+                            id: Joi.string().uuid().required(),
+                        },
+                    }),
+                    medicoExaminadorController.show
+                )
+
+MedicoExaminadorRouter.post(
                     '/',
                     isAuthenticated,
                     celebrate({
@@ -35,10 +47,10 @@ MedicosRouter.post(
                             email: Joi.string().required()
                         },
                     }),
-                    medicosController.create
+                    medicoExaminadorController.create
                 )
 
-MedicosRouter.put(
+MedicoExaminadorRouter.put(
                     '/:id',
                     isAuthenticated,
                     celebrate({
@@ -60,10 +72,10 @@ MedicosRouter.put(
                                 id: Joi.string().uuid().required(),
                             },
                         }),
-                    medicosController.update
+                    medicoExaminadorController.update
                 )
 
-MedicosRouter.delete(
+MedicoExaminadorRouter.delete(
                         '/:id',
                         isAuthenticated,
                         celebrate({
@@ -71,7 +83,7 @@ MedicosRouter.delete(
                                 id: Joi.string().uuid().required(),
                             },
                         }),
-                        medicosController.delete
+                        medicoExaminadorController.delete
                     )
 
-export default MedicosRouter;
+export default MedicoExaminadorRouter;
