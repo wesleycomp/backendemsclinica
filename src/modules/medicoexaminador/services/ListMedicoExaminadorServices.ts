@@ -1,6 +1,6 @@
 import { getCustomRepository } from "typeorm";
 import MedicoExaminador from "../typeorm/entities/MedicoExaminador";
-import MedicosRepository from "../typeorm/repositories/MedicosRepository";
+import MedicoExaminadorRepository from "../typeorm/repositories/MedicoExaminadorRepository";
 
 
 class ListMedicoExaminadorServices{
@@ -8,10 +8,10 @@ class ListMedicoExaminadorServices{
     public async execute(): Promise<MedicoExaminador[]>{
 
          //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
-        const medicosRepository = getCustomRepository(MedicosRepository);
+        const medicoExaminadorRepository = getCustomRepository(MedicoExaminadorRepository);
+        const MedicoExaminador = await medicoExaminadorRepository.find();
 
-         const Medicos = await medicosRepository.find();
-        return Medicos;
+        return MedicoExaminador;
 
     }
 }

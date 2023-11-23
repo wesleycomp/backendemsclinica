@@ -13,7 +13,7 @@ import { Column,
 import TipoAso from './TipoAso';
 import User from '@modules/users/typeorm/entities/User';
 import TipoPagamento from '@modules/tipopagamento/typeorm/entities/TipoPagamento';
-import MedicoExaminador from '@modules/medico/typeorm/entities/MedicoExaminador'
+import MedicoExaminador from '@modules/medicoexaminador/typeorm/entities/MedicoExaminador'
 
 @Entity('aso')
 class Aso {

@@ -2,7 +2,7 @@ import AppError from "@shared/errors/AppError";
 import { compare, hash } from "bcryptjs";
 import { getCustomRepository } from "typeorm";
 import MedicoExaminador from "../typeorm/entities/MedicoExaminador";
-import { MedicosRepository } from "../typeorm/repositories/MedicosRepository";
+import { MedicoExaminadorRepository } from "../typeorm/repositories/MedicoExaminadorRepository";
 
 
 interface IRequest {
@@ -35,25 +35,25 @@ class UpdateMedicosExaminadorServices{
                              }: IRequest): Promise<MedicoExaminador>{
 
          //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
-        const medicosRepository = getCustomRepository(MedicosRepository);
-        const medico = await medicosRepository.findById(id);
+        const medicosRepository = getCustomRepository(MedicoExaminadorRepository);
+        const medicoExaminador = await medicosRepository.findById(id);
 
-        if(!medico){
+        if(!medicoExaminador){
             throw new AppError('medico not found.')
         }
 
-            medico.nome = nome;
-            medico.cpf = cpf;
-            medico.rg = rg;
-            medico.crm = crm;
-            medico.ufcrm = ufcrm;
-            medico.telefone = telefone;
-            medico.datanascimento = datanascimento;
-            medico.endereco = endereco;
-            medico.email = email;
-            await medicosRepository.save(medico);
+            medicoExaminador.nome = nome;
+            medicoExaminador.cpf = cpf;
+            medicoExaminador.rg = rg;
+            medicoExaminador.crm = crm;
+            medicoExaminador.ufcrm = ufcrm;
+            medicoExaminador.telefone = telefone;
+            medicoExaminador.datanascimento = datanascimento;
+            medicoExaminador.endereco = endereco;
+            medicoExaminador.email = email;
+            await medicosRepository.save(medicoExaminador);
 
-            return medico;
+            return medicoExaminador;
     }
 }
 
