@@ -56,6 +56,9 @@ class Empresa {
      @Column()
      convenio: boolean;
 
+     @Column()
+     empresafora: string;
+
      @CreateDateColumn()
      created_at: Date;
 
