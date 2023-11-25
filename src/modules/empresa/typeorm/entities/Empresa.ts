@@ -26,9 +26,6 @@ class Empresa {
      cnpj: string;
 
      @Column()
-     ideEmpregador: string;
-
-     @Column()
      inscricaoestadual: string;
 
      @Column()

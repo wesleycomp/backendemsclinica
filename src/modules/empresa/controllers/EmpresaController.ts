@@ -49,7 +49,7 @@ export default class EmpresaController{
 
     public async create(request: Request, response: Response): Promise<Response>{
 
-        const { nome, cnpj, cpf, ideEmpregador, inscricaoestadual, inscricaomunicipal,endereco,telefone,email,responsavel,esocial,convenio,observacao } = request.body;
+        const { nome, cnpj, cpf, inscricaoestadual, inscricaomunicipal,endereco,telefone,email,responsavel,esocial,convenio,observacao } = request.body;
 
         const createEmpresa = new CreateEmpresaService();
 
@@ -57,7 +57,6 @@ export default class EmpresaController{
                     nome,
                     cnpj,
                     cpf,
-                    ideEmpregador,
                     inscricaoestadual,
                     inscricaomunicipal,
                     endereco,
@@ -79,7 +78,6 @@ export default class EmpresaController{
                nome,
                cnpj,
                cpf,
-               ideEmpregador,
                inscricaoestadual,
                inscricaomunicipal,
                endereco,
@@ -100,7 +98,6 @@ export default class EmpresaController{
                     nome,
                     cnpj,
                     cpf,
-                    ideEmpregador,
                     inscricaoestadual,
                     inscricaomunicipal,
                     endereco,

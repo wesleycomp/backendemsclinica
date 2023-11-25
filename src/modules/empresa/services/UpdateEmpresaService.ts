@@ -8,7 +8,6 @@ interface IRequest{
     nome: string;
     cnpj: string;
     cpf: string;
-    ideEmpregador: string;
     inscricaoestadual: string;
     inscricaomunicipal: string;
     endereco: string;
@@ -27,7 +26,6 @@ class UpdateEmpresaService{
                     nome,
                     cnpj,
                     cpf,
-                    ideEmpregador,
                     inscricaoestadual,
                     inscricaomunicipal,
                     endereco,
@@ -58,7 +56,6 @@ class UpdateEmpresaService{
         Empresa.nome = nome;
         Empresa.cnpj = cnpj;
         Empresa.cpf = cpf;
-        Empresa.ideEmpregador = ideEmpregador;
         Empresa.inscricaoestadual=inscricaoestadual;
         Empresa.inscricaomunicipal=inscricaomunicipal;
         Empresa.endereco=endereco;

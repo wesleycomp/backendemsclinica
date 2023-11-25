@@ -7,7 +7,6 @@ interface IRequest{
     nome: string;
     cnpj: string;
     cpf: string;
-    ideEmpregador: string;
     inscricaoestadual: string;
     inscricaomunicipal: string;
     endereco: string;
@@ -25,7 +24,6 @@ class CreateEmpresaService{
                     nome,
                     cnpj,
                     cpf,
-                    ideEmpregador,
                     inscricaoestadual,
                     inscricaomunicipal,
                     endereco,
@@ -52,7 +50,6 @@ class CreateEmpresaService{
                     nome,
                     cnpj,
                     cpf,
-                    ideEmpregador,
                     inscricaoestadual,
                     inscricaomunicipal,
                     endereco,
