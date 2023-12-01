@@ -20,13 +20,13 @@ class CreateConvenioEmpresaService{
         //instaciou o repositorio para ter acesso aos metodos(save, delete... etc)
     const convenioempresaRepository = getCustomRepository(ConvenioEmpresaRepository);
 
-        // const ConvenioEmpresaExists= await convenioempresaRepository.findByIdExame(exame_id)
+        const ConvenioEmpresaExists= await convenioempresaRepository.findByConvenioEmpresa(empresa_id,exame_id)
 
-        // if(ConvenioEmpresaExists){
+        if(ConvenioEmpresaExists){
 
-        //     throw new AppError(' Ja existe esse exame no Convenio Empresa ')
+            throw new AppError(' Ja existe esse exame no Convenio Empresa ')
 
-        // }
+        }
 
         const ConvenioEmpresa = convenioempresaRepository.create({
             empresa_id,exame_id,valorexame,valorems,valormedico,ativo,user_id

@@ -70,6 +70,18 @@ export class ConvenioEmpresaRepository extends Repository<ConvenioEmpresa>{
     }
 
 
+   public async findByConvenioEmpresa(empresa_id: string,exame_id: string): Promise<ConvenioEmpresa | undefined> {
+
+        const convenioempresa = await this.findOne({
+            where: {
+                     exame_id,empresa_id
+                   }
+        })
+        return convenioempresa;
+
+    }
+
+
         public async findAll(): Promise<ConvenioEmpresa[]> {
         const exame = await this.find({
             relations: ['empresa','exame','exame.especialidademedica']
