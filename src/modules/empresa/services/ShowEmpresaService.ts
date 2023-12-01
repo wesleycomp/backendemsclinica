@@ -22,6 +22,17 @@ class ShowEmpresaService{
         return empresa;
     }
 
+       public async executePesquisaEmpresaId({id}: IRequest): Promise<Empresa>{
+
+       //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
+        const empresaRepository = getCustomRepository(EmpresaRepository);
+        const empresa = await empresaRepository.pesquisaEmpresaPorID(id);
+
+        if(!empresa){
+            throw new AppError('Empresa não encontrada')
+        }
+        return empresa;
+    }
 
         public async executeEmpresaNome({id}: IRequest): Promise<Empresa[]>{
 

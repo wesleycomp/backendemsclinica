@@ -9,6 +9,18 @@ const empresasController = new EmpresaController();
 empresasRouter.get('/', isAuthenticated, empresasController.index)
 
 empresasRouter.get(
+                    'pesquisaempresaid/:id',
+                    isAuthenticated,
+                    celebrate({
+                        [Segments.PARAMS]:{
+                            id: Joi.string().uuid().required(),
+                        },
+                    }),
+                    empresasController.showEmpresaId
+                )
+
+
+empresasRouter.get(
                     '/:id',
                     isAuthenticated,
                     celebrate({
