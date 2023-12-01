@@ -39,7 +39,7 @@ export class EmpresaRepository extends Repository<Empresa>{
 
         const empresa = await this.findOne({
             where: {
-                cnpj: id
+                id
             }
         })
         return empresa;
