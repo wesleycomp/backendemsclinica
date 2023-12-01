@@ -9,7 +9,7 @@ const empresasController = new EmpresaController();
 empresasRouter.get('/', isAuthenticated, empresasController.index)
 
 empresasRouter.get(
-                    'pesquisaempresaid/:id',
+                    '/pesquisaempresaid/:id',
                     isAuthenticated,
                     celebrate({
                         [Segments.PARAMS]:{
