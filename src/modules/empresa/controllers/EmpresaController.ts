@@ -59,7 +59,7 @@ export default class EmpresaController{
 
     public async create(request: Request, response: Response): Promise<Response>{
 
-        const { nome, cnpj, cpf, inscricaoestadual, inscricaomunicipal,endereco,telefone,email,responsavel,esocial,convenio,observacao } = request.body;
+        const { nome, cnpj, cpf, inscricaoestadual, inscricaomunicipal,endereco,telefone,email,responsavel,esocial,convenio,observacao,empresafora } = request.body;
 
         const createEmpresa = new CreateEmpresaService();
 
@@ -75,7 +75,8 @@ export default class EmpresaController{
                     responsavel,
                     esocial,
                     convenio,
-                    observacao
+                    observacao,
+                    empresafora
         });
 
         return response.json(empresa);
@@ -96,7 +97,8 @@ export default class EmpresaController{
                responsavel,
                esocial,
                convenio,
-               observacao } = request.body;
+               observacao,
+               empresafora } = request.body;
 
         const { id } = request.params;
 
@@ -116,7 +118,8 @@ export default class EmpresaController{
                     responsavel,
                     esocial,
                     convenio,
-                    observacao
+                    observacao,
+                    empresafora
         });
 
         return response.json(empresa);

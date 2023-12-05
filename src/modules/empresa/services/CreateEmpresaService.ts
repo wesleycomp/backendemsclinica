@@ -16,6 +16,7 @@ interface IRequest{
     esocial: boolean;
     convenio: boolean;
     observacao: string;
+     empresafora:string;
 }
 
 class CreateEmpresaService{

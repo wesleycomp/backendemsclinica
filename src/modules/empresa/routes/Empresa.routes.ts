@@ -69,7 +69,8 @@ empresasRouter.post(
                                 responsavel: Joi.string().allow('', null).default(''),
                                 esocial: Joi.boolean().required(),
                                 convenio: Joi.boolean().required(),
-                                observacao:Joi.string().uppercase().allow('', null).default('')
+                                observacao:Joi.string().uppercase().allow('', null).default(''),
+                                empresafora: Joi.string().required()
                          },
                     }),
                     empresasController.create
@@ -94,7 +95,8 @@ empresasRouter.put(
                                 convenio: Joi.boolean(),
                                 created_at: Joi.string().required(),
                                 updated_at: Joi.string().required(),
-                                observacao:Joi.string().allow('', null).default('')
+                                observacao:Joi.string().allow('', null).default(''),
+                                empresafora: Joi.string().required()
                             },
                             [Segments.PARAMS]:{
                                 id: Joi.string().uuid().required(),

@@ -17,6 +17,7 @@ interface IRequest{
     esocial: boolean;
     convenio: boolean;
     observacao: string;
+    empresafora: string;
 }
 
 
@@ -34,7 +35,8 @@ class UpdateEmpresaService{
                     responsavel,
                     esocial,
                     convenio,
-                    observacao
+                    observacao,
+                    empresafora
 }: IRequest): Promise<Empresa>{
 
             //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
@@ -65,6 +67,7 @@ class UpdateEmpresaService{
         Empresa.esocial=esocial;
         Empresa.convenio=convenio;
         Empresa.observacao=observacao;
+        Empresa.empresafora=empresafora
 
         await empresaRepository.save(Empresa)
 
