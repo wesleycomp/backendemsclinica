@@ -26,13 +26,13 @@ MedicosRouter.post(
                         [Segments.BODY]:{
                             nome: Joi.string().uppercase().required(),
                             cpf: Joi.string().required(),
-                            rg: Joi.string().required(),
+                            rg: Joi.string(),
                             crm: Joi.string().required(),
                             ufcrm: Joi.string().required(),
                             telefone: Joi.string().required(),
                             datanascimento: Joi.string().required(),
-                            endereco: Joi.string().required(),
-                            email: Joi.string().required()
+                            endereco: Joi.string(),
+                            email: Joi.string()
                         },
                     }),
                     medicosController.create
@@ -46,13 +46,13 @@ MedicosRouter.put(
                                 id: Joi.string().required(),
                                 nome: Joi.string().uppercase().required(),
                                 cpf: Joi.string().required(),
-                                rg: Joi.string().required(),
+                                rg: Joi.string(),
                                 crm: Joi.string().required(),
                                 ufcrm: Joi.string().required(),
                                 telefone: Joi.string().required(),
                                 datanascimento: Joi.string().required(),
                                 endereco: Joi.string().required(),
-                                email: Joi.string().required(),
+                                email: Joi.string(),
                                 created_at: Joi.string().required(),
                                 updated_at: Joi.string().required()
                             },
