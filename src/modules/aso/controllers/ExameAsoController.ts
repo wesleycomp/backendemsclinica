@@ -7,6 +7,7 @@ import CreateHistoricoExclusaoExameAso from "../services/CreateHistoricoExclusao
 import ShowAsosService from "../services/ShowAsosService";
 import DeleteExameAsoService from "../services/DeleteExameAsoService";
 import utils from "@config/utils";
+import { Console } from "console";
 
 //teste git
 export default class ExameAsoController{
@@ -23,8 +24,10 @@ export default class ExameAsoController{
 
         const { datainicio } = request.params;
         const { datafim } = request.params;
+        const { tipopagamento } = request.params;
+        const { usuario } = request.params;
         const showExameAso = new ShowExameAsoService();
-        const exame = await showExameAso.executeExamesPeriodo({datainicio,datafim})
+        const exame = await showExameAso.executeExamesPeriodo({datainicio,datafim,tipopagamento,usuario})
 
         return response.json(exame);
 

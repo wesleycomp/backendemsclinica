@@ -51,23 +51,58 @@ export class ExamesAsoRepository extends Repository<ExameAso>{
 
 
   public async findExamesRealizadosPeriodo(datainicio: string,datafim: string): Promise<ExameAso[] | undefined> {
-//console.log(datainicio,datafim)
 
+    // console.log('chegou akiiiiii')
         const exameAso = await this.find({
           where:{
             data_cadastro_exame: Between(datainicio,datafim)
-          // created_at: Between(datainicio+` 00:00:00`,datafim+` 11:59:59`)
-       //  created_at: '>='+datainicio+' AND <='+datafim
-
-
           },
-        //  nome: Like('%'+id+'%')
          relations: ['exame','aso','aso.empresa','aso.paciente','aso.medico','aso.medicoexaminador','aso.funcao','aso.tipoaso','aso.tipopagamento','aso.user']
-    //  relations: ['aso']
         });
+
+    //    console.log(exameAso)
 
         return exameAso;
     }
+
+
+      public async findExamesRealizadosPeriodoTipoPagamento(datainicio: string,datafim: string, tipopagamento: string ): Promise<ExameAso[] | undefined> {
+        const exameAso = await this.find({
+          where:{
+            data_cadastro_exame: Between(datainicio,datafim),
+            tipopagamento_id:tipopagamento
+          },
+         relations: ['exame','aso','aso.empresa','aso.paciente','aso.medico','aso.medicoexaminador','aso.funcao','aso.tipoaso','aso.tipopagamento','aso.user']
+        });
+        return exameAso;
+    }
+
+       public async findExamesRealizadosPeriodoTipoPagamentoUsuario(datainicio: string,datafim: string, tipopagamento: string , usuario: string ): Promise<ExameAso[] | undefined> {
+        const exameAso = await this.find({
+          where:{
+            data_cadastro_exame: Between(datainicio,datafim),
+            tipopagamento_id:tipopagamento,
+            user_id:usuario
+          },
+         relations: ['exame','aso','aso.empresa','aso.paciente','aso.medico','aso.medicoexaminador','aso.funcao','aso.tipoaso','aso.tipopagamento','aso.user']
+        });
+        return exameAso;
+    }
+
+      public async findExamesRealizadosPeriodoUsuario(datainicio: string,datafim: string,  usuario: string ): Promise<ExameAso[] | undefined> {
+        const exameAso = await this.find({
+          where:{
+            data_cadastro_exame: Between(datainicio,datafim),
+            user_id:usuario
+          },
+         relations: ['exame','aso','aso.empresa','aso.paciente','aso.medico','aso.medicoexaminador','aso.funcao','aso.tipoaso','aso.tipopagamento','aso.user']
+        });
+        return exameAso;
+    }
+
+
+
+
 
 
 

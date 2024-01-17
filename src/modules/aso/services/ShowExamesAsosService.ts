@@ -17,6 +17,8 @@ interface IRequestExameAso{
 interface IRequest2{
     datainicio: string,
     datafim: string,
+    tipopagamento: string,
+    usuario: string,
 }
 
 
@@ -33,11 +35,31 @@ class ShowExamesAsosService{
 
         return examesAso;
     }
-    public async executeExamesPeriodo({datainicio,datafim}:IRequest2): Promise<ExamesAso[] | undefined>{
+    public async executeExamesPeriodo({datainicio,datafim,tipopagamento,usuario}:IRequest2): Promise<ExamesAso[] | undefined>{
           //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
 
         const examesAsosRepository = getCustomRepository(ExamesAsoRepository);
+// console.log('entrou aqki   ===>')
         const examesAso = await examesAsosRepository.findExamesRealizadosPeriodo(datainicio,datafim);
+
+        if((tipopagamento != '0')&&(usuario != '0')){
+// console.log('entrou aqki 1 ===>')
+            const examesAso = await examesAsosRepository.findExamesRealizadosPeriodoTipoPagamentoUsuario(datainicio,datafim,tipopagamento,usuario);
+
+        }
+
+        if((usuario != '0')&&(tipopagamento == '0')){//entra se nao tiver tipo pagamento
+// console.log('entrou aqki 2 ===>')
+            const examesAso = await examesAsosRepository.findExamesRealizadosPeriodoUsuario(datainicio,datafim,usuario);
+
+            }
+
+        if((usuario == '0')&&(tipopagamento != '0')){//entra se nao tiver tipo pagamento
+// console.log('entrou aqki 3 ===>')
+            const examesAso = await examesAsosRepository.findExamesRealizadosPeriodoTipoPagamento(datainicio,datafim,tipopagamento);
+
+            }
+
 
         if(!examesAso){
             throw new AppError('Aso não encontrado')
@@ -45,6 +67,12 @@ class ShowExamesAsosService{
 
         return examesAso;
     }
+
+
+
+
+
+
 
 
     public async executeExames(): Promise<ExamesAso[] | undefined>{
