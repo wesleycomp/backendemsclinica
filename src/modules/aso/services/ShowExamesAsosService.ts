@@ -42,11 +42,6 @@ class ShowExamesAsosService{
 // console.log('entrou aqki   ===>')
         const examesAso = await examesAsosRepository.findExamesRealizadosPeriodo(datainicio,datafim);
 
-        if((tipopagamento != '0')&&(usuario != '0')){
-// console.log('entrou aqki 1 ===>')
-            const examesAso = await examesAsosRepository.findExamesRealizadosPeriodoTipoPagamentoUsuario(datainicio,datafim,tipopagamento,usuario);
-
-        }
 
         if((usuario != '0')&&(tipopagamento == '0')){//entra se nao tiver tipo pagamento
 // console.log('entrou aqki 2 ===>')
@@ -60,6 +55,11 @@ class ShowExamesAsosService{
 
             }
 
+        if((tipopagamento != '0')&&(usuario != '0')){
+// console.log('entrou aqki 1 ===>')
+            const examesAso = await examesAsosRepository.findExamesRealizadosPeriodoTipoPagamentoUsuario(datainicio,datafim,tipopagamento,usuario);
+
+        }
 
         if(!examesAso){
             throw new AppError('Aso não encontrado')
