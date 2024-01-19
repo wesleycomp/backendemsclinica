@@ -40,23 +40,25 @@ class ShowExamesAsosService{
 
         const examesAsosRepository = getCustomRepository(ExamesAsoRepository);
 // console.log('entrou aqki   ===>')
-        const examesAso = await examesAsosRepository.findExamesRealizadosPeriodo(datainicio,datafim);
+    const examesAso = ""
+
+   // const examesAso = await examesAsosRepository.findExamesRealizadosPeriodo(datainicio,datafim);
 
 
         if((usuario != '0')&&(tipopagamento == '0')){//entra se nao tiver tipo pagamento
-// console.log('entrou aqki 2 ===>')
+ console.log('entrou aqki 2 ===>')
             const examesAso = await examesAsosRepository.findExamesRealizadosPeriodoUsuario(datainicio,datafim,usuario);
 
             }
 
         if((usuario == '0')&&(tipopagamento != '0')){//entra se nao tiver tipo pagamento
-// console.log('entrou aqki 3 ===>')
+ console.log('entrou aqki 3 ===>')
             const examesAso = await examesAsosRepository.findExamesRealizadosPeriodoTipoPagamento(datainicio,datafim,tipopagamento);
 
             }
 
         if((tipopagamento != '0')&&(usuario != '0')){
-// console.log('entrou aqki 1 ===>')
+ console.log('entrou aqki 4 ===>')
             const examesAso = await examesAsosRepository.findExamesRealizadosPeriodoTipoPagamentoUsuario(datainicio,datafim,tipopagamento,usuario);
 
         }
