@@ -28,10 +28,10 @@ class ExameAso {
     @Column()
      exame_id: string;
 
-        @Column()
-     user_id: string;
+    @Column()
+    user_id: string;
 
-     @Column()
+    @Column()
      user_desconto: string;
 
     @ManyToOne(() => TipoPagamento)

@@ -33,6 +33,11 @@ export class CreateUsers1655230153765 implements MigrationInterface {
                         type: 'varchar',
                     },
                     {
+                        name: 'master',
+                        type: 'varchar',
+                        default: 'false'
+                    },
+                    {
                         name: 'created_at',
                         type: 'timestamp',
                         default: 'now()',

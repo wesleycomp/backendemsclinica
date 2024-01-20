@@ -13,7 +13,7 @@ class TipoPagamento{
      @Column()
      descricao: string;
 
-     @Column()
+     @Column({default: 0})
      ativo: boolean;
 
 
