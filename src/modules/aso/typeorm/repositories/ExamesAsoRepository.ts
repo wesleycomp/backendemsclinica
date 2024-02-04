@@ -113,7 +113,18 @@ export class ExamesAsoRepository extends Repository<ExameAso>{
         return exameAso;
     }
 
+  public async findExamesRealizadosPeriodoEmpresaTipoPagamento(datainicio: string,datafim: string, empresa: string ,tipopagamento: string ): Promise<ExameAso[] | undefined> {
+        const exameAso = await this.find({
+          where:{
+           data_cadastro_exame: Between(datainicio,datafim),
+           aso: { empresa_id: empresa },
+           tipopagamento_id:tipopagamento
 
+        },
+         relations: ['exame','aso','aso.empresa','aso.paciente','aso.medico','aso.medicoexaminador','aso.funcao','aso.tipoaso','aso.tipopagamento','aso.user']
+        });
+        return exameAso;
+    }
 
 
 

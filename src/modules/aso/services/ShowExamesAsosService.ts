@@ -68,6 +68,10 @@ class ShowExamesAsosService{
             var examesAso = await examesAsosRepository.findExamesRealizadosPeriodoEmpresa(datainicio,datafim,empresa);
 
             }
+      else if((empresa != '0')&&(tipopagamento != '0')&&(usuario == '0')){
+            var examesAso = await examesAsosRepository.findExamesRealizadosPeriodoEmpresaTipoPagamento(datainicio,datafim,empresa,tipopagamento);
+
+            }
 
         //  console.log(examesAso)
         if(!examesAso){
