@@ -1,5 +1,5 @@
 import { EntityRepository, Repository } from "typeorm";
-import MedicoExaminador from "../entities/MedicoExaminador";
+import MedicoExaminador from "../../../medicoexaminador/typeorm/entities/MedicoExaminador";
 
 @EntityRepository(MedicoExaminador)
 export class MedicoExaminadorRepository extends Repository<MedicoExaminador>{
