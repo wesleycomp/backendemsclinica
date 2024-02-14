@@ -49,8 +49,11 @@ export default class MedicoFechamentoController{
     public async show(request: Request, response: Response): Promise<Response>{
 
         const { medico_id } = request.params;
+        //console.log(medico_id+" passou no controller")
         const showFechamentoMedico = new ListMedicoFechamentoServices();
         const fechamentoMedico = await showFechamentoMedico.execute({ medico_id })
+
+
 
         return response.json(fechamentoMedico);
 

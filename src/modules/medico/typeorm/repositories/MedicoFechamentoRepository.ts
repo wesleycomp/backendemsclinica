@@ -15,11 +15,12 @@ export class MedicoFechamentoRepository extends Repository<MedicoFechamento>{
 
     }
 
-    public async findByMedicoFechamento(medico_id: string): Promise<MedicoFechamento[] | undefined> {
+    public async findByMedicoFechamento(idmedico: string): Promise<MedicoFechamento[] | undefined> {
 
+ //console.log('passou aki------>'+idmedico)
         const medicofechamento = await this.find({
             where: {
-                    medico_id,
+                   medico_id:idmedico,
                    },
                    relations:['medico','exame']
         })

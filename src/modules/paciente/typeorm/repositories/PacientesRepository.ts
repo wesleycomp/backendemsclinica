@@ -51,7 +51,7 @@ export class PacientesRepository extends Repository<Pacientes>{
     }
 
 
-        public async findPacientesAll(): Promise<Pacientes[]> {
+    public async findPacientesAll(): Promise<Pacientes[]> {
 
         const paciente = await this.find({
 
