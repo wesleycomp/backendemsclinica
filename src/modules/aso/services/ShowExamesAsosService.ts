@@ -20,6 +20,7 @@ interface IRequest2{
     tipopagamento: string,
     usuario: string,
     empresa: string,
+    empresafora: string
 }
 
 
@@ -36,7 +37,7 @@ class ShowExamesAsosService{
 
         return examesAso;
     }
-    public async executeExamesPeriodo({datainicio,datafim,tipopagamento,usuario,empresa}:IRequest2): Promise<ExamesAso[] | undefined>{
+    public async executeExamesPeriodo({datainicio,datafim,tipopagamento,usuario,empresa,empresafora}:IRequest2): Promise<ExamesAso[] | undefined>{
           //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
 
 console.log('tipopagamento:'+tipopagamento+'  empresa: '+empresa+'  usuario: '+empresa)
@@ -81,6 +82,14 @@ console.log(' selecionou empresa e tipo pagamento ')
 
 
             var examesAso = await examesAsosRepository.findExamesRealizadosPeriodoEmpresaTipoPagamento(datainicio,datafim,empresa,tipopagamento);
+
+            }
+
+
+      else if((empresafora == 'sim')&&(tipopagamento == '0')&&(usuario == '0')){
+
+            console.log(' selecionou empresa e tipo pagamento ')
+            var examesAso = await examesAsosRepository.findExamesRealizadosPeriodoEmpresaFora(datainicio,datafim,empresa,tipopagamento);
 
             }
 
