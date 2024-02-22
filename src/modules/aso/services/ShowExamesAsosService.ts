@@ -40,35 +40,35 @@ class ShowExamesAsosService{
     public async executeExamesPeriodo({datainicio,datafim,tipopagamento,usuario,empresa,empresafora}:IRequest2): Promise<ExamesAso[] | undefined>{
           //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
 
-console.log('tipopagamento:'+tipopagamento+'  empresa: '+empresa+'  usuario: '+empresa)
+console.log('tipopagamento:'+tipopagamento+'  empresa: '+empresa+'  usuario: '+empresa+' empresafora:'+empresafora)
 
 
         const examesAsosRepository = getCustomRepository(ExamesAsoRepository);
    // const examesAso = ""
-        if((usuario == '0')&&(tipopagamento == '0')&&(empresa == '0')){//entra se nao tiver tipo pagamento
+        if((usuario == '0')&&(tipopagamento == '0')&&(empresa == '0')&&(empresafora == '0')){//entra se nao tiver tipo pagamento
              console.log('selecionou somente o periodo ')
             var examesAso = await examesAsosRepository.findExamesRealizadosPeriodo(datainicio,datafim);
         }
 
-        else if((usuario != '0')&&(tipopagamento == '0') && (empresa == '0')){//entra se nao tiver tipo pagamento
+        else if((usuario != '0')&&(tipopagamento == '0') && (empresa == '0')&&(empresafora == '0')){//entra se nao tiver tipo pagamento
  console.log('selecionou usuario ')
             var examesAso = await examesAsosRepository.findExamesRealizadosPeriodoUsuario(datainicio,datafim,usuario);
 
             }
 
-       else if((usuario == '0')&&(tipopagamento != '0') && (empresa == '0')){//entra se nao tiver tipo pagamento
+       else if((usuario == '0')&&(tipopagamento != '0') && (empresa == '0')&&(empresafora == '0')){//entra se nao tiver tipo pagamento
  console.log('selecionou tipo pagamento ')
             var examesAso = await examesAsosRepository.findExamesRealizadosPeriodoTipoPagamento(datainicio,datafim,tipopagamento);
 
             }
 
-       else if((tipopagamento != '0') && (usuario != '0') && (empresa == '0')){
+       else if((tipopagamento != '0') && (usuario != '0') && (empresa == '0')&&(empresafora == '0')){
  console.log('selecionou tipo pagamento e usuario')
             var examesAso = await examesAsosRepository.findExamesRealizadosPeriodoTipoPagamentoUsuario(datainicio,datafim,tipopagamento,usuario);
 
         }
 
-       else if((empresa != '0')&&(tipopagamento == '0')&&(usuario == '0')){
+       else if((empresa != '0')&&(tipopagamento == '0')&&(usuario == '0')&&(empresafora == '0')){
 
        console.log('selecionou empresa')
 
@@ -76,7 +76,7 @@ console.log('tipopagamento:'+tipopagamento+'  empresa: '+empresa+'  usuario: '+e
 
             }
 
-      else if((empresa != '0')&&(tipopagamento != '0')&&(usuario == '0')){
+      else if((empresa != '0')&&(tipopagamento != '0')&&(usuario == '0')&&(empresafora == '0')){
 
 console.log(' selecionou empresa e tipo pagamento ')
 
