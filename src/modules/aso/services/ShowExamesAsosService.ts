@@ -88,7 +88,7 @@ console.log(' selecionou empresa e tipo pagamento ')
 
       else if((empresafora == 'sim')&&(tipopagamento == '0')&&(usuario == '0')){
 
-            console.log(' selecionou empresa e tipo pagamento ')
+            console.log(' selecionou empresa fora ')
             var examesAso = await examesAsosRepository.findExamesRealizadosPeriodoEmpresaFora(datainicio,datafim,empresa,tipopagamento);
 
             }

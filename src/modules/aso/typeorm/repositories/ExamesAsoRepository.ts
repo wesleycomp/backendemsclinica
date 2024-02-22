@@ -130,7 +130,7 @@ export class ExamesAsoRepository extends Repository<ExameAso>{
         const exameAso = await this.find({
           where:{
            data_cadastro_exame: Between(datainicio,datafim),
-           aso: { empresafora: 'sim' }
+           aso: { empresa: { empresafora: "sim"} }
         },
          relations: ['exame','aso','aso.empresa','aso.paciente','aso.medico','aso.medicoexaminador','aso.funcao','aso.tipoaso','aso.tipopagamento','aso.user']
         });
