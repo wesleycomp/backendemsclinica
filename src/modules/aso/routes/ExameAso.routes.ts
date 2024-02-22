@@ -34,6 +34,7 @@ ExameAsoRouter.get(
                             tipopagamento: Joi.string(),
                             usuario: Joi.string(),
                             empresa: Joi.string(),
+                            empresafora: Joi.string(),
                         },
                     }),
                     exameAsoController.showExamesPeriodo
