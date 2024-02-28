@@ -48,12 +48,12 @@ class UpdateEmpresaService{
         }
 
 
-        const EmpresaExists= await empresaRepository.findByName(nome)
+        // const EmpresaExists= await empresaRepository.findByName(nome)
 
-        if(EmpresaExists && nome != Empresa.nome){
+        // if(EmpresaExists && nome != Empresa.nome){
 
-            throw new AppError('Empresa ja existente')
-        }
+        //     throw new AppError('Empresa ja existente')
+        // }
 
         Empresa.nome = nome;
         Empresa.cnpj = cnpj;
