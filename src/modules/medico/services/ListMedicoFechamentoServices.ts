@@ -12,6 +12,8 @@ class ListMedicoFechamentoServices{
 
     public async execute({medico_id}: IRequest): Promise<MedicoFechamento[]>{
 
+//console.log('apssou kai no service'+medico_id)
+
        //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
         const fechamentoMedicoRepository = getCustomRepository(MedicoFechamentoRepository);
         const fechamentoMedico = await fechamentoMedicoRepository.findByMedicoFechamento(medico_id);

@@ -25,7 +25,7 @@ ExameAsoRouter.get(
                 )
 
 ExameAsoRouter.get(
-                    '/listexames/:datainicio/:datafim/:tipopagamento/:usuario/:empresa',
+                    '/listexames/:datainicio/:datafim/:tipopagamento/:usuario/:empresa/:empresafora',
                     isAuthenticated,
                     celebrate({
                         [Segments.PARAMS]:{
@@ -34,6 +34,7 @@ ExameAsoRouter.get(
                             tipopagamento: Joi.string(),
                             usuario: Joi.string(),
                             empresa: Joi.string(),
+                            empresafora: Joi.string(),
                         },
                     }),
                     exameAsoController.showExamesPeriodo

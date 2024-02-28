@@ -27,8 +27,9 @@ export default class ExameAsoController{
         const { tipopagamento } = request.params;
         const { usuario } = request.params;
         const { empresa } = request.params;
+        const { empresafora } = request.params;
         const showExameAso = new ShowExameAsoService();
-        const exame = await showExameAso.executeExamesPeriodo({datainicio,datafim,tipopagamento,usuario,empresa})
+        const exame = await showExameAso.executeExamesPeriodo({datainicio,datafim,tipopagamento,usuario,empresa,empresafora})
 
         return response.json(exame);
 

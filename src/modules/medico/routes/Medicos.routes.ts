@@ -1,10 +1,12 @@
 import { Router } from 'express'
 import MedicosController from '../controllers/MedicosController';
+import MedicoFechamentoController from '../controllers/MedicoFechamentoController';
 import { celebrate, Joi, Segments } from 'celebrate';
 import isAuthenticated from '../../../shared/http/middlewares/isAuthenticated';
 
 const MedicosRouter = Router();
 const medicosController = new MedicosController();
+const FechamentoMedicoController = new MedicoFechamentoController();
 
 MedicosRouter.get('/', isAuthenticated, medicosController.index)
 
@@ -72,6 +74,64 @@ MedicosRouter.delete(
                             },
                         }),
                         medicosController.delete
+                    )
+
+
+
+MedicosRouter.get(
+                    '/fechamentomedico/:medico_id',
+                    isAuthenticated,
+                    celebrate({
+                        [Segments.PARAMS]:{
+                            medico_id: Joi.string().uuid().required(),
+                        },
+                    }),
+                    FechamentoMedicoController.show
+                )
+
+
+
+MedicosRouter.post(
+                    '/fechamentomedico',
+                    isAuthenticated,
+                    celebrate({
+                        [Segments.BODY]:{
+                            medico_id: Joi.string().required(),
+                            exame_id: Joi.string().required(),
+                            valor: Joi.number().required()
+                        },
+                    }),
+                    FechamentoMedicoController.create
+                )
+
+MedicosRouter.put(
+                    '/fechamentomedico/:id',
+                    isAuthenticated,
+                    celebrate({
+                            [Segments.BODY]:{
+                                id: Joi.string().required(),
+                                medico_id: Joi.string().required(),
+                                exame_id: Joi.string().required(),
+                                valor: Joi.number().required(),
+                                created_at: Joi.string().required(),
+                                updated_at: Joi.string().required()
+                            },
+                            [Segments.PARAMS]:{
+                                id: Joi.string().uuid().required(),
+                            },
+                        }),
+                    FechamentoMedicoController.update
+                )
+
+MedicosRouter.delete(
+                        '/fechamentomedico/:id',
+                        isAuthenticated,
+                        celebrate({
+                            [Segments.PARAMS]:{
+                                id: Joi.string().uuid().required(),
+                            },
+                        }),
+                        FechamentoMedicoController.delete
                     )
 
 export default MedicosRouter;

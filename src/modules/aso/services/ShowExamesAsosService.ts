@@ -20,6 +20,7 @@ interface IRequest2{
     tipopagamento: string,
     usuario: string,
     empresa: string,
+    empresafora: string
 }
 
 
@@ -36,40 +37,59 @@ class ShowExamesAsosService{
 
         return examesAso;
     }
-    public async executeExamesPeriodo({datainicio,datafim,tipopagamento,usuario,empresa}:IRequest2): Promise<ExamesAso[] | undefined>{
+    public async executeExamesPeriodo({datainicio,datafim,tipopagamento,usuario,empresa,empresafora}:IRequest2): Promise<ExamesAso[] | undefined>{
           //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
 
+console.log('tipopagamento:'+tipopagamento+'  empresa: '+empresa+'  usuario: '+empresa+' empresafora:'+empresafora)
+
+
         const examesAsosRepository = getCustomRepository(ExamesAsoRepository);
-// console.log('entrou aqki   ===>')
    // const examesAso = ""
-        if((usuario == '0')&&(tipopagamento == '0')&&(empresa == '0')){//entra se nao tiver tipo pagamento
-                var examesAso = await examesAsosRepository.findExamesRealizadosPeriodo(datainicio,datafim);
+        if((usuario == '0')&&(tipopagamento == '0')&&(empresa == '0')&&(empresafora == '0')){//entra se nao tiver tipo pagamento
+             console.log('selecionou somente o periodo ')
+            var examesAso = await examesAsosRepository.findExamesRealizadosPeriodo(datainicio,datafim);
         }
 
-        else if((usuario != '0')&&(tipopagamento == '0')){//entra se nao tiver tipo pagamento
- //console.log('entrou aqki 2 ===>')
+        else if((usuario != '0')&&(tipopagamento == '0') && (empresa == '0')&&(empresafora == '0')){//entra se nao tiver tipo pagamento
+ console.log('selecionou usuario ')
             var examesAso = await examesAsosRepository.findExamesRealizadosPeriodoUsuario(datainicio,datafim,usuario);
 
             }
 
-       else if((usuario == '0')&&(tipopagamento != '0')){//entra se nao tiver tipo pagamento
- //console.log('entrou aqki 3 ===>')
+       else if((usuario == '0')&&(tipopagamento != '0') && (empresa == '0')&&(empresafora == '0')){//entra se nao tiver tipo pagamento
+ console.log('selecionou tipo pagamento ')
             var examesAso = await examesAsosRepository.findExamesRealizadosPeriodoTipoPagamento(datainicio,datafim,tipopagamento);
 
             }
 
-       else if((tipopagamento != '0')&&(usuario != '0')){
- //console.log('entrou aqki 4 ===>')
+       else if((tipopagamento != '0') && (usuario != '0') && (empresa == '0')&&(empresafora == '0')){
+ console.log('selecionou tipo pagamento e usuario')
             var examesAso = await examesAsosRepository.findExamesRealizadosPeriodoTipoPagamentoUsuario(datainicio,datafim,tipopagamento,usuario);
 
         }
 
-       else if((empresa != '0')&&(tipopagamento == '0')&&(usuario == '0')){
-            var examesAso = await examesAsosRepository.findExamesRealizadosPeriodoEmpresa(datainicio,datafim,empresa);
+       else if((empresa != '0')&&(tipopagamento == '0')&&(usuario == '0')&&(empresafora == '0')){
+
+       console.log('selecionou empresa')
+
+        var examesAso = await examesAsosRepository.findExamesRealizadosPeriodoEmpresa(datainicio,datafim,empresa);
 
             }
-      else if((empresa != '0')&&(tipopagamento != '0')&&(usuario == '0')){
+
+      else if((empresa != '0')&&(tipopagamento != '0')&&(usuario == '0')&&(empresafora == '0')){
+
+console.log(' selecionou empresa e tipo pagamento ')
+
+
             var examesAso = await examesAsosRepository.findExamesRealizadosPeriodoEmpresaTipoPagamento(datainicio,datafim,empresa,tipopagamento);
+
+            }
+
+
+      else if((empresafora == 'sim')&&(tipopagamento == '0')&&(usuario == '0')){
+
+            console.log(' selecionou empresa fora ')
+            var examesAso = await examesAsosRepository.findExamesRealizadosPeriodoEmpresaFora(datainicio,datafim,empresa,tipopagamento);
 
             }
 
