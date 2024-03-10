@@ -14,6 +14,13 @@ export default class MedicosController{
         return response.json(Medicos);
     }
 
+ public async getMedicoAtivoAll(request: Request, response: Response): Promise<Response>{
+
+        const listMedicos = new ListMedicosService();
+        const Medicos = await listMedicos.listMedicoAtivos();
+        return response.json(Medicos);
+    }
+
     public async show(request: Request, response: Response): Promise<Response>{
 
         const { id } = request.params;
@@ -49,7 +56,7 @@ export default class MedicosController{
    // console.log('testees');
 
 
-        const { nome,cpf,rg,crm,ufcrm,telefone,datanascimento,endereco,email } = request.body;
+        const { nome,cpf,rg,crm,ufcrm,telefone,datanascimento,endereco,email,ativo } = request.body;
         const { id } = request.params;
         const updateMedicos = new UpdateMedicosService();
 
@@ -63,7 +70,8 @@ export default class MedicosController{
             telefone,
             datanascimento,
             endereco,
-            email
+            email,
+            ativo
         });
 
         return response.json(Medicos);

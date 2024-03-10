@@ -17,6 +17,7 @@ interface IRequest {
     datanascimento: Date;
     endereco: string;
     email: string;
+    ativo: boolean;
 
 }
 
@@ -31,7 +32,8 @@ class UpdateProfileService{
                             telefone,
                             datanascimento,
                             endereco,
-                            email
+                            email,
+                            ativo
                              }: IRequest): Promise<Medicos>{
 
          //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
@@ -51,6 +53,7 @@ class UpdateProfileService{
             medico.datanascimento = datanascimento;
             medico.endereco = endereco;
             medico.email = email;
+            medico.ativo = ativo;
             await medicosRepository.save(medico);
 
             return medico;

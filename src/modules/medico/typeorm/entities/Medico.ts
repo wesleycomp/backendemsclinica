@@ -32,6 +32,9 @@ class Medico{
     @Column()
     email: string;
 
+     @Column()
+     ativo: boolean;
+
     @CreateDateColumn()
     created_at: Date;
 

@@ -26,25 +26,18 @@ class ListMedicosService{
          //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
         const medicosRepository = getCustomRepository(MedicosRepository);
 
-        // const redisCache = new RedisCache();
-
-        // let Medicos = await redisCache.recover<Medicos[]>('api-emsclinica-Medicos_LIST', )
-
-       // if(!Medicos){
-
-        // Medicos = await MedicosRepository.find();
-
-        //     await redisCache.save('api-emsclinica-Medicos_LIST', Medicos);
-
-       // }
-          //   return Medicos;
-
-     //   const Medicos = await MedicosRepository.createQueryBuilder().paginate();
-
-     //   return Medicos as IPaginationMedicos;
-
-
          const Medicos = await medicosRepository.find();
+        return Medicos;
+
+    }
+
+
+    public async listMedicoAtivos(): Promise<Medicos[] | undefined >{
+
+         //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
+        const medicosRepository = getCustomRepository(MedicosRepository);
+
+        const Medicos = await medicosRepository.findMedicosAtivo();
         return Medicos;
 
     }

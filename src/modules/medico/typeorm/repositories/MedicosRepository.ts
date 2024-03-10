@@ -36,5 +36,15 @@ export class MedicosRepository extends Repository<Medicos>{
         })
         return paciente;
     }
+
+      public async findMedicosAtivo(): Promise<Medicos[] | undefined> {
+
+        const medico = await this.find({
+            where: {
+                    ativo:'true'
+                   }
+        })
+        return medico;
+    }
 }
     export default MedicosRepository;

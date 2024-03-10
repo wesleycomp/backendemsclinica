@@ -21,6 +21,12 @@ MedicosRouter.get(
                     medicosController.show
                 )
 
+  MedicosRouter.get(
+                    '/medicoativo/list',
+                    isAuthenticated,
+                    medicosController.getMedicoAtivoAll
+                )
+
 MedicosRouter.post(
                     '/',
                     isAuthenticated,
@@ -55,6 +61,7 @@ MedicosRouter.put(
                                 datanascimento: Joi.string().required(),
                                 endereco: Joi.string().required(),
                                 email: Joi.string(),
+                                ativo: Joi.boolean(),
                                 created_at: Joi.string().required(),
                                 updated_at: Joi.string().required()
                             },
@@ -88,6 +95,8 @@ MedicosRouter.get(
                     }),
                     FechamentoMedicoController.show
                 )
+
+
 
 
 
