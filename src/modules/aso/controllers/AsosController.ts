@@ -19,6 +19,8 @@ import CreateHistoricoAsoExcluidaService from "../services/CreateHistoricoAsoExc
 import ShowExamesAsosService from "../services/ShowExamesAsosService";
 import CreatehistoricoExameAsoExcluidoService from "../services/CreatehistoricoExameAsoExcluidoService";
 
+import CreateAsosExcluidasServices from "../services/CreateAsosExcluidasServices"
+
 export default class AsosController{
 
     public async index(request: Request, response: Response): Promise<Response>{
@@ -237,7 +239,7 @@ export default class AsosController{
             await deleteExamesAso.deleteExameAso({id})// corrigi
             await deleteFichaClinicaAso.execute({id})
             await deleteAso.execute({id,user_exclusao})
-        return response.json([]);
+            return response.json([]);
 
 
 
@@ -259,11 +261,27 @@ export default class AsosController{
     }
 
 
-       public async showAsosExcluidas(request: Request, response: Response): Promise<Response>{
+    public async showAsosExcluidas(request: Request, response: Response): Promise<Response>{
 
         const showAsosExcluidas= new ShowAsosService();
         const asosExcluidas = await showAsosExcluidas.listAsosExcluidas()
         return response.json(asosExcluidas);
     }
+
+
+
+       public async createAsosExcluidas(request: Request, response: Response): Promise<Response>{
+
+        const {aso_id,user_id,motivo} = request.body;
+        const createAsoExcluida = new CreateAsosExcluidasServices();
+        const asoExcluida = await createAsoExcluida.execute({
+            aso_id,
+            user_id,
+            motivo
+        });
+
+        return response.json(asoExcluida);
+    }
+
 
  }

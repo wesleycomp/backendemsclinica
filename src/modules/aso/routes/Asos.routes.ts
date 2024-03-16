@@ -130,4 +130,19 @@ AsoRouter.delete(
                         }),
                         asoController.delete
                     )
+
+AsoRouter.post(
+                    '/asoexcluida/cadastrar',
+                    isAuthenticated,
+                    celebrate({
+                        [Segments.BODY]:{
+                            aso_id:Joi.string().required(),
+                            user_id:Joi.string().required(),
+                            motivo:Joi.string().required()
+                        },
+                    }),
+                    asoController.createAsosExcluidas
+                )
+
+
 export default AsoRouter;
