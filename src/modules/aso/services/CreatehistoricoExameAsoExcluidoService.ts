@@ -18,12 +18,12 @@ interface IHistoricoExameAsoExcluida{
          user_id: string,
          user_desconto: string,
          desconto: boolean,
-         motivo: string
+         
 }
 
 class CreatehistoricoExameAsoExcluidoService{
 
-     public async execute({aso_id, exame_id, ativo, created_at, updated_at, valorexamesemdesconto, valorexame, valormedico, valorems, tipopagamento_id, user_id, user_desconto, desconto, motivo}: IHistoricoExameAsoExcluida): Promise<HistoricoExameAsoExcluido>{
+     public async execute({aso_id, exame_id, ativo, created_at, updated_at, valorexamesemdesconto, valorexame, valormedico, valorems, tipopagamento_id, user_id, user_desconto, desconto }: IHistoricoExameAsoExcluida): Promise<HistoricoExameAsoExcluido>{
 
         //instaciou o repositorio para ter acesso aos metodos(save, delete... etc)
     const historicoExameAsoExcluidaRepository = getCustomRepository(HistoricoExamesAsosExcluidasRepository);
@@ -40,8 +40,7 @@ class CreatehistoricoExameAsoExcluidoService{
          tipopagamento_id,
          user_id,
          user_desconto,
-         desconto,
-         motivo
+         desconto
         });
 
         await historicoExameAsoExcluidaRepository.save(historicoExameAsoExcluidaService);

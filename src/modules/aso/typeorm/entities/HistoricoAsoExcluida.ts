@@ -91,6 +91,10 @@ class HistoricoAsoExcluida{
             })
      data_exclusao: string;
 
+     @Column()
+     motivo: string;
+
+
 }
 
 export default HistoricoAsoExcluida;

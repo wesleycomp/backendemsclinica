@@ -234,7 +234,7 @@ export default class AsosController{
                     user_id,
                     user_desconto,
                     desconto,
-                    motivo
+
 
                 })
 
@@ -280,7 +280,8 @@ export default class AsosController{
             codigoaso,
             tipopagamento_id,
             data_criacao,
-            user_exclusao
+            user_exclusao,
+            motivo
         });
 
 
