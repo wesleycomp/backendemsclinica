@@ -18,11 +18,12 @@ interface IAso{
     user_id:string;
     user_edit:string;
     tipopagamento_id:string;
+    motivo:string;
 }
 
 class UpdateAsoService{
 
-    public async execute({id,dataemissaoaso,paciente_id,empresa_id,funcao_id,tipoaso_id,medico_id,medicoexaminador_id,resultado,user_edit,tipopagamento_id,transmissaoesocial,ativo}: IAso): Promise<Aso>{
+    public async execute({id,dataemissaoaso,paciente_id,empresa_id,funcao_id,tipoaso_id,medico_id,medicoexaminador_id,resultado,user_edit,tipopagamento_id,transmissaoesocial,ativo,motivo}: IAso): Promise<Aso>{
 
         //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
         const asoRepository = getCustomRepository(AsosRepository);
@@ -44,6 +45,7 @@ class UpdateAsoService{
         aso.transmissaoesocial=transmissaoesocial;
         aso.ativo = ativo;
         aso.user_edit = user_edit;
+        aso.motivo = motivo;
 
         await asoRepository.save(aso)
 

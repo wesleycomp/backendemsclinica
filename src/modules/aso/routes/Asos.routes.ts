@@ -154,6 +154,7 @@ AsoRouter.put(
                                 created_at: Joi.string().required(),
                                 updated_at: Joi.string().required(),
                                 user_id:Joi.string().required(),
+                                motivo:Joi.string().required(),
                                 exameavulso:Joi.boolean().allow('', null).default('false')
                             },
                             [Segments.PARAMS]:{
@@ -163,17 +164,18 @@ AsoRouter.put(
                     asoController.update
                 )
 AsoRouter.delete(
-                        '/:id/:user_exclusao',
+                        '/:id/:user_exclusao/:motivo',
                         isAuthenticated,
                         celebrate({
                             [Segments.PARAMS]:{
                                 id: Joi.string().uuid().required(),
-                                user_exclusao: Joi.string().required()
+                                user_exclusao: Joi.string().required(),
+                                motivo:Joi.string().required()
                             },
                         }),
                         asoController.delete
                     )
-
+/*
 AsoRouter.post(
                     '/asoexcluida/cadastrar',
                     isAuthenticated,
@@ -186,6 +188,6 @@ AsoRouter.post(
                     }),
                     asoController.createAsosExcluidas
                 )
-
+*/
 
 export default AsoRouter;

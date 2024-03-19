@@ -87,6 +87,9 @@ class Aso {
     @Column()
      resultado: string;
 
+     @Column()
+     motivo: string;
+
 
     @Column()
      transmissaoesocial: boolean;

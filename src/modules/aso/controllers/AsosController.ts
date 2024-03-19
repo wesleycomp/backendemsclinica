@@ -156,7 +156,8 @@ export default class AsosController{
             tipopagamento_id,
             transmissaoesocial,
             ativo,
-            user_id
+            user_id,
+            motivo
 
         } = request.body;
 
@@ -177,7 +178,8 @@ export default class AsosController{
             tipopagamento_id,
             transmissaoesocial,
             ativo,
-            user_id
+            user_id,
+            motivo
         });
 
         return response.json(exame);
@@ -185,7 +187,7 @@ export default class AsosController{
 
    public async delete(request: Request, response: Response): Promise<Response>{
 
-        const { id,user_exclusao } = request.params;
+        const { id,user_exclusao,motivo } = request.params;
 
         const deleteExamesAso = new DeleteExameAsoService()
         const deleteAso = new DeleteAsoService();
@@ -231,7 +233,8 @@ export default class AsosController{
                     tipopagamento_id,
                     user_id,
                     user_desconto,
-                    desconto
+                    desconto,
+                    motivo
 
                 })
 
@@ -314,7 +317,7 @@ export default class AsosController{
         return response.json(asosExcluidas);
     }
 
-
+/*
 
        public async createAsosExcluidas(request: Request, response: Response): Promise<Response>{
 
@@ -328,6 +331,6 @@ export default class AsosController{
 
         return response.json(asoExcluida);
     }
-
+*/
 
  }

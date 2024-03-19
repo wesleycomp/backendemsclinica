@@ -50,6 +50,10 @@ class HistoricoExameAsoExcluido{
      @Column()
      desconto: boolean;
 
+      @Column()
+     motivo: string;
+
+
 }
 
 export default HistoricoExameAsoExcluido;
