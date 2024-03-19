@@ -31,6 +31,51 @@ export default class AsosController{
         return response.json(exame);
     }
 
+
+    public async searcNomeEmpresaAso(request: Request, response: Response): Promise<Response>{
+
+        const { nomeempresa } = request.params;
+        const listAsos = new ListAsoService();
+        const asos = await listAsos.pesquisaAsoNomeEmpresa(nomeempresa);
+
+        return response.json(asos);
+
+    }
+
+
+        public async searcCnpjEmpresaAso(request: Request, response: Response): Promise<Response>{
+
+        const { cnpj } = request.params;
+        const listAsos = new ListAsoService();
+        const asos = await listAsos.pesquisaAsoCnpjEmpresa(cnpj);
+
+        return response.json(asos);
+
+    }
+
+
+        public async searcNomePacienteAso(request: Request, response: Response): Promise<Response>{
+
+        const { nomepaciente } = request.params;
+        const listAsos = new ListAsoService();
+        const asos = await listAsos.pesquisaAsoNomePaciente(nomepaciente);
+
+        return response.json(asos);
+
+    }
+
+
+     public async searcCpfPacienteAso(request: Request, response: Response): Promise<Response>{
+
+        const { cpf } = request.params;
+        const listAsos = new ListAsoService();
+        const asos = await listAsos.pesquisaAsoCpfPaciente(cpf);
+
+        return response.json(asos);
+
+    }
+
+
     public async show(request: Request, response: Response): Promise<Response>{
 
         const { id } = request.params;
@@ -48,6 +93,7 @@ export default class AsosController{
 
         return response.json(exame);
     }
+
 
 
 

@@ -30,6 +30,50 @@ class ListAsosService{
        //console.log(exame)
         return aso;
     }
+
+
+
+      public async pesquisaAsoNomeEmpresa(nomeEmpresa: string): Promise<Aso[]>{
+
+       //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
+       const asosRepository = getCustomRepository(AsosRepository);
+       const aso = asosRepository.searcNomeEmpresa(nomeEmpresa);
+       // const exame = await funcoesRepository.createQueryBuilder().paginate();
+       //console.log(exame)
+        return aso;
+    }
+
+
+          public async pesquisaAsoCnpjEmpresa(cnpj: string): Promise<Aso[]>{
+
+       //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
+       const asosRepository = getCustomRepository(AsosRepository);
+       const aso = asosRepository.searcCnpjEmpresa(cnpj);
+       // const exame = await funcoesRepository.createQueryBuilder().paginate();
+       //console.log(exame)
+        return aso;
+    }
+
+    public async pesquisaAsoNomePaciente(nomePaciente: string): Promise<Aso[]>{
+
+       //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
+       const asosRepository = getCustomRepository(AsosRepository);
+       const aso = asosRepository.searcNomePaciente(nomePaciente);
+       // const exame = await funcoesRepository.createQueryBuilder().paginate();
+       //console.log(exame)
+        return aso;
+    }
+
+
+       public async pesquisaAsoCpfPaciente(cpf: string): Promise<Aso[]>{
+
+       //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
+       const asosRepository = getCustomRepository(AsosRepository);
+       const aso = asosRepository.searcCpfPaciente(cpf);
+        return aso;
+    }
+
+
 }
 
 export default ListAsosService;

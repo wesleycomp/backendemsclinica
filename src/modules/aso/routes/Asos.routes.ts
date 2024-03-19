@@ -8,6 +8,49 @@ const asoController = new AsoController();
 
 AsoRouter.get('/', isAuthenticated, asoController.index)
 
+
+AsoRouter.get('/search/asonomeempresa/:nomeempresa',
+                 isAuthenticated,
+                    celebrate({
+                        [Segments.PARAMS]:{
+                            nomeempresa: Joi.string().uppercase().required()
+                        },
+                    }),
+                     asoController.searcNomeEmpresaAso
+             )
+
+  AsoRouter.get('/search/asocnpjempresa/:cnpj',
+                 isAuthenticated,
+                    celebrate({
+                        [Segments.PARAMS]:{
+                            cnpj: Joi.string().required()
+                        },
+                    }),
+                     asoController.searcCnpjEmpresaAso
+             )
+
+
+AsoRouter.get('/search/asonomepaciente/:nomepaciente',
+                 isAuthenticated,
+                    celebrate({
+                        [Segments.PARAMS]:{
+                            nomepaciente: Joi.string().uppercase().required()
+                        },
+                    }),
+                     asoController.searcNomePacienteAso
+             )
+
+AsoRouter.get('/search/asocpfpaciente/:cpf',
+                 isAuthenticated,
+                    celebrate({
+                        [Segments.PARAMS]:{
+                           cpf: Joi.string().required()
+                        },
+                    }),
+                     asoController.searcCpfPacienteAso
+             )
+
+
 AsoRouter.get(
                    '/:id',
                     isAuthenticated,
