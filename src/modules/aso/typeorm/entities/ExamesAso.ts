@@ -28,10 +28,14 @@ class ExameAso {
     @Column()
      exame_id: string;
 
-    @Column()
+    @Column({
+                nullable: true
+             })
     user_id: string;
 
-    @Column()
+    @Column({
+                nullable: true
+             })
      user_desconto: string;
 
     @ManyToOne(() => TipoPagamento)
@@ -52,10 +56,14 @@ class ExameAso {
     @Column({type: "decimal", precision: 10, scale: 2, default: 0})
      valorems: number;
 
-    @Column()
+    @Column({
+                nullable: true
+             })
      ativo: boolean;
 
-     @Column()
+     @Column({
+                nullable: true
+             })
      desconto: boolean;
 
     @CreateDateColumn()

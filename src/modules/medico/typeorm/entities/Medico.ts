@@ -32,7 +32,9 @@ class Medico{
     @Column()
     email: string;
 
-     @Column()
+     @Column({
+                nullable: true
+             })
      ativo: boolean;
 
     @CreateDateColumn()

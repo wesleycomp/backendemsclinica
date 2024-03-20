@@ -84,10 +84,14 @@ class Aso {
      @Column()
      user_edit: string;
 
-    @Column()
+    @Column({
+                nullable: true
+             })
      resultado: string;
 
-     @Column()
+     @Column({
+                nullable: true
+             })
      motivo: string;
 
 
