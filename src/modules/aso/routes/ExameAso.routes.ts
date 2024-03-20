@@ -40,17 +40,6 @@ ExameAsoRouter.get(
                     exameAsoController.showExamesPeriodo
                 )
 
-ExameAsoRouter.get(
-                    '/listasosexcluidas/:datainicio/:datafim',
-                    isAuthenticated,
-                    celebrate({
-                        [Segments.PARAMS]:{
-                            datainicio: Joi.string().required(),
-                            datafim: Joi.string().required()
-                        },
-                    }),
-                    exameAsoController.showAsosExcluidasPeriodo
-                )
 
 
  ExameAsoRouter.get(

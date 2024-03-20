@@ -8,6 +8,18 @@ const asoController = new AsoController();
 
 AsoRouter.get('/', isAuthenticated, asoController.index)
 
+AsoRouter.get(
+                    '/listasosexcluidas/:datainicio/:datafim',
+                    isAuthenticated,
+                    celebrate({
+                        [Segments.PARAMS]:{
+                            datainicio: Joi.string().required(),
+                            datafim: Joi.string().required()
+                        },
+                    }),
+                    asoController.showAsosExcluidasPeriodo
+                )
+
 
 AsoRouter.get('/search/asonomeempresa/:nomeempresa',
                  isAuthenticated,

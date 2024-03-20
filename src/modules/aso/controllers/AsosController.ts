@@ -18,7 +18,7 @@ import HistoricoAsosExcluidasRepository from "../typeorm/repositories/HistoricoA
 import CreateHistoricoAsoExcluidaService from "../services/CreateHistoricoAsoExcluidaService";
 import ShowExamesAsosService from "../services/ShowExamesAsosService";
 import CreatehistoricoExameAsoExcluidoService from "../services/CreatehistoricoExameAsoExcluidoService";
-
+import ShowExameAsoService from "../services/ShowExamesAsosService";
 import CreateAsosExcluidasServices from "../services/CreateAsosExcluidasServices"
 
 export default class AsosController{
@@ -30,6 +30,18 @@ export default class AsosController{
 
         return response.json(exame);
     }
+
+
+   public async showAsosExcluidasPeriodo(request: Request, response: Response): Promise<Response>{
+
+        const { datainicio } = request.params;
+        const { datafim } = request.params;
+        const showExameAso = new ShowExameAsoService();
+        const exame = await showExameAso.executeAsosExlcuidasPeriodo(datainicio,datafim)
+
+        return response.json(exame);
+
+        }
 
 
     public async searcNomeEmpresaAso(request: Request, response: Response): Promise<Response>{
