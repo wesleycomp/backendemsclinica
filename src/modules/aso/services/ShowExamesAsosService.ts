@@ -43,14 +43,23 @@ class ShowExamesAsosService{
 
 
 
+
+
     public async executeAsosExlcuidasPeriodo(datainicio:  string, datafim: string  ): Promise<HistoricoAsoExcluida[] | undefined>{
-          //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
-          const examesAsosRepository = getCustomRepository(HistoricoAsosExcluidasRepository);
+
+        //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
+ //erserse
+        const examesAsosRepository = getCustomRepository(HistoricoAsosExcluidasRepository);
+
+
+
 
           var examesAso = await examesAsosRepository.findAsosExcluidasPeriodo(datainicio,datafim);
 
+
+
           if(!examesAso){
-            throw new AppError('Aso não encontrado')
+            throw new AppError('Aso excluidas não encontradas')
         }
 
         return examesAso;
@@ -83,7 +92,7 @@ class ShowExamesAsosService{
           const examesAsosRepository = getCustomRepository(ExamesAsoRepository);
         //console.log('tipopagamento:'+tipopagamento+'  empresa: '+empresa+'  usuario: '+empresa+' empresafora:'+empresafora)
 
-if(empresafora=='0'){ //entra caso nao escolha a opcao empresa fora
+    if(empresafora=='0'){ //entra caso nao escolha a opcao empresa fora
 
 
    // const examesAso = ""
