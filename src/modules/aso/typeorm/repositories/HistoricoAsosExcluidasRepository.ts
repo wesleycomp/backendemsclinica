@@ -1,4 +1,4 @@
-import { EntityRepository, Repository } from 'typeorm'
+import { EntityRepository,Between, Repository } from 'typeorm'
 import utils from '@config/utils';
 import HistoricoAsoExcluida from '../entities/HistoricoAsoExcluida';
 const fs = require('fs');
@@ -22,5 +22,20 @@ export class HistoricoAsosExcluidasRepository extends Repository<HistoricoAsoExc
 
          return exameAso;
     }
+
+
+  public async findAsosExcluidasPeriodo(datainicio: string,datafim: string): Promise<HistoricoAsoExcluida[] | undefined> {
+
+    // console.log('chegou akiiiiii')
+        const exameAso = await this.find({
+          where:{
+            data_exclusao: Between(datainicio,datafim)
+          },
+        });
+
+        return exameAso;
+    }
+
+
 }
 export default HistoricoAsosExcluidasRepository;

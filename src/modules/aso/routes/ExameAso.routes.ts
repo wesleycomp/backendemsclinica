@@ -49,7 +49,7 @@ ExameAsoRouter.get(
                             datafim: Joi.string().required()
                         },
                     }),
-                    exameAsoController.showExamesPeriodo
+                    exameAsoController.showAsosExcluidasPeriodo
                 )
 
 

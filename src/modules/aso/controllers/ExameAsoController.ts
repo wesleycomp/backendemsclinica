@@ -36,6 +36,17 @@ export default class ExameAsoController{
         }
 
 
+    public async showAsosExcluidasPeriodo(request: Request, response: Response): Promise<Response>{
+
+        const { datainicio } = request.params;
+        const { datafim } = request.params;
+        const showExameAso = new ShowExameAsoService();
+        const exame = await showExameAso.executeAsosExlcuidasPeriodo(datainicio,datafim)
+
+        return response.json(exame);
+
+        }
+
 
     public async showExames(request: Request, response: Response): Promise<Response>{
 

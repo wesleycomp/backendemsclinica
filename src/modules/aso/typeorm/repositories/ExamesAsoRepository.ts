@@ -66,6 +66,8 @@ export class ExamesAsoRepository extends Repository<ExameAso>{
     }
 
 
+
+
       public async findExamesRealizadosPeriodoTipoPagamento(datainicio: string,datafim: string, tipopagamento: string ): Promise<ExameAso[] | undefined> {
         const exameAso = await this.find({
           where:{
@@ -184,7 +186,6 @@ export class ExamesAsoRepository extends Repository<ExameAso>{
          });
         return exameAso;
     }
-
 
 
 

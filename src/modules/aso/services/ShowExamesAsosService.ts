@@ -3,6 +3,7 @@ import ExamesAso from "../typeorm/entities/ExamesAso";
 import { ExamesAsoRepository } from "../typeorm/repositories/ExamesAsoRepository";
 import AppError from '@shared/errors/AppError';
 import HistoricoAsoExcluida from "../typeorm/entities/HistoricoAsoExcluida";
+import HistoricoAsosExcluidasRepository from "../typeorm/repositories/HistoricoAsosExcluidasRepository";
 import HistoricoExclusaoExameAsoRepository from "../typeorm/repositories/HistoricoExclusaoExameAsoRepository";
 import HistoricoExclusaoExameAso from "../typeorm/entities/HistoricoExclusaoExameAso";
 
@@ -24,6 +25,8 @@ interface IRequest2{
 }
 
 
+
+
 class ShowExamesAsosService{
 
     public async execute({aso_id}: IRequest): Promise<ExamesAso[]>{
@@ -37,6 +40,44 @@ class ShowExamesAsosService{
 
         return examesAso;
     }
+
+
+
+    public async executeAsosExlcuidasPeriodo(datainicio:  string, datafim: string  ): Promise<HistoricoAsoExcluida[] | undefined>{
+          //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
+          const examesAsosRepository = getCustomRepository(HistoricoAsosExcluidasRepository);
+
+          var examesAso = await examesAsosRepository.findAsosExcluidasPeriodo(datainicio,datafim);
+
+          if(!examesAso){
+            throw new AppError('Aso não encontrado')
+        }
+
+        return examesAso;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public async executeExamesPeriodo({datainicio,datafim,tipopagamento,usuario,empresa,empresafora}:IRequest2): Promise<ExamesAso[] | undefined>{
           //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
           const examesAsosRepository = getCustomRepository(ExamesAsoRepository);
