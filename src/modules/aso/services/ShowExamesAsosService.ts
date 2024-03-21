@@ -58,6 +58,7 @@ class ShowExamesAsosService{
 
 
 
+
           if(!examesAso){
             throw new AppError('Aso excluidas não encontradas')
         }
