@@ -14,9 +14,7 @@ class HistoricoExameAsoExcluido{
      @PrimaryGeneratedColumn('uuid')
      id: string;
 
- @ManyToOne(() => User)
-    @JoinColumn( {name: 'user_id'})
-     user: User;
+
     @Column()
      user_id: string;
 
