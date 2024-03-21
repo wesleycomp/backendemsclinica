@@ -26,11 +26,11 @@ export class HistoricoAsosExcluidasRepository extends Repository<HistoricoAsoExc
 
   public async findAsosExcluidasPeriodo(datainicio: string,datafim: string): Promise<HistoricoAsoExcluida[] | undefined> {
 
-    // console.log('chegou akiiiiii')
+    //console.log('chegou akiiiiii')
         const exameAso = await this.find({
-         where:{
+          where:{
             data_exclusao: Between(datainicio,datafim)
-          },
+         },
         });
 
         return exameAso;
