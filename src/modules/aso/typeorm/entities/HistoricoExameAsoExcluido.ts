@@ -1,6 +1,10 @@
+import User from '@modules/users/typeorm/entities/User';
+
 import { Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
+  JoinColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,} from 'typeorm';
 
@@ -9,6 +13,12 @@ class HistoricoExameAsoExcluido{
 
      @PrimaryGeneratedColumn('uuid')
      id: string;
+
+ @ManyToOne(() => User)
+    @JoinColumn( {name: 'user_id'})
+     user: User;
+    @Column()
+     user_id: string;
 
      @Column()
      aso_id: string;
@@ -40,9 +50,6 @@ class HistoricoExameAsoExcluido{
 
      @Column()
      tipopagamento_id: string;
-
-     @Column()
-     user_id: string;
 
      @Column()
      user_desconto: string;
