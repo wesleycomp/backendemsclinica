@@ -50,13 +50,7 @@ class ShowExamesAsosService{
         //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
  //erserse
         const examesAsosRepository = getCustomRepository(HistoricoAsosExcluidasRepository);
-
-
-
-
-          var examesAso = await examesAsosRepository.findAsosExcluidasPeriodo(datainicio,datafim);
-
-
+        var examesAso = await examesAsosRepository.findAsosExcluidasPeriodo(datainicio,datafim);
 
           if(!examesAso){
             throw new AppError('Aso excluidas não encontradas')

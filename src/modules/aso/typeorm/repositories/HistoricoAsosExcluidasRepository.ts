@@ -28,9 +28,9 @@ export class HistoricoAsosExcluidasRepository extends Repository<HistoricoAsoExc
 
     // console.log('chegou akiiiiii')
         const exameAso = await this.find({
-      //    where:{
-        //    data_exclusao: Between(datainicio,datafim)
-      //    },
+         where:{
+            data_exclusao: Between(datainicio,datafim)
+          },
         });
 
         return exameAso;
