@@ -7,6 +7,9 @@ import HistoricoAsosExcluidasRepository from "../typeorm/repositories/HistoricoA
 import HistoricoExclusaoExameAsoRepository from "../typeorm/repositories/HistoricoExclusaoExameAsoRepository";
 import HistoricoExclusaoExameAso from "../typeorm/entities/HistoricoExclusaoExameAso";
 
+import HistoricoEdicaoAso from "../typeorm/entities/HistoricoEdicaoAso";
+import HistoricoAsosEditadasRepository from "../typeorm/repositories/HistoricoAsosEditadasRepository";
+
 interface IRequest{
     aso_id: string
 }
@@ -62,6 +65,20 @@ class ShowExamesAsosService{
 
 
 
+
+    public async executeAsosEditadasPeriodo(datainicio:  string, datafim: string  ): Promise<HistoricoEdicaoAso[] | undefined>{
+
+        //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
+ //erserse
+        const examesAsosRepository = getCustomRepository(HistoricoAsosEditadasRepository);
+        var examesAso = await examesAsosRepository.findAsosEditadasPeriodo(datainicio,datafim);
+
+          if(!examesAso){
+            throw new AppError('Aso excluidas não encontradas')
+        }
+
+        return examesAso;
+    }
 
 
 
