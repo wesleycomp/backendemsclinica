@@ -63,6 +63,21 @@ class ShowExamesAsosService{
 
 
 
+    public async executeAsosEditadasPeriodo(datainicio:  string, datafim: string  ): Promise<HistoricoEdicaoAso[] | undefined>{
+
+        //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
+ //erserse
+        const examesAsosRepository = getCustomRepository(HistoricoAsosEditadasRepository);
+        var examesAso = await examesAsosRepository.findAsosEditadasPeriodo(datainicio,datafim);
+
+          if(!examesAso){
+            throw new AppError('Aso excluidas não encontradas')
+        }
+
+        return examesAso;
+    }
+
+
     public async executeExamesPeriodo({datainicio,datafim,tipopagamento,usuario,empresa,empresafora}:IRequest2): Promise<ExamesAso[] | undefined>{
           //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
      const examesAsosRepository = getCustomRepository(ExamesAsoRepository);
