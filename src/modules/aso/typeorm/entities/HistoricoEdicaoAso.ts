@@ -52,6 +52,9 @@ class HistoricoEdicaoAso{
      @Column()
      idtipoaso_novo: string;
 
+     @Column()
+     motivo: string;
+
      @CreateDateColumn()
      created_at: Date;
 

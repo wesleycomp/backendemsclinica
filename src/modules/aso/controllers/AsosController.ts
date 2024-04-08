@@ -44,6 +44,18 @@ export default class AsosController{
         }
 
 
+ public async showAsosEditadasPeriodo(request: Request, response: Response): Promise<Response>{
+
+        const { datainicio } = request.params;
+        const { datafim } = request.params;
+        const showExameAso = new ShowExameAsoService();
+        const exame = await showExameAso.executeAsosEditadasPeriodo(datainicio,datafim)
+
+        return response.json(exame);
+
+        }
+
+
     public async searcNomeEmpresaAso(request: Request, response: Response): Promise<Response>{
 
         const { nomeempresa } = request.params;

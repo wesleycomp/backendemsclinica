@@ -1,4 +1,4 @@
-import { EntityRepository, Repository } from 'typeorm'
+import { EntityRepository,Between, Repository } from 'typeorm'
 import utils from '@config/utils';
 import HistoricoEdicaoAso from '../entities/HistoricoEdicaoAso';
 const fs = require('fs');
@@ -22,6 +22,17 @@ export class HistoricoAsosEditadasRepository extends Repository<HistoricoEdicaoA
          return exameAso;
     }
 
+  public async findAsosEditadasPeriodo(datainicio: string,datafim: string): Promise<HistoricoEdicaoAso[] | undefined> {
+
+    console.log('chegou akiiiiii')
+        const exameAso = await this.find({
+          where:{
+            data_alteracao: Between(datainicio,datafim)
+         },
+        });
+
+        return exameAso;
+    }
 
 
 }

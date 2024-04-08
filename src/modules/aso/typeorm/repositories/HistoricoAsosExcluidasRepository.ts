@@ -31,7 +31,6 @@ export class HistoricoAsosExcluidasRepository extends Repository<HistoricoAsoExc
           where:{
             data_exclusao: Between(datainicio,datafim)
          },
-         relations: ['user'],
         });
 
         return exameAso;

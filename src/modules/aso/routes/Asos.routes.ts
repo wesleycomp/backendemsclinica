@@ -20,6 +20,20 @@ AsoRouter.get(
                     asoController.showAsosExcluidasPeriodo
                 )
 
+AsoRouter.get(
+                    '/listasoseditadas/:datainicio/:datafim',
+                    isAuthenticated,
+                    celebrate({
+                        [Segments.PARAMS]:{
+                            datainicio: Joi.string().required(),
+                            datafim: Joi.string().required()
+                        },
+                    }),
+                    asoController.showAsosEditadasPeriodo
+                )
+
+
+
 
 AsoRouter.get('/search/asonomeempresa/:nomeempresa',
                  isAuthenticated,

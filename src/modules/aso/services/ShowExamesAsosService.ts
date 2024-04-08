@@ -7,6 +7,9 @@ import HistoricoAsosExcluidasRepository from "../typeorm/repositories/HistoricoA
 import HistoricoExclusaoExameAsoRepository from "../typeorm/repositories/HistoricoExclusaoExameAsoRepository";
 import HistoricoExclusaoExameAso from "../typeorm/entities/HistoricoExclusaoExameAso";
 
+import HistoricoEdicaoAso from "../typeorm/entities/HistoricoEdicaoAso";
+import HistoricoAsosEditadasRepository from "../typeorm/repositories/HistoricoAsosEditadasRepository";
+
 interface IRequest{
     aso_id: string
 }
@@ -122,7 +125,7 @@ class ShowExamesAsosService{
 
 
 
-   
+
 
 
 
