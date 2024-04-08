@@ -330,6 +330,23 @@ export default class AsosController{
         return response.json(asosExcluidas);
     }
 
+
+   public async showRelatorioFechamento(request: Request, response: Response): Promise<Response>{
+
+        const { datainicio } = request.params;
+        const { datafim } = request.params;
+        const { tipopagamento } = request.params;
+        const { usuario } = request.params;
+        const { empresa } = request.params;
+        const { empresafora } = request.params;
+        const showExameAso = new ShowAsosService();
+        const exame = await showExameAso.executeRelatorioFechamento({datainicio,datafim,tipopagamento,usuario,empresa,empresafora})
+
+        return response.json(exame);
+
+        }
+
+
 /*
 
        public async createAsosExcluidas(request: Request, response: Response): Promise<Response>{

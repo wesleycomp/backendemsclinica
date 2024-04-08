@@ -1,4 +1,4 @@
-import { EntityRepository, Like,  Repository } from 'typeorm'
+import { EntityRepository, Between, Like,  Repository } from 'typeorm'
 import Aso from '../entities/Aso'
 import utils from '@config/utils';
 const fs = require('fs');
@@ -117,6 +117,26 @@ export class AsosRepository extends Repository<Aso>{
          });
 
          return exameAso;
+    }
+
+
+  public async findRelatorioFechamentoPeriodo(datainicio: string,datafim: string): Promise<Aso[] | undefined> {
+
+    // console.log('chegou akiiiiii')   aso: { empresa_id: empresa }
+     /*   const exameAso = await this.find({
+         select:
+            ['empresa'],
+         where:{
+            data_criacao: Between(datainicio,datafim)
+          },
+         relations: ['empresa']
+
+        });*/
+
+
+        const exameAso = await this.query(`SELECT distinct(e.id,e.nome,e.cnpj) FROM aso as a INNER JOIN empresa as e on a.empresa_id=e.id`);
+
+        return exameAso;
     }
 
 //    public async findOne(id: string): Promise<Aso> {

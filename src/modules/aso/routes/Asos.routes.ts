@@ -187,6 +187,22 @@ AsoRouter.delete(
                         }),
                         asoController.delete
                     )
+
+ AsoRouter.get(
+                    '/relatoriofechamamento/:datainicio/:datafim/:tipopagamento/:usuario/:empresa/:empresafora',
+                    isAuthenticated,
+                    celebrate({
+                        [Segments.PARAMS]:{
+                            datainicio: Joi.string().required(),
+                            datafim: Joi.string().required(),
+                            tipopagamento: Joi.string(),
+                            usuario: Joi.string(),
+                            empresa: Joi.string(),
+                            empresafora: Joi.string(),
+                        },
+                    }),
+                    asoController.showRelatorioFechamento
+                )
 /*
 AsoRouter.post(
                     '/asoexcluida/cadastrar',

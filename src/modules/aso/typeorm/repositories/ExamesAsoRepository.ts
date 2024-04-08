@@ -60,10 +60,11 @@ export class ExamesAsoRepository extends Repository<ExameAso>{
          relations: ['exame','aso','aso.empresa','aso.paciente','aso.medico','aso.medicoexaminador','aso.funcao','aso.tipoaso','aso.tipopagamento','aso.user']
         });
 
-    //    console.log(exameAso)
-
         return exameAso;
     }
+
+
+
 
 
 

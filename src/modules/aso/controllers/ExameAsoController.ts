@@ -39,6 +39,7 @@ export default class ExameAsoController{
 
 
 
+
     public async showExames(request: Request, response: Response): Promise<Response>{
 
         const showExameAso = new ShowExameAsoService();
