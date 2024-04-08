@@ -40,6 +40,20 @@ ExameAsoRouter.get(
                     exameAsoController.showExamesPeriodo
                 )
 
+ ExameAsoRouter.get(
+                   // '/relatoriofechamamento/:datainicio/:datafim/:tipopagamento/:usuario/:empresa/:empresafora',
+                   '/relatoriofechamamento/:datainicio/:datafim/:empresa/:tipopagamento/',
+                    isAuthenticated,
+                    celebrate({
+                        [Segments.PARAMS]:{
+                            datainicio: Joi.string().required(),
+                            datafim: Joi.string().required(),
+                            empresa: Joi.string(),
+                            tipopagamento: Joi.string(),
+                        },
+                    }),
+                    exameAsoController.showRelatorioFechamentoEmpresa
+                )
 
 
  ExameAsoRouter.get(

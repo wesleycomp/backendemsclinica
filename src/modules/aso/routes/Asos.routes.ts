@@ -203,7 +203,8 @@ AsoRouter.delete(
                     )
 
  AsoRouter.get(
-                    '/relatoriofechamamento/:datainicio/:datafim/:tipopagamento/:usuario/:empresa/:empresafora',
+                   // '/relatoriofechamamento/:datainicio/:datafim/:tipopagamento/:usuario/:empresa/:empresafora',
+                   '/relatoriofechamamento/:datainicio/:datafim/:tipopagamento/:usuario/:empresa/:empresafora',
                     isAuthenticated,
                     celebrate({
                         [Segments.PARAMS]:{
@@ -217,6 +218,11 @@ AsoRouter.delete(
                     }),
                     asoController.showRelatorioFechamento
                 )
+
+
+
+
+
 /*
 AsoRouter.post(
                     '/asoexcluida/cadastrar',

@@ -3,6 +3,8 @@ import Aso from '../entities/Aso'
 import utils from '@config/utils';
 const fs = require('fs');
 
+
+
 @EntityRepository(Aso)
 export class AsosRepository extends Repository<Aso>{
 
@@ -133,28 +135,13 @@ export class AsosRepository extends Repository<Aso>{
 
         });*/
 
-
-        const exameAso = await this.query(`SELECT distinct(e.id,e.nome,e.cnpj) FROM aso as a INNER JOIN empresa as e on a.empresa_id=e.id`);
+console.log('chegou akii')
+        const exameAso = await this.query(`SELECT  e.id,e.nome,e.cnpj FROM aso as a INNER JOIN empresa as e on a.empresa_id=e.id GROUP BY e.id,e.nome,e.cnpj`);
 
         return exameAso;
     }
 
-//    public async findOne(id: string): Promise<Aso> {
-//         const aso = await this.find({ where: {
-//                id: id
-//             },
 
-//         });
-//         return aso;
-//     }
-
-    // public async findXML(): Promise<String | undefined> {
-    //     const xmlaso = await fs.readFile('./xml/arquivoTesteXml.xml', "utf8");
-
-    //                 console.log(xmlaso)
-
-    //     return xmlaso;
-    // }
 
 }
 export default AsosRepository;

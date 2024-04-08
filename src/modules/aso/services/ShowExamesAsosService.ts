@@ -27,7 +27,12 @@ interface IRequest2{
     empresafora: string
 }
 
-
+interface IRequest3{
+    datainicio: string,
+    datafim: string,
+    tipopagamento: string,
+    empresa: string,
+}
 
 
 class ShowExamesAsosService{
@@ -60,6 +65,11 @@ class ShowExamesAsosService{
 
         return examesAso;
     }
+
+
+
+
+
 
 
 
@@ -140,6 +150,44 @@ class ShowExamesAsosService{
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+    public async executeRelatorioFechamentoEmpresa({datainicio,datafim,empresa,tipopagamento }:IRequest3): Promise<ExamesAso[] | undefined>{
+
+
+
+        //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
+                 const examesAsosRepository = getCustomRepository(ExamesAsoRepository);
+                 if((tipopagamento == '0')){//entra se nao tiver tipo pagamento
+
+                    var examesAso = await examesAsosRepository.findRelatorioFechamentoPeriodoEmpresa(datainicio,datafim,empresa);
+                }
+
+                else {//entra se nao tiver tipo pagamento
+                   // console.log('selecionou usuario ')
+                    var examesAso = await examesAsosRepository.findRelatorioFechamentoPeriodoEmpresaTipoPagamento(datainicio,datafim,empresa,tipopagamento );
+
+                    }
+
+
+
+
+                if(!examesAso){
+                    throw new AppError('Aso não encontrado')
+                }
+
+        return examesAso;
+    }
 
 
 

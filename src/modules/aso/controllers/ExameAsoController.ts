@@ -36,7 +36,18 @@ export default class ExameAsoController{
         }
 
 
+   public async showRelatorioFechamentoEmpresa(request: Request, response: Response): Promise<Response>{
 
+        const { datainicio } = request.params;
+        const { datafim } = request.params;
+        const { tipopagamento } = request.params;
+        const { empresa } = request.params;
+            const showExameAso = new ShowExameAsoService();
+        const exame = await showExameAso.executeRelatorioFechamentoEmpresa({datainicio,datafim,empresa,tipopagamento})
+
+        return response.json(exame);
+
+        }
 
 
 
