@@ -124,7 +124,7 @@ export class AsosRepository extends Repository<Aso>{
 
   public async findRelatorioFechamentoPeriodo(datainicio: string,datafim: string): Promise<Aso[] | undefined> {
 
-        const exameAso = await this.query("SELECT e.id,e.nome,e.cnpj FROM aso as a INNER JOIN empresa as e on a.empresa_id=e.id WHERE a.data_criacao BETWEEN '"+datainicio+"' AND '"+datafim+"'  GROUP BY e.id,e.nome,e.cnpj");
+        const exameAso = await this.query("SELECT e.id,e.nome,e.cnpj,e.telefone FROM aso as a INNER JOIN empresa as e on a.empresa_id=e.id WHERE a.data_criacao BETWEEN '"+datainicio+"' AND '"+datafim+"'  GROUP BY e.id,e.nome,e.cnpj");
         return exameAso;
     }
 
