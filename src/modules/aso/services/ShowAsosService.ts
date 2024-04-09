@@ -82,9 +82,8 @@ class ShowAsosService{
 
  public async executeRelatorioFechamento({datainicio,datafim,tipopagamento,usuario,empresa,empresafora}:IRequest2): Promise<Aso[] | undefined>{
 
-        //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
-             const asosRepository = getCustomRepository(AsosRepository);   //console.log('tipopagamento:'+tipopagamento+'  empresa: '+empresa+'  usuario: '+empresa+' empresafora:'+empresafora)
-
+             const asosRepository = getCustomRepository(AsosRepository);
+             
         if(empresafora=='0'){ //entra caso nao escolha a opcao empresa fora
                 if((usuario == '0')&&(tipopagamento == '0')&&(empresa == '0')&&(empresafora == '0')){//entra se nao tiver tipo pagamento
                     console.log('selecionou somente o periodo fechamento ')

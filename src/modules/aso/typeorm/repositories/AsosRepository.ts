@@ -124,20 +124,7 @@ export class AsosRepository extends Repository<Aso>{
 
   public async findRelatorioFechamentoPeriodo(datainicio: string,datafim: string): Promise<Aso[] | undefined> {
 
-    // console.log('chegou akiiiiii')   aso: { empresa_id: empresa }
-     /*   const exameAso = await this.find({
-         select:
-            ['empresa'],
-         where:{
-            data_criacao: Between(datainicio,datafim)
-          },
-         relations: ['empresa']
-
-        });*/
-
-console.log('chegou akii')
-        const exameAso = await this.query(`SELECT  e.id,e.nome,e.cnpj FROM aso as a INNER JOIN empresa as e on a.empresa_id=e.id GROUP BY e.id,e.nome,e.cnpj`);
-
+        const exameAso = await this.query("SELECT e.id,e.nome,e.cnpj FROM aso as a INNER JOIN empresa as e on a.empresa_id=e.id WHERE a.data_criacao BETWEEN '"+datainicio+"' AND '"+datafim+"'  GROUP BY e.id,e.nome,e.cnpj");
         return exameAso;
     }
 
