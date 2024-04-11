@@ -85,24 +85,24 @@ class ShowAsosService{
              const asosRepository = getCustomRepository(AsosRepository);
 
                 if((tipopagamento == '0')&&(empresa == '0')){//entra se nao tiver tipo pagamento
-                 //  console.log('selecionou somente o periodo fechamento ')
+                 console.log('selecionou somente o periodo fechamento ')
                      var examesAso = await asosRepository.findRelatorioFechamentoPeriodo(datainicio,datafim);
                  }
 
                   else if((tipopagamento != '0') && (empresa == '0')){//entra se nao tiver tipo pagamento
-                   //    console.log('selecionou tipo pagamento ')
+                      console.log('selecionou tipo pagamento ')
                     var examesAso = await asosRepository.findRelatorioFechamentoPeriodoTipoPagamento(datainicio,datafim,tipopagamento);
 
                    }
 
                    else if((tipopagamento == '0') && (empresa != '0')){//entra se nao tiver tipo pagamento
-                    //    console.log('selecionou a empresa ')
+                     console.log('selecionou a empresa ')
                     var examesAso = await asosRepository.findRelatorioFechamentoPeriodoEmpresa(datainicio,datafim,empresa);
 
                     }
 
                      else if((tipopagamento != '0') && (empresa != '0')){//entra se nao tiver tipo pagamento
-                          //    console.log('selecionou tipo pagamento e a empresa ')
+                        console.log('selecionou tipo pagamento e a empresa ')
                       var examesAso = await asosRepository.findRelatorioFechamentoPeriodoEmpresaTipopagamento(datainicio,datafim,empresa,tipopagamento);
 
                       }
