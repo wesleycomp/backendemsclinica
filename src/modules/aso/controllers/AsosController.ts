@@ -348,11 +348,11 @@ export default class AsosController{
         const { datainicio } = request.params;
         const { datafim } = request.params;
         const { tipopagamento } = request.params;
-        const { usuario } = request.params;
+        //const { usuario } = request.params;
         const { empresa } = request.params;
-        const { empresafora } = request.params;
+       // const { empresafora } = request.params;
         const showExameAso = new ShowAsosService();
-        const exame = await showExameAso.executeRelatorioFechamento({datainicio,datafim,tipopagamento,usuario,empresa,empresafora})
+        const exame = await showExameAso.executeRelatorioFechamento({datainicio,datafim,empresa,tipopagamento})
 
         return response.json(exame);
 

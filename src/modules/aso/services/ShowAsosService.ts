@@ -18,9 +18,9 @@ interface IRequest2{
     datainicio: string,
     datafim: string,
     tipopagamento: string,
-    usuario: string,
+  //  usuario: string,
     empresa: string,
-    empresafora: string
+  //  empresafora: string
 }
 
 class ShowAsosService{
@@ -80,54 +80,33 @@ class ShowAsosService{
 
 
 
- public async executeRelatorioFechamento({datainicio,datafim,tipopagamento,usuario,empresa,empresafora}:IRequest2): Promise<Aso[] | undefined>{
+ public async executeRelatorioFechamento({datainicio,datafim,empresa,tipopagamento}:IRequest2): Promise<Aso[] | undefined>{
 
              const asosRepository = getCustomRepository(AsosRepository);
-             
-        if(empresafora=='0'){ //entra caso nao escolha a opcao empresa fora
-                if((usuario == '0')&&(tipopagamento == '0')&&(empresa == '0')&&(empresafora == '0')){//entra se nao tiver tipo pagamento
-                    console.log('selecionou somente o periodo fechamento ')
-                    var examesAso = await asosRepository.findRelatorioFechamentoPeriodo(datainicio,datafim);
-                }
 
-                else if((usuario != '0')&&(tipopagamento == '0') && (empresa == '0')&&(empresafora == '0')){//entra se nao tiver tipo pagamento
-                   // console.log('selecionou usuario ')
-                //    var examesAso = await asosRepository.findExamesRealizadosPeriodoUsuario(datainicio,datafim,usuario);
+                if((tipopagamento == '0')&&(empresa == '0')){//entra se nao tiver tipo pagamento
+                 //  console.log('selecionou somente o periodo fechamento ')
+                     var examesAso = await asosRepository.findRelatorioFechamentoPeriodo(datainicio,datafim);
+                 }
 
-                    }
+                  else if((tipopagamento != '0') && (empresa == '0')){//entra se nao tiver tipo pagamento
+                   //    console.log('selecionou tipo pagamento ')
+                    var examesAso = await asosRepository.findRelatorioFechamentoPeriodoTipoPagamento(datainicio,datafim,tipopagamento);
 
-                else if((usuario == '0')&&(tipopagamento != '0') && (empresa == '0')&&(empresafora == '0')){//entra se nao tiver tipo pagamento
-                    //    console.log('selecionou tipo pagamento ')
-               //     var examesAso = await asosRepository.findExamesRealizadosPeriodoTipoPagamento(datainicio,datafim,tipopagamento);
+                   }
 
-                        }
-
-                else if((tipopagamento != '0') && (usuario != '0') && (empresa == '0')&&(empresafora == '0')){
-                    //    console.log('selecionou tipo pagamento e usuario')
-               //     var examesAso = await asosRepository.findExamesRealizadosPeriodoTipoPagamentoUsuario(datainicio,datafim,tipopagamento,usuario);
+                   else if((tipopagamento == '0') && (empresa != '0')){//entra se nao tiver tipo pagamento
+                    //    console.log('selecionou a empresa ')
+                    var examesAso = await asosRepository.findRelatorioFechamentoPeriodoEmpresa(datainicio,datafim,empresa);
 
                     }
 
-                else if((empresa != '0')&&(tipopagamento == '0')&&(usuario == '0')&&(empresafora == '0')){
-                    // console.log('selecionou empresa')
-                //    var examesAso = await asosRepository.findExamesRealizadosPeriodoEmpresa(datainicio,datafim,empresa);
-                        }
+                     else if((tipopagamento != '0') && (empresa != '0')){//entra se nao tiver tipo pagamento
+                          //    console.log('selecionou tipo pagamento e a empresa ')
+                      var examesAso = await asosRepository.findRelatorioFechamentoPeriodoEmpresaTipopagamento(datainicio,datafim,empresa,tipopagamento);
 
-                else if((empresa != '0')&&(tipopagamento != '0')&&(usuario == '0')&&(empresafora == '0')){
-                     //   console.log(' selecionou empresa e tipo pagamento ')
-                //    var examesAso = await asosRepository.findExamesRealizadosPeriodoEmpresaTipoPagamento(datainicio,datafim,empresa,tipopagamento);
-                        }
-                    }
+                      }
 
-                else if(empresafora == 'sim'){
-                        // console.log(' selecionou empresa fora ')
-                //    var examesAso = await asosRepository.findExamesRealizadosPeriodoEmpresaFora(datainicio,datafim,empresa,tipopagamento);
-                                }
-
-                else if(empresafora == 'nao'){
-                      // console.log(' selecionou empresa fora ')
-             //       var examesAso = await asosRepository.findExamesRealizadosPeriodoEmpresaForaNao(datainicio,datafim,empresa,tipopagamento);
-                            }
 
                 if(!examesAso){
                     throw new AppError('Aso não encontrado')

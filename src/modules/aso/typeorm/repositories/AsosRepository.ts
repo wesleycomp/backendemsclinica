@@ -128,7 +128,24 @@ export class AsosRepository extends Repository<Aso>{
         return exameAso;
     }
 
+  public async findRelatorioFechamentoPeriodoTipoPagamento(datainicio: string, datafim: string, tipopagamento: string): Promise<Aso[] | undefined> {
 
+        const exameAso = await this.query("SELECT e.id,e.nome,e.cnpj,e.telefone FROM aso as a INNER JOIN empresa as e on a.empresa_id=e.id WHERE a.data_criacao BETWEEN '"+datainicio+"' AND '"+datafim+"' AND a.tipopagamento_id="+tipopagamento+"  GROUP BY e.id,e.nome,e.cnpj");
+        return exameAso;
+    }
+
+
+    public async findRelatorioFechamentoPeriodoEmpresa(datainicio: string, datafim: string, empresa: string): Promise<Aso[] | undefined> {
+
+        const exameAso = await this.query("SELECT e.id,e.nome,e.cnpj,e.telefone FROM aso as a INNER JOIN empresa as e on a.empresa_id=e.id WHERE a.data_criacao BETWEEN '"+datainicio+"' AND '"+datafim+"' AND a.empresa_id="+empresa+"  GROUP BY e.id,e.nome,e.cnpj");
+        return exameAso;
+    }
+
+     public async findRelatorioFechamentoPeriodoEmpresaTipopagamento(datainicio: string, datafim: string, empresa: string, tipopagamento: string): Promise<Aso[] | undefined> {
+
+        const exameAso = await this.query("SELECT e.id,e.nome,e.cnpj,e.telefone FROM aso as a INNER JOIN empresa as e on a.empresa_id=e.id WHERE a.data_criacao BETWEEN '"+datainicio+"' AND '"+datafim+"' AND a.empresa_id="+empresa+" AND a.tipopagamento_id="+tipopagamento+"  GROUP BY e.id,e.nome,e.cnpj");
+        return exameAso;
+    }
 
 }
 export default AsosRepository;
