@@ -20,7 +20,7 @@ interface IRequest2{
     tipopagamento: string,
   //  usuario: string,
     empresa: string,
-  //  empresafora: string
+    empresafora: string
 }
 
 class ShowAsosService{
@@ -80,9 +80,11 @@ class ShowAsosService{
 
 
 
- public async executeRelatorioFechamento({datainicio,datafim,empresa,tipopagamento}:IRequest2): Promise<Aso[] | undefined>{
+ public async executeRelatorioFechamento({datainicio,datafim,empresa,tipopagamento,empresafora}:IRequest2): Promise<Aso[] | undefined>{
 
              const asosRepository = getCustomRepository(AsosRepository);
+
+        if(empresafora== '0'){
 
                 if((tipopagamento == '0')&&(empresa == '0')){//entra se nao tiver tipo pagamento
                  console.log('selecionou somente o periodo fechamento ')
@@ -106,6 +108,13 @@ class ShowAsosService{
                       var examesAso = await asosRepository.findRelatorioFechamentoPeriodoEmpresaTipopagamento(datainicio,datafim,empresa,tipopagamento);
 
                       }
+                    }
+            else{
+                var examesAso = await asosRepository.findRelatorioFechamentoPeriodoEmpresaFora(datainicio,datafim,empresafora);
+
+            }
+
+
 
 
                 if(!examesAso){

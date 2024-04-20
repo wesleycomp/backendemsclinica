@@ -204,7 +204,7 @@ AsoRouter.delete(
 
  AsoRouter.get(
                    // '/relatoriofechamamento/:datainicio/:datafim/:tipopagamento/:usuario/:empresa/:empresafora',
-                   '/relatoriofechamamento/:datainicio/:datafim/:empresa/:tipopagamento',
+                   '/relatoriofechamamento/:datainicio/:datafim/:empresa/:tipopagamento/:empresafora',
                     isAuthenticated,
                     celebrate({
                         [Segments.PARAMS]:{
@@ -213,7 +213,7 @@ AsoRouter.delete(
                             empresa: Joi.string(),
                             tipopagamento: Joi.string(),
                          //   usuario: Joi.string(),
-                           // empresafora: Joi.string(),
+                            empresafora: Joi.string()
                         },
                     }),
                     asoController.showRelatorioFechamento

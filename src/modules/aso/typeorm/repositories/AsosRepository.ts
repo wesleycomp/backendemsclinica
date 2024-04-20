@@ -128,6 +128,13 @@ export class AsosRepository extends Repository<Aso>{
         return exameAso;
     }
 
+  public async findRelatorioFechamentoPeriodoEmpresaFora(datainicio: string,datafim: string, empresafora: string): Promise<Aso[] | undefined> {
+
+        const exameAso = await this.query("SELECT e.id,e.nome,e.cnpj,e.telefone FROM aso as a INNER JOIN empresa as e on a.empresa_id=e.id WHERE a.data_criacao BETWEEN '"+datainicio+"' AND '"+datafim+"' AND e.empresafora='sim'  GROUP BY e.id,e.nome,e.cnpj");
+        return exameAso;
+    }
+
+
   public async findRelatorioFechamentoPeriodoTipoPagamento(datainicio: string, datafim: string, tipopagamento: string): Promise<Aso[] | undefined> {
 
         const exameAso = await this.query("SELECT e.id,e.nome,e.cnpj,e.telefone FROM aso as a INNER JOIN empresa as e on a.empresa_id=e.id WHERE a.data_criacao BETWEEN '"+datainicio+"' AND '"+datafim+"' AND a.tipopagamento_id='"+tipopagamento+"'  GROUP BY e.id,e.nome,e.cnpj");
