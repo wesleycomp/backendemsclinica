@@ -108,4 +108,24 @@ ExameAsoRouter.delete(
                         }),
                         exameAsoController.delete
                     )
+
+
+
+ ExameAsoRouter.get(
+                    '/fechamentomedico/examesrealizados/:datainicio/:datafim/:medico_id/:exame_id',
+                    isAuthenticated,
+                    celebrate({
+                        [Segments.PARAMS]:{
+                            datainicio: Joi.string().required(),
+                            datafim: Joi.string().required(),
+                            medico_id: Joi.string().uuid().required(),
+                            exame_id: Joi.string(),
+                        },
+                    }),
+                    exameAsoController.showFechamentoMedicoExames
+                )
+
+
+
+
 export default ExameAsoRouter;

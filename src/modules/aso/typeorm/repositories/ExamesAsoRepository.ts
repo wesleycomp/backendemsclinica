@@ -223,7 +223,26 @@ export class ExamesAsoRepository extends Repository<ExameAso>{
 
 
 
+   public async findByMedicoFechamentoExames(datainicio: string, datafim: string, idmedico: string,idexame: string): Promise<ExameAso[] | undefined> {
 
+
+console.log('cahegou na funcao')
+
+
+  const exameAso = await this.find({
+          where:{
+            data_cadastro_exame: Between(datainicio,datafim),
+            aso: { medico_id: idmedico },
+            exame_id:idexame
+          },
+         relations: ['exame','aso']
+        });
+
+        return exameAso;
+
+
+
+    }
 
 
 

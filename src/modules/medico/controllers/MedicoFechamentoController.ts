@@ -6,13 +6,6 @@ import DeleteFechamentoMedicosService from "../services/DeleteFechamentoMedicoSe
 
 export default class MedicoFechamentoController{
 
-    // public async index(request: Request, response: Response): Promise<Response>{
-
-    //     const listFechamentoMedico = new ListMedicoFechamentoServices();
-    //     const fechamentoMedico = await listFechamentoMedico.execute();
-    //     return response.json(fechamentoMedico);
-    // }
-
     public async create(request: Request, response: Response): Promise<Response>{
 
         const { medico_id,valor,exame_id  } = request.body;
@@ -28,9 +21,6 @@ export default class MedicoFechamentoController{
 
 
   public async update(request: Request, response: Response): Promise<Response>{
-
-   // console.log('testees');
-
 
         const { medico_id,valor,exame_id } = request.body;
         const { id } = request.params;
@@ -49,15 +39,15 @@ export default class MedicoFechamentoController{
     public async show(request: Request, response: Response): Promise<Response>{
 
         const { medico_id } = request.params;
-        //console.log(medico_id+" passou no controller")
         const showFechamentoMedico = new ListMedicoFechamentoServices();
         const fechamentoMedico = await showFechamentoMedico.execute({ medico_id })
-
-
 
         return response.json(fechamentoMedico);
 
     }
+
+
+
 
    public async delete(request: Request, response: Response): Promise<Response>{
 

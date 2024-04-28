@@ -8,11 +8,19 @@ import AppError from '@shared/errors/AppError';
         medico_id: string
     }
 
+  interface IRequest2{
+
+        medico_id: string,
+        datainicio: string,
+        datafim: string,
+        exame_id: string
+
+    }
+
+
 class ListMedicoFechamentoServices{
 
     public async execute({medico_id}: IRequest): Promise<MedicoFechamento[]>{
-
-//console.log('apssou kai no service'+medico_id)
 
        //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
         const fechamentoMedicoRepository = getCustomRepository(MedicoFechamentoRepository);
@@ -24,6 +32,8 @@ class ListMedicoFechamentoServices{
 
         return fechamentoMedico;
     }
+
+  
 }
 
 export default ListMedicoFechamentoServices;

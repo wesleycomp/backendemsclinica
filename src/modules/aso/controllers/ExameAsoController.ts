@@ -176,7 +176,17 @@ export default class ExameAsoController{
         return response.json(examesAsosExcluidas);
     }
 
+public async showFechamentoMedicoExames(request: Request, response: Response): Promise<Response>{
 
+        const { medico_id } = request.params;
+        const { datainicio } = request.params;
+        const { datafim } = request.params;
+        const { exame_id } = request.params;
+        const showFechamentoMedico = new ShowExameAsoService();
+        const fechamentoMedico = await showFechamentoMedico.executeFechamentoMedicoExames({datainicio, datafim, medico_id, exame_id })
+
+        return response.json(fechamentoMedico);
+    }
 
 
  }

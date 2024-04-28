@@ -33,7 +33,13 @@ interface IRequest3{
     tipopagamento: string,
     empresa: string,
 }
+interface IRequest4{
+    datainicio: string,
+    datafim: string,
+    medico_id: string,
+    exame_id: string,
 
+}
 
 class ShowExamesAsosService{
 
@@ -256,6 +262,16 @@ class ShowExamesAsosService{
         }
 
         return examesAso;
+    }
+
+  public async executeFechamentoMedicoExames({datainicio, datafim, medico_id, exame_id}: IRequest4): Promise<ExamesAso[] | undefined>{
+
+       //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
+           const exameAsoRepository = getCustomRepository(ExamesAsoRepository);
+           const exameAso = await exameAsoRepository.findByMedicoFechamentoExames(datainicio, datafim, medico_id, exame_id);
+
+
+        return exameAso;
     }
 
 

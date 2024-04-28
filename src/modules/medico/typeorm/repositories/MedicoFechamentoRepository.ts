@@ -1,5 +1,6 @@
-import { EntityRepository, Repository } from "typeorm";
+import { EntityRepository, Repository,Between } from "typeorm";
 import MedicoFechamento from "../entities/MedicoFechamento";
+import ExameAso from "@modules/aso/typeorm/entities/ExamesAso"
 
 @EntityRepository(MedicoFechamento)
 export class MedicoFechamentoRepository extends Repository<MedicoFechamento>{
@@ -26,6 +27,9 @@ export class MedicoFechamentoRepository extends Repository<MedicoFechamento>{
         })
         return medicofechamento;
     }
+
+
+
 
 
 
