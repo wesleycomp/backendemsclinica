@@ -41,6 +41,13 @@ interface IRequest4{
 
 }
 
+interface IRequest5{
+    datainicio: string,
+    datafim: string
+    idtipoaso: string,
+
+}
+
 class ShowExamesAsosService{
 
     public async execute({aso_id}: IRequest): Promise<ExamesAso[]>{
@@ -273,6 +280,27 @@ class ShowExamesAsosService{
 
         return exameAso;
     }
+
+
+
+
+
+
+
+    public async executeExamesPeriodoConsolidado({datainicio,datafim,idtipoaso}:IRequest5): Promise<ExamesAso[] | undefined>{
+
+        //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
+   const examesAsosRepository = getCustomRepository(ExamesAsoRepository);
+
+                  var examesAso = await examesAsosRepository.findExamesRealizadosPeriodoConsolidado(datainicio,datafim,idtipoaso);
+
+
+              if(!examesAso){
+                  throw new AppError('Aso não encontrado')
+              }
+
+      return examesAso;
+  }
 
 
 }

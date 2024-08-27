@@ -22,16 +22,16 @@ app.use(routes);
 app.use(errors());
 
 app.use(
-    (error: Error, request: Request, response: Response, next: NextFunction) => {
+    (error: Error, request: Request, response: Response, next: NextFunction) => {//middleware trata as requisicoes em todas as API'S - sem precisar usar try cath no sistema
 
-       if(error instanceof AppError){
+       if(error instanceof AppError){ // entra caso seja erro de requisicao for uma instancia da classe da API
             return response.status(error.statusCode).json({
                 status: 'error',
                 message: error.message,
             });
        }
 
-        return response.status(500).json({
+        return response.status(500).json({// entra caso seja erro do servidor
             status: 'error',
             message: 'Internal server error'
         })

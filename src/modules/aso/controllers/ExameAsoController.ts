@@ -35,6 +35,19 @@ export default class ExameAsoController{
 
         }
 
+        public async showExamesPeriodConsolidado(request: Request, response: Response): Promise<Response>{
+
+
+
+            const { datainicio } = request.params;
+            const { datafim } = request.params;
+            const { idtipoaso } = request.params;
+            const showExameAso = new ShowExameAsoService();
+            const exame = await showExameAso.executeExamesPeriodoConsolidado({datainicio,datafim,idtipoaso})
+
+            return response.json(exame);
+
+            }
 
    public async showRelatorioFechamentoEmpresa(request: Request, response: Response): Promise<Response>{
 

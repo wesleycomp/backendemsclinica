@@ -125,7 +125,18 @@ ExameAsoRouter.delete(
                     exameAsoController.showFechamentoMedicoExames
                 )
 
-
+       ExameAsoRouter.get(
+                    '/listexames/:datainicio/:datafim/:idtipoaso',
+                    isAuthenticated,
+                    celebrate({
+                        [Segments.PARAMS]:{
+                            datainicio: Joi.string().required(),
+                            datafim: Joi.string().required(),
+                            idtipoaso: Joi.string().required()
+                        },
+                    }),
+                    exameAsoController.showExamesPeriodConsolidado
+                )
 
 
 export default ExameAsoRouter;
