@@ -44,7 +44,13 @@ interface IRequest4{
 interface IRequest5{
     datainicio: string,
     datafim: string,
-    idexame: string
+    idexame: string,
+
+}
+
+interface IRequest6{
+    datainicio: string,
+    datafim: string
 
 }
 

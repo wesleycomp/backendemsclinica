@@ -226,7 +226,7 @@ export class ExamesAsoRepository extends Repository<ExameAso>{
    public async findByMedicoFechamentoExames(datainicio: string, datafim: string, idmedico: string,idexame: string): Promise<ExameAso[] | undefined> {
 
 
- 
+
 
 
   const exameAso = await this.find({
@@ -251,7 +251,7 @@ export class ExamesAsoRepository extends Repository<ExameAso>{
         const exameAso = await this.find({
           where:{
            data_cadastro_exame: Between(datainicio,datafim),
-           aso: { exame_id: idexame },
+           exame_id:idexame
             },
          relations: ['exame','aso']
         });
