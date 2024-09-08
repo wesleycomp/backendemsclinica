@@ -20,7 +20,7 @@ exameRouter.get(
                 )
 
 exameRouter.get(
-                    '/examesporlocal',
+                    '/selecionando/localrealizacao',
                     isAuthenticated,
                     exameController.showExamesPorLocal
                 )

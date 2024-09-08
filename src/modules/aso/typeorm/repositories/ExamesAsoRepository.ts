@@ -226,7 +226,7 @@ export class ExamesAsoRepository extends Repository<ExameAso>{
    public async findByMedicoFechamentoExames(datainicio: string, datafim: string, idmedico: string,idexame: string): Promise<ExameAso[] | undefined> {
 
 
-console.log('cahegou na funcao')
+ 
 
 
   const exameAso = await this.find({
