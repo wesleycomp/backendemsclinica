@@ -24,6 +24,7 @@ export default class ExameController{
 
     public async showExamesPorLocal(request: Request, response: Response): Promise<Response>{
 
+        console.log('achou a rota')
 
         const showExame = new ShowExameService();
         const exame = await showExame.listExamesPorLocal()

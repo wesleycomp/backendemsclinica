@@ -19,11 +19,11 @@ exameRouter.get(
                     exameController.show
                 )
 
-exameRouter.get(
-                    '/selecionando/localrealizacao',
-                    isAuthenticated,
-                    exameController.showExamesPorLocal
-                )
+            exameRouter.get(
+                                '/selecionando/localrealizacao',
+                                isAuthenticated,
+                                exameController.showExamesPorLocal
+                            )
 
 
 exameRouter.post(
