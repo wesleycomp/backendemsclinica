@@ -26,8 +26,7 @@ export class ExameRepository extends Repository<Exame>{
             where: {
                 localrealizacaoexame: 'EMS'
             },
-            relations: ['procedimento'],
-             order:{
+            order:{
                 name:"ASC"
            }
         });
