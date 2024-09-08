@@ -20,6 +20,22 @@ export class ExameRepository extends Repository<Exame>{
         return exame;
     }
 
+
+    public async findExamesPorLocal( ): Promise<Exame[]> {
+        const exame = await this.find({
+            where: {
+                localrealizacaoexame: 'EMS'
+            },
+            relations: ['procedimento'],
+             order:{
+                name:"DESC"
+           }
+        });
+
+        return exame;
+    }
+
+
         public async findAll(): Promise<Exame[]> {
         const exame = await this.find({
             relations: ['procedimento']

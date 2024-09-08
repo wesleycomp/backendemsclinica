@@ -53,6 +53,12 @@ export class CreateExame1660595071545 implements MigrationInterface {
              type: 'varchar'
           },
           {
+            name: 'localrealizacaoexame',
+             type: 'varchar',
+             isNullable: true
+          },
+
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',

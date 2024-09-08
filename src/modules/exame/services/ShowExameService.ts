@@ -25,6 +25,25 @@ class ShowFuncaoService{
 
 
     }
+
+
+
+    public async listExamesPorLocal(): Promise<Exame[]>{
+
+        //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
+         const exameRepository = getCustomRepository(ExameRepository);
+         const exame = await exameRepository.findExamesPorLocal( );
+
+         if(!exame){
+             throw new AppError('Exame não encontrado')
+         }
+
+
+         return exame;
+
+
+     }
+
 }
 
 export default ShowFuncaoService;

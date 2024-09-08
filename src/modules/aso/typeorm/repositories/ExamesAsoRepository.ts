@@ -246,12 +246,12 @@ console.log('cahegou na funcao')
 
 
 
-    public async findExamesRealizadosPeriodoConsolidado(datainicio: string,datafim: string, idtipoaso: string ): Promise<ExameAso[] | undefined> {
-   
+    public async findExamesRealizadosPeriodoConsolidado(datainicio: string,datafim: string, idexame: string ): Promise<ExameAso[] | undefined> {
+
         const exameAso = await this.find({
           where:{
            data_cadastro_exame: Between(datainicio,datafim),
-           aso: { tipoaso_id: idtipoaso },
+           aso: { exame_id: idexame },
             },
          relations: ['exame','aso']
         });

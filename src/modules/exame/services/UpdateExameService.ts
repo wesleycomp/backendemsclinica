@@ -13,12 +13,13 @@ interface IExame{
     valorems: number;
     ativo: boolean;
     usuarioedicao:string;
+    localrealizacaoexame: string;
 
 }
 
 class UpdateExameService{
 
-    public async execute({id,procedimento_id,name,valoravista,valormedico,valorems,ativo,usuarioedicao}: IExame): Promise<Exame>{
+    public async execute({id,procedimento_id,name,valoravista,valormedico,valorems,ativo,usuarioedicao,localrealizacaoexame}: IExame): Promise<Exame>{
 
             //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
         const exameRepository = getCustomRepository(ExameRepository);
@@ -36,12 +37,13 @@ class UpdateExameService{
         }
 
         exame.name = name;
-         exame.procedimento_id = procedimento_id;
-          exame.valoravista = valoravista;
-           exame.valormedico = valormedico;
-            exame.valorems = valorems;
-             exame.ativo = ativo;
-             exame.usuarioedicao= usuarioedicao;
+        exame.procedimento_id = procedimento_id;
+        exame.valoravista = valoravista;
+        exame.valormedico = valormedico;
+        exame.valorems = valorems;
+        exame.ativo = ativo;
+        exame.usuarioedicao= usuarioedicao;
+        exame.localrealizacaoexame = localrealizacaoexame;
 
         await exameRepository.save(exame)
 

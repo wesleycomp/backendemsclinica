@@ -59,6 +59,11 @@ export class CreateEmpresas1660063950987 implements MigrationInterface {
                         isNullable:true
                     },
                     {
+                        name: 'empresafora',
+                        type: 'varchar',
+                        isNullable:true
+                    },
+                    {
                         name: 'responsavel',
                         type: 'varchar',
                         isNullable:true

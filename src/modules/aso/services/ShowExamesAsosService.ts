@@ -43,10 +43,11 @@ interface IRequest4{
 
 interface IRequest5{
     datainicio: string,
-    datafim: string
-    idtipoaso: string,
+    datafim: string,
+    idexame: string
 
 }
+
 
 class ShowExamesAsosService{
 
@@ -287,12 +288,12 @@ class ShowExamesAsosService{
 
 
 
-    public async executeExamesPeriodoConsolidado({datainicio,datafim,idtipoaso}:IRequest5): Promise<ExamesAso[] | undefined>{
+    public async executeExamesPeriodoConsolidado({datainicio,datafim,idexame}:IRequest5): Promise<ExamesAso[] | undefined>{
 
         //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
    const examesAsosRepository = getCustomRepository(ExamesAsoRepository);
 
-                  var examesAso = await examesAsosRepository.findExamesRealizadosPeriodoConsolidado(datainicio,datafim,idtipoaso);
+                  var examesAso = await examesAsosRepository.findExamesRealizadosPeriodoConsolidado(datainicio,datafim,idexame);
 
 
               if(!examesAso){
@@ -301,6 +302,13 @@ class ShowExamesAsosService{
 
       return examesAso;
   }
+
+
+
+
+
+
+
 
 
 }

@@ -21,9 +21,21 @@ export default class ExameController{
         return response.json(exame);
     }
 
+
+    public async showExamesPorLocal(request: Request, response: Response): Promise<Response>{
+
+
+        const showExame = new ShowExameService();
+        const exame = await showExame.listExamesPorLocal()
+        return response.json(exame);
+    }
+
+
+
+
     public async create(request: Request, response: Response): Promise<Response>{
 
-        const {procedimento_id,name,valoravista,valormedico,valorems,ativo,usuariocadastro,usuarioedicao } = request.body;
+        const {procedimento_id,name,valoravista,valormedico,valorems,ativo,usuariocadastro,usuarioedicao,localrealizacaoexame } = request.body;
         const createExame = new CreateExameService();
         const exame = await createExame.execute({
                 procedimento_id,
@@ -33,7 +45,8 @@ export default class ExameController{
                 valorems,
                 ativo,
                 usuariocadastro,
-                usuarioedicao
+                usuarioedicao,
+                localrealizacaoexame
         });
 
         return response.json(exame);
@@ -42,7 +55,7 @@ export default class ExameController{
 
   public async update(request: Request, response: Response): Promise<Response>{
 
-        const { name,procedimento_id,valoravista,valormedico,valorems,ativo,usuarioedicao  } = request.body;
+        const { name,procedimento_id,valoravista,valormedico,valorems,ativo,usuarioedicao,localrealizacaoexame  } = request.body;
         const { id } = request.params;
         const updateExame = new UpdateExameService();
 
@@ -54,7 +67,8 @@ export default class ExameController{
                 valormedico,
                 valorems,
                 ativo,
-                usuarioedicao
+                usuarioedicao,
+                localrealizacaoexame
         });
 
         return response.json(exame);

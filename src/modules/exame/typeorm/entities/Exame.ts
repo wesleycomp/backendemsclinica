@@ -38,6 +38,10 @@ class Exame {
      ativo: boolean;
 
      @Column()
+     localrealizacaoexame: string;
+
+
+     @Column()
      usuariocadastro: string;
 
      @Column()

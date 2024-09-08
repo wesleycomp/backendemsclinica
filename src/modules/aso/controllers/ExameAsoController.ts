@@ -20,7 +20,7 @@ export default class ExameAsoController{
         return response.json(examesAso);
     }
 
-   public async showExamesPeriodo(request: Request, response: Response): Promise<Response>{
+    public async showExamesPeriodo(request: Request, response: Response): Promise<Response>{
 
         const { datainicio } = request.params;
         const { datafim } = request.params;
@@ -35,21 +35,21 @@ export default class ExameAsoController{
 
         }
 
-        public async showExamesPeriodConsolidado(request: Request, response: Response): Promise<Response>{
-
-
+    public async showExamesPeriodConsolidado(request: Request, response: Response): Promise<Response>{
 
             const { datainicio } = request.params;
             const { datafim } = request.params;
-            const { idtipoaso } = request.params;
+            const { idexame } = request.params;
             const showExameAso = new ShowExameAsoService();
-            const exame = await showExameAso.executeExamesPeriodoConsolidado({datainicio,datafim,idtipoaso})
+            const exame = await showExameAso.executeExamesPeriodoConsolidado({datainicio,datafim,idexame})
 
             return response.json(exame);
 
             }
 
-   public async showRelatorioFechamentoEmpresa(request: Request, response: Response): Promise<Response>{
+
+
+    public async showRelatorioFechamentoEmpresa(request: Request, response: Response): Promise<Response>{
 
         const { datainicio } = request.params;
         const { datafim } = request.params;
