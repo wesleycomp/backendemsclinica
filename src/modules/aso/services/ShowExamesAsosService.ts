@@ -289,11 +289,6 @@ class ShowExamesAsosService{
     }
 
 
-
-
-
-
-
     public async executeExamesPeriodoConsolidado({datainicio,datafim,idexame}:IRequest5): Promise<ExamesAso[] | undefined>{
 
         //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)

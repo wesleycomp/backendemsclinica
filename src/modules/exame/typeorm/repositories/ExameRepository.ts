@@ -28,7 +28,7 @@ export class ExameRepository extends Repository<Exame>{
             },
             relations: ['procedimento'],
              order:{
-                name:"DESC"
+                name:"ASC"
            }
         });
 
