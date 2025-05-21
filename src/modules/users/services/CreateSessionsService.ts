@@ -26,18 +26,15 @@ class CreateSessionsService{
                 if(!user){
                     throw new AppError('Incorrect email/passwaord', 401);
                 }
-
                 const passwordConfirmed = await compare(password, user.password);
 
                 if(!passwordConfirmed){
                     throw new AppError('Incorrect email/passwaord', 401);
                 }
-
             const token = sign({}, authConfig.jwt.secret, {
                 subject: user.id,
                 expiresIn: authConfig.jwt.expiresIn
             })
-
         return {user, token};
 
     }

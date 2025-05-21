@@ -1,11 +1,7 @@
-import Empresa from '@modules/empresa/typeorm/entities/Empresa';
-
 import { Column,
-  CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-
 
 @Entity('alteracoesusuarios')
 class AlteracoesUsuarios {
@@ -37,10 +33,10 @@ class AlteracoesUsuarios {
     @Column()
      novopaciente: string;
 
-    @CreateDateColumn()
+   @Column()
      dataso: Date;
 
-    @CreateDateColumn()
+   @Column()
      dataalteracao: Date;
 
 }
