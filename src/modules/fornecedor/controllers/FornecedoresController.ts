@@ -27,7 +27,7 @@ export default class FornecedorController{
 
     public async create(request: Request, response: Response): Promise<Response>{
 
-        const { nome, cnpj, inscricaoestadual, inscricaomunicipal,endereco,telefone,email,responsavel,esocial,convenio } = request.body;
+        const { nome, cnpj, inscricaoestadual, inscricaomunicipal,endereco,telefone,email,responsavel, ehlaboratorio } = request.body;
 
         const createFornecedor = new CreateFornecedorService();
 
@@ -40,8 +40,7 @@ export default class FornecedorController{
                     telefone,
                     email,
                     responsavel,
-                    esocial,
-                    convenio
+                    ehlaboratorio
         });
 
         return response.json(Fornecedor);
@@ -59,8 +58,8 @@ export default class FornecedorController{
                telefone,
                email,
                responsavel,
-               esocial,
-               convenio } = request.body;
+                ehlaboratorio
+             } = request.body;
 
         const { id } = request.params;
 
@@ -77,8 +76,8 @@ export default class FornecedorController{
                     telefone,
                     email,
                     responsavel,
-                    esocial,
-                    convenio
+                    ehlaboratorio
+
         });
 
         return response.json(Fornecedor);
