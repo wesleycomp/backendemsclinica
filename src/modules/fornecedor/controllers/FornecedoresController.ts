@@ -1,7 +1,7 @@
 import { Request , Response } from "express";
 import CreateFornecedorService from "../services/CreateFornecedoresService";
 import DeleteFornecedorService from "../services/DeleteFornecedoresService";
-import ListFornecedorService from "../services/ListFornecedoresService";
+import ListFornecedoresService from "../services/ListFornecedoresService";
 import ShowFornecedorService from "../services/ShowFornecedoresService";
 import UpdateFornecedorService from "../services/UpdateFornecedoresService";
 
@@ -9,7 +9,7 @@ export default class FornecedorController{
 
     public async index(request: Request, response: Response): Promise<Response>{
 
-        const listFornecedors = new ListFornecedorService();
+        const listFornecedors = new ListFornecedoresService();
         const Fornecedors = await listFornecedors.execute();
 
         return response.json(Fornecedors);
@@ -27,13 +27,14 @@ export default class FornecedorController{
 
     public async create(request: Request, response: Response): Promise<Response>{
 
-        const { nome, cnpj, inscricaoestadual, inscricaomunicipal,endereco,telefone,email,responsavel, ehlaboratorio } = request.body;
+        const { nome, cnpj, cpf, inscricaoestadual, inscricaomunicipal,endereco,telefone,email,responsavel, ehlaboratorio } = request.body;
 
         const createFornecedor = new CreateFornecedorService();
 
         const Fornecedor = await createFornecedor.execute({
                     nome,
                     cnpj,
+                    cpf,
                     inscricaoestadual,
                     inscricaomunicipal,
                     endereco,
@@ -52,6 +53,7 @@ export default class FornecedorController{
         const {
                nome,
                cnpj,
+               cpf,
                inscricaoestadual,
                inscricaomunicipal,
                endereco,
@@ -70,6 +72,7 @@ export default class FornecedorController{
                     id,
                     nome,
                     cnpj,
+                    cpf,
                     inscricaoestadual,
                     inscricaomunicipal,
                     endereco,

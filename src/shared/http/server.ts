@@ -31,10 +31,13 @@ app.use(
             });
        }
 
-        return response.status(500).json({// entra caso seja erro do servidor
+      console.error('🔥 Erro não tratado:', error);
+
+            return response.status(500).json({
             status: 'error',
-            message: 'Internal server error'
-        })
+            message: error.message || 'Internal server error',
+            });
+
 
 });
 

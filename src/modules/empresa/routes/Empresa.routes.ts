@@ -8,6 +8,16 @@ const empresasController = new EmpresaController();
 
 empresasRouter.get('/', isAuthenticated, empresasController.index)
 
+empresasRouter.get('/search', isAuthenticated, empresasController.search); // 👈 novo endpoint
+// 📊 listagem agrupada para fechamento (período)
+empresasRouter.get('/fechamento/agrupado', isAuthenticated, empresasController.listarAgrupado);
+// listar exames detalhados por empresa no período
+empresasRouter.get(
+  '/:id/exames',
+  isAuthenticated,
+  empresasController.listarExames
+)
+
 empresasRouter.get(
                     '/pesquisaempresaid/:id',
                     isAuthenticated,

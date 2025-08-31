@@ -1,6 +1,9 @@
 import {
-  Entity, PrimaryGeneratedColumn, Column,
-  CreateDateColumn, UpdateDateColumn
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity('centro_custo')
@@ -11,8 +14,9 @@ class CentroCusto {
   @Column()
   nome: string;
 
-  @Column({ nullable: true })
-  codigo: string;
+  // 👇 Correção: string | null, não Object
+  @Column({ type: 'varchar', length: 30, nullable: true, default: null })
+  codigo: string | null;
 
   @Column({ default: true })
   ativo: boolean;
@@ -23,4 +27,5 @@ class CentroCusto {
   @UpdateDateColumn()
   updated_at: Date;
 }
+
 export default CentroCusto;

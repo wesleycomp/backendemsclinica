@@ -6,6 +6,7 @@ import AppError from '@shared/errors/AppError';
 interface IRequest{
     nome: string;
     cnpj: string;
+    cpf: string;
     inscricaoestadual: string;
     inscricaomunicipal: string;
     endereco: string;
@@ -20,6 +21,7 @@ class CreateFornecedorService{
     public async execute({
                     nome,
                     cnpj,
+                    cpf,
                     inscricaoestadual,
                     inscricaomunicipal,
                     endereco,

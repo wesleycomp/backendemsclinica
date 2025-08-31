@@ -1,20 +1,21 @@
 #!/usr/bin/env bash
 set -e
 
-echo "Aguardando Postgres em ${DB_HOST:-db}:${DB_PORT:-5432}..."
-until nc -z "${DB_HOST:-db}" "${DB_PORT:-5432}"; do
-  sleep 1
-done
-echo "Postgres OK."
+echo "Iniciando API EMS Clínica…"
 
-# extensão opcional (não falha se já existir)
-psql -h "${DB_HOST:-db}" -p "${DB_PORT:-5432}" -U "${DB_USER:-postgres}" -d "${DB_NAME:-emsclinica}" -c "CREATE EXTENSION IF NOT EXISTS pgcrypto;" >/dev/null 2>&1 || true
+# Teste rápido de banco
+if command -v nc >/dev/null 2>&1; then
+  echo "Aguardando Postgres em ${DB_HOST}:${DB_PORT}…"
+  while ! nc -z "$DB_HOST" "$DB_PORT"; do sleep 1; done
+  echo "Postgres OK."
+fi
 
+# NÃO rodar migrations em produção
 if [ "${RUN_MIGRATIONS}" = "1" ]; then
-  echo "Rodando migrations..."
-  node -r ts-node/register -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run || true
+  echo "Executando migrations (RUN_MIGRATIONS=1)…"
+  npm run typeorm migration:run || true
 else
   echo "Sem migrations (RUN_MIGRATIONS != 1)."
 fi
 
-exec npm run dev
+npm run dev

@@ -18,18 +18,12 @@ import { FornecedorRepository } from "../typeorm/repositories/FornecedorReposito
 // }
 
 
-class ListFornecedorService{
-
-    public async execute(): Promise<Fornecedor[]>{
-
-         //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
+class ListFornecedoresService {
+    public async execute(): Promise<Fornecedor[]> {
         const fornecedorRepository = getCustomRepository(FornecedorRepository);
-        const fornecedor = fornecedorRepository.find();
-     //   const funcao = await funcoesRepository.createQueryBuilder().paginate();
-
-        //console.log(funcao)
+        const fornecedor = await fornecedorRepository.find();
         return fornecedor;
+
     }
 }
-
-export default ListFornecedorService;
+export default ListFornecedoresService;

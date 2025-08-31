@@ -21,8 +21,29 @@ import ExamesAsoRouter from '@modules/aso/routes/ExameAso.routes';
 import FichaClinicaRouter from '@modules/fichaclinica/routes/FichaClinica.routes';
 import FinanceiroRouter from '@modules/financeiro/routes/Financeiro.routes';
 import MedicoExaminadorRouter from '@modules/medicoexaminador/routes/MedicoExaminador.routes';
+import centroCustoRouter from '@modules/centroCusto/routes/CentroCusto.routes';
+import categoriaDespesaRouter from '@modules/categoriaDespesa/routes/CategoriaDespesa.routes'
+import despesaRouter from '@modules/despesas/routes/Despesa.routes';
+import despesaParcelaRouter from '@modules/despesas/routes/DespesaParcela.routes';
+import fornecedorsRouter from '@modules/fornecedor/routes/Fornecedores.routes';
+import contaBancariaRouter from '@modules/contabancaria/routes/ContaBancaria.routes';
+import fechamentosRouter from '@modules/fechamento/routes/fechamentos.routes';
+
+import dashboardRouter from '@modules/dashboard/routes/dashboard.routes';
+import relatoriosRouter from '@modules/relatorios/routes/relatorios.routes';
 
 const routes = Router();
+
+routes.use('/relatorios', relatoriosRouter);
+
+routes.use('/dashboard', dashboardRouter);
+routes.use('/conta-bancaria', contaBancariaRouter);
+routes.use('/fornecedor', fornecedorsRouter);
+routes.use('/fechamentos', fechamentosRouter);
+routes.use('/centro-custo', centroCustoRouter);
+routes.use('/categoria-despesa', categoriaDespesaRouter);
+routes.use('/despesas', despesaRouter);
+routes.use('/despesa-parcelas', despesaParcelaRouter);
 routes.use('/empresa', empresasRouter);
 routes.use('/funcao', funcoesRouter);
 routes.use('/user', usersRouter);

@@ -1,7 +1,12 @@
+require('dotenv').config();
 const fs = require('fs');
 
-const sslEnabled = String(process.env.DB_SSL || '').toLowerCase() === 'true';
-const caPath = process.env.DB_SSL_CA;
+const ssl = process.env.DB_SSL === 'true'
+  ? {
+      rejectUnauthorized: false,
+      ca: process.env.DB_SSL_CA ? fs.readFileSync(process.env.DB_SSL_CA).toString() : undefined,
+    }
+  : false;
 
 module.exports = {
   type: 'postgres',
@@ -10,16 +15,10 @@ module.exports = {
   username: process.env.DB_USER,
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
-  ssl: sslEnabled
-    ? (caPath
-        ? { ca: fs.readFileSync(caPath).toString(), rejectUnauthorized: true }
-        : { rejectUnauthorized: false })
-    : false,
-
-  entities: ['src/modules/**/typeorm/entities/*.ts'],
-  migrations: ['src/shared/typeorm/migrations/*.ts'],
-  cli: { migrationsDir: 'src/shared/typeorm/migrations' },
-
+  ssl,
   synchronize: false,
   migrationsRun: false,
+  logging: process.env.TYPEORM_LOGGING === 'true',
+  entities: ['./src/modules/**/typeorm/entities/*.{ts,js}'],
+  migrations: ['./src/shared/typeorm/migrations/*.{ts,js}'],
 };

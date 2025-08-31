@@ -20,51 +20,51 @@ fornecedorsRouter.get(
                 )
 
 fornecedorsRouter.post(
-                    '/',
-                    isAuthenticated,
-                    celebrate({
-                        [Segments.BODY]:{
-                                nome: Joi.string().uppercase().required(),
-                                cnpj: Joi.string().required(),
-                                inscricaoestadual: Joi.string().required(),
-                                inscricaomunicipal: Joi.string().required(),
-                                endereco: Joi.string().required(),
-                                telefone: Joi.string().required(),
-                                email: Joi.string().required(),
-                                responsavel: Joi.string().required(),
-                                esocial: Joi.boolean().required(),
-                                convenio: Joi.boolean().required(),
-
-                         },
-                    }),
-                    fornecedorsController.create
-                )
+  '/',
+  isAuthenticated,
+  celebrate({
+    [Segments.BODY]: {
+      nome: Joi.string().uppercase().required(),
+      cnpj: Joi.string().allow(null, ''), // pode ser vazio
+      cpf: Joi.string().allow(null, ''),  // caso seja PF
+      inscricaoestadual: Joi.string().allow(null, ''),
+      inscricaomunicipal: Joi.string().allow(null, ''),
+      endereco: Joi.string().allow(null, ''),
+      telefone: Joi.string().allow(null, ''),
+      email: Joi.string().email().allow(null, ''),
+      responsavel: Joi.string().allow(null, ''),
+      esocial: Joi.boolean().default(false),
+      convenio: Joi.boolean().default(false),
+      ehlaboratorio: Joi.boolean().required(),
+    },
+  }),
+  fornecedorsController.create,
+)
 
 fornecedorsRouter.put(
-                    '/:id',
-                    isAuthenticated,
-                    celebrate({
-                            [Segments.BODY]:{
-                                id: Joi.string().required(),
-                                nome: Joi.string().uppercase().required(),
-                                cnpj: Joi.string().required(),
-                                inscricaoestadual: Joi.string().required(),
-                                inscricaomunicipal: Joi.string().required(),
-                                endereco: Joi.string().required(),
-                                telefone: Joi.string().required(),
-                                email: Joi.string().required(),
-                                responsavel: Joi.string().required(),
-                                esocial: Joi.boolean().required(),
-                                convenio: Joi.boolean().required(),
-                                created_at: Joi.string().required(),
-                                updated_at: Joi.string().required(),
-                            },
-                            [Segments.PARAMS]:{
-                                id: Joi.string().uuid().required(),
-                            },
-                        }),
-                    fornecedorsController.update
-                )
+  '/:id',
+  isAuthenticated,
+  celebrate({
+    [Segments.BODY]: {
+      nome: Joi.string().uppercase().required(),
+      cnpj: Joi.string().allow(null, ''),
+      cpf: Joi.string().allow(null, ''),
+      inscricaoestadual: Joi.string().allow(null, ''),
+      inscricaomunicipal: Joi.string().allow(null, ''),
+      endereco: Joi.string().allow(null, ''),
+      telefone: Joi.string().allow(null, ''),
+      email: Joi.string().email().allow(null, ''),
+      responsavel: Joi.string().allow(null, ''),
+      esocial: Joi.boolean().default(false),
+      convenio: Joi.boolean().default(false),
+      ehlaboratorio: Joi.boolean().required(),
+    },
+    [Segments.PARAMS]: {
+      id: Joi.string().uuid().required(),
+    },
+  }),
+  fornecedorsController.update,
+)
 
 fornecedorsRouter.delete(
                         '/:id',

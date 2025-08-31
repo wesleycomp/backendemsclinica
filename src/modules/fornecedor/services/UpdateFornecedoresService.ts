@@ -7,6 +7,7 @@ interface IRequest{
     id: string;
     nome: string;
     cnpj: string;
+    cpf: string;
     inscricaoestadual: string;
     inscricaomunicipal: string;
     endereco: string;
@@ -23,6 +24,7 @@ class UpdateFornecedorService{
     public async execute({ id,
                     nome,
                     cnpj,
+                    cpf,
                     inscricaoestadual,
                     inscricaomunicipal,
                     endereco,
@@ -50,6 +52,7 @@ class UpdateFornecedorService{
 
         fornecedor.nome = nome;
         fornecedor.cnpj = cnpj;
+          fornecedor.cpf = cpf;
         fornecedor.inscricaoestadual=inscricaoestadual;
         fornecedor.inscricaomunicipal=inscricaomunicipal;
         fornecedor.endereco=endereco;
