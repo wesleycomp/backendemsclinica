@@ -1,15 +1,14 @@
-.idea/
-.vscode/
-node_modules/
-build/
-temp/
-.env
-coverage
-ormconfig.json
-dist
+# Ignore tudo por padrão
+*
 
-uploads/*
-!uploads/.gitkeep
-.DS_Store
-package.json
-package-lock.json
+# Permitir apenas o que listarmos abaixo
+!/.gitignore
+!/src/
+!/package.json
+!/certificado/
+!/tecnospeedTxts/
+!/uploads/
+!/xml/
+!/package-lock.json
+!/tsconfig.json
+!/README.md
