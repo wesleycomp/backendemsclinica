@@ -13,3 +13,12 @@ uploads/*
 .DS_Store
 package.json
 package-lock.json
+
+# --- prod snapshot ---
+.env*
+node_modules/
+dist/
+uploads/
+xml/
+*.log
+ormconfig.js

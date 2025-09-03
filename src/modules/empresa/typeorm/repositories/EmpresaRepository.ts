@@ -22,6 +22,23 @@ export class EmpresaRepository extends Repository<Empresa>{
     }
 
 
+    public async searchByNomeOrCnpj(term: string): Promise<Empresa[]> {
+  const empresas = await this.find({
+    where: [
+      { nome: Like(`%${term}%`) },
+      { cnpj: Like(`%${term}%`) }
+    ],
+    order: { nome: 'ASC' }
+  })
+
+  // adiciona campo combinado nome + cnpj
+  return empresas.map(e => ({
+    ...e,
+    nome_cnpj: `${e.nome} - ${e.cnpj}`
+  })) as any
+}
+
+
     public async verificaCNPJ(id: string): Promise<Empresa | undefined>{
  //const { Op } = require("sequelize");
 
