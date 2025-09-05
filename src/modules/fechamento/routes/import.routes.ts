@@ -1,23 +1,13 @@
+// src/shared/http/routes/fechamento.routes.ts
 import { Router } from 'express';
 import multer from 'multer';
-import ImportFechamentoController from '../controllers/ImportFechamentoController';
+import ImportFechamentoController from '@modules/fechamento/controllers/ImportFechamentoController';
 
-const upload = multer({ storage: multer.memoryStorage() });
 const routes = Router();
-
+const upload = multer(); // memória
 const controller = new ImportFechamentoController();
 
-/**
- * POST /fechamento/import
- * Form-data:
- *  - file: (arquivo .xlsx)
- * Query (opcional):
- *  - dryRun=true|false  (só valida, não grava)
- */
-routes.post(
-  '/import',
-  upload.single('file'),
-  (req, res) => controller.handle(req, res),
-);
+// campo do FormData deve ser "file"
+routes.post('/import', upload.single('file'), controller.import.bind(controller));
 
 export default routes;

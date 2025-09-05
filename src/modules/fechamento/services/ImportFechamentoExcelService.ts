@@ -1,79 +1,26 @@
 // src/modules/fechamento/services/ImportFechamentoExcelService.ts
 import ExcelJS, { Worksheet } from 'exceljs';
-import {
-  getManager,
-  getRepository,
-  ILike,
-  Repository,
-} from 'typeorm';
+import { getManager, getRepository, ILike, Repository } from 'typeorm';
 
-// ✅ Ajuste esses imports para o caminho REAL dos teus entities
-// import { Empresa } from '@modules/empresa/infra/typeorm/entities/Empresa';
-// import { Paciente } from '@modules/paciente/infra/typeorm/entities/Paciente';
-// import { Aso } from '@modules/aso/infra/typeorm/entities/Aso';
-// import { Exame } from '@modules/exame/infra/typeorm/entities/Exame';
-// import { ExameAso } from '@modules/exame/infra/typeorm/entities/ExameAso';
-
-// --- Tipos mínimos (remova se for usar os imports reais acima)
-class Empresa { id!: string; nome!: string; cnpj!: string; esocial!: boolean; convenio!: boolean; }
-class Paciente {
-  id!: string; nome!: string; cpf!: string; empresa_id?: string | null;
-  matricula!: string; dataentradaempresa!: Date; descricaoatividade!: string;
-  rg!: string; telefone!: string; ctps!: string; datanascimento!: Date; email!: string;
-}
-class Aso {
-  id!: string;
-  codigoaso!: number;
-  user_edit!: string;
-  dataemissaoaso!: Date;
-  resultado!: boolean;
-  temexames!: boolean;
-  transmissaoesocial!: boolean;
-  ativo!: boolean;
-  paciente_id?: string | null;
-  empresa_id?: string | null;
-  tipopagamento_id?: string | null;
-}
-class Exame { id!: string; nome!: string; }
-class ExameAso {
-  id!: string;
-  aso_id?: string | null;
-  exame_id?: string | null;
-  dataexame!: Date;
-  datavalidadeexame!: Date;
-  ativo!: boolean;
-  desconto!: boolean;
-  valorexamesemdesconto!: number;
-  valorexame!: number;
-  valormedico!: number;
-  valorems!: number;
-  user_desconto?: string | null;
-}
-
-// --------------------------------------------------------------
+// ========= AJUSTE OS CAMINHOS CONFORME SUA ÁRVORE =========
+import Empresa from '@modules/empresa/typeorm/entities/Empresa';
+import Paciente from '@modules/paciente/typeorm/entities/Paciente';
+import Aso from '@modules/aso/typeorm/entities/Aso';
+import Exame from '@modules/exame/typeorm/entities/Exame';
+import ExameAso from '@modules/aso/typeorm/entities/ExamesAso';
+// ===========================================================
 
 const CONVENIO_TIPOPAGAMENTO_ID = '51cf6cb6-4d7f-416a-85af-21b53f0b4c2a';
+const RESULTADO_OK = 'APTO' as unknown as Aso['resultado'];
 
 type ImportArgs = {
-  /** Buffer do .xlsx (req.body.file, multer, etc.) */
   file: Buffer;
-  /** Nome original do arquivo (opcional, só para logs) */
   filename?: string;
-
-  /** Sobrescreve empresa: se informado, ignora a do rodapé */
   empresaId?: string;
   empresaCnpj?: string;
-
-  /** Cria Empresa automaticamente quando não encontrada (default: true) */
   allowCreateEmpresaIfMissing?: boolean;
-
-  /** Cria Paciente automaticamente com placeholders quando não encontrado (default: false) */
   allowCreatePacienteIfMissing?: boolean;
-
-  /** Permite lançar ExameAso mesmo sem vincular a um Exame (exame_id null) (default: false) */
   allowUnknownExam?: boolean;
-
-  /** Executa tudo sem gravar no banco (default: false) */
   dryRun?: boolean;
 };
 
@@ -102,7 +49,7 @@ type ParsedExamRow = {
   pacienteNome?: string;
   pacienteCpf?: string;
   dataExame?: Date;
-  tipoAso?: string; // Admissional / Periódico / etc. (se vier)
+  tipoAso?: string;
   exameNome?: string;
   valor?: number;
 };
@@ -122,13 +69,11 @@ export default class ImportFechamentoExcelService {
     this.exameAsoRepo = getRepository(ExameAso);
   }
 
-  // -------- Helpers ---------------------------------------------------------
-
+  // ----------------- helpers -----------------
   private onlyDigits(s?: string) { return (s || '').replace(/\D+/g, ''); }
 
   private parseBrMoney(s?: string): number | undefined {
     if (!s) return;
-    // aceita "R$ 2.240,00" ou "2240,00" etc.
     const txt = s.replace(/\s|R\$/gi, '').replace(/\./g, '').replace(',', '.');
     const v = Number(txt);
     return Number.isFinite(v) ? v : undefined;
@@ -142,10 +87,38 @@ export default class ImportFechamentoExcelService {
     return new Date(Number(yyyy), Number(mm) - 1, Number(dd));
   }
 
-  private rowJoin(ws: Worksheet, r: number, maxCols = 20): string {
+  /** Lê conteúdo de célula ExcelJS de forma segura (merge/richText/formula). */
+  private cellText(cell: any): string {
+    try {
+      const v = cell?.value;
+      if (v == null) return '';
+
+      if (typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean') {
+        return String(v);
+      }
+      if (v instanceof Date) {
+        const dd = String(v.getDate()).padStart(2, '0');
+        const mm = String(v.getMonth() + 1).padStart(2, '0');
+        const yyyy = v.getFullYear();
+        return `${dd}/${mm}/${yyyy}`;
+      }
+      if (typeof v === 'object' && Array.isArray((v as any).richText)) {
+        return (v as any).richText.map((rt: any) => rt?.text ?? '').join('');
+      }
+      if ((v as any).text) return String((v as any).text);
+      if ((v as any).result != null) return String((v as any).result);
+      if (typeof (v as any).toString === 'function') return (v as any).toString();
+      return '';
+    } catch {
+      return '';
+    }
+  }
+
+  private rowJoin(ws: Worksheet, r: number, maxCols = 30): string {
     const parts: string[] = [];
-    for (let c = 1; c <= Math.min(ws.columnCount || maxCols, maxCols); c++) {
-      const t = (ws.getCell(r, c).text || '').toString().trim();
+    const cols = Math.min(ws.columnCount || maxCols, maxCols);
+    for (let c = 1; c <= cols; c++) {
+      const t = this.cellText(ws.getCell(r, c)).trim();
       if (t) parts.push(t);
     }
     return parts.join(' ');
@@ -153,8 +126,8 @@ export default class ImportFechamentoExcelService {
 
   private extractCompanyFromFooter(ws: Worksheet): SheetCompany | undefined {
     const norm = (s: string) => s.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
-
     let anchor = -1;
+
     for (let r = ws.rowCount; r >= Math.max(1, ws.rowCount - 250); r--) {
       const t = norm(this.rowJoin(ws, r));
       if (t.includes('relatorio de faturamento mensal')) { anchor = r; break; }
@@ -165,18 +138,15 @@ export default class ImportFechamentoExcelService {
     for (let r = anchor; r <= Math.min(ws.rowCount, anchor + 40); r++) {
       const line = this.rowJoin(ws, r);
 
-      // CNPJ
       if (!out.cnpj && /cnpj/i.test(line)) {
         const m = line.match(/(\d{2}\.?\d{3}\.?\d{3}\/?\d{4}-?\d{2})/);
         if (m) out.cnpj = this.onlyDigits(m[1]);
       }
-      // Empresa
       if (!out.nome && /empresa\s*:/i.test(line)) {
         let txt = line.replace(/^.*?empresa\s*:\s*/i, '').trim();
-        const mm = txt.match(/^\d+\s*-\s*(.+)$/); // "48326 - HAURA …"
+        const mm = txt.match(/^\d+\s*-\s*(.+)$/);
         out.nome = (mm ? mm[1] : txt).trim();
       }
-      // Período
       if (!out.periodoInicio && /peri[oó]do/i.test(line)) {
         const mm = line.match(/(\d{2}\/\d{2}\/\d{4}).*?(\d{2}\/\d{2}\/\d{4})/);
         if (mm) {
@@ -190,35 +160,39 @@ export default class ImportFechamentoExcelService {
     return out;
   }
 
-  /** Heurística para extrair linhas de exames (genérica, tolera variações). */
   private scanExamRows(ws: Worksheet): ParsedExamRow[] {
     const rows: ParsedExamRow[] = [];
     let currentCpf: string | undefined;
     let currentNome: string | undefined;
 
     const TIPOS = ['Admissional', 'Periódico', 'Periodico', 'Retorno', 'Demissional', 'Mudança de Função', 'Mudanca de Funcao'];
+    const moneyRegex = /(^R\$\s*)?\d{1,3}(\.\d{3})*,\d{2}$|^\d+([.,]\d{2})?$/;
 
     for (let r = 1; r <= ws.rowCount; r++) {
       const parts: string[] = [];
       const cells: string[] = [];
-      for (let c = 1; c <= ws.columnCount; c++) {
-        const t = (ws.getCell(r, c).text || '').toString().trim();
+      const cols = Math.max(1, ws.columnCount || 1);
+
+      for (let c = 1; c <= cols; c++) {
+        const t = this.cellText(ws.getCell(r, c)).trim();
         cells.push(t);
         if (t) parts.push(t);
       }
+
       const line = parts.join(' ');
       if (!line) continue;
 
-      // Nova pessoa?
+      // CPF -> “abre” um novo paciente
       const cpfMatch = line.match(/(\d{3}\.?\d{3}\.?\d{3}-?\d{2})/);
       if (cpfMatch) {
         currentCpf = this.onlyDigits(cpfMatch[1]);
-        // tenta achar "Paciente: NOME" ou pega um bloco em letras
+
+        // Tenta "Paciente: NOME"
         let nome: string | undefined;
         const nomePac = line.match(/paciente\s*:\s*([A-Za-zÀ-ú\s']{3,})/i);
         if (nomePac) nome = nomePac[1].trim();
         else {
-          // heurística: se a linha tem cpf e um texto grande antes dele, pego esse texto
+          // Heurística: texto antes do CPF
           const idx = line.indexOf(cpfMatch[1]);
           if (idx > 0) nome = line.slice(0, idx).replace(/[:\-]/g, ' ').trim();
         }
@@ -226,17 +200,19 @@ export default class ImportFechamentoExcelService {
         continue;
       }
 
-      // Candidata a linha de exame: tem um valor e uma data
-      const anyMoney = cells.find(t => /(^R\$\s*)?\d+(\.\d{3})*,\d{2}$/.test(t));
-      const anyDate = cells.find(t => /\d{2}\/\d{2}\/\d{4}/.test(t));
-      const anyTipo = cells.find(t => TIPOS.includes(t.trim()));
+      // Candidata a linha de exame
+      const anyMoney = cells.find(t => moneyRegex.test(t));
+      const anyDate  = cells.find(t => /\d{2}\/\d{2}\/\d{4}/.test(t));
+      const anyTipo  = cells.find(t => TIPOS.includes(t.trim()));
 
       if (anyMoney && anyDate) {
-        // descrição = primeiro texto "mais longo" da linha
-        const examName =
-          cells
-            .filter(t => t && !/\d{2}\/\d{2}\/\d{4}/.test(t) && !/(^R\$\s*)?\d+(\.\d{3})*,\d{2}$/.test(t) && !TIPOS.includes(t))
-            .sort((a, b) => b.length - a.length)[0];
+        const examName = cells
+          .filter(t =>
+            t &&
+            !/\d{2}\/\d{2}\/\d{4}/.test(t) &&
+            !moneyRegex.test(t) &&
+            !TIPOS.includes(t))
+          .sort((a, b) => b.length - a.length)[0];
 
         rows.push({
           pacienteNome: currentNome,
@@ -252,7 +228,10 @@ export default class ImportFechamentoExcelService {
     return rows;
   }
 
-  private async ensureEmpresa(rodape: SheetCompany | undefined, args: ImportArgs): Promise<Empresa | undefined> {
+  private async ensureEmpresa(
+    rodape: SheetCompany | undefined,
+    args: ImportArgs
+  ): Promise<Empresa | undefined> {
     // 1) override explícito
     if (args.empresaId) {
       const e = await this.empresaRepo.findOne(args.empresaId);
@@ -262,7 +241,6 @@ export default class ImportFechamentoExcelService {
       const e = await this.empresaRepo.findOne({ where: { cnpj: this.onlyDigits(args.empresaCnpj) } });
       if (e) return e;
     }
-
     // 2) rodapé
     if (rodape?.cnpj) {
       const e = await this.empresaRepo.findOne({ where: { cnpj: rodape.cnpj } });
@@ -272,18 +250,18 @@ export default class ImportFechamentoExcelService {
       const e = await this.empresaRepo.findOne({ where: { nome: ILike(rodape.nome) } });
       if (e) return e;
     }
-
     // 3) criar?
     if ((rodape?.nome || rodape?.cnpj) && (args.allowCreateEmpresaIfMissing ?? true)) {
-      const novo = this.empresaRepo.create({
+      const novo: Empresa = this.empresaRepo.create({
         nome: rodape?.nome || 'EMPRESA (import)',
-        cnpj: rodape?.cnpj || '00000000000000',
+        cnpj: this.onlyDigits(rodape?.cnpj) || '00000000000000',
         esocial: false,
         convenio: true,
-      } as any);
-      return args.dryRun ? novo : this.empresaRepo.save(novo);
-    }
+      } as Partial<Empresa>) as Empresa;
 
+      if (args.dryRun) return novo;
+      return await this.empresaRepo.save(novo);
+    }
     return undefined;
   }
 
@@ -292,28 +270,28 @@ export default class ImportFechamentoExcelService {
     cpf: string | undefined,
     empresaId: string | undefined,
     allowCreate: boolean,
-  ): Promise<Paciente | undefined> {
-    if (!cpf) return undefined;
+  ): Promise<{ pac?: Paciente; created: boolean }> {
+    if (!cpf) return { pac: undefined, created: false };
 
-    const found = await this.pacienteRepo.findOne({ where: { cpf: this.onlyDigits(cpf) } });
+    const found = await this.pacienteRepo.findOne({
+      where: { cpf: this.onlyDigits(cpf) },
+    });
+
     if (found) {
-      // garante vínculo de empresa se vier vazio
       if (!found.empresa_id && empresaId) {
         found.empresa_id = empresaId;
         await this.pacienteRepo.save(found);
       }
-      return found;
+      return { pac: found, created: false };
     }
 
-    if (!allowCreate) return undefined;
+    if (!allowCreate) return { pac: undefined, created: false };
 
-    // ⚠️ Campos NOT NULL da tua tabela Paciente — uso placeholders seguros
     const now = new Date();
-    const novo = this.pacienteRepo.create({
+    const novo: Paciente = this.pacienteRepo.create({
       nome: nome || 'PACIENTE (import)',
       cpf: this.onlyDigits(cpf),
       empresa_id: empresaId || null,
-
       matricula: 'IMPORT',
       dataentradaempresa: now,
       descricaoatividade: 'IMPORTADO',
@@ -322,9 +300,10 @@ export default class ImportFechamentoExcelService {
       ctps: 'ISENTO',
       datanascimento: new Date(1970, 0, 1),
       email: `import+${this.onlyDigits(cpf)}@local.test`,
-    } as any);
+    } as Partial<Paciente>) as Paciente;
 
-    return await this.pacienteRepo.save(novo);
+    const saved: Paciente = await this.pacienteRepo.save(novo);
+    return { pac: saved, created: true };
   }
 
   private async findExameByNome(nome?: string): Promise<Exame | undefined> {
@@ -332,17 +311,17 @@ export default class ImportFechamentoExcelService {
     return await this.exameRepo.findOne({ where: { nome: ILike(nome.trim()) } });
   }
 
-  // -------------------------------------------------------------------------
-
+  // ----------------- principal -----------------
   public async execute(args: ImportArgs): Promise<ImportResult> {
     const avisos: string[] = [];
     const erros: string[] = [];
 
+    // 1) Carrega a planilha
     const wb = new ExcelJS.Workbook();
     await wb.xlsx.load(args.file);
     const ws = wb.worksheets[0];
 
-    // 1) Empresa + Período
+    // 2) Empresa + Período (rodapé)
     const rodape = this.extractCompanyFromFooter(ws);
     const empresa = await this.ensureEmpresa(rodape, args);
 
@@ -350,10 +329,10 @@ export default class ImportFechamentoExcelService {
       avisos.push('Empresa não identificada nem criada. Vou continuar, mas não vincularei ASO à empresa.');
     }
 
-    // 2) Varre linhas de exames
+    // 3) Varre linhas de exames
     const parsed = this.scanExamRows(ws);
 
-    // 3) Agrupa por Paciente + Data (um ASO por data/paciente)
+    // 4) Agrupa por Paciente + Data (um ASO por data/paciente)
     type Key = string; // `${cpf}|${yyyy-mm-dd}`
     const group = new Map<Key, ParsedExamRow[]>();
 
@@ -365,56 +344,80 @@ export default class ImportFechamentoExcelService {
       pacientesLidos++;
 
       const d = row.dataExame || rodape?.periodoInicio || new Date();
-      const key = `${this.onlyDigits(row.pacienteCpf)}|${d.toISOString().slice(0,10)}`;
+      const key = `${this.onlyDigits(row.pacienteCpf)}|${d.toISOString().slice(0, 10)}`;
       if (!group.has(key)) group.set(key, []);
       group.get(key)!.push(row);
     }
 
-    // 4) Transação para gravar
+    // 5) Transação para gravar
     let pacientesCriados = 0;
     let asosCriados = 0;
     let examesCriados = 0;
 
-    const em = getManager();
-
-    await em.transaction(async trx => {
-      for (const [, rows] of group) {
+    await getManager().transaction(async trx => {
+      for (const rows of Array.from(group.values())) {
         const sample = rows[0];
         const cpf = sample.pacienteCpf;
         const nome = sample.pacienteNome;
-        const data = sample.dataExame || rodape?.periodoInicio || new Date();
+        const dataBase = sample.dataExame || rodape?.periodoInicio || new Date();
 
-        // Paciente
-        const pac = await this.getOrCreatePaciente(
+        // ---------------- Paciente ----------------
+        const { pac, created } = await this.getOrCreatePaciente(
           nome,
           cpf,
           empresa?.id,
           args.allowCreatePacienteIfMissing ?? false,
         );
-
         if (!pac) {
           avisos.push(`Paciente não encontrado e não criado (CPF ${cpf}). Bloco ignorado.`);
           continue;
         }
-        if (!pac.id) pacientesCriados++; // melhor estimativa; ignora se já existia
+        if (created) pacientesCriados++;
 
-        // ASO
-        const aso = this.asoRepo.create({
-          user_edit: 'import',
-          dataemissaoaso: data,
-          resultado: true,
-          temexames: true,
-          transmissaoesocial: false,
-          ativo: true,
-          paciente_id: pac.id,
-          empresa_id: empresa?.id || null,
-          tipopagamento_id: CONVENIO_TIPOPAGAMENTO_ID,
-        } as any);
+        // --- ASO ---
+        let asoId: string | undefined;
 
-        const asoSaved = args.dryRun ? aso : await trx.getRepository(Aso).save(aso);
+        if (args.dryRun) {
+        asoId = 'dry-run-aso';
+        } else {
+        const ret: any = await trx.query(
+            `
+            INSERT INTO public.aso
+            (user_edit, dataemissaoaso, resultado, temexames, transmissaoesocial,
+            ativo, paciente_id, empresa_id, tipopagamento_id, created_at, updated_at)
+            VALUES
+            ($1,        $2,            $3,        $4,         $5,
+            $6,        $7,            $8,         $9,         now(), now())
+            RETURNING id
+            `,
+            [
+            'import',                    // $1
+            dataBase,                    // $2
+            true,                        // $3 resultado (boolean no banco)
+            true,                        // $4 temexames
+            false,                       // $5 transmissaoesocial
+            true,                        // $6 ativo
+            pac.id,                      // $7
+            empresa?.id || null,         // $8
+            CONVENIO_TIPOPAGAMENTO_ID,   // $9
+            ],
+        );
+
+        // aceita os dois formatos de retorno
+        const returnedId =
+            Array.isArray(ret) ? ret[0]?.id :
+            ret?.rows?.[0]?.id;
+
+        if (!returnedId) {
+            throw new Error(`INSERT ASO não retornou id. Retorno: ${JSON.stringify(ret)}`);
+        }
+        asoId = String(returnedId);
+        }
+
         asosCriados++;
 
-        // Exames
+
+        // ---------------- EXAMES ----------------
         for (const ex of rows) {
           const examEntity = await this.findExameByNome(ex.exameNome);
 
@@ -423,35 +426,46 @@ export default class ImportFechamentoExcelService {
             continue;
           }
 
-          const dataExame = ex.dataExame || data;
-          const ea = this.exameAsoRepo.create({
-            aso_id: asoSaved.id,
-            exame_id: examEntity?.id || null,
-            dataexame: dataExame,
-            datavalidadeexame: dataExame, // se não houver, igual à data do exame
-            ativo: true,
-            desconto: true,
-            valorexamesemdesconto: ex.valor ?? 0,
-            valorexame: ex.valor ?? 0,
-            valormedico: 0,
-            valorems: 0,
-            user_desconto: 'import',
-          } as any);
+          const dataExame = ex.dataExame || dataBase;
 
-          if (!args.dryRun) await trx.getRepository(ExameAso).save(ea);
+          if (!args.dryRun) {
+            await trx.query(
+              `
+              INSERT INTO public.exameaso
+                (aso_id, exame_id, dataexame, datavalidadeexame,
+                 ativo, desconto, valorexamesemdesconto, valorexame,
+                 valormedico, valorems, user_desconto, created_at, updated_at)
+              VALUES
+                ($1,    $2,       $3,        $4,
+                 true,  true,     $5,        $6,
+                 0,     0,        $7,        now(),    now())
+              `,
+              [
+                asoId,                             // $1 aso_id
+                examEntity ? examEntity.id : null, // $2 exame_id (aceita null se allowUnknownExam)
+                dataExame,                         // $3 dataexame
+                dataExame,                         // $4 datavalidadeexame
+                ex.valor ?? 0,                     // $5 valorexamesemdesconto
+                ex.valor ?? 0,                     // $6 valorexame
+                'import',                          // $7 user_desconto
+              ],
+            );
+          }
+
           examesCriados++;
         }
       }
     });
 
     const result: ImportResult = {
-      empresa: empresa ? { id: empresa.id, nome: empresa.nome, cnpj: empresa.cnpj } : null,
+      empresa: empresa ? { id: empresa.id, nome: (empresa as any).nome, cnpj: (empresa as any).cnpj } : null,
       periodo: rodape ? {
-        inicio: rodape.periodoInicio?.toISOString().slice(0,10),
-        fim: rodape.periodoFim?.toISOString().slice(0,10),
+        inicio: rodape.periodoInicio?.toISOString().slice(0, 10),
+        fim: rodape.periodoFim?.toISOString().slice(0, 10),
       } : null,
       contagens: { pacientesLidos, pacientesCriados, asosCriados, examesCriados, linhasIgnoradas },
-      avisos, erros,
+      avisos,
+      erros,
     };
 
     return result;

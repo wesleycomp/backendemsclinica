@@ -1,20 +1,48 @@
+// src/modules/fechamento/controllers/ImportFechamentoController.ts
 import { Request, Response } from 'express';
-// POST /fechamento/import
-import ImportFechamentoExcelService from
-  '@modules/fechamento/services/ImportFechamentoExcelService';
+import ImportFechamentoExcelService from '@modules/fechamento/services/ImportFechamentoExcelService';
 
-export async function importFechamento(req, res) {
-  const file: Buffer = req.file.buffer; // se usar multer
-  const service = new ImportFechamentoExcelService();
+const toBool = (v: any) =>
+  v === true || v === 'true' || v === '1' || v === 1;
 
-  const rel = await service.execute({
-    file,
-    filename: req.file.originalname,
-    allowCreateEmpresaIfMissing: true,
-    allowCreatePacienteIfMissing: false, // deixe false se não quiser placeholders
-    allowUnknownExam: false,             // true => grava ExameAso com exame_id = null
-    dryRun: false,                       // true => não grava, só simula e retorna o relatório
-  });
+export default class ImportFechamentoController {
+  async import(req: Request, res: Response) {
+    try {
+      // garante arquivo
+      if (!req.file?.buffer) {
+        return res.status(400).json({ ok: false, erro: 'Arquivo (.xlsx) é obrigatório no campo "file".' });
+      }
 
-  return res.json(rel);
+      const body = req.body ?? {};
+
+      // leitura segura (sem .toString() direto)
+      const empresaId =
+        body.empresaId != null && body.empresaId !== ''
+          ? String(body.empresaId).trim()
+          : undefined;
+
+      const empresaCnpj =
+        body.empresaCnpj != null && body.empresaCnpj !== ''
+          ? String(body.empresaCnpj).replace(/\D+/g, '')
+          : undefined;
+
+      const service = new ImportFechamentoExcelService();
+
+      const rel = await service.execute({
+        file: req.file.buffer,
+        filename: req.file.originalname,
+        empresaId,
+        empresaCnpj,
+        allowCreateEmpresaIfMissing: toBool(body.allowCreateEmpresaIfMissing),
+        allowCreatePacienteIfMissing: toBool(body.allowCreatePacienteIfMissing),
+        allowUnknownExam: toBool(body.allowUnknownExam),
+        dryRun: toBool(body.dryRun),
+      });
+
+      return res.json(rel);
+    } catch (e: any) {
+      console.error('[ImportFechamento] erro:', e);
+      return res.status(500).json({ ok: false, erro: e?.message ?? String(e) });
+    }
+  }
 }
