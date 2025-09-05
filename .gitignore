@@ -1,14 +1,19 @@
-# Ignore tudo por padrão
-*
+# Ignora tudo por padrão (apenas na raiz)
+*/
 
-# Permitir apenas o que listarmos abaixo
-!/.gitignore
-!/src/
+# Re-inclui diretórios para poder liberar conteúdo
+!*/
+
+# Mantém estes arquivos/pastas
+!.gitignore
 !/package.json
-!/certificado/
-!/tecnospeedTxts/
-!/uploads/
-!/xml/
 !/package-lock.json
 !/tsconfig.json
 !/README.md
+
+# Pastas (com tudo dentro)
+!/src/**
+!/certificado/**
+!/tecnospeedTxts/**
+!/uploads/**
+!/xml/**
