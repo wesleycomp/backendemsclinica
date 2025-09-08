@@ -1,19 +1,26 @@
-# Ignora tudo por padrão (apenas na raiz)
-*/
+# 1) Ignore tudo
+*
 
-# Re-inclui diretórios para poder liberar conteúdo
+# 2) Reabilita a travessia de diretórios (para a whitelist funcionar)
 !*/
 
-# Mantém estes arquivos/pastas
+# 3) Arquivos na raiz que devem ficar versionados
 !.gitignore
 !/package.json
 !/package-lock.json
 !/tsconfig.json
 !/README.md
 
-# Pastas (com tudo dentro)
+# 4) Pastas permitidas (com tudo dentro)
 !/src/**
 !/certificado/**
 !/tecnospeedTxts/**
 !/uploads/**
 !/xml/**
+
+# 5) Sempre ignore estes (mesmo se estiverem dentro das pastas whitelisted)
+node_modules/
+dist/
+.docker/dbdata/
+.docker/redisdata/
+.env*

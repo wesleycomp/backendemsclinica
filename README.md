@@ -182,3 +182,15 @@ npm run typeorm migration:run
   `ENV_FILE=.env.prod-db docker compose up -d app redis`
 - Parar:
   `docker compose down`
+
+
+
+
+
+RODAR NO WINDOWS powershell
+
+# Descer apagando o banco (reset total) — deve recriar extensões e rodar migrations de novo
+docker compose down
+docker compose build --no-cache app
+docker compose up -d
+docker compose logs -f app

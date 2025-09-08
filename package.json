@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "typeorm": "node -r dotenv/config -r ts-node/register -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-    "migrate:run": "npm run typeorm -- migration:run",
-    "migrate:revert": "npm run typeorm -- migration:revert",
-    "dev": "ts-node-dev --respawn --poll --transpile-only --ignore-watch node_modules --watch src -r tsconfig-paths/register src/shared/http/server.ts"
+ "scripts": {
+    "build": "node ./node_modules/typescript/bin/tsc -p tsconfig.json",
+    "dev": "node ./node_modules/ts-node-dev/lib/bin.js --respawn --poll --transpile-only --ignore-watch node_modules --watch src -r tsconfig-paths/register src/shared/http/server.ts",
+    "typeorm": "node -r dotenv/config ./node_modules/typeorm/cli.js -f ormconfig.js",
+    "migrate:run:nocheck": "TS_NODE_TRANSPILE_ONLY=1 TYPEORM_MIGRATIONS=src/shared/typeorm/migrations/*.ts node -r ts-node/register -r tsconfig-paths/register ./node_modules/typeorm/cli.js -f ormconfig.js migration:run"
   },
   "repository": {
     "type": "git",
@@ -82,10 +82,11 @@
     "pfx-to-pem": "^1.0.2",
     "pg": "^8.7.3",
     "redis": "^4.2.0",
-    "reflect-metadata": "^0.1.13",
+    "reflect-metadata": "^0.1.14",
     "require-https": "^1.1.3",
     "sequelize": "^6.31.0",
     "soap": "^0.45.0",
+    "tsyringe": "^4.10.0",
     "typeorm": "^0.2.41-dev.4e7d32f",
     "typeorm-pagination": "^2.0.3",
     "x509.js": "^1.0.0",
