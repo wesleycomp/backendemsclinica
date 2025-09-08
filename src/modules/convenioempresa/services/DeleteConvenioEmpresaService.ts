@@ -1,3 +1,4 @@
+import AppError from "@shared/errors/AppError";
 import { getCustomRepository } from "typeorm";
 import { ConvenioEmpresaRepository } from "../typeorm/repositories/ConvenioEmpresaRepository";
 

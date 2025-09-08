@@ -1,6 +1,6 @@
 import { getCustomRepository } from "typeorm";
 import { FuncaoRepository } from "../typeorm/repositories/FuncoesRepository";
-
+import AppError from "@shared/errors/AppError";
 interface IRequest{
     id: string
 }
