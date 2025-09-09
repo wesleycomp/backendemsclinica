@@ -68,6 +68,11 @@ export class CreateExameAso1667523418388 implements MigrationInterface {
                         isNullable: true
                     },
                     {
+                        name:'tipopagamento_id',
+                        type: 'uuid',
+                        isNullable: true
+                    },
+                    {
                         name: 'created_at',
                         type: 'timestamp',
                         default: 'now()',

@@ -66,6 +66,8 @@ class ExameAso {
              })
      desconto: boolean;
 
+ 
+
     @CreateDateColumn()
      created_at: Date;
 

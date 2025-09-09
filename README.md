@@ -194,3 +194,37 @@ docker compose down
 docker compose build --no-cache app
 docker compose up -d
 docker compose logs -f app
+
+
+
+-- garanta que a coluna é integer (ajuste se já for)
+ALTER TABLE "aso"
+  ALTER COLUMN "codigoaso" TYPE integer USING "codigoaso"::integer;
+
+-- cria a sequence se não existir e define como default da coluna
+CREATE SEQUENCE IF NOT EXISTS "aso_codigoaso_seq" OWNED BY "aso"."codigoaso";
+
+ALTER TABLE "aso"
+  ALTER COLUMN "codigoaso" SET DEFAULT nextval('aso_codigoaso_seq');
+
+-- alinha o valor da sequence ao máximo existente
+SELECT setval('aso_codigoaso_seq',
+              COALESCE((SELECT MAX("codigoaso") FROM "aso"), 0) + 1,
+              false);
+ 
+
+-- Habilita função gen_random_uuid() (se necessário)
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+INSERT INTO public.tipoaso (id, descricao, ativo, created_at, updated_at) VALUES
+(gen_random_uuid(), 'ADMISSIONAL',         TRUE, now(), now()),
+(gen_random_uuid(), 'MUDANÇA DE FUNÇÃO',   TRUE, now(), now()),
+(gen_random_uuid(), 'RETORNO AO TRABALHO', TRUE, now(), now()),
+(gen_random_uuid(), 'DEMISSIONAL',         TRUE, now(), now()),
+(gen_random_uuid(), 'PERIODICO',           TRUE, now(), now());
+
+INSERT INTO public.tipopagamento (id, descricao, ativo)
+VALUES ('51cf6cb6-4d7f-416a-85af-21b53f0b4c2a', 'CONVENIO', TRUE)
+ON CONFLICT (id) DO UPDATE
+SET descricao = EXCLUDED.descricao,
+    ativo     = EXCLUDED.ativo;
