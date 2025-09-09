@@ -228,3 +228,19 @@ VALUES ('51cf6cb6-4d7f-416a-85af-21b53f0b4c2a', 'CONVENIO', TRUE)
 ON CONFLICT (id) DO UPDATE
 SET descricao = EXCLUDED.descricao,
     ativo     = EXCLUDED.ativo;
+
+
+
+
+RODAR NO MAC
+Derrubar e apagar volumes (zera DB/Redis/PgAdmin)
+
+cd ~/www/backendemsclinica
+unset COMPOSE_FILE
+docker compose -f docker-compose.yml down --volumes --remove-orphans
+
+Subir novamente (DB, Redis, PgAdmin, API)
+unset COMPOSE_FILE
+docker compose -f docker-compose.yml up -d --force-recreate
+docker compose -f docker-compose.yml ps
+docker compose -f docker-compose.yml logs -f api

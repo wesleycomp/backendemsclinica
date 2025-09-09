@@ -9,7 +9,7 @@ import Paciente from '@modules/paciente/typeorm/entities/Paciente';
 import Aso from '@modules/aso/typeorm/entities/Aso';
 import Exame from '@modules/exame/typeorm/entities/Exame';
 import ExameAso from '@modules/aso/typeorm/entities/ExamesAso';
-import Procedimentos from '@modules/procedimentos/typeorm/entities/Procedimentos'; // <= se existir
+ 
 
 // ===========================================================
 
