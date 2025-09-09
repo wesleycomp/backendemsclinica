@@ -24,3 +24,4 @@ dist/
 .docker/dbdata/
 .docker/redisdata/
 .env*
+.docker/dbdata/
