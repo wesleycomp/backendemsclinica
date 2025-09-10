@@ -70,8 +70,44 @@ export default class ImportFechamentoPdfService {
   }
 
   // ---------- helpers ----------
- 
- 
+
+  /** 11 dígitos -> 999.999.999-99; se não tiver 11, devolve a string original “trimada”. */
+private formatCpf(cpf?: string): string {
+  const d = this.onlyDigits(cpf);
+  if (d.length !== 11) return (cpf ?? '').trim();
+  return d.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+}
+
+/** Procura paciente por CPF (com ou sem máscara) comparando por dígitos. */
+private async findPacienteByCpfAny(manager: EntityManager, cpf?: string): Promise<Paciente | undefined> {
+  const d = this.onlyDigits(cpf);
+  if (!d) return undefined;
+  return manager.getRepository(Paciente)
+    .createQueryBuilder('p')
+    .where("regexp_replace(coalesce(p.cpf, ''), '\\D', '', 'g') = :d", { d })
+    .getOne();
+}
+
+
+/** 14 dígitos -> 99.999.999/9999-99; se não tiver 14, retorna string original “trimada”. */
+private formatCnpj(cnpj?: string): string {
+  const d = this.onlyDigits(cnpj);
+  if (d.length !== 14) return (cnpj ?? '').trim();
+  return d.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+}
+
+/** Procura empresa por CNPJ (com ou sem máscara) comparando por dígitos. */
+private async findEmpresaByCnpjAny(cnpj?: string): Promise<Empresa | undefined> {
+  const d = this.onlyDigits(cnpj);
+  if (!d) return undefined;
+  return this.empresaRepo
+    .createQueryBuilder('e')
+    .where("regexp_replace(coalesce(e.cnpj, ''), '\\D', '', 'g') = :d", { d })
+    .getOne();
+}
+
+
+
 /** Remove a seção "Resumo de Faturamento" (e similares) do texto. */
 private stripResumoDeFaturamento(txt: string): string {
   const t = txt.replace(/\u00A0/g, ' ');
@@ -253,8 +289,7 @@ private scanExamRowsFromText(txt: string): ParsedExamRow[] {
     return t || undefined;
   }
 
-    // troque a antiga readTextFromPdf por esta
-// Substitua sua função por esta versão
+
 private async readPagesFromPdf(buffer: Buffer): Promise<string[]> {
   const pages: string[] = [];
 
@@ -309,41 +344,60 @@ private async readPagesFromPdf(buffer: Buffer): Promise<string[]> {
 }
 
 
-/** Extrai CNPJ, período e NOME da empresa somente do cabeçalho. */
+/** Extrai CNPJ, período e NOME da empresa apenas do cabeçalho da 1ª página. */
 private extractCompanyFromText(txt: string): SheetCompany | undefined {
   const out: SheetCompany = {};
   const t = (txt || '').replace(/\u00A0/g, ' ').replace(/[ \t]+/g, ' ').trim();
 
+  // Delimita o "cabeçalho": do início até antes do primeiro bloco de dados
+  const stopMarkers = [
+    'Funcionário', 'Funcionario', 'Exame', 'Resumo de Faturamento',
+    'Exames Realizados', 'Página', 'Pagina', 'Total da Fatura'
+  ];
+  let cut = t.length;
+  for (const m of stopMarkers) {
+    const idx = t.search(new RegExp(`\\b${m}\\b`, 'i'));
+    if (idx >= 0 && idx < cut) cut = idx;
+  }
+  const head = t.slice(0, cut);
+
   // CNPJ
-  const cnpj = t.match(/\bCNPJ\s*:?\s*([\d.\-\/]{14,18})/i)?.[1];
+  const cnpj = head.match(/\bCNPJ\s*:?\s*([\d.\-\/]{14,18})/i)?.[1];
   if (cnpj) out.cnpj = this.onlyDigits(cnpj);
 
   // Período
-  const per = t.match(/\bPer[ií]odo(?:\s*de)?\s*:?\s*(\d{2}\/\d{2}\/\d{4})\s*(?:a|até|ate)\s*(\d{2}\/\d{2}\/\d{4})/i);
+  const per = head.match(/\bPer[ií]odo(?:\s*de)?\s*:?\s*(\d{2}\/\d{2}\/\d{4})\s*(?:a|até|ate)\s*(\d{2}\/\d{2}\/\d{4})/i);
   if (per) {
     out.periodoInicio = this.parseBrDate(per[1]);
     out.periodoFim    = this.parseBrDate(per[2]);
   }
 
-  // Empresa: pega só até o próximo rótulo conhecido
-  const empRe = /\bEmpresa\s*:?\s*(?:\d+\s*[-–]\s*)?(.+?)(?=\s+(?:CNPJ|Per[ií]odo|Fantasia|Endere[çc]o|Total\s+da\s+Fatura|Funcion[aá]rio|P[áa]gina|Resumo\s+de\s+Faturamento)\b)/i;
-  const empM = t.match(empRe);
-  if (empM) {
-    let nome = empM[1].replace(/\s+/g, ' ').trim();
-    nome = nome.replace(/^\d+\s*[-–]\s*/, '').trim(); // remove "64066 - "
-    out.nome = nome;
-  }
+  // Nome da empresa
+  // 1) Se existir "Empresa:", pega até o próximo rótulo conhecido
+  const emp1 = head.match(
+    /\bEmpresa\s*:?\s*(?:\d+\s*[-–]\s*)?(.+?)(?=\s+(?:CNPJ|Per[ií]odo|Fantasia|Endere[çc]o|Total\s+da\s+Fatura|P[áa]gina|Resumo\s+de\s+Faturamento)\b)/i
+  )?.[1];
 
-  if (!out.cnpj && !out.nome) return;
-  return out;
+  // 2) Fallback: frase com sufixo societário no cabeçalho (sem rótulo)
+  const suffix = '(?:LTDA|L\\.?T\\.?D\\.?A\\.?|EIRELI|EPP|ME|MEI|S\\.?A\\.?|S\\/A)';
+  const emp2 = head.match(new RegExp(`\\b([A-ZÁ-Ú0-9][A-ZÁ-Ú0-9\\s\\.,&\\-\\/']*?${suffix})\\b`, 'i'))?.[1];
+
+  let nome = (emp1 || emp2 || '')
+    .replace(/^\d+\s*[-–]\s*/, '')   // remove "19826 - "
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+
+  if (nome) out.nome = nome;
+  return (out.cnpj || out.nome) ? out : undefined;
 }
 
- 
 
 
 
 
- 
+
+
+
 
 
   private async ensureExameByNome(manager: EntityManager, nome: string, valor?: number): Promise<Exame> {
@@ -395,36 +449,46 @@ private extractCompanyFromText(txt: string): SheetCompany | undefined {
 
 
 
-  private async getOrCreatePaciente(
+
+
+
+private async getOrCreatePaciente(
   manager: EntityManager,
   nome: string | undefined,
   cpf: string | undefined,
   empresaId: string | undefined,
   allowCreate: boolean,
 ): Promise<{ pac?: Paciente; created: boolean }> {
-  if (!cpf) return { pac: undefined, created: false };
+  const cpfDigits = this.onlyDigits(cpf);
+  if (!cpfDigits) return { pac: undefined, created: false };
 
   const repo = manager.getRepository(Paciente);
-  const cpfDigits = this.onlyDigits(cpf);
 
-  // tenta achar por CPF
-  const found = await repo.findOne({ where: { cpf: cpfDigits } });
+  // 1) Tenta achar por CPF ignorando máscara
+  let found = await this.findPacienteByCpfAny(manager, cpfDigits);
   if (found) {
-    // se existir mas sem empresa, vincula
+    // vincula empresa se estiver faltando
     if (!found.empresa_id && empresaId) {
       (found as any).empresa_id = empresaId;
+    }
+    // (opcional) normaliza máscara se no banco estiver sem máscara
+    if (this.onlyDigits(found.cpf).length === 11 && !/[.\-]/.test(found.cpf)) {
+      (found as any).cpf = this.formatCpf(found.cpf);
+    }
+    if (!found.empresa_id || !/[.\-]/.test(found.cpf)) {
       await repo.save(found);
     }
     return { pac: found, created: false };
   }
 
+  // 2) Não criar?
   if (!allowCreate) return { pac: undefined, created: false };
 
-  // cria paciente básico
+  // 3) Cria paciente novo salvando CPF mascarado
   const now = new Date();
   const novo = repo.create({
     nome: nome || 'PACIENTE (import)',
-    cpf: cpfDigits,
+    cpf: this.formatCpf(cpfDigits),          // <- sempre mascarado
     empresa_id: empresaId || null,
     matricula: 'IMPORT',
     dataentradaempresa: now,
@@ -441,36 +505,64 @@ private extractCompanyFromText(txt: string): SheetCompany | undefined {
 }
 
 
-  private async ensureEmpresa(rodape: SheetCompany | undefined, args: ImportArgs): Promise<Empresa | undefined> {
-    if (args.empresaId) {
-      const e = await this.empresaRepo.findOne(args.empresaId);
-      if (e) return e;
-    }
-    if (args.empresaCnpj) {
-      const e = await this.empresaRepo.findOne({ where: { cnpj: this.onlyDigits(args.empresaCnpj) } });
-      if (e) return e;
-    }
-    if (rodape?.cnpj) {
-      const e = await this.empresaRepo.findOne({ where: { cnpj: rodape.cnpj } });
-      if (e) return e;
-    }
-    if (rodape?.nome) {
-      const nomeClean = rodape.nome.replace(/\s+/g, ' ').trim();
-      const e = await this.empresaRepo.findOne({ where: { nome: ILike(nomeClean) } });
-      if (e) return e;
-    }
-    if ((rodape?.nome || rodape?.cnpj) && (args.allowCreateEmpresaIfMissing ?? true)) {
-      const novo: Empresa = this.empresaRepo.create({
-        nome: rodape?.nome || 'EMPRESA (import)',
-        cnpj: this.onlyDigits(rodape?.cnpj) || '00000000000000',
-        esocial: false,
-        convenio: true,
-      } as Partial<Empresa>) as Empresa;
-      if (args.dryRun) return novo;
-      return await this.empresaRepo.save(novo);
-    }
-    return undefined;
+
+
+
+
+
+private async ensureEmpresa(rodape: SheetCompany | undefined, args: ImportArgs): Promise<Empresa | undefined> {
+  // 1) Se veio empresaId, usa
+  if (args.empresaId) {
+    const e = await this.empresaRepo.findOne(args.empresaId);
+    if (e) return e;
   }
+
+  // 2) Candidato de CNPJ (prioriza o ‘forçar CNPJ’, depois o do PDF)
+  const cnpjInput = args.empresaCnpj ?? rodape?.cnpj;
+  const cnpjDigits = this.onlyDigits(cnpjInput);
+
+  // 2.1) Tenta achar por CNPJ (independente de máscara no banco)
+  if (cnpjDigits) {
+    const e = await this.findEmpresaByCnpjAny(cnpjDigits);
+    if (e) return e;
+  }
+
+  // 3) Se não temos CNPJ, tenta pelo nome (ajuda a reaproveitar já cadastradas)
+  if (rodape?.nome) {
+    const nomeClean = rodape.nome.replace(/\s+/g, ' ').trim();
+    const e = await this.empresaRepo.findOne({ where: { nome: ILike(nomeClean) } });
+    if (e) return e;
+  }
+
+  // 4) Criar empresa? Só se permitido e tomando cuidado com CNPJ
+  if ((rodape?.nome || cnpjDigits) && (args.allowCreateEmpresaIfMissing ?? true)) {
+    const novo: Empresa = this.empresaRepo.create({
+      nome: rodape?.nome || 'EMPRESA (import)',
+      // salva sempre mascarado; se faltar CNPJ, salva vazio mascarado “00…00”
+      cnpj: this.formatCnpj(cnpjDigits || '00000000000000'),
+      esocial: false,
+      convenio: true,
+    } as Partial<Empresa>) as Empresa;
+
+    if (args.dryRun) return novo;
+
+    // antes de salvar, mais uma verificação atômica (evita corrida)
+    if (cnpjDigits) {
+      const jaExiste = await this.findEmpresaByCnpjAny(cnpjDigits);
+      if (jaExiste) return jaExiste;
+    }
+
+    return await this.empresaRepo.save(novo);
+  }
+
+  return undefined;
+}
+
+
+
+
+
+
 
   // ----------------- principal -----------------
   public async execute(args: ImportArgs): Promise<ImportResult> {
