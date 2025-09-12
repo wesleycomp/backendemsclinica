@@ -1,10 +1,16 @@
 #!/usr/bin/env bash
 set -e
 REPO="/home/app/backendemsclinica"
-RUNTIME="/srv/emsclinica"
 
-echo "== EMS Clínica: Deploy =="
+echo "== EMS Clínica: Deploy (repo-cwd) =="
 cd "$REPO"
+
+# stash automático se houver alterações locais
+if ! git diff --quiet || ! git diff --cached --quiet; then
+  echo ">> working tree sujo: fazendo stash..."
+  git stash push -u -m "deploy-$(date +%F-%H%M%S)" || true
+fi
+
 git fetch --all --prune
 git checkout master || git checkout -t origin/master
 git pull --rebase
@@ -12,17 +18,12 @@ git pull --rebase
 npm ci
 npm run build
 
-mkdir -p "$RUNTIME"
-rsync -a --delete \
-  --exclude ".git" --exclude "src" --exclude "node_modules" --exclude "dist_*" \
-  --exclude "uploads" --exclude "xml" --exclude "certificado" --exclude ".env*" \
-  --exclude "ecosystem.config.js" \
-  "$REPO/package.json" "$REPO/package-lock.json" "$REPO/dist/" "$RUNTIME/"
+# PM2 rodando a partir do repositório (ecosystem local, NÃO versionado)
+if pm2 describe apiems >/dev/null 2>&1; then
+  pm2 startOrReload "$REPO/ecosystem.repo.config.js" --update-env
+else
+  pm2 start "$REPO/ecosystem.repo.config.js"
+fi
 
-cd "$RUNTIME"
-npm ci --omit=dev
-[ -f "$RUNTIME/.env" ] || { echo "FALTA $RUNTIME/.env"; exit 1; }
-
-pm2 startOrReload /srv/emsclinica/ecosystem.config.js
 pm2 save
 echo "OK."
