@@ -16,6 +16,7 @@ mkdir -p "$RUNTIME"
 rsync -a --delete \
   --exclude ".git" --exclude "src" --exclude "node_modules" --exclude "dist_*" \
   --exclude "uploads" --exclude "xml" --exclude "certificado" --exclude ".env*" \
+  --exclude "ecosystem.config.js" \
   "$REPO/package.json" "$REPO/package-lock.json" "$REPO/dist/" "$RUNTIME/"
 
 cd "$RUNTIME"
