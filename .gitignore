@@ -8,3 +8,5 @@ certificado/
 .env.*
 
 dist/
+
+dist/
