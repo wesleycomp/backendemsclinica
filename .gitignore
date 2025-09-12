@@ -19,3 +19,6 @@ dist/
 .docker/dbdata/
 .docker/redisdata/
 .env*
+.env
+.env.production
+.env.*

@@ -1,0 +1,29 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var AppError_1 = __importDefault(require("@shared/errors/AppError"));
+var jsonwebtoken_1 = require("jsonwebtoken");
+var auth_1 = __importDefault(require("@config/auth"));
+function isAuthenticated(request, response, next) {
+    var authHeader = request.headers.authorization;
+    if (!authHeader) {
+        throw new AppError_1.default('JWT token is missing');
+    }
+    //Bearer asdkfhskdfhaksdfalskdjfhsalk
+    var _a = authHeader.split(' '), token = _a[1];
+    try {
+        var decodeToken = (0, jsonwebtoken_1.verify)(token, auth_1.default.jwt.secret);
+        var sub = decodeToken.sub;
+        //console.log(decodeToken);
+        request.user = {
+            id: sub,
+        };
+        return next();
+    }
+    catch (_b) {
+        throw new AppError_1.default('Invalid JWT token');
+    }
+}
+exports.default = isAuthenticated;
