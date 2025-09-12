@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -e
+PROT="(^|/)(\.env(\..*)?$|ecosystem\.config\.js|ormconfig\.(js|json))$"
+CHANGED=$(git diff --name-only --cached)
+if echo "$CHANGED" | grep -Eq "$PROT"; then
+  echo "ERRO: tentativa de alterar arquivo protegido (.env/ecosystem/ormconfig). Abortando."
+  exit 1
+fi
