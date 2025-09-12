@@ -25,9 +25,8 @@ class CreateProcedimentosService{
 
         const Procedimentos = procedimentosRepository.create({
             name,
-            codigoEsocial
+            codigoesocial: codigoEsocial, // mapeia DTO -> coluna da entidade
         });
-
         await procedimentosRepository.save(Procedimentos)
 
         return Procedimentos;

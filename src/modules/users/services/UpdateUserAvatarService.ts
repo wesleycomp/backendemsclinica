@@ -1,43 +1,27 @@
-import { getCustomRepository } from "typeorm";
+import { getRepository } from 'typeorm';
 import AppError from '@shared/errors/AppError';
-import path from 'path';
-import fs from 'fs';
-import User from '../typeorm/entities/User';
-import {UsersRepository}  from "../typeorm/repositories/UsersRepository";
-import uploadConfig from '@config/upload';
+import User from '@modules/users/typeorm/entities/User';
 
-interface IRequest{
-    user_id: string,
-    avatarFilename: string
+interface IRequest {
+  user_id: string;
+  avatarFilename: string; // continua vindo do upload (multer), mas não salvaremos no DB
 }
 
-class UpdateUserAvatarService{
+class UpdateUserAvatarService {
+  public async execute({ user_id, avatarFilename }: IRequest): Promise<User> {
+    const usersRepository = getRepository(User);
 
-    public async execute({user_id,avatarFilename}: IRequest): Promise<User>{
-
-        const usersRepository = getCustomRepository(UsersRepository);
-        const user = await usersRepository.findById(user_id);
-
-        if(!user){
-            throw new AppError('User not Found');
-        }
-
-        if(user.avatar){//apaga arquivo
-
-            const userAvatarFilePath = path.join(uploadConfig.directory, user.avatar);
-            const userAvatarFileExists = await fs.promises.stat(userAvatarFilePath);
-
-            if(userAvatarFileExists){
-                 await fs.promises.unlink(userAvatarFilePath);
-            }
-        }
-
-        user.avatar = avatarFilename;
-
-
-        await usersRepository.save(user);
-        return user;
+    const user = await usersRepository.findOne(user_id);
+    if (!user) {
+      throw new AppError('Usuário não encontrado', 404);
     }
+
+    // Sem coluna/avatar no banco: não alteramos nada no usuário.
+    // O arquivo já foi tratado pelo middleware de upload.
+    // (Se quiser mover/renomear fisicamente, faça aqui, mas não é obrigatório para compilar.)
+
+    return user;
+  }
 }
 
 export default UpdateUserAvatarService;
