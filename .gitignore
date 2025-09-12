@@ -1,24 +1,8 @@
-# Ignora tudo por padrão
-*
-
-# Permite entrar nas pastas
-!*/
-
-# Rastrea só estas pastas
-!/src/**
-!/certificado/**
-!/xml/**
-
-# Mantém estes dois arquivos (opcional)
-!.gitignore
-!README.md
-
-# Nunca subir artefatos/segredos
 node_modules/
-dist/
-.docker/dbdata/
-.docker/redisdata/
-.env*
+dist_*/
+*.log
+uploads/
+xml/
+certificado/
 .env
-.env.production
 .env.*
