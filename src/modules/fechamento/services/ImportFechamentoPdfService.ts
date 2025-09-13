@@ -10,6 +10,19 @@ import Exame from '@modules/exame/typeorm/entities/Exame';
 import ExameAso from '@modules/aso/typeorm/entities/ExamesAso';
 
 const CONVENIO_TIPOPAGAMENTO_ID = '51cf6cb6-4d7f-416a-85af-21b53f0b4c2a';
+const FUNCAO_ID = '02149a1a-1624-4fdf-8141-5484b44097c7';
+const MEDICO_ID = '50ecb9f4-538d-4d7a-a54e-8c4d3317462f';
+const USER_ID = 'af01a591-aeaa-4798-b565-e6b2827775d3';
+
+
+// mapa fixo dos tipos de ASO -> IDs no banco
+const TIPO_ASO_FIX: Record<string, string> = {
+  'ADMISSIONAL': '47184d56-5a69-40a3-80cb-1ed303bda66d',
+  'MUDANCA DE FUNCAO': 'b3dd6b5b-3786-4ca1-8738-3be3e832366d',
+  'RETORNO AO TRABALHO': '7941407e-1ab2-4a04-a1fb-da4d03d0216f',
+  'DEMISSIONAL': 'e92233ab-45d5-443d-807d-3030361f9692',
+  'PERIODICO': '82dcb1dc-cd0b-42d5-9a75-f3c4b4cc7863',
+};
 const RESULTADO_OK = true as unknown as Aso['resultado'];
 
 type ImportArgs = {
@@ -70,6 +83,21 @@ export default class ImportFechamentoPdfService {
   }
 
   // ---------- helpers ----------
+  private mapTipoAsoToId(tipo?: string): string {
+  // normaliza: remove acento, upper, trim...
+  let k = this.norm(tipo);
+
+  // aceitar só o "primeiro campo" e variações do PDF
+  if (k.startsWith('RETORNO')) k = 'RETORNO AO TRABALHO';
+  else if (k.startsWith('MUDANCA')) k = 'MUDANCA DE FUNCAO';
+  else if (k.startsWith('PERIODO') || k.startsWith('PERIODICO')) k = 'PERIODICO';
+  else if (k.startsWith('ADMIS')) k = 'ADMISSIONAL';
+  else if (k.startsWith('DEMIS')) k = 'DEMISSIONAL';
+
+  // fallback seguro (para nunca gerar null em coluna NOT NULL)
+  return TIPO_ASO_FIX[k] ?? TIPO_ASO_FIX['ADMISSIONAL'];
+}
+
 
   /** 11 dígitos -> 999.999.999-99; se não tiver 11, devolve a string original “trimada”. */
 private formatCpf(cpf?: string): string {
@@ -631,16 +659,14 @@ private async ensureEmpresa(rodape: SheetCompany | undefined, args: ImportArgs):
     `);
     const asoCols = new Set((asoColsRaw?.rows ?? asoColsRaw).map((r: any) => r.column_name));
     const hasAsoTipoAsoId   = asoCols.has('tipoaso_id');
+    const hasFuncaoId   = asoCols.has('funcao_id');
+    const hasMedicoId   = asoCols.has('medico_id');
     const hasAsoEmpresaId   = asoCols.has('empresa_id');
     const hasAsoPacienteId  = asoCols.has('paciente_id');
     const hasAsoTpPagtoId   = asoCols.has('tipopagamento_id');
+    const hasUserId   = asoCols.has('user_id');
+  
 
-    // tipos de ASO
-    const tipoAsoRows = await getManager().query(`SELECT id, descricao FROM public.tipoaso`);
-    const tipoAsoMap = new Map<string, string>();
-    for (const r of (tipoAsoRows?.rows ?? tipoAsoRows)) {
-      tipoAsoMap.set(this.norm(r.descricao), r.id);
-    }
 
     // 6) Transação para gravar
     let pacientesCriados = 0;
@@ -660,9 +686,7 @@ private async ensureEmpresa(rodape: SheetCompany | undefined, args: ImportArgs):
 
         // tipo de ASO do bloco
         const rawTipoAso = rows.map(r => r.tipoAso).find(Boolean) || '';
-        let tipoKey = this.norm(rawTipoAso);
-        if (tipoKey === 'RETORNO') tipoKey = 'RETORNO AO TRABALHO';
-        const tipoAsoId = tipoAsoMap.get(tipoKey) || null;
+        const tipoAsoId = this.mapTipoAsoToId(rawTipoAso);
 
         // Paciente
         const { pac, created } = await this.getOrCreatePaciente(trx, nome, cpf, empresa?.id, allowCreatePac);
@@ -674,13 +698,16 @@ private async ensureEmpresa(rodape: SheetCompany | undefined, args: ImportArgs):
         if (args.dryRun) {
           asoId = 'dry-run-aso';
         } else {
-          const asoColumns: string[] = ['user_edit','dataemissaoaso','resultado','temexames','transmissaoesocial','ativo'];
-          const asoValues: any[] = ['import', dataBase, RESULTADO_OK, true, false, true];
+          const asoColumns: string[] = ['user_edit','dataemissaoaso','resultado','transmissaoesocial','ativo'];
+          const asoValues: any[] = ['import', dataBase, RESULTADO_OK,  false, true];
 
           if (hasAsoPacienteId) { asoColumns.push('paciente_id');      asoValues.push(pac.id); }
           if (hasAsoEmpresaId)  { asoColumns.push('empresa_id');       asoValues.push(empresa?.id || null); }
           if (hasAsoTpPagtoId)  { asoColumns.push('tipopagamento_id'); asoValues.push(CONVENIO_TIPOPAGAMENTO_ID); }
           if (hasAsoTipoAsoId)  { asoColumns.push('tipoaso_id');       asoValues.push(tipoAsoId); }
+           if (hasFuncaoId)  { asoColumns.push('funcao_id');       asoValues.push(FUNCAO_ID); }
+            if (hasMedicoId)  { asoColumns.push('medico_id');       asoValues.push(MEDICO_ID); }
+               if (hasUserId)  { asoColumns.push('user_id');       asoValues.push(USER_ID); }
 
           asoColumns.push('created_at','updated_at');
           asoValues.push(new Date(), new Date());
