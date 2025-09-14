@@ -35,10 +35,6 @@ export class CreateAso1667402135627 implements MigrationInterface {
                         type: 'boolean'
                     },
                     {
-                        name: 'temexames',
-                        type: 'boolean'
-                    },
-                    {
                         name: 'transmissaoesocial',
                         type: 'boolean'
                     },

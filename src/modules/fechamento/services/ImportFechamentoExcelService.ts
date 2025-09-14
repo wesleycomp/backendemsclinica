@@ -9,7 +9,7 @@ import Paciente from '@modules/paciente/typeorm/entities/Paciente';
 import Aso from '@modules/aso/typeorm/entities/Aso';
 import Exame from '@modules/exame/typeorm/entities/Exame';
 import ExameAso from '@modules/aso/typeorm/entities/ExamesAso';
- 
+
 
 // ===========================================================
 
@@ -638,7 +638,7 @@ private async getOrCreatePaciente(
                         'user_edit',
                         'dataemissaoaso',
                         'resultado',
-                        'temexames',
+
                         'transmissaoesocial',
                         'ativo',
                         'paciente_id',
@@ -649,7 +649,7 @@ private async getOrCreatePaciente(
                         'import',
                         dataBase,
                         true,        // resultado
-                        true,        // temexames
+                        
                         false,       // transmissaoesocial
                         true,        // ativo
                         pac.id,

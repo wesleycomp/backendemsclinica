@@ -28,10 +28,7 @@ class ExameAso {
     @Column()
      exame_id: string;
 
-    @Column({
-                nullable: true
-             })
-    user_id: string;
+ 
 
     @Column({
                 nullable: true
@@ -66,7 +63,7 @@ class ExameAso {
              })
      desconto: boolean;
 
- 
+
 
     @CreateDateColumn()
      created_at: Date;

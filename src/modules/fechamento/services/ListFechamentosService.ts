@@ -1,6 +1,6 @@
 import { getRepository } from 'typeorm'
 import Fechamento from '../typeorm/entities/Fechamento'
-import Empresa from '@modules/empresa/typeorm/entities/Empresa'
+ 
 
 interface IRequest {
   page?: number
@@ -9,6 +9,7 @@ interface IRequest {
   status?: string
   data_inicial?: string
   data_final?: string
+  data_vencimento?: string  // ✅ novo
 }
 
 interface IResponse {
@@ -26,6 +27,7 @@ class ListFechamentosService {
     status,
     data_inicial,
     data_final,
+    data_vencimento,         // ✅ destruture
   }: IRequest): Promise<IResponse> {
     const repo = getRepository(Fechamento)
 
@@ -55,6 +57,10 @@ class ListFechamentosService {
       query.andWhere('fechamento.data_fechamento <= :fim', { fim: data_final })
     }
 
+    if (data_vencimento) {
+    query.andWhere('fechamento.data_vencimento = :data_vencimento', { data_vencimento })
+    }
+
     query.orderBy('fechamento.data_fechamento', 'DESC')
 
     // 🔹 total antes da paginação
@@ -75,6 +81,7 @@ class ListFechamentosService {
       valor_total: Number(f.valor_total || 0),
       valor_pago: Number(f.valor_pago || 0),
       status: f.status,
+       data_vencimento: f.data_vencimento,             // <— NOVO
       data_pagamento: f.data_pagamento,
       data_fechamento: f.data_fechamento || f.created_at,
       created_at: f.created_at,

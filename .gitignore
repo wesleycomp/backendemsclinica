@@ -19,3 +19,8 @@ dist/
 .docker/dbdata/
 .docker/redisdata/
 .env*
+# configs e backups que não devem ir pro repo
+ormconfig.local.json
+*-copy.json
+*copy*.json
+.env*

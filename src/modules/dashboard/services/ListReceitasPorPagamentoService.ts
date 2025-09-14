@@ -1,52 +1,34 @@
-import { inject, injectable } from "tsyringe";
-import { DataSource } from "typeorm";
+// src/modules/dashboard/services/ListReceitasPorPagamentoService.ts
+import { getManager } from "typeorm";
 
-interface IRequest {
-  ano: number;
-  mes?: number;
-  dia?: number;
-}
+type Filtro = { dataInicio?: string; dataFim?: string; empresaId?: string };
+type Resultado = { forma_pagamento: string; total: number; quantidade: number };
 
-interface IResponse {
-  tipo_pagamento: string;
-  total_receita: number;
-}
+export default class ListReceitasPorPagamentoService {
+  public async execute({ dataInicio, dataFim, empresaId }: Filtro): Promise<Resultado[]> {
+    const manager = getManager();
+    const params: any[] = [];
+    let where = '1=1';
 
-@injectable()
-export class ListReceitasPorPagamentoService {
-  constructor(
-    @inject("AppDataSource")
-    private dataSource: DataSource
-  ) {}
+    if (dataInicio) { params.push(dataInicio); where += ` AND r.data >= $${params.length}`; }
+    if (dataFim)    { params.push(dataFim);    where += ` AND r.data <= $${params.length}`; }
+    if (empresaId)  { params.push(empresaId);  where += ` AND r.empresa_id = $${params.length}`; }
 
-  public async execute({ ano, mes, dia }: IRequest): Promise<IResponse[]> {
-    const repo = this.dataSource.getRepository("exameaso");
-
-    const query = repo
-      .createQueryBuilder("ea")
-      .innerJoin("aso", "a", "a.id = ea.aso_id")
-      .innerJoin("tipopagamento", "tp", "tp.id = ea.tipopagamento_id")
-      .select("tp.descricao", "tipo_pagamento")
-      .addSelect("SUM(ea.valorexame)", "total_receita")
-      .where("ea.ativo = true")
-      .andWhere("EXTRACT(YEAR FROM a.dataemissaoaso) = :ano", { ano });
-
-    if (mes) {
-      query.andWhere("EXTRACT(MONTH FROM a.dataemissaoaso) = :mes", { mes });
-    }
-
-    if (dia) {
-      query.andWhere("EXTRACT(DAY FROM a.dataemissaoaso) = :dia", { dia });
-    }
-
-    const result = await query
-      .groupBy("tp.descricao")
-      .orderBy("total_receita", "DESC")
-      .getRawMany();
-
-    return result.map(r => ({
-      tipo_pagamento: r.tipo_pagamento,
-      total_receita: Number(r.total_receita),
+    const sql = `
+      SELECT fp.nome AS forma_pagamento,
+             COALESCE(SUM(r.valor),0) AS total,
+             COUNT(*) AS quantidade
+        FROM receita r
+        JOIN forma_pagamento fp ON fp.id = r.forma_pagamento_id
+       WHERE ${where}
+       GROUP BY fp.nome
+       ORDER BY fp.nome
+    `;
+    const rows = await manager.query(sql, params);
+    return rows.map((r: any) => ({
+      forma_pagamento: r.forma_pagamento,
+      total: Number(r.total),
+      quantidade: Number(r.quantidade),
     }));
   }
 }

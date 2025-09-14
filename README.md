@@ -196,6 +196,12 @@ docker compose up -d
 docker compose logs -f app
 
 
+RODAR DEV CONECTANDO EM PRODUCAO
+docker compose up -d --build apiemsclinica-app
+docker compose logs -f apiemsclinica-app
+
+
+
 
 -- garanta que a coluna é integer (ajuste se já for)
 ALTER TABLE "aso"
@@ -211,7 +217,7 @@ ALTER TABLE "aso"
 SELECT setval('aso_codigoaso_seq',
               COALESCE((SELECT MAX("codigoaso") FROM "aso"), 0) + 1,
               false);
- 
+
 
 -- Habilita função gen_random_uuid() (se necessário)
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
@@ -229,6 +235,79 @@ ON CONFLICT (id) DO UPDATE
 SET descricao = EXCLUDED.descricao,
     ativo     = EXCLUDED.ativo;
 
+-- Popula tipoaso com upsert e ativa todos
+INSERT INTO tipoaso (id, descricao, ativo)
+VALUES
+  ('47184d56-5a69-40a3-80cb-1ed303bda66d', 'ADMISSIONAL', true),
+  ('b3dd6b5b-3786-4ca1-8738-3be3e832366d', 'MUDANCA DE FUNCAO', true),
+  ('7941407e-1ab2-4a04-a1fb-da4d03d0216f', 'RETORNO AO TRABALHO', true),
+  ('e92233ab-45d5-443d-807d-3030361f9692', 'DEMISSIONAL', true),
+  ('82dcb1dc-cd0b-42d5-9a75-f3c4b4cc7863', 'PERIODICO', true)
+ON CONFLICT (id) DO UPDATE
+SET descricao  = EXCLUDED.descricao,
+    ativo      = EXCLUDED.ativo,
+    updated_at = NOW();
+
+BEGIN;
+
+-- Para gerar hash bcrypt diretamente no Postgres
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+-- 1) FUNÇÃO
+INSERT INTO funcao (id, name, cbo, created_at, updated_at)
+VALUES
+  ('02149a1a-1624-4fdf-8141-5484b44097c7', 'MÉDICO DO TRABALHO', '2231-10', NOW(), NOW())
+ON CONFLICT (id) DO UPDATE
+SET name       = EXCLUDED.name,
+    cbo        = EXCLUDED.cbo,
+    updated_at = NOW();
+
+-- 2) USUÁRIO (senha padrão: 123456, hash bcrypt)
+INSERT INTO "user" (id, name, email, password, perfil, master, created_at, updated_at)
+VALUES
+  ('af01a591-aeaa-4798-b565-e6b2827775d3',
+   'Médico Teste',
+   'medico.teste@imed21.com.br',
+   crypt('123456', gen_salt('bf', 10)),
+   'medico',
+   false,
+   NOW(), NOW())
+ON CONFLICT (id) DO UPDATE
+SET name       = EXCLUDED.name,
+    email      = EXCLUDED.email,
+    perfil     = EXCLUDED.perfil,
+    master     = EXCLUDED.master,
+    updated_at = NOW();
+
+-- 3) MÉDICO
+INSERT INTO medico (
+  id, nome, cpf, rg, crm, ufcrm, telefone, datanascimento, endereco, email, created_at, updated_at
+) VALUES (
+  '50ecb9f4-538d-4d7a-a54e-8c4d3317462f',
+  'MEDICO TESTE',
+  '11144477735',           -- CPF de teste válido
+  'MG-12.345.678',
+  '12345',
+  'TO',
+  '63999990000',
+  '1980-01-01',
+  'Quadra 204 Al 01 lt 33',
+  'medico.teste@imed21.com.br',
+  NOW(), NOW()
+)
+ON CONFLICT (id) DO UPDATE
+SET nome           = EXCLUDED.nome,
+    cpf            = EXCLUDED.cpf,
+    rg             = EXCLUDED.rg,
+    crm            = EXCLUDED.crm,
+    ufcrm          = EXCLUDED.ufcrm,
+    telefone       = EXCLUDED.telefone,
+    datanascimento = EXCLUDED.datanascimento,
+    endereco       = EXCLUDED.endereco,
+    email          = EXCLUDED.email,
+    updated_at     = NOW();
+
+COMMIT;
 
 
 

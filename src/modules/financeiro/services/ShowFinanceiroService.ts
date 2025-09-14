@@ -1,30 +1,23 @@
-import { getCustomRepository } from "typeorm";
-import { FinanceiroRepository } from "../typeorm/repositories/FinanceiroRepository";
+// src/modules/financeiro/services/ShowFinanceiroService.ts
+import { getRepository } from "typeorm";
 import AppError from '@shared/errors/AppError';
 import Empresa from "@modules/empresa/typeorm/entities/Empresa";
 
-interface IRequest{
-    id: string
+interface IRequest {
+  id: string;
 }
 
+class ShowFinanceiroService {
+  public async execute({ id }: IRequest): Promise<Empresa> {
+    const repo = getRepository(Empresa);
 
-class ShowFinanceiroService{
-
-    public async execute({id}: IRequest): Promise<Empresa>{
-
-       //instaciou o repositorio para ter acesso aos metodos(save, delete, find... etc)
-        const financeiroRepository = getCustomRepository(FinanceiroRepository);
-        const financeiro = await financeiroRepository.findOne(id);
-
-        if(!financeiro){
-            throw new AppError('Exames  não encontrados')
-        }
-
-
-        return financeiro;
-
-
+    const empresa = await repo.findOne(id); // ajuste: busca a entidade Empresa
+    if (!empresa) {
+      throw new AppError('Empresa não encontrada');
     }
+
+    return empresa; // agora o retorno bate com Promise<Empresa>
+  }
 }
 
 export default ShowFinanceiroService;

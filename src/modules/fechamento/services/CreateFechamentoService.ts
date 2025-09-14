@@ -9,6 +9,7 @@ interface IRequest {
   data_final: string
   criado_por: string
   exameaso_ids: string[]
+  data_vencimento?: string
 }
 
 class CreateFechamentoService {
@@ -18,10 +19,16 @@ class CreateFechamentoService {
     data_final,
     criado_por,
     exameaso_ids,
+     data_vencimento
   }: IRequest): Promise<Fechamento> {
     const fechamentoRepo = getRepository(Fechamento)
     const fechamentoAsoRepo = getRepository(FechamentoAso)
     const exameAsoRepo = getRepository(ExameAso)
+
+    const vencimento =
+      (data_vencimento || data_final)
+        ? new Date(data_vencimento || data_final)
+        : null
 
     // 🔎 Buscar exames ativos selecionados e tipo pagamento convenio
    const exames = await exameAsoRepo.find({
@@ -52,6 +59,7 @@ class CreateFechamentoService {
       criado_por,
       valor_total,
       status: 'aberto',
+       data_vencimento: vencimento as any, // <— usar a variável calculada
       valor_pago: 0,
       data_pagamento: null,
     })

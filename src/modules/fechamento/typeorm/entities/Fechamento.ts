@@ -31,6 +31,10 @@ empresa: Empresa
   @Column({ type: 'date' })
   data_final: Date
 
+  @Column({ type: 'date', nullable: true })
+  data_vencimento?: Date
+
+
   @Column()
   criado_por: string
 
