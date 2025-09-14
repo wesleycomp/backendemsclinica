@@ -83,6 +83,21 @@ export default class ImportFechamentoPdfService {
   }
 
   // ---------- helpers ----------
+  private mapTipoAsoToId(tipo?: string): string {
+  // normaliza: remove acento, upper, trim...
+  let k = this.norm(tipo);
+
+  // aceitar só o "primeiro campo" e variações do PDF
+  if (k.startsWith('RETORNO')) k = 'RETORNO AO TRABALHO';
+  else if (k.startsWith('MUDANCA')) k = 'MUDANCA DE FUNCAO';
+  else if (k.startsWith('PERIODO') || k.startsWith('PERIODICO')) k = 'PERIODICO';
+  else if (k.startsWith('ADMIS')) k = 'ADMISSIONAL';
+  else if (k.startsWith('DEMIS')) k = 'DEMISSIONAL';
+
+  // fallback seguro (para nunca gerar null em coluna NOT NULL)
+  return TIPO_ASO_FIX[k] ?? TIPO_ASO_FIX['ADMISSIONAL'];
+}
+
 
 
   private mapTipoAsoToId(tipo?: string): string {
@@ -660,9 +675,7 @@ private async ensureEmpresa(rodape: SheetCompany | undefined, args: ImportArgs):
     const hasAsoPacienteId  = asoCols.has('paciente_id');
     const hasAsoTpPagtoId   = asoCols.has('tipopagamento_id');
     const hasUserId   = asoCols.has('user_id');
-
-
-
+ 
     // 6) Transação para gravar
     let pacientesCriados = 0;
     let asosCriados = 0;

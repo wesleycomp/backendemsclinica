@@ -1,0 +1,24 @@
+{
+  "name": "backendemsclinica",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "node ./node_modules/typescript/bin/tsc -p tsconfig.json",
+    "dev": "node ./node_modules/ts-node-dev/lib/bin.js --respawn --poll --transpile-only --ignore-watch node_modules --watch src -r tsconfig-paths/register src/shared/http/server.ts",
+    "typeorm": "node -r dotenv/config ./node_modules/typeorm/cli.js -f ormconfig.js",
+    "migrate:run:nocheck": "TS_NODE_TRANSPILE_ONLY=1 TYPEORM_MIGRATIONS=src/shared/typeorm/migrations/*.ts node -r ts-node/register -r tsconfig-paths/register ./node_modules/typeorm/cli.js -f ormconfig.js migration:run",
+    "start:prod": "node dist/shared/http/server.js"
+  },
+  "_moduleAliases": {
+    "@modules": "dist/modules",
+    "@shared": "dist/shared",
+    "@config": "dist/config"
+  },
+  "devDependencies": {
+    "...": "..."
+  },
+  "dependencies": {
+    "...": "...",
+    "module-alias": "2.2.3"
+  }
+}

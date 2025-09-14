@@ -1,21 +1,14 @@
-# Ignora tudo por padrão
-*
-
-# Permite entrar nas pastas
-!*/
-
-# Rastrea só estas pastas
-!/src/**
-!/certificado/**
-!/xml/**
-
-# Mantém estes dois arquivos (opcional)
-!.gitignore
-!README.md
-
-# Nunca subir artefatos/segredos
 node_modules/
+dist_*/
+*.log
+uploads/
+xml/
+certificado/
+.env
+.env.*
+
 dist/
+<<<<<<< HEAD
 .docker/dbdata/
 .docker/redisdata/
 .env*
@@ -24,3 +17,9 @@ ormconfig.local.json
 *-copy.json
 *copy*.json
 .env*
+=======
+
+dist/
+tecnospeedTxts/
+ecosystem.repo.config.js
+>>>>>>> 81daeec376708c11e8bc21260c6a06702de6157f
