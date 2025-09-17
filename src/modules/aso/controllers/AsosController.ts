@@ -238,7 +238,7 @@ export default class AsosController{
                   var valormedico: number = item.valormedico;
                   var valorems: number = item.valorems;
                   var tipopagamento_id: string = item.tipopagamento_id;
-                  var user_id: string = item.user_id;
+                  var user_id: string = (request as any)?.user?.id;
                   var user_desconto: string = item.user_desconto;
                   var desconto: boolean = item.desconto;
 

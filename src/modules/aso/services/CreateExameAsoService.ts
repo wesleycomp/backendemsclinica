@@ -18,13 +18,13 @@ interface IExameAso{
 }
 class CreateExameAsoService{
 
-    public async execute({aso_id,exame_id,valorexame,valormedico,valorems,ativo,tipopagamento_id,user_id }: IExameAso): Promise<ExamesAso>{
+    public async execute({ aso_id,exame_id,valorexame,valormedico,valorems,ativo,tipopagamento_id}: IExameAso): Promise<ExamesAso>{
 
     //instaciou o repositorio para ter acesso aos metodos(save, delete... etc)
     const examesAsoRepository = getCustomRepository(ExamesAsoRepository);
 
         const examesAso = examesAsoRepository.create({
-         aso_id,exame_id,valorexame,valormedico,valorems,ativo,tipopagamento_id,user_id
+         aso: { id: aso_id },exame_id,valorexame,valormedico,valorems,ativo,tipopagamento_id
         });
 
         await examesAsoRepository.save(examesAso);

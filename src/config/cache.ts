@@ -1,19 +1,24 @@
-import { RedisOptions } from "ioredis"
-
-interface ICacheConfig {
-    config:{
-        redis: RedisOptions;
+type CacheConfig = {
+  driver: 'memory' | 'redis' | string;
+  config: {
+    redis?: {
+      host: string;
+      port: number;
+      password?: string;
     };
-    driver: string;
-}
-export default{
-    config: {
-        redis: {
-            host: process.env.REDIS_HOST,
-            port: process.env.REDIS_PORT,
-            password: process.env.REDIS_PASS || undefined,
-        },
-    },
-    driver: 'redis',
+  };
+};
 
-} as ICacheConfig;
+const cache: CacheConfig = {
+  driver: 'memory',
+  config: {
+    // deixamos aqui apenas para compatibilidade se alguém referenciar
+    redis: {
+      host: '127.0.0.1',
+      port: 6379,
+      password: undefined,
+    },
+  },
+};
+
+export default cache;
